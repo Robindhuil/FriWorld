@@ -1,0 +1,11 @@
+@startuml
+class RoomManager {
+}
+class "List`1"<T> {
+}
+MonoBehaviour <|-- RoomManager
+RoomManager --> "Instance" RoomManager
+RoomManager o-> "SectorA<RoomData>" "List`1"
+RoomManager o-> "SectorB<RoomData>" "List`1"
+RoomManager o-> "SectorC<RoomData>" "List`1"
+@enduml

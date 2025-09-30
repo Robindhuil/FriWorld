@@ -1,0 +1,21 @@
+public class TempProgram {
+    static class Miestnost {
+        private int pocetPocitacov;
+        private int pocetStolick;
+        private int pocetOkien;
+        private int pocetStolov;
+        private String nazovMiestnosti;
+        
+        public Miestnost(int pocetPocitacov, int pocetStolick, int pocetOkien, 
+        int pocetStolov, String nazovMiestnosti) {
+            this.pocetPocitacov = pocetPocitacov;
+            this.pocetStolick = pocetStolick;
+            this.pocetOkien = ___;
+            this.pocetStolov = pocetStolov;
+            this.nazovMiestnosti = ___;
+        }
+    }
+    public static void main(String[] args) {
+        Miestnost ra013 = new Miestnost(___, ___, ___, ___, ___);
+    }
+}

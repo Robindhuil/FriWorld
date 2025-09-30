@@ -1,0 +1,5 @@
+@startuml
+class Keypad {
+}
+Interactable <|-- Keypad
+@enduml

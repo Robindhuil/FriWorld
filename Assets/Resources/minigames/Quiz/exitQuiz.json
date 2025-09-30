@@ -1,0 +1,320 @@
+{
+    "quizTitle": "Kvíz - Základy programovania",
+    "questions": [
+        {
+            "questionText": "Čo vypíše tento kód?\n\nfor (int i = 1; i <= 3; i++) {\n    System.out.print(i + \" \");\n}",
+            "answers": [
+                {
+                    "answerText": "0 1 2",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "1 2 3",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "1 2 3 4",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "3 2 1",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Ktorý z nasledujúcich príkazov deklaruje premennú typu celé číslo?",
+            "answers": [
+                {
+                    "answerText": "String x = \"5\";",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "boolean x = true;",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "float x = 5.0;",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "int x = 5;",
+                    "isCorrect": true
+                }
+            ]
+        },
+        {
+            "questionText": "Čo urobí príkaz 'break' vo while cykle?",
+            "answers": [
+                {
+                    "answerText": "Okamžite ukončí cyklus",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Preskočí aktuálnu iteráciu",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Pozastaví cyklus na 1 sekundu",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Nič, toto nie je platný príkaz",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Aký bude výsledok tohto výrazu?\n\n(5 > 3) && (2 == 3)",
+            "answers": [
+                {
+                    "answerText": "true",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "error",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "false",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "null",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Ktorý z týchto jazykov sa primárne používa na webový vývoj?",
+            "answers": [
+                {
+                    "answerText": "JavaScript",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Java",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "C++",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Python",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Ako zistíme dĺžku poľa 'mojePole' v Jave?",
+            "answers": [
+                {
+                    "answerText": "mojePole.size()",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "mojePole.length",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "length(mojePole)",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "mojePole.count",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Čo je to inštancia triedy?",
+            "answers": [
+                {
+                    "answerText": "Konkrétny objekt vytvorený podľa triedy",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Šablóna pre vytváranie objektov",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Metóda triedy",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Dedičnosť medzi triedami",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Čo znamená kľúčové slovo 'void' v deklarácii metódy?",
+            "answers": [
+                {
+                    "answerText": "Metóda je prázdna",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Metóda vracia neznámy typ",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Metóda nevracia žiadnu hodnotu",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Metóda je virtuálna",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Koľkokrát sa vykoná telo tohto cyklu?\n\nfor (int i = 0; i < 5; i += 2) {\n    // telo cyklu\n}",
+            "answers": [
+                {
+                    "answerText": "5",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "3",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "6",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Nekonečne veľakrát",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Aký je správny zápis inicializácie poľa reťazcov v Jave?",
+            "answers": [
+                {
+                    "answerText": "Array mena = [\"Peter\", \"Jana\"];",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "String mena[] = new Array(\"Peter\", \"Jana\");",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "String[] mena = new String(\"Peter\", \"Jana\");",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "String[] mena = {\"Peter\", \"Jana\"};",
+                    "isCorrect": true
+                }
+            ]
+        },
+        {
+            "questionText": "Čo vypíše tento kód?\n\nint x = 5;\nSystem.out.println(x > 2 ? \"Áno\" : \"Nie\");",
+            "answers": [
+                {
+                    "answerText": "Áno",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "5",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "true",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Nie",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Ktorý z týchto typov premenných môže obsahovať hodnoty true/false?",
+            "answers": [
+                {
+                    "answerText": "boolean",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "int",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "String",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "float",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Čo urobí tento kód?\n\nwhile (true) {\n    System.out.println(\"Hello\");\n    break;\n}",
+            "answers": [
+                {
+                    "answerText": "Vypíše 'Hello' raz",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Vypíše 'Hello' nekonečne veľakrát",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Nevypíše nič",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Spôsobí chybu",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Aký operátor sa používa na porovnanie rovnosti hodnôt v podmienke if?",
+            "answers": [
+                {
+                    "answerText": "=",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "==",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "===",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "!=",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Čo je to konštruktor triedy?",
+            "answers": [
+                {
+                    "answerText": "Premenná triedy",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Návratový typ metódy",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Špeciálna metóda na inicializáciu objektu",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Modifikátor prístupu",
+                    "isCorrect": false
+                }
+            ]
+        }
+    ]
+}

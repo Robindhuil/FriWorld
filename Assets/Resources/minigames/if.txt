@@ -1,0 +1,18 @@
+public class TempProgram {
+    public static void main(String[] args) {
+        int monitory = ___;
+        int stolicky = ___;
+
+        if (monitory > ___) {
+            System.out.println("Treba dokúpiť " + (monitory - ___) + " stoličky.");
+        }
+
+        if (___ < stolicky) {
+            System.out.println("Stoličiek je viac ako monitorov, netreba dokupovať.");
+        }
+
+        if (___ == ___) {
+            System.out.println("Počet stoličiek sa rovná počtu monitorov, netreba nič dokupovať.");
+        }
+    }
+}

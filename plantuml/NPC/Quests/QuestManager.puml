@@ -1,0 +1,14 @@
+@startuml
+class QuestManager {
+    + SetQuestPosition(questId:int, position:Transform) : void
+    + GetQuestPosition(questId:int) : Transform
+    + GetQuestById(id:int) : Quest
+}
+class "List`1"<T> {
+}
+class "Dictionary`2"<T1,T2> {
+}
+QuestManager --> "Instance" QuestManager
+QuestManager --> "Quests<Quest>" "List`1"
+QuestManager --> "QuestPositions<int,Transform>" "Dictionary`2"
+@enduml

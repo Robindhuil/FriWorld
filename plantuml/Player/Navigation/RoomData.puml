@@ -1,0 +1,8 @@
+@startuml
+class RoomData {
+    + ID : int <<get>>
+    + Name : string <<get>>
+    + RoomData(id:int, name:string, transform:Transform)
+}
+RoomData --> "RoomTransform" Transform
+@enduml

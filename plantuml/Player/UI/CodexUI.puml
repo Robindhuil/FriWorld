@@ -1,0 +1,9 @@
+@startuml
+class CodexUI {
+    + IsMenuOn : bool <<get>> <<set>>
+    + CodexUI(canvas:Canvas)
+    + <<override>> CloseWindow() : void
+    + <<override>> OpenWindow() : void
+}
+BaseUi <|-- CodexUI
+@enduml

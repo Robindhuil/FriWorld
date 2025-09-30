@@ -1,0 +1,9 @@
+@startuml
+class StatsUI {
+    + IsMenuOn : bool <<get>> <<set>>
+    + StatsUI(canvas:Canvas)
+    + <<override>> CloseWindow() : void
+    + <<override>> OpenWindow() : void
+}
+BaseUi <|-- StatsUI
+@enduml

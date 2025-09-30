@@ -1,0 +1,6 @@
+@startuml
+class QuestLoader {
+    + QuestLoader(filePath:string)
+    + LoadQuests() : List<Quest>
+}
+@enduml

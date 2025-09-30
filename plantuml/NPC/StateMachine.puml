@@ -1,0 +1,10 @@
+@startuml
+class StateMachine {
+    + Initialise() : void
+    + ChangeState(newState:BaseState) : void
+    + PerformState() : void
+}
+MonoBehaviour <|-- StateMachine
+StateMachine --> "activeState" BaseState
+StateMachine --> "wonderState" WonderState
+@enduml

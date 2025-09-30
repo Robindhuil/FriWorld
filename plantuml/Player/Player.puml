@@ -1,0 +1,6 @@
+@startuml
+class Player {
+}
+MonoBehaviour <|-- Player
+Player --> "PlayerManagment" PlayerManagment
+@enduml

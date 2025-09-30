@@ -1,0 +1,169 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Ahoj! Som doc. Ing. Ján Janech, PhD. z Fakulty riadenia a informatiky Žilinskej univerzity. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Prečo by som mal študovať práve na FRI?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Aké predmety vyučujete a čo sa v nich naučím?",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "FRI ponúka unikátnu kombináciu teórie a praxe. Máme moderné laboratóriá, aktívnu spoluprácu s firmami a dôraz na reálne projekty. Študenti získajú nielen znalosti, ale aj praktické skúsenosti, ktoré sú v IT sektore nevyhnutné.",
+                    "choices": [
+                        {
+                            "text": "Aké konkrétne zručnosti získam ako váš študent?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako využijem tieto znalosti v budúcom zamestnaní?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Vyučujem kľúčové IT predmety: Informatika 1-2 (základy programovania), Softvérové modelovanie (návrh systémov), Metaprogramovanie (pokročilé techniky) a Softvérové inžinierstvo (komplexný vývoj). Všetko s dôrazom na praktické aplikácie.",
+                    "choices": [
+                        {
+                            "text": "Môžete uviesť príklad praktického projektu?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako súvisí váš výskum s výučbou?",
+                            "next": 6,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Naučíš sa nielen programovať v rôznych jazykoch, ale aj navrhovať komplexné systémy, pracovať s databázami a riešiť reálne problémy. Dôležité je, že získaš schopnosť učiť sa nové technológie - čo je v IT najdôležitejšie.",
+                    "choices": [
+                        {
+                            "text": "Aké najčastejšie pracovné pozície majú vaši absolventi?",
+                            "next": 7,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na otázku o výhodách FRI",
+                            "next": 1,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Naši absolventi pracujú ako softvéroví inžinieri, vývojári, IT konzultanti alebo systémoví analytici. Firmy oceňujú, že vedia aplikovať teoretické znalosti v praxi a rýchlo sa adaptujú na nové technológie.",
+                    "choices": [
+                        {
+                            "text": "Ako vyzerá vaša spolupráca s firmami?",
+                            "next": 8,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na otázku o zručnostiach",
+                            "next": 3,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Napríklad v Softvérovom inžinierstve študenti vytvárajú komplexné aplikácie - od analýzy po implementáciu. V Metaprogramovaní pracujú na nástrojoch, ktoré generujú kód automaticky. Všetko na reálnych problémoch.",
+                    "choices": [
+                        {
+                            "text": "Späť na výber predmetov",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Môj výskum v oblasti VANET a distribuovaných systémov priamo vplýva na výučbu. Študenti sa tak učia najnovšie trendy a technológie, ktoré následne môžu aplikovať v praxi.",
+                    "choices": [
+                        {
+                            "text": "Môžu sa študenti zapojiť do výskumu?",
+                            "next": 9,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na výber predmetov",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Najčastejšie ako backend/fullstack vývojári, systémoví analytici, databázoví špecialisti alebo IT konzultanti. Mnohí zakladajú aj vlastné startupy.",
+                    "choices": [
+                        {
+                            "text": "Späť na otázku o zručnostiach",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "text": "Spolupracujeme s viacerými IT firmami, ktoré ponúkajú stáže, zadania pre študentov a často priamo zamestnávajú naších absolventov. Študenti tak majú možnosť získať kontakty už počas štúdia.",
+                    "choices": [
+                        {
+                            "text": "Späť na otázku o absolventoch",
+                            "next": 4,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "text": "Áno, prostredníctvom záverečných prác, študentských projektov alebo výskumných stáží. Najlepší študenti často publikujú svoje výsledky na konferenciách.",
+                    "choices": [
+                        {
+                            "text": "Späť na otázku o výskume",
+                            "next": 6,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

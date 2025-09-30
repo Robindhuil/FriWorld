@@ -1,0 +1,191 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Ahoj! Som Michal Ďuračík z Fakulty riadenia a informatiky. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Aké predmety vyučujete?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Čomu sa venujete vo výskume?",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Nepotrebujete s niečím pomôcť, pán Ďuračík?",
+                            "next": 8,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Vyučujem hlavne programovanie - od základov v Informatike 1-2 až po pokročilé techniky v C# a webových aplikáciách. Mojou špecializáciou sú objektové technológie a praktický vývoj softvéru.",
+                    "choices": [
+                        {
+                            "text": "Ako vyzerajú vaše cvičenia?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Prečo by som mal študovať práve u vás?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Venujem sa hlavne analýze kódu - vyvíjame algoritmy na detekciu plagiátov a hodnotenie študentských úloh. Druhou oblasťou je aplikácia AI pri spracovaní textu a zdrojového kódu.",
+                    "choices": [
+                        {
+                            "text": "Môžu sa študenti zapojiť do výskumu?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako tento výskum pomáha v praxi?",
+                            "next": 6,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Na cvičeniach riešime reálne problémy - od malých úloh po tímové projekty. Dôležité je, že sa sústreďujeme na praktické zručnosti, ktoré využiješ v budúcom zamestnaní.",
+                    "choices": [
+                        {
+                            "text": "Späť na predmety",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Pretože ťa naučím nielen teoretické základy, ale hlavne praktické programovanie. Naši absolventi sú úspešní v IT firmách, lebo vedia aplikovať vedomosti v praxi.",
+                    "choices": [
+                        {
+                            "text": "Aké firmy spolupracujú s fakultou?",
+                            "next": 7,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Áno, cez záverečné práce alebo výskumné stáže. Najlepší študenti sa podieľajú na vývoji našich nástrojov alebo publikujú výsledky.",
+                    "choices": [
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Naše nástroje pomáhajú učiteľom hodnotiť úlohy a študentom poskytujú okamžitú spätnú väzbu. Firmy ich využívajú pri analýze vlastného kódu.",
+                    "choices": [
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Spolupracujeme s lokálnymi i medzinárodnými IT firmami. Študenti majú možnosť stáží a absolventi často nachádzajú uplatnenie v týchto spoločnostiach.",
+                    "choices": [
+                        {
+                            "text": "Späť na otázku o výučbe",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "text": "Vlastne áno, potreboval by som pomôcť s vytvorením miestnosti pre ďalšiu skúšku. V kóde treba vytvoriť novú inštanciu miestnosti a treba ju vytvoriť pomocou správnych parametrov. Čo si o tom myyslíš trúfaš si?",
+                    "choices": [
+                        {
+                            "text": "Jasné, rád pomôžem aké parametre mám zadať?",
+                            "next": 9,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "text": "No treba vytvoriť miestnosť kde bude 47 stoličiek a 47 počítačov. Okien by malo byť 8 a stolov 23. Taktiež meno miestnosti by malo byť RA013.",
+                    "choices": [
+                        {
+                            "text": "To znie komplikovane, ale pokúsim to.",
+                            "next": null,
+                            "quest": 16
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 2,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Vitaj naspäť! Dobrá práca s vytvorením miestnosti zajtra sa bude môcť konať skúsša a to iba vďaka tebe. Keď si už tu dopočul som sa ale, že pán Kvet by potreboval s niečím pomôcť. Nájdi ho a skús mu pomôcť prosím ťa. Ďakujem!",
+                    "choices": [
+                        {
+                            "text": "Neviete prosím povedať, kde by som mohol nájsť pána Kveta?",
+                            "next": 1,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Mal by sa teraz pohybovať niekde v okolí miestnosti RA325 tak dúfam že ho zastihneš",
+                    "choices": [
+                        {
+                            "text": "Dobre, pôjdem ho tam pohľadať",
+                            "next": null,
+                            "quest": 18
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

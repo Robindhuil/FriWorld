@@ -1,0 +1,6 @@
+@startuml
+class InteractionEvent {
+}
+MonoBehaviour <|-- InteractionEvent
+InteractionEvent --> "onInteract" UnityEvent
+@enduml

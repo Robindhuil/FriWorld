@@ -1,0 +1,14 @@
+@startuml
+class NavigationUI {
+    + IsMenuOn : bool <<get>>
+    + NavigationUI(canvas:Canvas, sectorA:GameObject, sectorB:GameObject, sectorC:GameObject, trackButton:Button)
+    + SelectRoom(room:RoomData) : void
+    + TrackRoom(room:RoomData) : void
+    + ClearSelectedRoom() : void
+    + <<override>> CloseWindow() : void
+    + <<override>> OpenWindow() : void
+}
+BaseUi <|-- NavigationUI
+NavigationUI --> "TrackedRoom" RoomData
+NavigationUI --> "SelectedRoom" RoomData
+@enduml

@@ -1,0 +1,8 @@
+@startuml
+abstract class Interactable {
+    + useEvents : bool
+    + promptMessage : string
+    + BaseInteract() : void
+}
+MonoBehaviour <|-- Interactable
+@enduml

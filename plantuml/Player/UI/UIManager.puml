@@ -1,0 +1,21 @@
+@startuml
+class UIManager {
+    + OpenPlayerUI() : void
+    + ClosePlayerUI() : void
+    + CloseAll() : void
+    + InitializeJournalUI() : void
+    + InitializeTabUI() : void
+    + InitializeNavigationUI() : void
+    + InitializeCodexUI() : void
+    + InitializeStatsUI() : void
+    + OpenJournal() : void
+    + OpenNavigation() : void
+    + OpenCodex() : void
+    + OpenStats() : void
+    + TrackQuest() : void
+    + TrackRoom() : void
+}
+MonoBehaviour <|-- UIManager
+UIManager --> "playerUI" PlayerUI
+UIManager --> "dialogueUI" DialogueUI
+@enduml

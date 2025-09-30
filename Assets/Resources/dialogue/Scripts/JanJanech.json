@@ -1,0 +1,282 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Ahoj! Som doc. Ing. Ján Janech, PhD. z Fakulty riadenia a informatiky Žilinskej univerzity. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Prečo by som mal študovať práve na FRI?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Aké predmety vyučujete a čo sa v nich naučím?",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Potrebujete s niečím pomôcť na fakulte?",
+                            "next": 10,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "FRI ponúka unikátnu kombináciu teórie a praxe. Máme moderné laboratóriá, aktívnu spoluprácu s firmami a dôraz na reálne projekty. Študenti získajú nielen znalosti, ale aj praktické skúsenosti, ktoré sú v IT sektore nevyhnutné.",
+                    "choices": [
+                        {
+                            "text": "Aké konkrétne zručnosti získam ako váš študent?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako využijem tieto znalosti v budúcom zamestnaní?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Vyučujem kľúčové IT predmety: Informatika 1-2 (základy programovania), Softvérové modelovanie (návrh systémov), Metaprogramovanie (pokročilé techniky) a Softvérové inžinierstvo (komplexný vývoj). Všetko s dôrazom na praktické aplikácie.",
+                    "choices": [
+                        {
+                            "text": "Môžete uviesť príklad praktického projektu?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako súvisí váš výskum s výučbou?",
+                            "next": 6,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Naučíš sa nielen programovať v rôznych jazykoch, ale aj navrhovať komplexné systémy, pracovať s databázami a riešiť reálne problémy. Dôležité je, že získaš schopnosť učiť sa nové technológie - čo je v IT najdôležitejšie.",
+                    "choices": [
+                        {
+                            "text": "Aké najčastejšie pracovné pozície majú vaši absolventi?",
+                            "next": 7,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na otázku o výhodách FRI",
+                            "next": 1,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Naši absolventi pracujú ako softvéroví inžinieri, vývojári, IT konzultanti alebo systémoví analytici. Firmy oceňujú, že vedia aplikovať teoretické znalosti v praxi a rýchlo sa adaptujú na nové technológie.",
+                    "choices": [
+                        {
+                            "text": "Ako vyzerá vaša spolupráca s firmami?",
+                            "next": 8,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na otázku o zručnostiach",
+                            "next": 3,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Napríklad v Softvérovom inžinierstve študenti vytvárajú komplexné aplikácie - od analýzy po implementáciu. V Metaprogramovaní pracujú na nástrojoch, ktoré generujú kód automaticky. Všetko na reálnych problémoch.",
+                    "choices": [
+                        {
+                            "text": "Späť na výber predmetov",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Môj výskum v oblasti VANET a distribuovaných systémov priamo vplýva na výučbu. Študenti sa tak učia najnovšie trendy a technológie, ktoré následne môžu aplikovať v praxi.",
+                    "choices": [
+                        {
+                            "text": "Môžu sa študenti zapojiť do výskumu?",
+                            "next": 9,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na výber predmetov",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Najčastejšie ako backend/fullstack vývojári, systémoví analytici, databázoví špecialisti alebo IT konzultanti. Mnohí zakladajú aj vlastné startupy.",
+                    "choices": [
+                        {
+                            "text": "Späť na otázku o zručnostiach",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "text": "Spolupracujeme s viacerými IT firmami, ktoré ponúkajú stáže, zadania pre študentov a často priamo zamestnávajú naších absolventov. Študenti tak majú možnosť získať kontakty už počas štúdia.",
+                    "choices": [
+                        {
+                            "text": "Späť na otázku o absolventoch",
+                            "next": 4,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "text": "Áno, prostredníctvom záverečných prác, študentských projektov alebo výskumných stáží. Najlepší študenti často publikujú svoje výsledky na konferenciách.",
+                    "choices": [
+                        {
+                            "text": "Späť na otázku o výskume",
+                            "next": 6,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 10,
+                    "text": "Potreboval by som ale najprv si ťa musím overiť. V jednej z miestností na fakulte máme menší test – nachádza sa tam 10 popisov rôznych jazykov. Niektoré sú programovacie (napríklad Python či C++), iné bežné hovorené jazyky (napríklad angličtina či španielčina). Potrebujem, aby si zistil, ktoré sú programovacie a ktoré hovorené. Je to test tvojich vedomostí i schopnosti rozlišovať detaily.",
+                    "choices": [
+                        {
+                            "text": "Jasné, rád to skúsim!",
+                            "next": null,
+                            "quest": 1
+                        },
+                        {
+                            "text": "Neviem, či som na to pripravený, ale pokúsim sa.",
+                            "next": null,
+                            "quest": 1
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 2,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Vitaj naspäť! Dobrá práca prešiel si testom! Teraz keď som si ťa overil, či budeš schopný pomôcť s ďalsími úlohami. Dopočul som sa, že pán Meško by potreboval s niečím pomôcť. Nájdi ho a skús mu pomôcť prosím ťa. Ďakujem!",
+                    "choices": [
+                        {
+                            "text": "Neviete prosím povedať, kde by som mohol nájsť pána Meška?",
+                            "next": 1,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "quest": -1,
+                    "text": "Samozrejme pán Meško by sa mal pohybovať niekde okolo svojho kabinetu s označením RA124.",
+                    "choices": [
+                        {
+                            "text": "Rozumiem, skúsim ho nájsť.",
+                            "next": null,
+                            "quest": 3
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 3,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Počul som, že si pomohol mnoho učiteľom a tým si sa overil, že si zručný v riešní problémov. Mám pre teba poslednú úlohu, v ktorej potrebujem aby si doplnil priezivská učitelov, ktorých si doteraz stretol v rámci predmetu Informatika 1.",
+                    "choices": [
+                        {
+                            "text": "Takže len doplním do kódu priezviská učiteľov? Ako viem ktorí to sú?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Teším sa. Dúfam že to zvládnem",
+                            "next": null,
+                            "quest": 22
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Stretol si ich, len si si musel zapamätať ich priezviská. Som to ja, pán Ďuračik, pán Meško, pán Kvet, pán Tóth, pani Petríková a pani Gregorová.",
+                    "choices": [
+                        {
+                            "text": "Okej ďakujem vrhnem sa na to.",
+                            "next": null,
+                            "quest": 22
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 4,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Výborná práca a teraz... pripravil som si pre teba finálny test, v ktorom sa otestujě ako moc si sa toho naučil.",
+                    "choices": [
+                        {
+                            "text": "Teším sa. Dúfam že to zvládnem",
+                            "next": null,
+                            "quest": 24
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 5,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Tebe sa to podarilo! Dobrá práca, teraz si pripravený príjsť na našu školu a zistiť naozaj o čom je Fakulta riadenia a informatiky! Teším sa na teba.",
+                    "choices": [
+                        {
+                            "text": "Ďakujem veľmi som si to užil. Dovidenia",
+                            "next": null,
+                            "quest": -1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

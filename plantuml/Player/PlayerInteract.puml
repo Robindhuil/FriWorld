@@ -1,0 +1,5 @@
+@startuml
+class PlayerInteract {
+}
+MonoBehaviour <|-- PlayerInteract
+@enduml

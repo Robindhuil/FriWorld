@@ -1,0 +1,137 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Ahoj! Som Štefan Toth a na FRI učím moderné programovacie techniky a podieľam sa na výskume inteligentných dopravných systémov. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Aké predmety vyučujete a aké zručnosti sa v nich naučím?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Môžete mi povedať viac o svojom výskume dopravných systémov?",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Vyučujem široké spektrum programovacích predmetov od základov (Informatika 1-2) až po pokročilé techniky v C# a .NET. V projektovej výučbe sa študenti naučia pracovať v tímoch na komplexných systémoch, čo pripravuje na reálne pracovné prostredie.",
+                    "choices": [
+                        {
+                            "text": "Ako vyzerajú praktické projekty v týchto predmetoch?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako súvisí vaša výučba s výskumom?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Môj výskum sa zameriava na inteligentné dopravné systémy a technológie VANET. Vyvíjame algoritmy pre komunikáciu medzi vozidlami, rozpoznávanie dopravných situácií a optimalizáciu premávky. Výsledky testujeme aj v reálnych podmienkach.",
+                    "choices": [
+                        {
+                            "text": "Môžu sa študenti zapojiť do tohto výskumu?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Aké sú praktické aplikácie tohto výskumu?",
+                            "next": 6,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "V projektoch študenti vytvárajú kompletný softvér - od návrhu architektúry po implementáciu. Napríklad v C# predmetoch často vyvíjame aplikácie pre správu údajov s pokročilým GUI a pripojením na databázu.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Výskumné poznatky priamo vkladám do výučby. Napríklad v projektovej výučbe často riešime problémy súvisiace s dopravou, kde využívame podobné technológie ako vo výskume - IoT, spracovanie obrazu a dátové analýzy.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Áno, prostredníctvom záverečných prác alebo výskumných stáží. Študenti sa môžu podieľať na vývoji algoritmov, testovaní v simulátoroch alebo analýze dopravných dát. Ideálna príležitosť pre tých, ktorí chcú skúsiť reálny výskum.",
+                    "choices": [
+                        {
+                            "text": "Aké zručnosti by mali mať záujemcovia?",
+                            "next": 7,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Naše výsledky pomáhajú pri vývoji systémov pre autonómne vozidlá, riadenie premávky v mestách alebo detekcii dopravných nehôd. Spolupracujeme s dopravnými podnikmi a výrobcami automobilov na implementácii týchto riešení.",
+                    "choices": [
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Základy programovania v C# alebo Pythone sú výhodou, ale dôležitejší je záujem o problematiku a ochota učiť sa nové veci. Špecifické znalosti sa dajú doplniť počas práce na výskume.",
+                    "choices": [
+                        {
+                            "text": "Ďakujem za informácie!",
+                            "next": null,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

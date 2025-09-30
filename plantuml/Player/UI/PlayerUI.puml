@@ -1,0 +1,11 @@
+@startuml
+class PlayerUI {
+    + PlayerUI(canvas:Canvas)
+    + UpdateText(promptMessage:string) : void
+    + UpdateQuestInfo(questName:string, questInfo:string) : void
+    + DisplayQuest(questName:string, questInfo:string) : void
+    + <<override>> OpenWindow() : void
+    + <<override>> CloseWindow() : void
+}
+BaseUi <|-- PlayerUI
+@enduml

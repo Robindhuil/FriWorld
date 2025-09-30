@@ -1,0 +1,7 @@
+@startuml
+class InputManager {
+    + SwitchToOnFootActions() : void
+    + SwitchToDialogueUIActions() : void
+}
+MonoBehaviour <|-- InputManager
+@enduml

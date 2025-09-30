@@ -1,0 +1,24 @@
+public class TempProgram {
+    static class Dvere {
+        private boolean zamknute;
+        public Dvere() {
+            zamknute = true;  
+            ___();          
+        }
+        public void odomkni() {
+            zamknute = ___;  
+            System.out.println("Dvere sú odomknuté!"); 
+        }
+        public boolean suZamknute() {
+            return zamknute;   
+        }
+    }
+    public static void main(String[] args) {
+        Dvere mojeDvere = ___ Dvere(); 
+        if (!mojeDvere.___()) {   
+            System.out.println("Prístup je povolený.");
+        } else {
+            System.out.println("Dvere sú stále zamknuté!");
+        }
+    }
+}

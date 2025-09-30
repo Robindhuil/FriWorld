@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &3298466170463300800
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -23.653475
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 26.182804
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 52.76128
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.70710665
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.70710695
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_Name
+      value: kvetUn
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 287ed92c128316242bf7771defc5dec5, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5720711216609629533}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2496461489573862401}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1626168870500800138}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5035683971408971085}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5766768769409886952}
+  m_SourcePrefab: {fileID: 100100000, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+--- !u!1 &2380126360230597009 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
+  m_PrefabInstance: {fileID: 3298466170463300800}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &5720711216609629533
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380126360230597009}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.48367405, y: 1.4661124, z: 0.41685486}
+  m_Center: {x: -0.007314205, y: 1.0451103, z: -0.03289032}
+--- !u!114 &2496461489573862401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380126360230597009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 279ac9081733abe4ebe254526085f87a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1626168870500800138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380126360230597009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf00efe7d28f97e4a9bd644324639dde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isInDialogue: 0
+  npcName: doc. Ing. Marek Kvet, PhD.
+  canMove: 1
+  path: {fileID: 0}
+  nextWaypointIndex: 0
+  canCommunicate: 1
+  dialogueFileQuest: {fileID: 4900000, guid: 54e1593fb2958254db98b06c422158f0, type: 3}
+  dialogueFileCasual: {fileID: 4900000, guid: db6775d06a430854fa8e6b7af83d6ccf, type: 3}
+  defaultDialogueMode: 1
+  questIds: 090000000b000000
+--- !u!114 &5035683971408971085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380126360230597009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd7a34e95c76ce04694f57af8aab9eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entryMappings:
+  - questId: 10
+    codexEntryName: Funkcie
+--- !u!195 &5766768769409886952
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2380126360230597009}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 1.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

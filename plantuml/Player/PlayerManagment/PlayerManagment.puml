@@ -1,0 +1,6 @@
+@startuml
+class PlayerManagment {
+    + PlayerManagment()
+}
+PlayerManagment --> "journal" Journal
+@enduml

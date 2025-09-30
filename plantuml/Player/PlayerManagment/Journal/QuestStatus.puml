@@ -1,0 +1,7 @@
+@startuml
+enum QuestStatus {
+    Inactive,
+    Active,
+    Completed,
+}
+@enduml

@@ -1,0 +1,137 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Ahoj! Som Matej Meško, učím na FRI ŽU a okrem výučby sa venujem aj vývoju webových a mobilných aplikácií v mojej agentúre. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Aké predmety vyučujete a čo sa v nich naučím?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako kombinujete IT a umeleckú stránku?",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Vyučujem hlavne vývoj webových a mobilných aplikácií. V predmetoch sa naučíš od základov PHP a Laravelu až po pokročilé techniky vývoja. Študenti často pracujú na reálnych projektoch, ako sú intranetové systémy pre firmy alebo mobilné aplikácie.",
+                    "choices": [
+                        {
+                            "text": "Môžete uviesť príklad študentského projektu?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako vyzerajú vaše cvičenia?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Vždy ma bavila kombinácia techniky a kreativity. Tento mix mi pomáha učiť študentov, že dobrý programátor potrebuje aj vizuálne myslenie a cit pre dizajn.",
+                    "choices": [
+                        {
+                            "text": "Ako to ovplyvňuje vašu výučbu?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Povedzte viac o vašom výskume",
+                            "next": 6,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Napríklad v minulom semestri študenti vytvárali systém na správu tréningov pre športový klub - od návrhu databázy po frontend. Iný tím robil mobilnú aplikáciu na zber dát z terénu.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Cvičenia sú veľmi praktické - od živých ukážok kódu po tímovú prácu na projektoch. Dávam dôraz na to, aby študenti videli súvislosti a vedeli aplikovať teóriu v praxi.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Učím študentov myslieť aj na UX/UI aspekty aplikácií. Napríklad pri vývoji webov riešime nielen funkcionalitu, ale aj to, ako bude aplikácia vyzerať a akú bude mať používateľskú skúsenosť.",
+                    "choices": [
+                        {
+                            "text": "Späť na kombináciu IT a umenia",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Venujem sa hlavne počítačovému videniu a 3D rekonštrukcii obrazu. Výsledky využívame napríklad v inteligentných dopravných systémoch. Tento výskum mi pomáha udržiavať si prehľad o najnovších technológiách, ktoré potom môžem predávať študentom.",
+                    "choices": [
+                        {
+                            "text": "Môžu sa študenti zapojiť do výskumu?",
+                            "next": 7,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Áno, cez záverečné práce alebo výskumné stáže. Najlepší študenti sa podieľajú na vývoji našich algoritmov alebo publikujú výsledky. Ak máš záujem, môžeme sa baviť o konkrétnych témach.",
+                    "choices": [
+                        {
+                            "text": "Ďakujem za rozhovor!",
+                            "next": null,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,7 @@
+@startuml
+class PlayerLook {
+    + ProcessLook(input:Vector2) : void
+}
+MonoBehaviour <|-- PlayerLook
+PlayerLook --> "Cam" Camera
+@enduml

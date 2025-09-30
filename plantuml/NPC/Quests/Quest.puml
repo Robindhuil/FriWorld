@@ -1,0 +1,13 @@
+@startuml
+class Quest {
+    + id : int
+    + questName : string
+    + questObjective : string
+    + questInfo : string
+    + Quest(id:int, questName:string, questObjective:string, questInfo:string)
+    + SetActive() : void
+    + SetInactive() : void
+    + SetCompleted() : void
+}
+Quest --> "Status" QuestStatus
+@enduml

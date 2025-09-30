@@ -1,0 +1,9 @@
+@startuml
+class PlayerMotor {
+    + ProcessMove(input:Vector2) : void
+    + ToggleSprint() : void
+    + Jump() : void
+    + ToggleCrouch() : void
+}
+MonoBehaviour <|-- PlayerMotor
+@enduml

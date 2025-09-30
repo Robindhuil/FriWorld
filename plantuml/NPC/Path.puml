@@ -1,0 +1,9 @@
+@startuml
+class Path {
+}
+class "List`1"<T> {
+}
+MonoBehaviour <|-- Path
+Path --> "waypoints<Transform>" "List`1"
+Path o-> "debugColour" Color
+@enduml

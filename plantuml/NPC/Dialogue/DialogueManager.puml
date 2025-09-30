@@ -1,0 +1,9 @@
+@startuml
+class DialogueManager {
+    + LoadDialogue(dialogueFile:TextAsset) : void
+    + ContinueDialogue(npcLine:string, playerOption:string, questId:int) : bool
+    + GetIntroDialogue() : string
+    + GetFirstPlayerOption() : string
+    + ResetDialogue() : void
+}
+@enduml

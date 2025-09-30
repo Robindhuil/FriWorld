@@ -1,0 +1,1646 @@
+[
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA301",
+    "original_code": "A301",
+    "function": "Laboratórium vývoja unixových aplikácií",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA301"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA302",
+    "original_code": "A302",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Miroslav Kvaššay, PhD.",
+      "doc. Ing. Ján Rabčan, PhD.",
+      "Ing. Michal Mrena, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA302"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA303",
+    "original_code": "A303",
+    "function": "Kancelária",
+    "professors": [
+      "Mgr. Peter Czimmermann, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA303"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA304",
+    "original_code": "A304",
+    "function": "Kancelária",
+    "professors": [
+      "RNDr. Zuzana Borčinová, PhD.",
+      "RNDr. Aleš Kozubník, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA304"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA305",
+    "original_code": "A305",
+    "function": "Kancelária",
+    "professors": [
+      "Mgr. Lýdia Gabrišová, PhD.",
+      "Ing. Katarína Zábovská, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA305"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA306",
+    "original_code": "A306",
+    "function": "Kancelária",
+    "professors": [
+      "RNDr. Rudolf Blaško, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA306"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA307",
+    "original_code": "A307",
+    "function": "Kancelária",
+    "professors": [
+      "RNDr. Alžbeta Klaudinyová"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA307"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA308",
+    "original_code": "A308",
+    "function": "Kancelária",
+    "professors": [
+      "RNDr. Ida Stankovianska, CSc."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA308"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA309",
+    "original_code": "A309",
+    "function": "Kancelária",
+    "professors": [
+      "doc. RNDr. Štefan Peško, CSc.",
+      "Mgr. Michal Kaukič, CSc."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA309"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA310",
+    "original_code": "A310",
+    "function": "Kancelária",
+    "professors": [
+      "doc. RNDr. Stanislav Palúch, CSc.",
+      "Ing Tomáš Majer, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA310"
+  },
+  {
+    "department": "",
+    "name": "RA311",
+    "original_code": "A311",
+    "function": "",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA311"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA312",
+    "original_code": "A312",
+    "function": "Úžitková miestnosť",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA312"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA313",
+    "original_code": "A313",
+    "function": "Seminárna miestnosť",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA313"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA314",
+    "original_code": "A314",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Dr. Mgr. Ivan Cimrák"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA314"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA315",
+    "original_code": "A315",
+    "function": "Kancelária",
+    "professors": [
+      "Mgr. Kristína Ďuračíková, PhD.",
+      "Mgr. Monika Smiešková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA315"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA316",
+    "original_code": "A316",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Michal Mulík, PhD.",
+      "Ing. Dominika Petríková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA316"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA317",
+    "original_code": "A317",
+    "function": "Kancelária",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA317"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA318",
+    "original_code": "A318",
+    "function": "",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA318"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA319",
+    "original_code": "A319",
+    "function": "Seminárna miestnosť",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA319"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA320",
+    "original_code": "A320",
+    "function": "Seminárna miestnosť",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA320"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA323",
+    "original_code": "A323",
+    "function": "",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA323"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA324",
+    "original_code": "A324",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Michal Varga, PhD.",
+      "Ing. Patrik Rusnák, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA324"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA325",
+    "original_code": "A325",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Marek Kvet, PhD.",
+      "doc. Ing. Michal Kvet, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA325"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA326",
+    "original_code": "A326",
+    "function": "Laboratórium simulačných techník",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA326"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA327",
+    "original_code": "A327",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Andrea Galadíková, PhD.",
+      "Mgr. Alžbeta Bugáňová"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA327"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB301",
+    "original_code": "B301",
+    "function": "Laboratórium CCNP (Cisco)",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB301"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB302",
+    "original_code": "B302",
+    "function": "Laboratórium modelovania sietí",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB302"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB303",
+    "original_code": "B303",
+    "function": "Laboratórium CCNP (Cisco akadémia)",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB303"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB304",
+    "original_code": "B304",
+    "function": "Knižnica",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB304"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB305",
+    "original_code": "B305",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Michal Šterbák, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB305"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB306",
+    "original_code": "B306",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Mgr. Juraj Smieško, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB306"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB307",
+    "original_code": "B307",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Tatiana Kováčíková, PhD.",
+      "doc. Ing. Jozed Papán, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB307"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB308",
+    "original_code": "B308",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Martin Klimo, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB308"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB360",
+    "original_code": "B360",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Michal Hraška",
+      "Ing Ľubomír Králik"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB360"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ - oddelenie virtualizácie",
+    "name": "RB359",
+    "original_code": "B359",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Marek Moravčík, PhD.",
+      "Ing. Martin Kontšek, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB359"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB358",
+    "original_code": "B358",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Roman Kaloč, PhD.",
+      "Ing. Ondrej Škvarek, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB358"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB357",
+    "original_code": "B357",
+    "function": "Kancelária",
+    "professors": [
+      "Mgr. Jana Uramová, PhD.",
+      "Ing. Ivana Brídová, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB357"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB356",
+    "original_code": "B356",
+    "function": "TEST centrum",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB356"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB355",
+    "original_code": "B355",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Marek Moravčík, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB355"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB354",
+    "original_code": "B354",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Pavel Segeč, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB354"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB353",
+    "original_code": "B353",
+    "function": "Sekretariát",
+    "professors": [
+      "Brigita Malkusová"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB353"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB352",
+    "original_code": "B352",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Michal Janovec",
+      "Ing. Slavomír Tatarka",
+      "Ing. Dalibor Kafka"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB352"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB351",
+    "original_code": "B351",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Ján Jurč",
+      "Ing. Ľubica Žideková",
+      "Mgr. Adrián Hamada"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB351"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB201",
+    "original_code": "B201",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Lucia Pančíková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB201"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB202",
+    "original_code": "B202",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Emese Tokarčíková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB202"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB203",
+    "original_code": "B203",
+    "function": "Sekretariát",
+    "professors": [
+      "Viera Muchová"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB203"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB204",
+    "original_code": "B204",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Mária Ďurišová, PhD. (Vedúca katedry)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB204"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB205",
+    "original_code": "B205",
+    "function": "Zasadačka",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB205"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB206",
+    "original_code": "B206",
+    "function": "Seminárna učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB206"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB207",
+    "original_code": "B207",
+    "function": "Laboratórium",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB207"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB208",
+    "original_code": "B208",
+    "function": "Laboratórium vstavaných systémov",
+    "professors": [
+      "doc. Ing. Ján Kapitulík, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB208"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB209",
+    "original_code": "B209",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Alžbeta Kucharčíková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB209"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB210",
+    "original_code": "B210",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Zuzana Kozubíková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB210"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB211",
+    "original_code": "B211",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Lukáš Falát, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB211"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB212",
+    "original_code": "B212",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Zuzana Staníková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB212"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB213",
+    "original_code": "B213",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Dana Kušnírová, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB213"
+  },
+  {
+    "department": "KATEDRA MAKRO A MIKROEKONOMIKY",
+    "name": "RB214",
+    "original_code": "B214",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Anna Jacková, PhD.",
+      "Ing. Eva Malichová, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB214"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB259",
+    "original_code": "B259",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Radoslav Jankal, PhD.",
+      "Ing. Lucie Lendelová, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB259"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB258",
+    "original_code": "B258",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Gabriel Koman, PhD.",
+      "Ing. Oliver Bubelíny, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB258"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB257",
+    "original_code": "B257",
+    "function": "Sekretariát",
+    "professors": [
+      "Brigita Malkusová"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB257"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB256",
+    "original_code": "B256",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Milan Kubina, PhD. (Vedúci katedry)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB256"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB255",
+    "original_code": "B255",
+    "function": "Zasadačka",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB255"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB254",
+    "original_code": "B254",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Michal Varmus, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB254"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB253",
+    "original_code": "B253",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Mgr. Jakub Soviar, PhD.",
+      "Ing. Martin Holubčík, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB253"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB252",
+    "original_code": "B252",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Martin Mičiak, PhD.",
+      "Ing. Dominika Toman, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB252"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB251",
+    "original_code": "B251",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Nikola Štaffenová, PhD.",
+      "doc. Ing. Viliam Lendel, PhD.",
+      "Ing. Roman Adámik, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB251"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB101",
+    "original_code": "B101",
+    "function": "Laboratórium technických prostriedkov automatického riadenia",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB101"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB102",
+    "original_code": "B102",
+    "function": "Učebňa",
+    "professors": [
+      "Ing. Michal Hodoň, PhD.",
+      "Ing. Michal Kochláň"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB102"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB103",
+    "original_code": "B103",
+    "function": "Laboratórium automatického riadenia",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB103"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB106",
+    "original_code": "B104",
+    "function": "Laboratórium návrhu zákazníckych IO",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB106"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB107",
+    "original_code": "B106",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Juraj Miček, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB107"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB108",
+    "original_code": "B107",
+    "function": "Seminárna učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB108"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB109",
+    "original_code": "B108",
+    "function": "Laborátorium elektroniky",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB109"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB110",
+    "original_code": "B109",
+    "function": "Kancelária",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB110"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB111",
+    "original_code": "B110",
+    "function": "Sekretariát",
+    "professors": [
+      "Mgr. Viera Čereneková"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB111"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB112",
+    "original_code": "B111",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Peter Ševčík, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB112"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB113",
+    "original_code": "B112",
+    "function": "Laborátorium",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB113"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB114",
+    "original_code": "",
+    "function": "Dvere - prechod do VÚD",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB114"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB159",
+    "original_code": "B159",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Ján Kapitulík, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB159"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB160",
+    "original_code": "B160",
+    "function": "",
+    "professors": [
+      ""
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB160"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB158",
+    "original_code": "B158",
+    "function": "Študentská miestnosť,Osadzovanie - pájkovanie",
+    "professors": [
+      "doc. Ing. Peter Ševčík, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB158"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB157",
+    "original_code": "B157",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Lukáš Čechovič, Phd.",
+      "Ing. Andrej Tupý"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB157"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB156",
+    "original_code": "B156",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Onderj Karpiš, PhD.",
+      "Ing. Michal Kubaščík"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB156"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB155",
+    "original_code": "B155",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. V. Olešnaníková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB155"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB154",
+    "original_code": "B154",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Peter Šarafín, PhD.",
+      "Ing Lúkaš Formanek, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB154"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB153",
+    "original_code": "B153",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Michal Hodoň, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB153"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB152",
+    "original_code": "B152",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Miroslav Chochul, PhD.",
+      "Ing. Ján Šumský"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB152"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB151",
+    "original_code": "B151",
+    "function": "Doktoranti",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB151"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RB001",
+    "original_code": "B001",
+    "function": "Internetová miestnosť",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB001"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RB002",
+    "original_code": "B002",
+    "function": "Laboratórium programovania a kancelárskych aplikácií",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB002"
+  },
+  {
+    "department": "KATEDRA INFORMAČNÝCH SIETÍ",
+    "name": "RB003",
+    "original_code": "B003",
+    "function": "Laboratórium Komunikačných sietí",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB003"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB004",
+    "original_code": "B004",
+    "function": "Laborátorium číslicových počítačov 1",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB004"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RB005",
+    "original_code": "",
+    "function": "Serverovňa FRI 'B'",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB005"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB009",
+    "original_code": "B 8",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Paula Höhrová",
+      "Ing. Silvia Krúpová",
+      "Ing. Michal šarták"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB009"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB007",
+    "original_code": "B 6",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Ivana Gabrišová",
+      "Ing. Dominika Findriková"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB007"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RB008",
+    "original_code": "B 7",
+    "function": "Kancelária",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB008"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RB010",
+    "original_code": "B 9",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Patrik Boršoš"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB010"
+  },
+  {
+    "department": "KATEDRA MANAŽERSKYCH TEORIÍ",
+    "name": "RB011",
+    "original_code": "B 10",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Miroslava Řepová",
+      "Ing. Pavol Ondrík"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RB011"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RB054",
+    "original_code": "B 54",
+    "function": "Počitačová učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB054"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RB053",
+    "original_code": "B 53",
+    "function": "Počitačová učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB053"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB006",
+    "original_code": "B 5",
+    "function": "Serverovňa KTK",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB006"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RB052",
+    "original_code": "B 52",
+    "function": "Počitačová učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB052"
+  },
+  {
+    "department": "KATEDRA TECHNICKEJ KYBERNETIKY",
+    "name": "RB051",
+    "original_code": "B 51",
+    "function": "Vývojové pracovisko KTK",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RB051"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RC029",
+    "original_code": "C 18",
+    "function": "Rozvádzač+sieť",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RC029"
+  },
+  {
+    "department": "",
+    "name": "RC019",
+    "original_code": "C 19",
+    "function": "Miestnosť upratovačiek",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RC019"
+  },
+  {
+    "department": "",
+    "name": "RC009",
+    "original_code": "C 9",
+    "function": "Prednášková miestnosť",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RC009"
+  },
+  {
+    "department": "",
+    "name": "RC007",
+    "original_code": "C 7",
+    "function": "Učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RC007"
+  },
+  {
+    "department": "",
+    "name": "RC008",
+    "original_code": "Bez čísla",
+    "function": "Átrium",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RC008"
+  },
+  {
+    "department": "",
+    "name": "RC006",
+    "original_code": "C 6",
+    "function": "Učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RC006"
+  },
+  {
+    "department": "",
+    "name": "RC002",
+    "original_code": "C 2",
+    "function": "Príručný sklad",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RC002"
+  },
+  {
+    "department": "",
+    "name": "RC001",
+    "original_code": "C 1",
+    "function": "Zasadacia miestnosť",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RC001"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RAS03",
+    "original_code": "A 03",
+    "function": "Sklad",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RAS03"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA002",
+    "original_code": "A 2",
+    "function": "Informačné centrum",
+    "professors": [
+      "Ing. Barbora Bujačková (Samostatný odborný referent)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA002"
+  },
+  {
+    "department": "",
+    "name": "RA001",
+    "original_code": "A 1",
+    "function": "Vrátnica",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA001"
+  },
+  {
+    "department": "",
+    "name": "RA003",
+    "original_code": "A 3",
+    "function": "Informačné centrum",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA003"
+  },
+  {
+    "department": "",
+    "name": "RA006",
+    "original_code": "A 6",
+    "function": "Počitačová učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA006"
+  },
+  {
+    "department": "",
+    "name": "RA007",
+    "original_code": "A 7",
+    "function": "Seminárna učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA007"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RA008",
+    "original_code": "A 8",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Jozef Mičic",
+      "Milan Funtik"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA008"
+  },
+  {
+    "department": "",
+    "name": "RA009",
+    "original_code": "A 9",
+    "function": "Seminárna učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA009"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RA010",
+    "original_code": "A 10",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Roman Hajtmanek (Vedúci CIT)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA010"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RA011",
+    "original_code": "A 11",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Marek Ďurana"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA011"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RA012",
+    "original_code": "A 12",
+    "function": "Laborátorium internetových a intranetových aplikácií",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA012"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RA013",
+    "original_code": "A 13",
+    "function": "Laborátorium internetových a intranetových aplikácií",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA013"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA101",
+    "original_code": "A 101",
+    "function": "Zasadačka FRI",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA101"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA102",
+    "original_code": "A 102",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Viliam Lendel, PhD. (Prodekan pre vzdelávanie)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA102"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA103",
+    "original_code": "A 103",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Miroslav Kvaššay, PhD. (Prodekan pre vedu a výskum)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA103"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA104",
+    "original_code": "A 104",
+    "function": "Kancelária dekana",
+    "professors": [
+      "prof. Ing. Emil Kršák, PhD. (Dekan FRI)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA104"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA105",
+    "original_code": "A 105",
+    "function": "Kancelária",
+    "professors": [
+      "Jozefína Štarková (Sekretariát dekana)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA105"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA106",
+    "original_code": "A 106",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Marta Rešetková, PhD. (Tajomníčka)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA106"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA107",
+    "original_code": "A 107",
+    "function": "Kancelária",
+    "professors": [
+      "Bc. Zuzana Dubničková (Referát personálny)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA107"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA108",
+    "original_code": "A 108",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Miriam Bašteková (Referát pre doktorandské štúdium a kariérny rast)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA108"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA109",
+    "original_code": "A 109",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Stanislava Sapietová (Referát ekonomický)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA109"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA110",
+    "original_code": "A 110",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Peter Martón, PhD. (Prodekan pre zahraničné vzťahy)",
+      "Mgr. Petra Cvičeková (Referát študijný)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA110"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA111",
+    "original_code": "A 111",
+    "function": "Kancelária",
+    "professors": [
+      "Mgr. Renáta Nováková (Referát študijný)",
+      "Ing. Dana Muránová (Referát študijný)",
+      "Viera Muchová (Referát študijný)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA111"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA113",
+    "original_code": "A 113",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Patrik Hrkút, PhD.",
+      "Ing. Michal Ďuračík, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA113"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA115",
+    "original_code": "A 115",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Ján Ružbársky, PhD.",
+      "doc. RNDr. Katarína Bachratá, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA115"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA114",
+    "original_code": "A 114",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Marek Tavač, PhD.",
+      "doc. Ing. Ján Janech, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA114"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA116",
+    "original_code": "A116",
+    "function": "Kancelária",
+    "professors": [
+      "RNDr. Hynek Bachratý, PhD.",
+      "Mgr. Peter Novotný, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA116"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA117",
+    "original_code": "A117",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Miroslav Gábor, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA117"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA118",
+    "original_code": "A118",
+    "function": "Serverovňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA118"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA119",
+    "original_code": "A119",
+    "function": "Sekretariát",
+    "professors": [
+      "Mgr. Iveta Belošovicová"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA119"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA120",
+    "original_code": "A120",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Viliam Tavač, PhD. (Vedúci katedry)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA120"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA122",
+    "original_code": "A122",
+    "function": "Seminárna učebňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA122"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA123",
+    "original_code": "A123",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Viliam Tavač, PhD.",
+      "prof. Ing. Emil Kršák, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA123"
+  },
+  {
+    "department": "KATEDRA SOFTVÉROVÝCH TECHNOLÓGIÍ",
+    "name": "RA124",
+    "original_code": "A124",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Matej Meško, PhD.",
+      "Ing. Štefan Tóth, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA124"
+  },
+  {
+    "department": "DEKANÁT",
+    "name": "RA125",
+    "original_code": "A125",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Brita Kiklosová (Referát pre projekty a vonkajšie vzťahy)",
+      "Ing. Dana Kršáková (Referát pre projekty a vonkajšie vzťahy)",
+      "Ing. Anna Ševčíková (Referát pre projekty a vonkajšie vzťahy)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA125"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA201",
+    "original_code": "A201",
+    "function": "Laboratórium softvérových technológií",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA201"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA202",
+    "original_code": "A202",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Jozef Kostolný, PhD.",
+      "Ing. Veronika Šalgová, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA202"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA203",
+    "original_code": "A203",
+    "function": "Kancelária",
+    "professors": [
+      "Anna Ilovská"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA203"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA204",
+    "original_code": "A204",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Michal Kvet, PhD. (Vedúci katedry)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA204"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA205",
+    "original_code": "A205",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Linda Blahová",
+      "Ing. Marek Ďurana",
+      "Ing. Andrea Meleková",
+      "Ing. Miroslav Potočár",
+      "Ing. Jakub Rapšík"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA205"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA206",
+    "original_code": "A206",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Marek Klimo",
+      "Ing. Martin Mazúch"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA206"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA207",
+    "original_code": "A207",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Elena Zaiseva, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA207"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA208",
+    "original_code": "A208",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Vitaly Levashenko, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA208"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA209",
+    "original_code": "A209",
+    "function": "Kancelária",
+    "professors": [
+      "PaedDr. Nika Kvaššayová, PhD.",
+      "RNDr. Denisa Maceková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA209"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA210",
+    "original_code": "A210",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing Ján Boháčik, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA210"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA211",
+    "original_code": "A211",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Peter Sedláček, PhD.",
+      "Ing. Monika Václavková, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA211"
+  },
+  {
+    "department": "CENTRUM INFORMAČNÝCH TECHNOLÓGIÍ",
+    "name": "RA212",
+    "original_code": "A212",
+    "function": "Telefónna ústredňa",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA212"
+  },
+  {
+    "department": "KATEDRA INFORMATIKY",
+    "name": "RA213",
+    "original_code": "A213",
+    "function": "Konzultačná miestnosť",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA213"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA214",
+    "original_code": "A214",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Ľuboš Buzna, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA214"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA215",
+    "original_code": "A215",
+    "function": "Kancelária",
+    "professors": [
+      "prof RNDr. Jaroslav Janáček, CSc."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA215"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA216",
+    "original_code": "A216",
+    "function": "Kancelária",
+    "professors": [
+      "doc. PaedDr. Dalibor Gonda, PhD.",
+      "Ing. Michal Lekýr, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA216"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA217",
+    "original_code": "A217",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Milan Straka, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA217"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA218",
+    "original_code": "A218",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Michal Koháni, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA218"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA219",
+    "original_code": "A219",
+    "function": "Kancelária",
+    "professors": [
+      "doc. Ing. Peter Martón, PhD.",
+      "Ing. Maroš Janovec, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA219"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA226",
+    "original_code": "A226",
+    "function": "Kancelária",
+    "professors": [
+      "prof. Ing. Ľudmila Jánošiková, PhD. (Vedúca katedry)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA226"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA225",
+    "original_code": "A225",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Ľubica Michálková (Sekretariát katedry)"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA225"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA224",
+    "original_code": "A224",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Peter Jankovič, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA224"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA223",
+    "original_code": "A223",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Peter Tarábek, PhD."
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA223"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA222",
+    "original_code": "A222",
+    "function": "Multimediálne laboratórium",
+    "professors": [],
+    "url": "https://www.fri.uniza.sk/miestnost/RA222"
+  },
+  {
+    "department": "KATEDRA MATEMATICKÝCH METÓD A OPERAČNEJ ANALÝZY",
+    "name": "RA220",
+    "original_code": "A220",
+    "function": "Kancelária",
+    "professors": [
+      "Ing. Dávid Matis"
+    ],
+    "url": "https://www.fri.uniza.sk/miestnost/RA220"
+  }
+]

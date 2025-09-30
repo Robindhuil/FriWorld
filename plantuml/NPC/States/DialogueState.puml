@@ -1,0 +1,9 @@
+@startuml
+class DialogueState {
+    + DialogueState()
+    + <<override>> Enter() : void
+    + <<override>> Perform() : void
+    + <<override>> Exit() : void
+}
+BaseState <|-- DialogueState
+@enduml

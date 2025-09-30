@@ -1,0 +1,6 @@
+@startuml
+abstract class BaseUi {
+    + <<virtual>> OpenWindow() : void
+    + <<virtual>> CloseWindow() : void
+}
+@enduml

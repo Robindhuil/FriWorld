@@ -1,0 +1,11 @@
+@startuml
+class WonderState {
+    + waypointIndex : int
+    + waitTimer : float
+    + <<override>> Enter() : void
+    + <<override>> Perform() : void
+    + <<override>> Exit() : void
+    + WonderCycle() : void
+}
+BaseState <|-- WonderState
+@enduml

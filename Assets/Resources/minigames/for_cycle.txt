@@ -1,0 +1,15 @@
+public class TempProgram {
+    public static void main(String[] args) {
+        System.out.println("Spustam generovanie skusok pre studentov...");
+
+        int pocetStudentov = ___;
+        System.out.println("Pocet studentov: " + pocetStudentov);
+
+        // Doplň for-cyklus
+        for (___; i <= pocetStudentov; ___) {
+            System.out.println("Skuska pre studenta s id:" + ___ + " bola vygenerovana.");
+        }
+
+        System.out.println("Generovanie skusok dokoncene.");
+    }
+}

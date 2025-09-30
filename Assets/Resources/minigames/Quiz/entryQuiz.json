@@ -1,0 +1,144 @@
+{
+    "questions": [
+        {
+            "questionText": "for (int i = 0; i < 10; i++) { System.out.println(i); }",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Hovorový jazyk (čeština)",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Programátorský jazyk (Java)",
+                    "isCorrect": true
+                }
+            ]
+        },
+        {
+            "questionText": "Hello, how are you today?",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Programátorský jazyk(Python)",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Hovorový jazyk (angličtina)",
+                    "isCorrect": true
+                }
+            ]
+        },
+        {
+            "questionText": "def calculate_sum(a, b): return a + b",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Hovorový jazyk(francúzština)",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Programátorský jazyk (Python)",
+                    "isCorrect": true
+                }
+            ]
+        },
+        {
+            "questionText": "Bonjour, comment ça va?",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Programátorský jazyk (C#)",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Hovorový jazyk (francúzština)",
+                    "isCorrect": true
+                }
+            ]
+        },
+        {
+            "questionText": "function multiply(x, y) { return x * y; }",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Programátorský jazyk (JavaScript)",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Hovorový jazyk (nemčina)",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Hola, ¿qué tal estás?",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Hovorový jazyk (španielčina)",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Programátorský jazyk (Ruby)",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "<?php echo 'Hello World'; ?>",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Programátorský jazyk (PHP)",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Hovorový jazyk (holandčina)",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Guten Tag, wie geht es Ihnen?",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Programátorský jazyk (C++)",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Hovorový jazyk (nemčina)",
+                    "isCorrect": true
+                }
+            ]
+        },
+        {
+            "questionText": "SELECT * FROM users WHERE age > 18;",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Hovorový jazyk (ruština)",
+                    "isCorrect": false
+                },
+                {
+                    "answerText": "Programátorský jazyk (SQL)",
+                    "isCorrect": true
+                }
+            ]
+        },
+        {
+            "questionText": "Ciao, come stai?",
+            "questionImagePath": "",
+            "answers": [
+                {
+                    "answerText": "Hovorový jazyk (taliančina)",
+                    "isCorrect": true
+                },
+                {
+                    "answerText": "Programátorský jazyk (C)",
+                    "isCorrect": false
+                }
+            ]
+        }
+    ]
+}

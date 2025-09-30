@@ -1,0 +1,17 @@
+@startuml
+class Journal {
+    + Journal()
+    + LoadQuests() : void
+    + ChangeQuestStatus(quest:Quest, newStatus:QuestStatus) : void
+    + IsQuestActive(questId:int) : bool
+    + GetQuestTransform(questId:int) : Transform
+}
+class "Dictionary`2"<T1,T2> {
+}
+class "List`1"<T> {
+}
+Journal --> "QuestPositions<int,Transform>" "Dictionary`2"
+Journal --> "ActiveQuests<Quest>" "List`1"
+Journal --> "InactiveQuests<Quest>" "List`1"
+Journal --> "CompletedQuests<Quest>" "List`1"
+@enduml

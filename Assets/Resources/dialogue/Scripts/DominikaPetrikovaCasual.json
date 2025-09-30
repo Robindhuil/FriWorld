@@ -1,0 +1,105 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Dobrý deň, som Dominika Petríková. Na FRI vyučujem základy programovania a venujem sa výskumu v oblasti medicínskej informatiky. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Aké témy pokrývajú vaše predmety Informatika 1 a 2?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Môžete mi povedať viac o svojom výskume v biomedicíne?",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "V Informatike 1 sa sústreďujeme na základy algoritmického myslenia a programovania v jazyku Java. Informatika 2 už prehlbuje tieto znalosti a pridáva dátové štruktúry a objektovo orientované programovanie. Oba predmety sú dôležitým základom pre ďalšie IT štúdium.",
+                    "choices": [
+                        {
+                            "text": "Ako vyzerajú praktické úlohy v týchto predmetoch?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Môj výskum sa zameriava na aplikáciu hlbokého učenia pri analýze histopatologických snímok. Vyvíjame algoritmy, ktoré pomáhajú patológom pri diagnostike - automatizujú náročné vyhľadávanie abnormalít v tkanivových vzorkách.",
+                    "choices": [
+                        {
+                            "text": "Ako sa študenti môžu zapojiť do tohto výskumu?",
+                            "next": 4,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Študenti riešia postupne náročnejšie programovacie úlohy - od jednoduchých algoritmov po komplexnejšie projekty. Napríklad v Informatike 2 vytvárajú vlastné aplikácie s grafickým rozhraním, ktoré pracujú s reálnymi dátami.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Študenti sa môžu zapojiť prostredníctvom záverečných prác alebo výskumných stáží. Najčastejšie pracujú na čiastkových úlohách ako je predspracovanie obrazových dát alebo optimalizácia neurónových sietí pre konkrétne typy snímok.",
+                    "choices": [
+                        {
+                            "text": "Aké zručnosti by mali mať záujemcovia?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Ideálne je mať základy programovania v Jave a záujem o strojové učenie. Ale najdôležitejšie je nadšenie pre výskum a ochotu učiť sa nové veci - zvyšok sa dá doplniť počas práce.",
+                    "choices": [
+                        {
+                            "text": "Ďakujem za informácie!",
+                            "next": null,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

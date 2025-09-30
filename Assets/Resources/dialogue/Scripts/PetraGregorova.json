@@ -1,0 +1,202 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Dobrý deň, som Petra Gregorová. Na FRI učím základy informatiky pre technických aj netechnických študentov a venujem sa výskumu v oblasti databáz a umelej inteligencie. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Ako sa líši výučba informatiky pre manažérov od štandardných kurzov?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Môžete mi povedať viac o svojom výskume expertných systémov?",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Dopočul som sa od pána Meška, že máte nejaký problém so stoličkami vedel by som nejako pomôcť?",
+                            "next": 8,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Informatika pre manažérov je zameraná na praktické využitie IT v obchodnom prostredí. Učíme, ako efektívne komunikovať s IT tímami, ako vyhodnocovať IT projekty a ako využívať informačné systémy pre rozhodovanie. Oproti technickým kurzom je tu menší dôraz na programovanie a väčší na stratégie a procesy.",
+                    "choices": [
+                        {
+                            "text": "Aké praktické príklady používate vo výučbe?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako prepojujete výučbu s výskumom?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Môj výskum expertných systémov sa zameriava na kombináciu klasických databázových technológií s modernými metódami umelej inteligencie. Vyvíjame systémy, ktoré dokážu napríklad diagnostikovať chyby v IT infraštruktúre alebo odporúčať optimálne riešenia pre obchodné procesy.",
+                    "choices": [
+                        {
+                            "text": "Môžu sa študenti zapojiť do tohto výskumu?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Aké sú praktické aplikácie týchto systémov?",
+                            "next": 6,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Pracujeme s reálnymi prípadovými štúdiami - napríklad ako firma zavádzala nový ERP systém alebo ako sa riešil dátový analytický projekt. Študenti analyzujú úspechy a zlyhania a učia sa z nich.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Výskumné poznatky implementujem do výučby - napríklad v informatike pre manažérov ukazujeme, ako expertné systémy pomáhajú pri rozhodovaní. Naopak, diskusie so študentmi často inšpirujú nové výskumné smery.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Áno, prostredníctvom záverečných prác alebo výskumných stáží. Študenti sa môžu podieľať na vývoji konkrétnych modulov expertných systémov, testovaní alebo analýze dát. Je to výborná príležitosť pre tých, ktorí chcú skúsiť reálny výskum.",
+                    "choices": [
+                        {
+                            "text": "Aké zručnosti by mali mať záujemcovia?",
+                            "next": 7,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Naše systémy sa využívajú v rôznych odvetviach - od diagnostiky chýb v počítačových sieťach po podporu rozhodovania v logistike. Spolupracujeme s firmami na implementácii týchto riešení do ich procesov.",
+                    "choices": [
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Základy práce s dátami a analytické myslenie sú výhodou, ale dôležitejší je záujem o problematiku. Špecifické znalosti sa dajú doplniť počas práce na výskume. Pre manažérsky zameraných študentov je dôležité pochopenie obchodných procesov.",
+                    "choices": [
+                        {
+                            "text": "Ďakujem za informácie!",
+                            "next": null,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "text": "Haha ano dopočul si sa dobre je tu problém so stoličkami. Zajtra sa koná skúška v miestnosti RA301 a hrozí, že nebude dosť stoličiek ku každému monitoru. Nechceme to potom riešiť na poslednú cvhíľu a tak by som potrebovala aby sa na to niekto pozrel.",
+                    "choices": [
+                        {
+                            "text": "Preto som su! Ako viem teda pomôcť s touto stoličkovou núdzou?",
+                            "next": 9,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "text": "V tej istej miestnosti je program ktorý dokáže posúdiť či treba stoličky a koľko stačí len nazbierať dáta ktoré program potrebuje, trochu opraviť kód a mal by si dostať výpis s informáciou. Brnkačka.",
+                    "choices": [
+                        {
+                            "text": "Dobre rozumiem pôjdem sa teda na to pozrieť",
+                            "next": null,
+                            "quest": 7
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 2,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Zdravím zachvíľu odchádzam podarilo sa ti vyriešiť môj problém so stoličkami?",
+                    "choices": [
+                        {
+                            "text": "Áno podarilo.",
+                            "next": 1,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "To je skvelá správa! Aký je teda výsledok treba na zajtra doplniť nejaké stoličky?",
+                    "choices": [
+                        {
+                            "text": "Opravil som program, doplnil dáta ktore to potrebovalo a výpis tvrdí, že treba doplniť dve stoličky.",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Výborne ďakujem veľmi pekne ešte dnes to oznámim aby sa zajtra na to nezabudlo. Veľmi dobrá práca. Každopádne rozpravála som sa s mojou kolegyňou Dominikou Petríkovou a spomenula som aj teba. Ževraj aj jej by sa hodila nejaká pomocná ruka pozrieš sa na to? Pani Petríkovú nájdeš vonku v pri altánku",
+                    "choices": [
+                        {
+                            "text": "Ďakujem a áno prečo nie, pôjdem pani Petríkovú navštíviť. Dovidenia.",
+                            "next": null,
+                            "quest": 9
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

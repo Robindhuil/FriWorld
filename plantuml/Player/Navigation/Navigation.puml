@@ -1,0 +1,12 @@
+@startuml
+class Navigation {
+    + DrawQuestLine : bool <<get>> <<set>>
+    + DrawRoomLine : bool <<get>> <<set>>
+    + CalculatePath(destination:Transform, path:NavMeshPath, renderer:LineRenderer) : void
+    + ClearQuestPath() : void
+    + ClearRoomPath() : void
+}
+MonoBehaviour <|-- Navigation
+Navigation --> "RoomDestination" Transform
+Navigation --> "QuestDestination" Transform
+@enduml

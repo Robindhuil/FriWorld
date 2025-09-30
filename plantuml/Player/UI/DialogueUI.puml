@@ -1,0 +1,12 @@
+@startuml
+class DialogueUI {
+    + DialogueUI(canvas:Canvas, manager:InputManager)
+    + UpdateDialogue(message:string, npcName:string) : void
+    + UpdateOptionButton1(optionMessage:string) : void
+    + UpdateOptionButton2(optionMessage:string) : void
+    + <<override>> CloseWindow() : void
+    + <<override>> OpenWindow() : void
+    + SetNpc(newNpc:Npc) : void
+}
+BaseUi <|-- DialogueUI
+@enduml

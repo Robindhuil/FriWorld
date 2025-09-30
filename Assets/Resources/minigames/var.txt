@@ -1,0 +1,17 @@
+public class TempProgram {
+    public static void main(String[] args) {
+        int pocetOkien = ___;
+        int casHodina = ___;
+        String menoMiestnosti = "___";
+        boolean vonkuJeTma = ___;
+        char aktualnyBlok = '___';
+
+        System.out.println("O je: "
+            + pocetOkien
+            + casHodina
+            + aktualnyBlok
+            + menoMiestnosti.substring(2, 5)
+            + Boolean.compare(vonkuJeTma, false)
+        );
+    }
+}

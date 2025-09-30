@@ -1,0 +1,13 @@
+public class TempProgram {
+    public static void main(String[] args) {
+        ___ zastav = false;
+        while (true) {
+            System.out.println("Terminál: Kód je zaseknutý!");
+            if (___ == true) {
+                break;
+            }
+            ___ = true;
+        }
+        System.out.println("Program ukončený!");
+    }
+}

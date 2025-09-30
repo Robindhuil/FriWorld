@@ -1,0 +1,10 @@
+@startuml
+class JournalUI {
+    + IsMenuOn : bool <<get>> <<set>> = false
+    + JournalUI(canvas:Canvas, j:Journal, questName:TextMeshProUGUI, questObjective:TextMeshProUGUI, questInfo:TextMeshProUGUI, questListPanel:GameObject, trackButton:Button)
+    + <<override>> CloseWindow() : void
+    + <<override>> OpenWindow() : void
+}
+BaseUi <|-- JournalUI
+JournalUI --> "SelectedQuest" Quest
+@enduml

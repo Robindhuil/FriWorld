@@ -1,0 +1,207 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Ahoj, som Marek Kvet. Na FRI učím algoritmy a vediem projektovú výučbu, kde sa zameriavame na riešenie komplexných problémov. Vo voľnom čase optimlizujem dopravné systémy. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Čo všetko sa naučím vo vašich predmetoch?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako vyzerá váš výskum dopravných systémov?",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Nepotrebujete s niečím pomôcť?",
+                            "next": 8,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "V Informatike 1 sa naučíš základy programovania a algoritmického myslenia. V Algoritmoch a údajových štruktúrach prehlbíš tieto znalosti o pokročilé techniky. Projekty 1-3 ťa naučia pracovať v tíme na rozsiahlych systémoch - od analýzy po implementáciu.",
+                    "choices": [
+                        {
+                            "text": "Môžete uviesť príklad projektovej úlohy?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako súvisí výučba s vaším výskumom?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Venujem sa optimalizácii dopravných systémov - napríklad ako najlepšie rozmiestniť zastávky MHD alebo plánovať linky. Používame na to metaheuristiky, čo sú špeciálne algoritmy pre náročné optimalizačné problémy. Výsledky testujeme s reálnymi dopravnými dátami.",
+                    "choices": [
+                        {
+                            "text": "Môžu sa študenti zapojiť do výskumu?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Kde sa využívajú vaše výsledky?",
+                            "next": 6,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Typický projekt môže byť napríklad návrh informačného systému pre mestskú dopravu - od optimalizácie ciest autobusov po užívateľské rozhranie pre cestujúcich. Študenti pracujú v tímoch a riešia reálne problémy.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "V projektoch často riešime problémy podobné tým z výskumu - optimalizáciu, plánovanie, rozmiestňovanie. Študenti tak získajú skúsenosti s metódami, ktoré potom vidia v mojich výskumných prácach. Naopak, výskum mi dáva nové nápady pre výučbu.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Áno, cez záverečné práce alebo výskumné stáže. Študenti sa môžu podieľať na analýze dopravných dát, vývoji algoritmov alebo ich testovaní. Je to dobrá príležitosť naučiť sa reálne výskumné metódy.",
+                    "choices": [
+                        {
+                            "text": "Aké zručnosti sú potrebné?",
+                            "next": 7,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Naše výsledky využívajú mestá pri plánovaní dopravy, dopravné podniky pri optimalizácii liniek a niekedy aj navigačné systémy. Spolupracujeme s viacerými mestami na implementácii týchto riešení.",
+                    "choices": [
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Základy programovania a chuť riešiť komplexné problémy sú najdôležitejšie. Špecifické znalosti optimalizácie sa dajú doplniť. Pre dopravné aplikácie je výhodné, ale nie nevyhnutné, mať záujem o túto oblasť.",
+                    "choices": [
+                        {
+                            "text": "Ďakujem za informácie!",
+                            "next": null,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "text": "Som rád, že sa pýtaš, pretože áno, potrebujem... Zlomil sa mi kľúč od dverí učebne RA122 a mám tam jednu prácu o hierarchickom PQ-mediánovom modeli pre umiestňovanie sanitiek v meste, ktorú naozaj potrebujem. Vedel by si mi pomôcť?",
+                    "choices": [
+                        {
+                            "text": "No viem sa na to pozrieť ale ako presne Vám môžem pomôcť?",
+                            "next": 9,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "text": "No takto, zámočník už je na ceste ale bude to nejakú dobu trvať a nemôžem dlhšie čakať. Avšak tieto dvere sa dajú ovládať aj elektornicky! Každopádne v programovom kóde chýba metóda ktorá by vedela odomknúť tieto dvere... Treba túto metódu doprogramovať. Počítač je už pripravený pri dverách len potrebuje šikovnú ruku... Vedel by si mi s tým pomôcť?",
+                    "choices": [
+                        {
+                            "text": "Samozrejme pozriem sa na to",
+                            "next": 10,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Nemám teraz čas prepáčte",
+                            "next": null,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 10,
+                    "text": "Ďakujem ti veľmi pekne iba doprogramuj tú jednu metódu do programu a ja sa postarám o zvyšok. Ďakujem.",
+                    "choices": [
+                        {
+                            "text": "Okej rozumiem, vrhnem sa hneď na to",
+                            "next": null,
+                            "quest": 19
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 2,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Ďakujem ti veľmi za pomoc!. Podarilo sa ti úspešne odomknúť dvere pomocou metódy, ktorú si doprogramoval.",
+                    "choices": [
+                        {
+                            "text": "Tak to som rád že som mohol pomôcť, vedel by som ešte s niečím pomôcť?",
+                            "next": 1,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Nie ďakujem, už si mi pomohol dosť ale kolega Janech sa po tebe pýtal. Vedel by si sa mu prosím ťa zastaviť?",
+                    "choices": [
+                        {
+                            "text": "Samozrejme, idem sa za ním zastaviť.",
+                            "next": null,
+                            "quest": 21
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

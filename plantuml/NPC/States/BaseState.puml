@@ -1,0 +1,9 @@
+@startuml
+abstract class BaseState {
+    + {abstract} Enter() : void
+    + {abstract} Perform() : void
+    + {abstract} Exit() : void
+}
+BaseState --> "npc" Npc
+BaseState --> "stateMachine" StateMachine
+@enduml

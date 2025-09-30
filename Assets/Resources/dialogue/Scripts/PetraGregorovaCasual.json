@@ -1,0 +1,137 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Dobrý deň, som Petra Gregorová. Na FRI učím základy informatiky pre technických aj netechnických študentov a venujem sa výskumu v oblasti databáz a umelej inteligencie. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Ako sa líši výučba informatiky pre manažérov od štandardných kurzov?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Môžete mi povedať viac o svojom výskume expertných systémov?",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Informatika pre manažérov je zameraná na praktické využitie IT v obchodnom prostredí. Učíme, ako efektívne komunikovať s IT tímami, ako vyhodnocovať IT projekty a ako využívať informačné systémy pre rozhodovanie. Oproti technickým kurzom je tu menší dôraz na programovanie a väčší na stratégie a procesy.",
+                    "choices": [
+                        {
+                            "text": "Aké praktické príklady používate vo výučbe?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako prepojujete výučbu s výskumom?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Môj výskum expertných systémov sa zameriava na kombináciu klasických databázových technológií s modernými metódami umelej inteligencie. Vyvíjame systémy, ktoré dokážu napríklad diagnostikovať chyby v IT infraštruktúre alebo odporúčať optimálne riešenia pre obchodné procesy.",
+                    "choices": [
+                        {
+                            "text": "Môžu sa študenti zapojiť do tohto výskumu?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Aké sú praktické aplikácie týchto systémov?",
+                            "next": 6,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Pracujeme s reálnymi prípadovými štúdiami - napríklad ako firma zavádzala nový ERP systém alebo ako sa riešil dátový analytický projekt. Študenti analyzujú úspechy a zlyhania a učia sa z nich.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Výskumné poznatky implementujem do výučby - napríklad v informatike pre manažérov ukazujeme, ako expertné systémy pomáhajú pri rozhodovaní. Naopak, diskusie so študentmi často inšpirujú nové výskumné smery.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Áno, prostredníctvom záverečných prác alebo výskumných stáží. Študenti sa môžu podieľať na vývoji konkrétnych modulov expertných systémov, testovaní alebo analýze dát. Je to výborná príležitosť pre tých, ktorí chcú skúsiť reálny výskum.",
+                    "choices": [
+                        {
+                            "text": "Aké zručnosti by mali mať záujemcovia?",
+                            "next": 7,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Naše systémy sa využívajú v rôznych odvetviach - od diagnostiky chýb v počítačových sieťach po podporu rozhodovania v logistike. Spolupracujeme s firmami na implementácii týchto riešení do ich procesov.",
+                    "choices": [
+                        {
+                            "text": "Späť na výskum",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Základy práce s dátami a analytické myslenie sú výhodou, ale dôležitejší je záujem o problematiku. Špecifické znalosti sa dajú doplniť počas práce na výskume. Pre manažérsky zameraných študentov je dôležité pochopenie obchodných procesov.",
+                    "choices": [
+                        {
+                            "text": "Ďakujem za informácie!",
+                            "next": null,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

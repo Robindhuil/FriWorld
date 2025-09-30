@@ -1,0 +1,11 @@
+@startuml
+class TabUI {
+    + IsMenuOn : bool <<get>>
+    + TabUI(canvas:Canvas, journalButton:Button, codexButton:Button, navigationButton:Button, statsButton:Button)
+    + SetActiveButton(button:Button) : void
+    + <<override>> CloseWindow() : void
+    + <<override>> OpenWindow() : void
+}
+BaseUi <|-- TabUI
+TabUI --> "ActiveButton" Button
+@enduml

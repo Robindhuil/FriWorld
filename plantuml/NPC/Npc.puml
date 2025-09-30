@@ -1,0 +1,15 @@
+@startuml
+class Npc {
+    + isInDialogue : bool = false
+    + npc_name : string = "NPC"
+    + canMove : bool = false
+    + nextWaypointIndex : int
+    + canCommunicate : bool = false
+    + StartDialogue() : void
+    + ContinueDialogue() : void
+    + StopDialogue() : void
+}
+MonoBehaviour <|-- Npc
+Npc --> "Agent" NavMeshAgent
+Npc --> "path" Path
+@enduml

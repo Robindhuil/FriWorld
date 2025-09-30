@@ -1,0 +1,240 @@
+{
+    "levels": [
+        {
+            "level": 1,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Ahoj! Som Matej Meško, učím na FRI ŽU a okrem výučby sa venujem aj vývoju webových a mobilných aplikácií v mojej agentúre. Čo ťa zaujíma?",
+                    "choices": [
+                        {
+                            "text": "Aké predmety vyučujete a čo sa v nich naučím?",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako kombinujete IT a umeleckú stránku?",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Vyzeráte zaneprázdnene, nepotrebujete s niečím pomôcť?",
+                            "next": 8,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Vyučujem hlavne vývoj webových a mobilných aplikácií. V predmetoch sa naučíš od základov PHP a Laravelu až po pokročilé techniky vývoja. Študenti často pracujú na reálnych projektoch, ako sú intranetové systémy pre firmy alebo mobilné aplikácie.",
+                    "choices": [
+                        {
+                            "text": "Môžete uviesť príklad študentského projektu?",
+                            "next": 3,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Ako vyzerajú vaše cvičenia?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Vždy ma bavila kombinácia techniky a kreativity. Tento mix mi pomáha učiť študentov, že dobrý programátor potrebuje aj vizuálne myslenie a cit pre dizajn.",
+                    "choices": [
+                        {
+                            "text": "Ako to ovplyvňuje vašu výučbu?",
+                            "next": 5,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Povedzte viac o vašom výskume",
+                            "next": 6,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Napríklad v minulom semestri študenti vytvárali systém na správu tréningov pre športový klub - od návrhu databázy po frontend. Iný tím robil mobilnú aplikáciu na zber dát z terénu.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "text": "Cvičenia sú veľmi praktické - od živých ukážok kódu po tímovú prácu na projektoch. Dávam dôraz na to, aby študenti videli súvislosti a vedeli aplikovať teóriu v praxi.",
+                    "choices": [
+                        {
+                            "text": "Späť na výučbu",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 5,
+                    "text": "Učím študentov myslieť aj na UX/UI aspekty aplikácií. Napríklad pri vývoji webov riešime nielen funkcionalitu, ale aj to, ako bude aplikácia vyzerať a akú bude mať používateľskú skúsenosť.",
+                    "choices": [
+                        {
+                            "text": "Späť na kombináciu IT a umenia",
+                            "next": 2,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 6,
+                    "text": "Venujem sa hlavne počítačovému videniu a 3D rekonštrukcii obrazu. Výsledky využívame napríklad v inteligentných dopravných systémoch. Tento výskum mi pomáha udržiavať si prehľad o najnovších technológiách, ktoré potom môžem predávať študentom.",
+                    "choices": [
+                        {
+                            "text": "Môžu sa študenti zapojiť do výskumu?",
+                            "next": 7,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "text": "Áno, cez záverečné práce alebo výskumné stáže. Najlepší študenti sa podieľajú na vývoji našich algoritmov alebo publikujú výsledky. Ak máš záujem, môžeme sa baviť o konkrétnych témach.",
+                    "choices": [
+                        {
+                            "text": "Ďakujem za rozhovor!",
+                            "next": null,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Späť na úvod",
+                            "next": 0,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 8,
+                    "text": "Ďakujem za opýtanie, áno. Nedávno som si menil heslo od Moodlu ale vyzerá to tak, že som ho zabudol. Našťastie som si zapísal indície a spracoval kód ktorý by toto heslo mal rozlúštiť. Kód sa ale trochu corruptol a nie je teraz úplny...",
+                    "choices": [
+                        {
+                            "text": "Môžem Vám s tým nejako pomôcť?",
+                            "next": 9,
+                            "quest": -1
+                        },
+                        {
+                            "text": "To je nepríjemné, dúfam, že sa vám to podarí vyriešiť.",
+                            "next": null,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 9,
+                    "text": "Ďakujem, bol by som ti vďačný. Ako som spomínal, mám kód ktorý by mal heslo rozlúštiť ale nie je úplný. Môžeš sa naň pozrieť a opraviť ho?",
+                    "choices": [
+                        {
+                            "text": "Ale samozrejme, pozriem sa na to ihneď!",
+                            "next": null,
+                            "quest": 4
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "level": 2,
+            "dialogue": [
+                {
+                    "id": 0,
+                    "text": "Vitaj naspäť! No čo podarilo sa ti zistiť kód?",
+                    "choices": [
+                        {
+                            "text": "Ano prišiel som na to!",
+                            "next": 1,
+                            "quest": -1
+                        },
+                        {
+                            "text": "Prepačte ešte nie",
+                            "next": null,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 1,
+                    "text": "Výborne tak hovor aký kód sa ti podarilo zistiť?",
+                    "choices": [
+                        {
+                            "text": "Kód by mal byť 813a222",
+                            "next": 2,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 2,
+                    "text": "Och áno už som si spomenul ďakujem! Ja osobne pre teba už nič nemám ale moja kolegyňa pani Petra Gregorová mi dnes na obede spomínala, že má nejaký problém so stoličkami.",
+                    "choices": [
+                        {
+                            "text": "So stoličkami? A kde by som pani Gregorovú vedel nájsť?",
+                            "next": 3,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 3,
+                    "text": "Pani Gregorová už skončila a každú chvíľu by mala ísť už domov. Každopádne viem, že sa chcela ísť pozrieť za ďalšou kolegyňou v bloku 'B' na poschodí číslo 2 tak skús pohladať tam.",
+                    "choices": [
+                        {
+                            "text": "Dobre budem sa teda ponáhľať a dúfam že ju v bloku 'B' nájdem.",
+                            "next": null,
+                            "quest": 6
+                        },
+                        {
+                            "text": "Môžem sa ešte opýtať čo znamená blok 'B'?",
+                            "next": 4,
+                            "quest": -1
+                        }
+                    ]
+                },
+                {
+                    "id": 4,
+                    "quest": -1,
+                    "text": "Takže takto naša fakulta je označovaná písmenom 'R' a máme tri bloky: 'A', 'B' a 'C'. Ďalej už iba následuje číslo ktoré označuje poschodie v danom bloku. Ďalšie čísla sú potom jedinečné označenie miestnosti. Napr. ak máme miestnosť RA102 tak sa nachádza v sektore 'A' na 1. poschodí a miestnosť '02'",
+                    "choices": [
+                        {
+                            "text": "Aha okej už rozumiem ďakujem. Vrhnem sa teda na to!",
+                            "next": null,
+                            "quest": 6
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
