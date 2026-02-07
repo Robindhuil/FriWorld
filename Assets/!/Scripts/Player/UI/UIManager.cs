@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Button = UnityEngine.UI.Button;
 
 public class UIManager : MonoBehaviour
 {
@@ -23,7 +25,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private AudioMixer audioMixer;
     [Header("UI Canvases")]
-    [SerializeField] private Canvas playerCanvas;
+    [SerializeField] private UIDocument playerUIDocument;
     [SerializeField] private Canvas dialogueCanvas;
     [SerializeField] private Canvas journalCanvas;
     [SerializeField] private Canvas navigationCanvas;
@@ -36,7 +38,7 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        playerUI = new PlayerUI(playerCanvas, this);
+        playerUI = new PlayerUI(playerUIDocument, this);
         inputManager = GetComponent<InputManager>();
         dialogueUI = new DialogueUI(dialogueCanvas, inputManager, this, buttonPrefab, this);
     }
@@ -71,8 +73,8 @@ public class UIManager : MonoBehaviour
         tabUI.CloseWindow();
         inputManager.onFoot.Look.Enable();
         inputManager.onFoot.Movement.Enable();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
     }
 
     public void ClosePlayerUI()
@@ -82,8 +84,8 @@ public class UIManager : MonoBehaviour
         inputManager.onFoot.Movement.Disable();
         tabUI.OpenWindow();
         playerUI.CloseWindow();
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
 
     }
 

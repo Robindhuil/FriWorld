@@ -1,39 +1,60 @@
 using UnityEngine;
-using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class PlayerUI : BaseUi
 {
-    private TextMeshProUGUI promptText;
-    private TextMeshProUGUI questName;
-    private TextMeshProUGUI questInfo;
+    private Label promptText;
+    private Label questName;
+    private Label questInfo;
 
-    private Canvas playerCanvas;
-    private Transform notificationPanel;
-    private Queue<GameObject> notificationQueue = new Queue<GameObject>();
+    private UIDocument playerUIDocument;
+    private VisualElement rootVisualElement;
+    private VisualElement notificationPanel;
+    private Queue<VisualElement> notificationQueue = new Queue<VisualElement>();
     private MonoBehaviour coroutineRunner;
-    private GameObject questPanel;
+    private VisualElement questPanel;
     private float notificationSpacing = 90f;
 
-    public PlayerUI(Canvas canvas, MonoBehaviour runner)
+    public PlayerUI(UIDocument uiDocument, MonoBehaviour runner)
     {
-        playerCanvas = canvas;
+        playerUIDocument = uiDocument;
         coroutineRunner = runner;
-        promptText = playerCanvas.GetComponentsInChildren<TextMeshProUGUI>().FirstOrDefault(b => b.name == "PromptText");
-        questName = playerCanvas.GetComponentsInChildren<TextMeshProUGUI>().FirstOrDefault(b => b.name == "QuestName");
-        questInfo = playerCanvas.GetComponentsInChildren<TextMeshProUGUI>().FirstOrDefault(b => b.name == "QuestInfo");
-        notificationPanel = playerCanvas.GetComponentsInChildren<Transform>().FirstOrDefault(b => b.name == "NotificationPanel");
-        questPanel = playerCanvas.transform.Find("Background/Quest")?.gameObject;
+        
+        // Ensure the GameObject is active so the visual tree is available
+        if (!playerUIDocument.gameObject.activeSelf)
+        {
+            playerUIDocument.gameObject.SetActive(true);
+        }
+        
+        rootVisualElement = playerUIDocument.rootVisualElement;
 
-        questPanel.SetActive(false);
+        promptText = rootVisualElement.Q<Label>("PromptText");
+        questName = rootVisualElement.Q<Label>("QuestName");
+        questInfo = rootVisualElement.Q<Label>("QuestDescription");
+        
+        if (questName == null || questInfo == null)
+        {
+            Debug.LogError("[PlayerUI] Could not find QuestName or QuestDescription labels in the UXML.");
+        }
+        
+        notificationPanel = rootVisualElement.Q<VisualElement>("ToastPanel");
+        questPanel = rootVisualElement.Q<VisualElement>("QuestPanel");
+
+        if (questPanel != null)
+        {
+            questPanel.style.display = DisplayStyle.None;
+        }
 
         if (notificationPanel == null)
         {
-            Debug.LogError("[PlayerUI] NotificationPanel not found in PlayerUI. Make sure it exists in the canvas.");
+            Debug.LogError("[PlayerUI] ToastPanel not found in PlayerUI. Make sure it exists in the UXML.");
         }
+        
+        // Start visible by default
+        rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
     public void UpdateText(string promptMessage)
@@ -49,8 +70,11 @@ public class PlayerUI : BaseUi
 
     public void DisplayQuest(string questName, string questInfo)
     {
-        questPanel.SetActive(true);
-        UpdateQuestInfo(questName, questInfo);
+        if (questPanel != null)
+        {
+            questPanel.style.display = DisplayStyle.Flex;
+            UpdateQuestInfo(questName, questInfo);
+        }
     }
 
     public void DisplayQuestComplete(string questName)
@@ -61,7 +85,10 @@ public class PlayerUI : BaseUi
 
     public void HideQuestInfo()
     {
-        questPanel.SetActive(false);
+        if (questPanel != null)
+        {
+            questPanel.style.display = DisplayStyle.None;
+        }
     }
 
     public void DisplayCodexUnlock(string entryName)
@@ -83,12 +110,12 @@ public class PlayerUI : BaseUi
     {
         if (notificationPanel == null)
         {
-            Debug.LogError("[PlayerUI] NotificationPanel is null. Cannot display notification.");
+            Debug.LogError("[PlayerUI] ToastPanel is null. Cannot display notification.");
             return;
         }
 
-        GameObject notification = CreateNotification(title, message);
-        notification.transform.SetParent(notificationPanel.transform, false);
+        VisualElement notification = CreateNotification(title, message);
+        notificationPanel.Add(notification);
 
         notificationQueue.Enqueue(notification);
         UpdateNotificationPositions();
@@ -96,90 +123,92 @@ public class PlayerUI : BaseUi
         coroutineRunner.StartCoroutine(AnimateNotification(notification));
     }
 
-    private GameObject CreateNotification(string title, string message)
+    private VisualElement CreateNotification(string title, string message)
     {
-        GameObject notification = new GameObject("Notification");
-        RectTransform rectTransform = notification.AddComponent<RectTransform>();
-        rectTransform.sizeDelta = new Vector2(300, 80);
-        rectTransform.anchorMin = new Vector2(0, 1);
-        rectTransform.anchorMax = new Vector2(1, 1);
-        rectTransform.pivot = new Vector2(0.5f, 1);
-        rectTransform.localPosition = new Vector3(0, -notificationQueue.Count * notificationSpacing, 0);
+        VisualElement notification = new VisualElement();
+        notification.name = "Notification";
+        notification.style.width = 300;
+        notification.style.height = 80;
+        notification.style.position = Position.Absolute;
+        notification.style.top = notificationQueue.Count * notificationSpacing;
+        notification.style.right = -400; // Start off-screen
 
-        GameObject background = new GameObject("Background");
-        background.transform.SetParent(notification.transform, false);
-        Image bgImage = background.AddComponent<Image>();
-        bgImage.color = new Color(0, 0, 0, 0.65f);
-        RectTransform bgRect = background.GetComponent<RectTransform>();
-        bgRect.anchorMin = Vector2.zero;
-        bgRect.anchorMax = Vector2.one;
-        bgRect.offsetMin = Vector2.zero;
-        bgRect.offsetMax = Vector2.zero;
+        // Background
+        VisualElement background = new VisualElement();
+        background.name = "Background";
+        background.style.backgroundColor = new Color(0, 0, 0, 125f / 255f);
+        background.style.borderBottomLeftRadius = 50;
+        background.style.position = Position.Absolute;
+        background.style.width = Length.Percent(100);
+        background.style.height = Length.Percent(100);
+        notification.Add(background);
 
-        GameObject titleObject = new GameObject("Title");
-        titleObject.transform.SetParent(notification.transform, false);
-        TextMeshProUGUI titleText = titleObject.AddComponent<TextMeshProUGUI>();
-        titleText.text = "<color=green><b>" + title + "</b></color>";
-        titleText.fontSize = 22;
-        titleText.font = promptText.font;
-        titleText.alignment = TextAlignmentOptions.TopLeft;
-        RectTransform titleRect = titleText.rectTransform;
-        titleRect.anchorMin = new Vector2(0, 1);
-        titleRect.anchorMax = new Vector2(1, 1);
-        titleRect.pivot = new Vector2(0, 1);
-        titleRect.offsetMin = new Vector2(10, -30);
-        titleRect.offsetMax = new Vector2(-10, 0);
+        // Title
+        Label titleLabel = new Label(title);
+        titleLabel.name = "Title";
+        titleLabel.style.fontSize = 22;
+        titleLabel.style.color = Color.green;
+        titleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
+        titleLabel.style.unityFontDefinition = promptText.style.unityFontDefinition;
+        titleLabel.style.paddingRight = 20;
+        titleLabel.style.position = Position.Absolute;
+        titleLabel.style.top = 5;
+        titleLabel.style.left = 10;
+        titleLabel.style.right = 10;
+        notification.Add(titleLabel);
 
-        GameObject messageObject = new GameObject("Message");
-        messageObject.transform.SetParent(notification.transform, false);
-        TextMeshProUGUI messageText = messageObject.AddComponent<TextMeshProUGUI>();
-        messageText.text = message;
-        messageText.fontSize = 18;
-        messageText.font = promptText.font;
-        messageText.color = Color.white;
-        messageText.alignment = TextAlignmentOptions.TopLeft;
-        RectTransform messageRect = messageText.rectTransform;
-        messageRect.anchorMin = new Vector2(0, 0);
-        messageRect.anchorMax = new Vector2(1, 0.8f);
-        messageRect.pivot = new Vector2(0, 1);
-        messageRect.offsetMin = new Vector2(10, 10);
-        messageRect.offsetMax = new Vector2(-10, -10);
+        // Message
+        Label messageLabel = new Label(message);
+        messageLabel.name = "Message";
+        messageLabel.style.fontSize = 18;
+        messageLabel.style.color = Color.white;
+        messageLabel.style.unityFontDefinition = promptText.style.unityFontDefinition;
+        messageLabel.style.paddingRight = 20;
+        messageLabel.style.position = Position.Absolute;
+        messageLabel.style.top = 30;
+        messageLabel.style.left = 10;
+        messageLabel.style.right = 10;
+        messageLabel.style.bottom = 10;
+        notification.Add(messageLabel);
 
         return notification;
     }
 
-    private IEnumerator AnimateNotification(GameObject notification)
+    private IEnumerator AnimateNotification(VisualElement notification)
     {
-        RectTransform rectTransform = notification.GetComponent<RectTransform>();
         float duration = 0.5f;
         float elapsed = 0;
-        Vector3 start = new Vector3(400, rectTransform.localPosition.y, 0);
-        Vector3 end = new Vector3(0, rectTransform.localPosition.y, 0);
+        float startX = -400;
+        float endX = 0;
 
+        // Slide in
         while (elapsed < duration)
         {
-            rectTransform.localPosition = Vector3.Lerp(start, end, elapsed / duration);
+            float t = elapsed / duration;
+            notification.style.right = Mathf.Lerp(startX, endX, t);
             elapsed += Time.deltaTime;
             yield return null;
         }
-        rectTransform.localPosition = end;
+        notification.style.right = endX;
 
         yield return new WaitForSeconds(5f);
 
+        // Slide out
         elapsed = 0;
-        start = rectTransform.localPosition;
-        end = new Vector3(400, rectTransform.localPosition.y, 0);
+        startX = 0;
+        endX = -400;
 
         while (elapsed < duration)
         {
-            rectTransform.localPosition = Vector3.Lerp(start, end, elapsed / duration);
+            float t = elapsed / duration;
+            notification.style.right = Mathf.Lerp(startX, endX, t);
             elapsed += Time.deltaTime;
             yield return null;
         }
-        rectTransform.localPosition = end;
+        notification.style.right = endX;
 
         notificationQueue.Dequeue();
-        GameObject.Destroy(notification);
+        notificationPanel.Remove(notification);
         UpdateNotificationPositions();
     }
 
@@ -190,8 +219,7 @@ public class PlayerUI : BaseUi
         {
             if (notification != null)
             {
-                RectTransform rectTransform = notification.GetComponent<RectTransform>();
-                rectTransform.localPosition = new Vector3(0, -index * notificationSpacing, 0);
+                notification.style.top = index * notificationSpacing;
                 index++;
             }
         }
@@ -199,11 +227,17 @@ public class PlayerUI : BaseUi
 
     public override void OpenWindow()
     {
-        playerCanvas.gameObject.SetActive(true);
+        if (rootVisualElement != null)
+        {
+            rootVisualElement.style.display = DisplayStyle.Flex;
+        }
     }
 
     public override void CloseWindow()
     {
-        playerCanvas.gameObject.SetActive(false);
+        if (rootVisualElement != null)
+        {
+            rootVisualElement.style.display = DisplayStyle.None;
+        }
     }
 }

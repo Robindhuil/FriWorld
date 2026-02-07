@@ -1,0 +1,11 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row;">
+        <ui:VisualElement name="QuestPanel" style="flex-grow: 1; margin-bottom: 800px; background-color: rgba(0, 0, 0, 0.49); border-bottom-right-radius: 50px; width: 200px; height: 125px;">
+            <ui:Label text="QuestName" name="QuestName" style="font-size: 30px; color: rgb(218, 165, 32); -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&amp;guid=5c670b434ca74524386dd732ddcb8661&amp;type=3#bedstead&quot;); padding-right: 2px; padding-bottom: 4px; padding-left: 20px; width: 600px; -unity-text-auto-size: best-fit 10px 30px; -unity-text-generator: advanced;"/>
+            <ui:Label text="Quest description" name="QuestDescription" style="font-size: 25px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&amp;guid=5c670b434ca74524386dd732ddcb8661&amp;type=3#bedstead&quot;); padding-right: 2px; padding-bottom: 4px; padding-left: 20px; height: 65px; width: 600px; white-space: normal; -unity-text-auto-size: best-fit 10px 25px; -unity-text-generator: advanced;"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="VisualElement" style="flex-grow: 1; margin-bottom: 800px; padding-right: 0; padding-left: 0; margin-left: 200px; margin-right: 200px;"/>
+        <ui:VisualElement name="ToastPanel" style="flex-grow: 1; margin-bottom: 800px; padding-left: 0; width: 100px;"/>
+    </ui:VisualElement>
+    <ui:Label text="Prompt text" name="PromptText" style="justify-content: flex-start; -unity-text-align: upper-center; margin-right: 50px; padding-right: 2px; margin-bottom: 90px; font-size: 50px; -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&amp;guid=5c670b434ca74524386dd732ddcb8661&amp;type=3#bedstead&quot;); color: rgb(255, 255, 255); margin-left: 50px;"/>
+</ui:UXML>
