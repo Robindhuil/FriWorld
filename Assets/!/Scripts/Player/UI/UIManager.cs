@@ -28,7 +28,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIDocument playerUIDocument;
     [SerializeField] private UIDocument playerWindowsDocument;
     [SerializeField] private Canvas dialogueCanvas;
-    [SerializeField] private Canvas codexCanvas;
     [SerializeField] private Canvas menuCanvas;
 
 
@@ -230,13 +229,7 @@ public class UIManager : MonoBehaviour
 
     public void InitializeCodexUI()
     {
-        GameObject categoryList = codexCanvas.transform.Find("Background/Category/List/Scroll/Viewport/Content")?.gameObject;
-        GameObject subList = codexCanvas.transform.Find("Background/SubCategory/SubList/Scroll/Viewport/Content")?.gameObject;
-        TextMeshProUGUI infoName = codexCanvas.transform.Find("Background/Info/InfoList/Name")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI infoDesc = codexCanvas.transform.Find("Background/Info/InfoList/InfoBackground/Info/Scroll/Viewport/Content").GetComponent<TextMeshProUGUI>();
-        RawImage photo = codexCanvas.transform.Find("Background/Info/InfoList/InfoBackground/PhotoBackground/Photo")?.GetComponent<RawImage>();
-
-        codexUI = new CodexUI(codexCanvas, categoryList, subList, infoName, infoDesc, photo, buttonPrefab, this, audioMixer);
+        codexUI = new CodexUI(playerWindowsDocument, this, audioMixer);
     }
     public void InitializeStatsUI()
     {
