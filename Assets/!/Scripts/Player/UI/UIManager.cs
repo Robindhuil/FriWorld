@@ -28,7 +28,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIDocument playerUIDocument;
     [SerializeField] private UIDocument playerWindowsDocument;
     [SerializeField] private Canvas dialogueCanvas;
-    [SerializeField] private Canvas journalCanvas;
     [SerializeField] private Canvas codexCanvas;
     [SerializeField] private Canvas menuCanvas;
 
@@ -207,17 +206,9 @@ public class UIManager : MonoBehaviour
 
     public void InitializeJournalUI()
     {
-
-        TextMeshProUGUI questName = journalCanvas.transform.Find("Background/QuestInfo/QuestName")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI questObjective = journalCanvas.transform.Find("Background/QuestInfo/QuestObjective")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI questInfo = journalCanvas.transform.Find("Background/QuestInfo/Info")?.GetComponent<TextMeshProUGUI>();
-        GameObject questList = journalCanvas.transform.Find("Background/QuestList/List/Scroll/Viewport/Content")?.gameObject;
-        Button trackButton = journalCanvas.transform.Find("Background/QuestInfo/TrackButton")?.GetComponentInChildren<Button>();
-
-
         Journal journal = player.PlayerManagment.journal;
-        journalUI = new JournalUI(journalCanvas, journal, questName, questObjective, questInfo, questList, trackButton, buttonPrefab, this);
-        trackButton.onClick.AddListener(TrackQuest);
+        journalUI = new JournalUI(playerWindowsDocument, journal);
+        journalUI.SetTrackButtonCallback(TrackQuest);
     }
 
     public void InitializeTabUI()
@@ -293,14 +284,16 @@ public class UIManager : MonoBehaviour
             }
             Transform questTransform = journal.GetQuestTransform(journalUI.SelectedQuest.id);
 
-            if (nav.QuestDestination == questTransform)
+            if (journalUI.TrackedQuest == null)
             {
+                // Untracking the quest
                 playerUI.HideQuestInfo();
                 nav.ClearQuestPath();
                 nav.DrawQuestLine = false;
             }
-            else if (questTransform != null)
+            else if (journalUI.TrackedQuest == journalUI.SelectedQuest)
             {
+                // Tracking the quest
                 playerUI.DisplayQuest(journalUI.TrackedQuest.questName, journalUI.TrackedQuest.questObjective);
                 nav.QuestDestination = questTransform;
                 nav.DrawQuestLine = true;
