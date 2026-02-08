@@ -1,38 +1,41 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class StatsUI : BaseUi
 {
-    private Canvas statsCanvas;
+    private VisualElement statsRoot;
     public bool IsMenuOn { get; set; }
-    TextMeshProUGUI questCount;
-    TextMeshProUGUI secretCount;
-    TextMeshProUGUI mistakeCount;
-    TextMeshProUGUI walkCount;
+    private Label questCount;
+    private Label secretCount;
+    private Label mistakeCount;
+    private Label walkCount;
     private Player player;
-    public StatsUI(Canvas canvas, TextMeshProUGUI questCount, TextMeshProUGUI secretCount, TextMeshProUGUI mistakeCount, TextMeshProUGUI walkCount, MonoBehaviour runner)
+
+    public StatsUI(UIDocument document, MonoBehaviour runner)
     {
         IsMenuOn = false;
-        statsCanvas = canvas;
-        statsCanvas.gameObject.SetActive(false);
-        this.questCount = questCount;
-        this.secretCount = secretCount;
-        this.mistakeCount = mistakeCount;
-        this.walkCount = walkCount;
+        var root = document.rootVisualElement;
+        
+        statsRoot = root.Q<VisualElement>("StatsUI");
+        questCount = statsRoot.Q<Label>("QuestCount");
+        secretCount = statsRoot.Q<Label>("SecretCount");
+        mistakeCount = statsRoot.Q<Label>("MistakeCount");
+        walkCount = statsRoot.Q<Label>("WalkCount");
+        
         player = runner.GetComponent<Player>();
+        statsRoot.style.display = DisplayStyle.None;
     }
 
     public override void CloseWindow()
     {
-        statsCanvas.gameObject.SetActive(false);
+        statsRoot.style.display = DisplayStyle.None;
         IsMenuOn = false;
     }
 
     public override void OpenWindow()
     {
         UpdateAll();
-        statsCanvas.gameObject.SetActive(true);
+        statsRoot.style.display = DisplayStyle.Flex;
         IsMenuOn = true;
     }
 

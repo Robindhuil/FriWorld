@@ -30,7 +30,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas dialogueCanvas;
     [SerializeField] private Canvas journalCanvas;
     [SerializeField] private Canvas codexCanvas;
-    [SerializeField] private Canvas statsCanvas;
     [SerializeField] private Canvas menuCanvas;
 
 
@@ -250,12 +249,7 @@ public class UIManager : MonoBehaviour
     }
     public void InitializeStatsUI()
     {
-        TextMeshProUGUI questCount = statsCanvas.transform.Find("Background/Panel1/QuestCount")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI secretCount = statsCanvas.transform.Find("Background/Panel1/SecretCount")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI mistakeCount = statsCanvas.transform.Find("Background/Panel1/MistakeCount")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI walkCount = statsCanvas.transform.Find("Background/Panel1/WalkCount")?.GetComponent<TextMeshProUGUI>();
-
-        statsUI = new StatsUI(statsCanvas, questCount, secretCount, mistakeCount, walkCount, this);
+        statsUI = new StatsUI(playerWindowsDocument, this);
     }
 
     public void OpenJournal()
