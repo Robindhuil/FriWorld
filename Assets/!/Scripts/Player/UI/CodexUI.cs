@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.Video;
-using System.Collections;
+using UnityEngine.Audio;
 using System.Linq;
 using System.Collections.Generic;
-using UnityEngine.Audio;
 
 public class CodexUI : BaseUi
 {
@@ -21,18 +19,12 @@ public class CodexUI : BaseUi
     private Button lastCategoryButton;
     private Button lastSubButton;
     private MonoBehaviour runner;
-
-    private VisualElement videoPanel;
-    private VideoPlayer videoPlayer;
-    private RenderTexture videoRenderTexture;
-    private AudioMixer mixer;
-    private float previousMusicVolume;
+    private VideoPlayerUI videoPlayerUI;
 
     public CodexUI(UIDocument document, MonoBehaviour runner, AudioMixer mixer)
     {
         this.uiDocument = document;
         this.runner = runner;
-        this.mixer = mixer;
         
         rootElement = uiDocument.rootVisualElement;
         codexUIElement = rootElement.Q<VisualElement>("CodexUI");
@@ -52,6 +44,9 @@ public class CodexUI : BaseUi
             Debug.LogError("[CodexUI] Codex.Instance je null!");
             return;
         }
+
+        // Initialize video player UI
+        videoPlayerUI = new VideoPlayerUI(document, mixer);
 
         SetupCategoriesList();
         SetupSubCategoriesList();
@@ -233,7 +228,7 @@ public class CodexUI : BaseUi
             if (entry.category == "Programovanie" && !string.IsNullOrEmpty(entry.video))
             {
                 // Register click handler for video
-                pictureElement.RegisterCallback<ClickEvent>(evt => PlayVideo(entry.video));
+                pictureElement.RegisterCallback<ClickEvent>(evt => videoPlayerUI?.PlayVideo(entry.video));
 
                 if (!string.IsNullOrEmpty(entry.photo))
                 {
@@ -334,167 +329,5 @@ public class CodexUI : BaseUi
             nameParts[i] = nameParts[i].Replace(",", "");
         }
         return string.Join(" ", nameParts);
-    }
-
-
-    private void CreateVideoPlayerUI()
-    {
-        if (videoPanel != null)
-            return;
-
-        // Create video panel as overlay on the root canvas
-        Canvas rootCanvas = uiDocument.GetComponent<Canvas>();
-        if (rootCanvas == null)
-        {
-            // Find a canvas in the parent hierarchy
-            rootCanvas = uiDocument.GetComponentInParent<Canvas>();
-        }
-
-        if (rootCanvas == null)
-        {
-            Debug.LogError("[CodexUI] Cannot find Canvas for video player!");
-            return;
-        }
-
-        videoPanel = new VisualElement();
-        videoPanel.name = "VideoPanel";
-        videoPanel.style.position = Position.Absolute;
-        videoPanel.style.left = 0;
-        videoPanel.style.top = 0;
-        videoPanel.style.right = 0;
-        videoPanel.style.bottom = 0;
-        videoPanel.style.backgroundColor = new Color(0, 0, 0, 0.8f);
-        videoPanel.style.alignItems = Align.Center;
-        videoPanel.style.justifyContent = Justify.Center;
-
-        // Create video display container
-        var videoContainer = new VisualElement();
-        videoContainer.name = "VideoContainer";
-        videoContainer.style.width = new Length(80, LengthUnit.Percent);
-        videoContainer.style.height = new Length(80, LengthUnit.Percent);
-        videoContainer.style.backgroundColor = Color.black;
-        videoContainer.style.borderTopLeftRadius = 10;
-        videoContainer.style.borderTopRightRadius = 10;
-        videoContainer.style.borderBottomLeftRadius = 10;
-        videoContainer.style.borderBottomRightRadius = 10;
-
-        // Create close button
-        var closeButton = new UnityEngine.UIElements.Button(() => CloseVideoPlayerUI());
-        closeButton.text = "X";
-        closeButton.style.position = Position.Absolute;
-        closeButton.style.top = 10;
-        closeButton.style.right = 10;
-        closeButton.style.width = 60;
-        closeButton.style.height = 40;
-        closeButton.style.fontSize = 25;
-        closeButton.style.backgroundColor = new Color(0.8f, 0.2f, 0.2f, 1f);
-        closeButton.style.color = Color.white;
-        closeButton.style.borderTopLeftRadius = 5;
-        closeButton.style.borderTopRightRadius = 5;
-        closeButton.style.borderBottomLeftRadius = 5;
-        closeButton.style.borderBottomRightRadius = 5;
-
-        videoContainer.Add(closeButton);
-        videoPanel.Add(videoContainer);
-
-        // Setup VideoPlayer component (needs GameObject)
-        GameObject videoPlayerObj = new GameObject("VideoPlayerComponent");
-        videoPlayerObj.transform.SetParent(rootCanvas.transform);
-        videoPlayer = videoPlayerObj.AddComponent<VideoPlayer>();
-        videoPlayer.playOnAwake = false;
-        videoPlayer.renderMode = VideoRenderMode.RenderTexture;
-
-        videoRenderTexture = new RenderTexture(1920, 1080, 0);
-        videoPlayer.targetTexture = videoRenderTexture;
-
-        // Setup audio
-        AudioSource audioSource = videoPlayerObj.AddComponent<AudioSource>();
-        videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
-        videoPlayer.SetTargetAudioSource(0, audioSource);
-
-        if (mixer != null)
-        {
-            AudioMixerGroup[] audioMixerGroups = mixer.FindMatchingGroups("Sfx");
-            if (audioMixerGroups.Length > 0)
-            {
-                audioSource.outputAudioMixerGroup = audioMixerGroups[0];
-            }
-        }
-
-        videoPlayer.errorReceived += (source, message) =>
-        {
-            Debug.LogError("[CodexUI] Video Player Error: " + message);
-        };
-
-        // Apply video texture to container background
-        videoContainer.style.backgroundImage = Background.FromRenderTexture(videoRenderTexture);
-        videoContainer.style.backgroundSize = new BackgroundSize(BackgroundSizeType.Contain);
-        videoContainer.style.backgroundRepeat = new BackgroundRepeat(Repeat.NoRepeat, Repeat.NoRepeat);
-
-        videoPanel.style.display = DisplayStyle.None;
-        rootElement.Add(videoPanel);
-    }
-
-
-    private void PlayVideo(string videoFileName)
-    {
-        LowerMusicForVideo();
-        if (videoPanel == null)
-            CreateVideoPlayerUI();
-
-        videoPanel.style.display = DisplayStyle.Flex;
-
-        string videoPath = System.IO.Path.Combine(Application.streamingAssetsPath, videoFileName);
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-    videoPath = "file://" + videoPath;
-#endif
-
-        if (!System.IO.File.Exists(videoPath))
-        {
-            Debug.LogError($"[CodexUI] Video file {videoFileName} not found at path: {videoPath}");
-            videoPanel.style.display = DisplayStyle.None;
-            return;
-        }
-
-        videoPlayer.prepareCompleted -= OnVideoPrepared;
-        videoPlayer.prepareCompleted += OnVideoPrepared;
-
-        videoPlayer.url = videoPath;
-        videoPlayer.Prepare();
-    }
-
-
-    private void OnVideoPrepared(VideoPlayer vp)
-    {
-        if (videoPanel != null && videoPanel.style.display == DisplayStyle.Flex)
-        {
-            vp.Play();
-        }
-        videoPlayer.prepareCompleted -= OnVideoPrepared;
-    }
-
-    private void CloseVideoPlayerUI()
-    {
-        RestoreMusicAfterVideo();
-        if (videoPlayer != null)
-        {
-            videoPlayer.Stop();
-            videoPlayer.prepareCompleted -= OnVideoPrepared;
-        }
-        if (videoPanel != null)
-            videoPanel.style.display = DisplayStyle.None;
-    }
-
-    private void LowerMusicForVideo()
-    {
-        previousMusicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.8f);
-
-        mixer.SetFloat("MusicVolume", -80f);
-    }
-
-    private void RestoreMusicAfterVideo()
-    {
-        mixer.SetFloat("MusicVolume", previousMusicVolume);
     }
 }

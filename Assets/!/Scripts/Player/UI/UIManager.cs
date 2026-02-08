@@ -48,6 +48,10 @@ public class UIManager : MonoBehaviour
         InitializeCodexUI();
         InitializeStatsUI();
         menuCanvas.gameObject.SetActive(false);
+        
+        // Ensure all UIs start closed
+        CloseAll();
+        OpenPlayerUI();
 
         if (inputManager != null)
         {
