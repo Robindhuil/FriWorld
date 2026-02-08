@@ -1,15 +1,25 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using System.Collections;
 
 public class QRCodeGenerator
 {
-    private RawImage qrImage;
+    private RawImage qrRawImage;
+    private UnityEngine.UIElements.Image qrUIImage;
+    private bool useUIToolkit;
 
     public QRCodeGenerator(RawImage qrImage)
     {
-        this.qrImage = qrImage;
+        this.qrRawImage = qrImage;
+        this.useUIToolkit = false;
+    }
+
+    public QRCodeGenerator(UnityEngine.UIElements.Image qrImage)
+    {
+        this.qrUIImage = qrImage;
+        this.useUIToolkit = true;
     }
 
     public void GenerateQRCode(string text)
@@ -32,7 +42,15 @@ public class QRCodeGenerator
             else
             {
                 Texture2D qrTexture = ((DownloadHandlerTexture)request.downloadHandler).texture;
-                qrImage.texture = qrTexture;
+                
+                if (useUIToolkit)
+                {
+                    qrUIImage.image = qrTexture;
+                }
+                else
+                {
+                    qrRawImage.texture = qrTexture;
+                }
             }
         }
     }

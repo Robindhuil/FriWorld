@@ -1,7 +1,5 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Trieda TabUI spravuje rozhranie so záložkami a ich interakcie.
@@ -9,9 +7,11 @@ using UnityEngine.UI;
 public class TabUI : BaseUi
 {
     public bool IsMenuOn { get; private set; }
-    private Canvas tabCanvas;
-    public Button ActiveButton { get; private set; }
-    public Button[] Buttons { get; set; }
+    private readonly VisualElement root;
+    private readonly VisualElement backgroundBase;
+    private readonly VisualElement tabsUIElement;
+    public UnityEngine.UIElements.Button ActiveButton { get; private set; }
+    public UnityEngine.UIElements.Button[] Buttons { get; set; }
 
     private static readonly Color ACTIVE_BUTTON_COLOR = new Color(0.984f, 0.721f, 0f);
     private static readonly Color HOVER_COLOR = Color.grey;
@@ -20,72 +20,85 @@ public class TabUI : BaseUi
     /// <summary>
     /// Konštruktor inicializuje UI prvky a nastavuje ich správanie.
     /// </summary>
-    public TabUI(Canvas canvas, Button journalButton, Button codexButton, Button navigationButton, Button statsButton)
+    public TabUI(UIDocument sharedDocument)
     {
-        tabCanvas = canvas;
-        tabCanvas.gameObject.SetActive(false);
+        if (sharedDocument == null)
+        {
+            Debug.LogError("[TabUI] UIDocument is null!");
+            return;
+        }
+
+        root = sharedDocument.rootVisualElement;
+        backgroundBase = root.Q<VisualElement>("BackgroundBase");
+        tabsUIElement = root.Q<VisualElement>("TabsUI");
+
+        if (tabsUIElement == null)
+        {
+            Debug.LogError("[TabUI] TabsUI element not found in UXML!");
+            return;
+        }
+
+        // Get buttons from UXML (order matches old UI: Journal, Codex, Navigation, Stats)
+        var journalButton = tabsUIElement.Q<UnityEngine.UIElements.Button>("Journal");
+        var codexButton = tabsUIElement.Q<UnityEngine.UIElements.Button>("Codex");
+        var navigationButton = tabsUIElement.Q<UnityEngine.UIElements.Button>("Navigation");
+        var statsButton = tabsUIElement.Q<UnityEngine.UIElements.Button>("Stats");
 
         Buttons = new[] { journalButton, codexButton, navigationButton, statsButton };
+        
         foreach (var button in Buttons)
         {
-            AddButtonListeners(button);
+            if (button != null)
+            {
+                AddButtonListeners(button);
+            }
         }
+
+        CloseWindow();
     }
 
     /// <summary>
     /// Pridá event listenery pre kliknutie a hover efekty tlačidla.
     /// </summary>
-    private void AddButtonListeners(Button button)
+    private void AddButtonListeners(UnityEngine.UIElements.Button button)
     {
-        button.onClick.AddListener(() => SetActiveButton(button));
-        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
-
-        AddEventTrigger(trigger, EventTriggerType.PointerEnter, (eventData) => OnHoverEnter(button));
-        AddEventTrigger(trigger, EventTriggerType.PointerExit, (eventData) => OnHoverExit(button));
-    }
-
-    /// <summary>
-    /// Pomocná metóda na pridanie eventov do EventTriggeru.
-    /// </summary>
-    private void AddEventTrigger(EventTrigger trigger, EventTriggerType eventType, System.Action<BaseEventData> action)
-    {
-        EventTrigger.Entry entry = new EventTrigger.Entry { eventID = eventType };
-        entry.callback.AddListener(new UnityEngine.Events.UnityAction<BaseEventData>(action));
-        trigger.triggers.Add(entry);
+        // Hover effects
+        button.RegisterCallback<MouseEnterEvent>(evt => OnHoverEnter(button));
+        button.RegisterCallback<MouseLeaveEvent>(evt => OnHoverExit(button));
     }
 
     /// <summary>
     /// Nastaví aktívne tlačidlo a zvýrazní ho.
     /// </summary>
-    public void SetActiveButton(Button button)
+    public void SetActiveButton(UnityEngine.UIElements.Button button)
     {
         if (ActiveButton != null)
         {
-            ActiveButton.image.color = DEFAULT_COLOR;
+            ActiveButton.style.backgroundColor = DEFAULT_COLOR;
         }
         ActiveButton = button;
-        ActiveButton.image.color = ACTIVE_BUTTON_COLOR;
+        ActiveButton.style.backgroundColor = ACTIVE_BUTTON_COLOR;
     }
 
     /// <summary>
     /// Zmení farbu tlačidla pri najetí myši.
     /// </summary>
-    private void OnHoverEnter(Button button)
+    private void OnHoverEnter(UnityEngine.UIElements.Button button)
     {
         if (button != ActiveButton)
         {
-            button.image.color = HOVER_COLOR;
+            button.style.backgroundColor = HOVER_COLOR;
         }
     }
 
     /// <summary>
     /// Reset farby tlačidla pri odchode myši.
     /// </summary>
-    private void OnHoverExit(Button button)
+    private void OnHoverExit(UnityEngine.UIElements.Button button)
     {
         if (button != ActiveButton)
         {
-            button.image.color = DEFAULT_COLOR;
+            button.style.backgroundColor = DEFAULT_COLOR;
         }
     }
 
@@ -94,7 +107,10 @@ public class TabUI : BaseUi
     /// </summary>
     public override void CloseWindow()
     {
-        tabCanvas.gameObject.SetActive(false);
+        if (backgroundBase != null)
+        {
+            backgroundBase.style.display = DisplayStyle.None;
+        }
         IsMenuOn = false;
     }
 
@@ -103,7 +119,10 @@ public class TabUI : BaseUi
     /// </summary>
     public override void OpenWindow()
     {
-        tabCanvas.gameObject.SetActive(true);
+        if (backgroundBase != null)
+        {
+            backgroundBase.style.display = DisplayStyle.Flex;
+        }
         IsMenuOn = true;
     }
 }

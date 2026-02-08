@@ -7,5 +7,6 @@
         <ui:VisualElement name="VisualElement" style="flex-grow: 1; margin-bottom: 800px; padding-right: 0; padding-left: 0; margin-left: 200px; margin-right: 200px;"/>
         <ui:VisualElement name="ToastPanel" style="flex-grow: 1; margin-bottom: 800px; padding-left: 0; width: 100px;"/>
     </ui:VisualElement>
+    <ui:Label text="+" name="Crosshair" style="-unity-text-align: upper-center; font-size: 40px; -unity-text-outline-color: rgb(255, 255, 255); color: rgb(255, 255, 255); margin-bottom: 380px;"/>
     <ui:Label text="Prompt text" name="PromptText" style="justify-content: flex-start; -unity-text-align: upper-center; margin-right: 50px; padding-right: 2px; margin-bottom: 90px; font-size: 50px; -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&amp;guid=5c670b434ca74524386dd732ddcb8661&amp;type=3#bedstead&quot;); color: rgb(255, 255, 255); margin-left: 50px;"/>
 </ui:UXML>

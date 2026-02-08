@@ -26,10 +26,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [Header("UI Canvases")]
     [SerializeField] private UIDocument playerUIDocument;
+    [SerializeField] private UIDocument playerWindowsDocument;
     [SerializeField] private Canvas dialogueCanvas;
     [SerializeField] private Canvas journalCanvas;
-    [SerializeField] private Canvas navigationCanvas;
-    [SerializeField] private Canvas tabCanvas;
     [SerializeField] private Canvas codexCanvas;
     [SerializeField] private Canvas statsCanvas;
     [SerializeField] private Canvas menuCanvas;
@@ -173,7 +172,7 @@ public class UIManager : MonoBehaviour
 
     private void OnOpenMenu(InputAction.CallbackContext context)
     {
-        if (tabCanvas.gameObject.activeSelf)
+        if (tabUI.IsMenuOn)
         {
             CloseAll();
             OpenPlayerUI();
@@ -224,39 +223,19 @@ public class UIManager : MonoBehaviour
 
     public void InitializeTabUI()
     {
-        Button journalButton = tabCanvas.transform.Find("Background/Journal")?.GetComponentInChildren<Button>();
-        Button codexButton = tabCanvas.transform.Find("Background/Codex")?.GetComponentInChildren<Button>();
-        Button navigationButton = tabCanvas.transform.Find("Background/Navigation")?.GetComponentInChildren<Button>();
-        Button statsButton = tabCanvas.transform.Find("Background/Stats")?.GetComponentInChildren<Button>();
-
-        tabUI = new TabUI(tabCanvas, journalButton, codexButton, navigationButton, statsButton);
-        journalButton.onClick.AddListener(OpenJournal);
-        navigationButton.onClick.AddListener(OpenNavigation);
-        codexButton.onClick.AddListener(OpenCodex);
-        statsButton.onClick.AddListener(OpenStats);
-
-
+        tabUI = new TabUI(playerWindowsDocument);
+        
+        // Connect button clicks to actions (order: Journal, Codex, Navigation, Stats)
+        tabUI.Buttons[0].clicked += OpenJournal;
+        tabUI.Buttons[1].clicked += OpenCodex;
+        tabUI.Buttons[2].clicked += OpenNavigation;
+        tabUI.Buttons[3].clicked += OpenStats;
     }
 
     public void InitializeNavigationUI()
     {
-        GameObject sectorA = navigationCanvas.transform.Find("Background/RoomList/List/SectorA/Scroll/Viewport/Content")?.gameObject;
-        GameObject sectorB = navigationCanvas.transform.Find("Background/RoomList/List/SectorB/Scroll/Viewport/Content")?.gameObject;
-        GameObject sectorC = navigationCanvas.transform.Find("Background/RoomList/List/SectorC/Scroll/Viewport/Content")?.gameObject;
-        GameObject list = navigationCanvas.transform.Find("Background/RoomList/List")?.gameObject;
-        Button trackButton = navigationCanvas.transform.Find("Background/RoomList/TrackRoom")?.GetComponentInChildren<Button>();
-        TextMeshProUGUI department = navigationCanvas.transform.Find("Background/RoomInfo/Info/Top/Left/Department")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI roomName = navigationCanvas.transform.Find("Background/RoomInfo/Info/Mid/NameBackground/Name")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI originalName = navigationCanvas.transform.Find("Background/RoomInfo/Info/Mid/Original")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI function = navigationCanvas.transform.Find("Background/RoomInfo/Info/Mid/Function")?.GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI profeList = navigationCanvas.transform.Find("Background/RoomInfo/Info/Bot/List")?.GetComponent<TextMeshProUGUI>();
-        RawImage qrImage = navigationCanvas.transform.Find("Background/RoomInfo/Info/Bot/QR").GetComponent<RawImage>();
-
-        navigationUI = new NavigationUI(navigationCanvas, sectorA, sectorB, sectorC, trackButton,
-        department, roomName, originalName, function, profeList, qrImage,
-         buttonPrefab, list, this);
-
-        trackButton.onClick.AddListener(TrackRoom);
+        navigationUI = new NavigationUI(playerWindowsDocument, this);
+        navigationUI.TrackButton.clicked += TrackRoom;
     }
 
     public void InitializeCodexUI()
@@ -283,23 +262,27 @@ public class UIManager : MonoBehaviour
     {
         CloseAll();
         journalUI.OpenWindow();
+        tabUI.SetActiveButton(tabUI.Buttons[0]);
     }
 
     public void OpenNavigation()
     {
         CloseAll();
         navigationUI.OpenWindow();
+        tabUI.SetActiveButton(tabUI.Buttons[2]);
     }
 
     public void OpenCodex()
     {
         CloseAll();
         codexUI.OpenWindow();
+        tabUI.SetActiveButton(tabUI.Buttons[1]);
     }
     public void OpenStats()
     {
         CloseAll();
         statsUI.OpenWindow();
+        tabUI.SetActiveButton(tabUI.Buttons[3]);
     }
 
 

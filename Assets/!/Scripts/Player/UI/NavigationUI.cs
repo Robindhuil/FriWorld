@@ -1,87 +1,109 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 using System.Linq;
-using System.Collections;
 using System.Text.RegularExpressions;
 
 public class NavigationUI : BaseUi
 {
-    private readonly Canvas navigationCanvas;
+    private readonly VisualElement root;
+    private readonly VisualElement navigationUIElement;
     public bool IsMenuOn { get; private set; }
 
-    private readonly GameObject sectorAPanel;
-    private readonly GameObject sectorBPanel;
-    private readonly GameObject sectorCPanel;
-    private readonly Button trackRoomButton;
-    private RawImage qrImage;
+    private readonly ListView sectorAListView;
+    private readonly ListView sectorBListView;
+    private readonly ListView sectorCListView;
+    private readonly UnityEngine.UIElements.Button trackRoomButton;
+    private readonly UnityEngine.UIElements.Image qrImage;
+
+    public UnityEngine.UIElements.Button TrackButton => trackRoomButton;
 
     public RoomData TrackedRoom { get; set; }
     public RoomData SelectedRoom { get; set; }
 
-    private readonly Dictionary<RoomData, Button> roomButtons = new();
     private readonly Color defaultButtonColor = new(0, 0, 0, 0);
     private readonly Color trackedButtonColor = new(0, 0.8f, 0.2f, 0.6f);
     private readonly Color selectedButtonColor = new(0, 0.6f, 1f, 0.6f);
     private readonly Color defaultLevelButtonColor = new Color(0f, 0.6f, 1f, 1f);
     private readonly Color selectedLevelButtonColor = new Color(0, 0.8f, 0.2f, 0.6f);
-    private TextMeshProUGUI department;
-    private TextMeshProUGUI roomName;
-    private TextMeshProUGUI originalName;
-    private TextMeshProUGUI function;
-    private TextMeshProUGUI profeList;
+    
+    private Label departmentLabel;
+    private Label roomNameLabel;
+    private Label originalNameLabel;
+    private Label functionLabel;
+    private Label staffListLabel;
     private QRCodeGenerator qrCodeGenerator;
-    private GameObject prefabButton;
-    private MonoBehaviour runner;
 
-    private GameObject LevelButtonA;
-    private GameObject LevelButtonB;
-    private GameObject LevelButtonC;
+    private VisualElement sectorAListBase;
+    private VisualElement sectorBListBase;
+    private VisualElement sectorCListBase;
 
-    private readonly Dictionary<GameObject, Dictionary<int, List<Button>>> roomButtonsByLevel = new();
-    private readonly Dictionary<GameObject, Dictionary<string, Button>> levelButtonsBySector = new();
-    private readonly Dictionary<GameObject, int> currentFilteredLevel = new();
+    private readonly Dictionary<VisualElement, Dictionary<int, List<RoomData>>> roomsByLevel = new();
+    private readonly Dictionary<VisualElement, Dictionary<string, UnityEngine.UIElements.Button>> levelButtonsBySector = new();
+    private readonly Dictionary<VisualElement, int> currentFilteredLevel = new();
 
-    public NavigationUI(Canvas canvas, GameObject sectorA, GameObject sectorB, GameObject sectorC, Button trackButton,
-                    TextMeshProUGUI department, TextMeshProUGUI roomName, TextMeshProUGUI originalName,
-                    TextMeshProUGUI function, TextMeshProUGUI profeList, RawImage roomImage, GameObject prefabButton, GameObject list,
-                    MonoBehaviour runner)
+    private List<RoomData> sectorAData;
+    private List<RoomData> sectorBData;
+    private List<RoomData> sectorCData;
+
+    public NavigationUI(UIDocument sharedDocument, MonoBehaviour runner)
     {
-        if (canvas == null || sectorA == null || sectorB == null || sectorC == null)
+        if (sharedDocument == null)
         {
-            Debug.LogError("[NavigationUI] One of the input objects is null!");
+            Debug.LogError("[NavigationUI] UIDocument is null!");
             return;
         }
 
-        this.runner = runner;
-        navigationCanvas = canvas;
-        navigationCanvas.gameObject.SetActive(false);
+        root = sharedDocument.rootVisualElement;
+        navigationUIElement = root.Q<VisualElement>("NavigationUI");
+        
+        if (navigationUIElement == null)
+        {
+            Debug.LogError("[NavigationUI] NavigationUI element not found in UXML!");
+            return;
+        }
 
-        sectorAPanel = sectorA;
-        sectorBPanel = sectorB;
-        sectorCPanel = sectorC;
-        trackRoomButton = trackButton;
-        trackRoomButton.gameObject.SetActive(false);
+        // Get the three sector list bases (they're all named SectorAListBase in the UXML)
+        var sectorListBases = root.Query<VisualElement>("SectorAListBase").ToList();
+        if (sectorListBases.Count >= 3)
+        {
+            sectorAListBase = sectorListBases[0];
+            sectorBListBase = sectorListBases[1];
+            sectorCListBase = sectorListBases[2];
+        }
+        else
+        {
+            Debug.LogError("[NavigationUI] Not enough SectorAListBase elements found!");
+            return;
+        }
 
-        this.department = department;
-        this.roomName = roomName;
-        this.originalName = originalName;
-        this.function = function;
-        this.profeList = profeList;
-        this.qrImage = roomImage;
-        this.prefabButton = prefabButton;
+        // Get ListViews
+        sectorAListView = sectorAListBase?.Q<ListView>("ListView");
+        sectorBListView = sectorBListBase?.Q<ListView>("ListView");
+        sectorCListView = sectorCListBase?.Q<ListView>("ListView");
 
-        LevelButtonA = list.transform.Find("SectorA").gameObject;
-        LevelButtonB = list.transform.Find("SectorB").gameObject;
-        LevelButtonC = list.transform.Find("SectorC").gameObject;
+        // Get track button
+        trackRoomButton = root.Q<UnityEngine.UIElements.Button>("TrackButton");
+        trackRoomButton.style.display = DisplayStyle.None;
 
-        GenerateRoomButtons();
+        // Get room info labels
+        departmentLabel = root.Q<Label>("DepartmentName");
+        roomNameLabel = root.Q<Label>("RoomName");
+        originalNameLabel = root.Q<Label>("OriginalName");
+        functionLabel = root.Q<Label>("Function");
+        staffListLabel = root.Q<Label>("StaffList");
+        qrImage = root.Q<UnityEngine.UIElements.Image>("QR");
+
+        InitializeRoomData();
+        SetupListViews();
+        SetupLevelFilters();
+        
         qrCodeGenerator = new QRCodeGenerator(qrImage);
+        
+        CloseWindow();
     }
 
-    private void GenerateRoomButtons()
+    private void InitializeRoomData()
     {
         if (RoomManager.Instance == null)
         {
@@ -89,163 +111,175 @@ public class NavigationUI : BaseUi
             return;
         }
 
-        GenerateButtonsForSector(RoomManager.Instance.SectorA, sectorAPanel);
-        GenerateButtonsForSector(RoomManager.Instance.SectorB, sectorBPanel);
-        GenerateButtonsForSector(RoomManager.Instance.SectorC, sectorCPanel);
+        sectorAData = RoomManager.Instance.SectorA ?? new List<RoomData>();
+        sectorBData = RoomManager.Instance.SectorB ?? new List<RoomData>();
+        sectorCData = RoomManager.Instance.SectorC ?? new List<RoomData>();
+
+        // Initialize dictionaries
+        roomsByLevel[sectorAListBase] = new Dictionary<int, List<RoomData>>();
+        roomsByLevel[sectorBListBase] = new Dictionary<int, List<RoomData>>();
+        roomsByLevel[sectorCListBase] = new Dictionary<int, List<RoomData>>();
+
+        currentFilteredLevel[sectorAListBase] = -1;
+        currentFilteredLevel[sectorBListBase] = -1;
+        currentFilteredLevel[sectorCListBase] = -1;
+
+        // Organize rooms by level
+        OrganizeRoomsByLevel(sectorAData, sectorAListBase);
+        OrganizeRoomsByLevel(sectorBData, sectorBListBase);
+        OrganizeRoomsByLevel(sectorCData, sectorCListBase);
     }
 
-    private void GenerateButtonsForSector(List<RoomData> sector, GameObject parentPanel)
+    private void OrganizeRoomsByLevel(List<RoomData> rooms, VisualElement sectorBase)
     {
-        if (sector == null || parentPanel == null || prefabButton == null)
+        foreach (var room in rooms)
         {
-            Debug.LogError("[NavigationUI] Sector, parentPanel or prefabButton is null!");
-            return;
+            int level = ParseFloorLevel(room.Name);
+            if (!roomsByLevel[sectorBase].ContainsKey(level))
+            {
+                roomsByLevel[sectorBase][level] = new List<RoomData>();
+            }
+            roomsByLevel[sectorBase][level].Add(room);
         }
-
-        roomButtonsByLevel[parentPanel] = new Dictionary<int, List<Button>>();
-        currentFilteredLevel[parentPanel] = -1;
-
-        runner.StartCoroutine(GenerateSectorButtonsCoroutine(sector, parentPanel));
     }
 
-    private IEnumerator GenerateSectorButtonsCoroutine(List<RoomData> sector, GameObject parentPanel)
+    private void SetupListViews()
     {
-        foreach (RoomData room in sector)
-        {
-            yield return CreateButton(prefabButton, parentPanel.transform, room, parentPanel);
-        }
-        SetupLevelFilters();
+        SetupListView(sectorAListView, sectorAData);
+        SetupListView(sectorBListView, sectorBData);
+        SetupListView(sectorCListView, sectorCData);
     }
 
-    private IEnumerator CreateButton(GameObject prefab, Transform parent, RoomData room, GameObject sectorPanel)
+    private void SetupListView(ListView listView, List<RoomData> roomData)
     {
-        yield return null;
+        if (listView == null) return;
 
-        GameObject buttonObj = Object.Instantiate(prefab, parent);
-        buttonObj.name = room.Name;
-
-        Button button = buttonObj.GetComponent<Button>();
-        if (button == null)
+        listView.itemsSource = roomData;
+        listView.makeItem = () =>
         {
-            Debug.LogError("[NavigationUI] Prefab button doesn't contain Button component!");
-            yield break;
-        }
+            var button = new UnityEngine.UIElements.Button();
+            button.AddToClassList("roomListButton");
+            
+            // Register click handler once - it will read room from userData
+            button.clicked += () =>
+            {
+                if (button.userData is RoomData room)
+                {
+                    SelectRoom(room);
+                }
+            };
+            
+            // Manual hover handling for ListView buttons
+            button.RegisterCallback<MouseEnterEvent>(evt =>
+            {
+                var btn = evt.currentTarget as UnityEngine.UIElements.Button;
+                btn?.AddToClassList("roomListButton-hover");
+            });
+            
+            button.RegisterCallback<MouseLeaveEvent>(evt =>
+            {
+                var btn = evt.currentTarget as UnityEngine.UIElements.Button;
+                btn?.RemoveFromClassList("roomListButton-hover");
+            });
+            
+            return button;
+        };
 
-        button.onClick.AddListener(() => SelectRoom(room));
-        roomButtons[room] = button;
-
-        SetupButtonAppearance(buttonObj, room, parent);
-
-        int level = ParseFloorLevel(room.Name);
-        if (!roomButtonsByLevel[sectorPanel].ContainsKey(level))
+        listView.bindItem = (element, index) =>
         {
-            roomButtonsByLevel[sectorPanel][level] = new List<Button>();
-        }
-        roomButtonsByLevel[sectorPanel][level].Add(button);
-
-        button.gameObject.SetActive(currentFilteredLevel[sectorPanel] == -1 || currentFilteredLevel[sectorPanel] == level);
-    }
-
-    private void SetupButtonAppearance(GameObject buttonObj, RoomData room, Transform parent)
-    {
-        Image image = buttonObj.GetComponent<Image>();
-        if (image != null)
+            var button = element as UnityEngine.UIElements.Button;
+            var currentList = listView.itemsSource as List<RoomData>;
+            
+            if (currentList == null || index >= currentList.Count)
+            {
+                Debug.LogWarning($"[NavigationUI] Invalid index {index} for list size {currentList?.Count ?? 0}");
+                return;
+            }
+            
+            var room = currentList[index];
+            button.text = room.Name;
+            
+            // Store room data in userData for the click handler
+            button.userData = room;
+            
+            // Update color based on current room state
+            UpdateRoomElementColor(button, room);
+        };
+        
+        listView.unbindItem = (element, index) =>
         {
-            image.color = GetRoomColor(room);
-        }
+            var button = element as UnityEngine.UIElements.Button;
+            button.userData = null;
+        };
 
-        TextMeshProUGUI text = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
-        if (text != null)
-        {
-            text.text = room.Name ?? "Unnamed Room";
-        }
-
-        RectTransform rectTransform = buttonObj.GetComponent<RectTransform>();
-        if (rectTransform != null)
-        {
-            rectTransform.anchorMin = new Vector2(0, 1);
-            rectTransform.anchorMax = new Vector2(1, 1);
-            rectTransform.pivot = new Vector2(0.5f, 1);
-            rectTransform.sizeDelta = new Vector2(-30f, 45f);
-
-            int buttonIndex = parent.childCount - 1;
-            float paddingTop = -15f;
-            float paddingBot = 15f;
-            float buttonSpacing = 5f;
-
-            rectTransform.anchoredPosition = new Vector2(0, paddingTop - buttonIndex * (45f + buttonSpacing));
-
-            RectTransform contentRectTransform = parent.GetComponent<RectTransform>();
-            contentRectTransform.sizeDelta = new Vector2(
-                contentRectTransform.sizeDelta.x,
-                (45f + buttonSpacing) * parent.childCount + buttonSpacing + paddingBot
-            );
-        }
-
-        AddHoverEffect(buttonObj, image, room);
+        listView.fixedItemHeight = 50;
+        listView.selectionType = SelectionType.Single;
     }
 
     private void SetupLevelFilters()
     {
-        var sectorPanels = new Dictionary<GameObject, GameObject>()
-    {
-        { LevelButtonA, sectorAPanel },
-        { LevelButtonB, sectorBPanel },
-        { LevelButtonC, sectorCPanel }
-    };
-
-        foreach (var kvp in sectorPanels)
-        {
-            GameObject levelButtonPanel = kvp.Key;
-            GameObject roomPanel = kvp.Value;
-
-            Transform levelButtonsContainer = levelButtonPanel.transform.Find("LevelButtons");
-            if (levelButtonsContainer == null)
-            {
-                Debug.LogError($"[NavigationUI] LevelButtons container not found in {levelButtonPanel.name}");
-                continue;
-            }
-
-            levelButtonsBySector[roomPanel] = new Dictionary<string, Button>();
-
-            foreach (Transform buttonTransform in levelButtonsContainer)
-            {
-                var button = buttonTransform.GetComponent<Button>();
-                if (button != null)
-                {
-                    string levelName = button.name;
-                    levelButtonsBySector[roomPanel][levelName] = button;
-
-                    SetLevelButtonColor(button, false);
-
-                    if (levelName == "AllLevels")
-                    {
-                        button.onClick.AddListener(() =>
-                        {
-                            ResetLevelButtonsColor(roomPanel);
-                            SetLevelButtonColor(button, true);
-                            currentFilteredLevel[roomPanel] = -1;
-                            ApplyLevelFilter(roomPanel);
-                        });
-                    }
-                    else if (int.TryParse(levelName.Replace("Level", ""), out int level))
-                    {
-                        button.onClick.AddListener(() =>
-                        {
-                            ResetLevelButtonsColor(roomPanel);
-                            SetLevelButtonColor(button, true);
-                            currentFilteredLevel[roomPanel] = level;
-                            ApplyLevelFilter(roomPanel);
-                        });
-                    }
-                }
-            }
-        }
+        SetupLevelFiltersForSector(sectorAListBase, sectorAListView, sectorAData);
+        SetupLevelFiltersForSector(sectorBListBase, sectorBListView, sectorBData);
+        SetupLevelFiltersForSector(sectorCListBase, sectorCListView, sectorCData);
     }
 
-    private void ResetLevelButtonsColor(GameObject sectorPanel)
+    private void SetupLevelFiltersForSector(VisualElement sectorBase, ListView listView, List<RoomData> roomData)
     {
-        if (levelButtonsBySector.TryGetValue(sectorPanel, out var buttons))
+        if (sectorBase == null) return;
+
+        var levelButtonsContainer = sectorBase.Q<VisualElement>("LevelButtons");
+        if (levelButtonsContainer == null)
+        {
+            Debug.LogError($"[NavigationUI] LevelButtons container not found!");
+            return;
+        }
+
+        levelButtonsBySector[sectorBase] = new Dictionary<string, UnityEngine.UIElements.Button>();
+
+        var levelButtons = levelButtonsContainer.Query<UnityEngine.UIElements.Button>().ToList();
+        foreach (var button in levelButtons)
+        {
+            string buttonName = button.name;
+            levelButtonsBySector[sectorBase][buttonName] = button;
+
+            SetLevelButtonColor(button, false);
+
+            // Parse level from button name (Level0, Level1, etc.)
+            if (buttonName.StartsWith("Level") && int.TryParse(buttonName.Replace("Level", ""), out int level))
+            {
+                // Capture button and level in local variables to avoid closure issues
+                var currentButton = button;
+                var currentLevel = level;
+                
+                currentButton.clicked += () =>
+                {
+                    // Toggle behavior: clicking the active button shows all levels
+                    if (currentFilteredLevel[sectorBase] == currentLevel)
+                    {
+                        // Show all levels
+                        ResetLevelButtonsColor(sectorBase);
+                        currentFilteredLevel[sectorBase] = -1;
+                        ApplyLevelFilter(sectorBase, listView, roomData);
+                    }
+                    else
+                    {
+                        // Filter by selected level
+                        ResetLevelButtonsColor(sectorBase);
+                        SetLevelButtonColor(currentButton, true);
+                        currentFilteredLevel[sectorBase] = currentLevel;
+                        ApplyLevelFilter(sectorBase, listView, roomData);
+                    }
+                };
+            }
+        }
+
+        // Apply initial filter (all levels)
+        ApplyLevelFilter(sectorBase, listView, roomData);
+    }
+
+    private void ResetLevelButtonsColor(VisualElement sectorBase)
+    {
+        if (levelButtonsBySector.TryGetValue(sectorBase, out var buttons))
         {
             foreach (var button in buttons.Values)
             {
@@ -254,88 +288,33 @@ public class NavigationUI : BaseUi
         }
     }
 
-    private void SetLevelButtonColor(Button button, bool isSelected)
+    private void SetLevelButtonColor(UnityEngine.UIElements.Button button, bool isSelected)
     {
-        var colors = button.colors;
-        colors.normalColor = isSelected ? selectedLevelButtonColor : defaultLevelButtonColor;
-        colors.selectedColor = isSelected ? selectedLevelButtonColor : defaultLevelButtonColor;
-        colors.highlightedColor = isSelected ?
-            Color.Lerp(selectedLevelButtonColor, Color.white, 0.2f) :
-            Color.Lerp(defaultLevelButtonColor, Color.white, 0.2f);
-        button.colors = colors;
-
-        var text = button.GetComponentInChildren<TextMeshProUGUI>();
-        if (text != null)
-        {
-            text.color = isSelected ? Color.white : new Color(0.8f, 0.8f, 0.8f, 1f);
-        }
+        button.style.backgroundColor = isSelected ? selectedLevelButtonColor : defaultLevelButtonColor;
+        button.style.color = isSelected ? Color.white : new Color(0.8f, 0.8f, 0.8f, 1f);
     }
 
-    private void ApplyLevelFilter(GameObject sectorPanel)
+    private void ApplyLevelFilter(VisualElement sectorBase, ListView listView, List<RoomData> allRooms)
     {
-        if (!roomButtonsByLevel.ContainsKey(sectorPanel)) return;
+        if (!currentFilteredLevel.ContainsKey(sectorBase)) return;
 
-        int targetLevel = currentFilteredLevel[sectorPanel];
-        Transform contentTransform = sectorPanel.transform;
-        float buttonHeight = 45f;
-        float buttonSpacing = 5f;
-        float currentYPosition = -15f;
-
-        foreach (var levelPair in roomButtonsByLevel[sectorPanel])
+        int targetLevel = currentFilteredLevel[sectorBase];
+        
+        List<RoomData> filteredRooms;
+        if (targetLevel == -1)
         {
-            foreach (var button in levelPair.Value)
-            {
-                if (button != null)
-                {
-                    button.gameObject.SetActive(false);
-                    RectTransform rect = button.GetComponent<RectTransform>();
-                    rect.anchoredPosition = new Vector2(0, currentYPosition);
-                }
-            }
+            // Show all rooms
+            filteredRooms = allRooms;
+        }
+        else
+        {
+            // Filter by level
+            filteredRooms = allRooms.Where(room => ParseFloorLevel(room.Name) == targetLevel).ToList();
         }
 
-        foreach (var levelPair in roomButtonsByLevel[sectorPanel])
-        {
-            bool shouldShow = (targetLevel == -1) || (levelPair.Key == targetLevel);
-
-            foreach (var button in levelPair.Value)
-            {
-                if (button != null && shouldShow)
-                {
-                    button.gameObject.SetActive(true);
-                    RectTransform rect = button.GetComponent<RectTransform>();
-                    rect.anchoredPosition = new Vector2(0, currentYPosition);
-                    currentYPosition -= (buttonHeight + buttonSpacing);
-                }
-            }
-        }
-
-        RectTransform contentRect = contentTransform.GetComponent<RectTransform>();
-        float contentHeight = Mathf.Abs(currentYPosition) + 15f;
-        contentRect.sizeDelta = new Vector2(contentRect.sizeDelta.x, contentHeight);
-
-        LayoutRebuilder.ForceRebuildLayoutImmediate(contentRect);
-    }
-
-    private void AddHoverEffect(GameObject buttonObj, Image image, RoomData room)
-    {
-        EventTrigger trigger = buttonObj.GetComponent<EventTrigger>();
-        if (trigger == null)
-        {
-            trigger = buttonObj.AddComponent<EventTrigger>();
-        }
-
-        EventTrigger.Entry entryEnter = new() { eventID = EventTriggerType.PointerEnter };
-        entryEnter.callback.AddListener((_) =>
-        {
-            if (room != SelectedRoom && room != TrackedRoom)
-                image.color = new Color(1, 1, 1, 0.3f);
-        });
-        trigger.triggers.Add(entryEnter);
-
-        EventTrigger.Entry entryExit = new() { eventID = EventTriggerType.PointerExit };
-        entryExit.callback.AddListener((_) => image.color = GetRoomColor(room));
-        trigger.triggers.Add(entryExit);
+        // Update itemsSource and rebuild
+        listView.itemsSource = filteredRooms;
+        listView.RefreshItems();
     }
 
     private int ParseFloorLevel(string roomName)
@@ -344,12 +323,16 @@ public class NavigationUI : BaseUi
         return match.Success && int.TryParse(match.Groups[1].Value, out int level) ? level : -1;
     }
 
-
     private Color GetRoomColor(RoomData room)
     {
         if (room == TrackedRoom) return trackedButtonColor;
         if (room == SelectedRoom) return selectedButtonColor;
         return defaultButtonColor;
+    }
+
+    private void UpdateRoomElementColor(VisualElement element, RoomData room)
+    {
+        element.style.backgroundColor = GetRoomColor(room);
     }
 
     public void SelectRoom(RoomData room)
@@ -361,38 +344,28 @@ public class NavigationUI : BaseUi
         }
 
         SelectedRoom = room;
-        trackRoomButton.gameObject.SetActive(true);
+        trackRoomButton.style.display = DisplayStyle.Flex;
 
-        RefreshRoomButtonColors();
-
+        RefreshAllRoomColors();
         UpdateRoomInfo(room);
-
-        UpdateRoomButtonColor();
+        UpdateTrackButtonAppearance();
     }
 
     public void UpdateRoomInfo(RoomData room)
     {
-        if (department != null)
-            department.text = room.Department;
-        else
-            Debug.LogError("[NavigationUI] department TextMeshProUGUI is not assigned!");
+        if (departmentLabel != null)
+            departmentLabel.text = room.Department;
 
-        if (roomName != null)
-            roomName.text = room.Name;
-        else
-            Debug.LogError("[NavigationUI] roomName TextMeshProUGUI is not assigned!");
+        if (roomNameLabel != null)
+            roomNameLabel.text = room.Name;
 
-        if (originalName != null)
-            originalName.text = $"{room.OriginalCode} - pôvodné označenie";
-        else
-            Debug.LogError("[NavigationUI] originalName TextMeshProUGUI is not assigned!");
+        if (originalNameLabel != null)
+            originalNameLabel.text = $"{room.OriginalCode} - pôvodné označenie";
 
-        if (function != null)
-            function.text = room.Function;
-        else
-            Debug.LogError("[NavigationUI] function TextMeshProUGUI is not assigned!");
+        if (functionLabel != null)
+            functionLabel.text = room.Function;
 
-        if (profeList != null)
+        if (staffListLabel != null)
         {
             if (room.Professors.Count > 0)
             {
@@ -408,33 +381,17 @@ public class NavigationUI : BaseUi
                     return professor;
                 });
 
-                profeList.text = $"\n{string.Join("\n", professorsText)}";
+                staffListLabel.text = $"\n{string.Join("\n", professorsText)}";
             }
-
-
             else
             {
-                profeList.text = "";
+                staffListLabel.text = "";
             }
-        }
-        else
-        {
-            Debug.LogError("[NavigationUI] profeList TextMeshProUGUI is not assigned!");
         }
 
         Debug.Log($"[NavigationUI] Vybraná miestnosť: {room.Name}");
         GenerateRoomQRCode();
     }
-
-    private int GetLevelFromRoom(RoomData room)
-    {
-        if (room.Name.Length >= 3 && int.TryParse(room.Name.Substring(2, 1), out int level))
-            return level;
-
-        return -1;
-    }
-
-
 
     public void TrackRoom(RoomData room)
     {
@@ -445,52 +402,43 @@ public class NavigationUI : BaseUi
         }
 
         TrackedRoom = room;
-        RefreshRoomButtonColors();
-        UpdateRoomButtonColor();
+        RefreshAllRoomColors();
+        UpdateTrackButtonAppearance();
     }
 
     public void UntrackRoom()
     {
         TrackedRoom = null;
-        RefreshRoomButtonColors();
-        UpdateRoomButtonColor();
+        RefreshAllRoomColors();
+        UpdateTrackButtonAppearance();
     }
 
-    private void UpdateRoomButtonColor()
+    private void UpdateTrackButtonAppearance()
     {
         if (TrackedRoom != null && SelectedRoom == TrackedRoom)
         {
-            trackRoomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Prestať sledovať miestnosť";
-            trackRoomButton.GetComponent<Image>().color = trackedButtonColor;
-
+            trackRoomButton.text = "Prestať sledovať miestnosť";
+            trackRoomButton.style.backgroundColor = trackedButtonColor;
         }
         else
         {
-            trackRoomButton.GetComponentInChildren<TextMeshProUGUI>().text = "Sledovať miestnosť";
-            trackRoomButton.GetComponent<Image>().color = Color.white;
-
+            trackRoomButton.text = "Sledovať miestnosť";
+            trackRoomButton.style.backgroundColor = Color.white;
         }
     }
 
-    private void RefreshRoomButtonColors()
+    private void RefreshAllRoomColors()
     {
-        foreach (var (room, button) in roomButtons)
-        {
-            var image = button.GetComponent<Image>();
-            image.color = GetRoomColor(room);
-        }
+        // Refresh all ListViews to update colors
+        sectorAListView?.RefreshItems();
+        sectorBListView?.RefreshItems();
+        sectorCListView?.RefreshItems();
     }
 
     public void ClearSelectedRoom()
     {
-        if (SelectedRoom != null && roomButtons.TryGetValue(SelectedRoom, out Button button))
-        {
-            button.GetComponent<Image>().color = (SelectedRoom == TrackedRoom) ? trackedButtonColor : defaultButtonColor;
-        }
-        if (SelectedRoom != null)
-        {
-            SelectedRoom = null;
-        }
+        SelectedRoom = null;
+        RefreshAllRoomColors();
     }
 
     public void GenerateRoomQRCode()
@@ -503,26 +451,26 @@ public class NavigationUI : BaseUi
 
     public override void CloseWindow()
     {
-        navigationCanvas?.gameObject.SetActive(false);
+        navigationUIElement.style.display = DisplayStyle.None;
         ClearSelectedRoom();
-        UpdateRoomButtonColor();
+        UpdateTrackButtonAppearance();
         IsMenuOn = false;
     }
 
     public override void OpenWindow()
     {
-        navigationCanvas?.gameObject.SetActive(true);
+        navigationUIElement.style.display = DisplayStyle.Flex;
         IsMenuOn = true;
 
+        // Refresh filters
         foreach (var sector in levelButtonsBySector)
         {
             if (currentFilteredLevel.TryGetValue(sector.Key, out int level))
             {
-                ApplyLevelFilter(sector.Key);
                 ResetLevelButtonsColor(sector.Key);
 
-                string buttonName = level == -1 ? "AllLevels" : $"Level{level}";
-                if (sector.Value.TryGetValue(buttonName, out Button activeButton))
+                string buttonName = $"Level{level}";
+                if (sector.Value.TryGetValue(buttonName, out UnityEngine.UIElements.Button activeButton))
                 {
                     SetLevelButtonColor(activeButton, true);
                 }
