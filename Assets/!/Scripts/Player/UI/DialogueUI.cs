@@ -1,50 +1,125 @@
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using System.Collections.Generic;
-using System.Linq;
 using System.Collections;
-using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Spravuje dialógové okno a interakciu s NPC.
 /// </summary>
 public class DialogueUI : BaseUi
 {
-    private Canvas dialogueCanvas;
+    private UIDocument dialogueDocument;
+    private VisualElement rootElement;
     private Button exitButton;
-    private TextMeshProUGUI dialogueText;
-    private TextMeshProUGUI npcNameText;
-    private Transform optionsContainer;
-    private List<Button> optionButtons = new List<Button>();
+    private Label dialogueText;
+    private Label npcNameText;
+    private ListView optionsList;
+    private List<string> currentOptions = new List<string>();
     private InputManager inputManager;
     private UIManager uiManager;
     private Npc currentNpc;
-    private GameObject buttonPrefab;
     private MonoBehaviour runner;
     private Coroutine _currentTypingCoroutine;
 
 
-    public DialogueUI(Canvas canvas, InputManager manager, UIManager uiManager, GameObject buttonPrefab, MonoBehaviour runner)
+    public DialogueUI(UIDocument document, InputManager manager, UIManager uiManager, MonoBehaviour runner)
     {
-        dialogueCanvas = canvas;
-        dialogueCanvas.gameObject.SetActive(false);
+        dialogueDocument = document;
+        rootElement = dialogueDocument.rootVisualElement;
+        rootElement.style.display = DisplayStyle.None;
 
         this.uiManager = uiManager;
         inputManager = manager;
-        this.buttonPrefab = buttonPrefab;
         this.runner = runner;
 
-        exitButton = FindButton("Exit");
-        dialogueText = FindText("DialogueText");
-        npcNameText = FindText("NpcName");
-        optionsContainer = FindOptionsContainer("OptionsContainer");
+        exitButton = rootElement.Q<Button>("CloseButton");
+        dialogueText = rootElement.Q<Label>("NpcPart");
+        npcNameText = rootElement.Q<Label>("NpcName");
+        optionsList = rootElement.Q<ListView>("OptionsList");
 
-        exitButton?.onClick.AddListener(CloseWindow);
+        exitButton?.RegisterCallback<ClickEvent>(evt => CloseWindow());
+        
+        SetupListView();
+        
         if (inputManager != null)
         {
             inputManager.dialogueUI.Exit.performed += ctx => CloseWindow();
         }
+    }
+
+    private void SetupListView()
+    {
+        if (optionsList == null) return;
+
+        // Remove default ListView styling and center items
+        optionsList.showBorder = false;
+        optionsList.showAlternatingRowBackgrounds = AlternatingRowBackground.None;
+        optionsList.selectionType = SelectionType.None;
+        
+        // Center items vertically in the container
+        optionsList.style.justifyContent = Justify.Center;
+        optionsList.style.alignItems = Align.Center;
+        optionsList.style.alignContent = Align.Center;
+        
+        optionsList.virtualizationMethod = CollectionVirtualizationMethod.DynamicHeight;
+        
+        // Set fixed item height to match button size
+        optionsList.fixedItemHeight = 60;
+
+        optionsList.makeItem = () =>
+        {
+            var button = new Button();
+            button.AddToClassList("optionButton");
+            button.style.height = 50;
+            button.style.minHeight = 50;
+            button.style.flexGrow = 0;
+            button.style.flexShrink = 0;
+            
+            // Add hover effects
+            button.RegisterCallback<MouseEnterEvent>(evt =>
+            {
+                button.style.color = new Color(251f / 255f, 184f / 255f, 0f);
+            });
+            
+            button.RegisterCallback<MouseLeaveEvent>(evt =>
+            {
+                button.style.color = Color.white;
+            });
+            
+            return button;
+        };
+
+        optionsList.bindItem = (element, index) =>
+        {
+            var button = element as Button;
+            if (button != null && index < currentOptions.Count)
+            {
+                button.text = currentOptions[index];
+                // Clear any existing callbacks
+                var existingCallbacks = button.userData as System.Action;
+                if (existingCallbacks != null)
+                {
+                    button.clicked -= existingCallbacks;
+                }
+                
+                // Create a new callback that captures the current index
+                System.Action callback = () => OnOptionSelected(index);
+                button.clicked += callback;
+                button.userData = callback;
+            }
+        };
+
+        optionsList.unbindItem = (element, index) =>
+        {
+            var button = element as Button;
+            if (button != null && button.userData is System.Action callback)
+            {
+                button.clicked -= callback;
+                button.userData = null;
+            }
+        };
+
+        optionsList.itemsSource = currentOptions;
     }
 
     public void UpdateDialogue(string message, string npcName)
@@ -76,84 +151,15 @@ public class DialogueUI : BaseUi
 
     public void UpdateOptionButtons(string[] options)
     {
-        ClearOptionButtons();
-        for (int i = 0; i < options.Length; i++)
+        currentOptions.Clear();
+        currentOptions.AddRange(options);
+        
+        if (optionsList != null)
         {
-            CreateOptionButton(options[i], i);
+            optionsList.itemsSource = currentOptions;
+            optionsList.Rebuild();
+            optionsList.style.display = options.Length > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }
-    }
-
-    private void CreateOptionButton(string optionText, int index)
-    {
-        if (buttonPrefab == null)
-        {
-            Debug.LogError("[DialogueUI] Button Prefab is not assigned!");
-            return;
-        }
-
-        GameObject buttonObj = GameObject.Instantiate(buttonPrefab, optionsContainer);
-        buttonObj.name = $"OptionButton_{index}";
-
-        Button newButton = buttonObj.GetComponent<Button>();
-        TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
-
-        if (buttonText != null)
-        {
-            buttonText.text = optionText;
-        }
-
-        newButton.onClick.AddListener(() => OnOptionSelected(index));
-        optionButtons.Add(newButton);
-
-        AddHoverEffect(newButton);
-    }
-
-
-    private void AddHoverEffect(Button button)
-    {
-        EventTrigger eventTrigger = button.gameObject.GetComponent<EventTrigger>();
-        if (eventTrigger == null)
-        {
-            eventTrigger = button.gameObject.AddComponent<EventTrigger>();
-        }
-
-        EventTrigger.Entry pointerEnterEntry = new EventTrigger.Entry();
-        pointerEnterEntry.eventID = EventTriggerType.PointerEnter;
-        pointerEnterEntry.callback.AddListener((data) => { OnPointerEnter(button); });
-
-        EventTrigger.Entry pointerExitEntry = new EventTrigger.Entry();
-        pointerExitEntry.eventID = EventTriggerType.PointerExit;
-        pointerExitEntry.callback.AddListener((data) => { OnPointerExit(button); });
-
-        eventTrigger.triggers.Add(pointerEnterEntry);
-        eventTrigger.triggers.Add(pointerExitEntry);
-    }
-
-    private void OnPointerEnter(Button button)
-    {
-        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-        if (buttonText != null)
-        {
-            buttonText.color = new Color(251f / 255f, 184f / 255f, 0f);
-        }
-    }
-
-    private void OnPointerExit(Button button)
-    {
-        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-        if (buttonText != null)
-        {
-            buttonText.color = Color.white;
-        }
-    }
-
-    private void ClearOptionButtons()
-    {
-        foreach (var button in optionButtons)
-        {
-            GameObject.Destroy(button.gameObject);
-        }
-        optionButtons.Clear();
     }
 
     private void OnOptionSelected(int choiceIndex)
@@ -164,39 +170,30 @@ public class DialogueUI : BaseUi
 
     public override void CloseWindow()
     {
-        dialogueCanvas.gameObject.SetActive(false);
+        if (rootElement != null)
+        {
+            rootElement.style.display = DisplayStyle.None;
+        }
         currentNpc?.StopDialogue();
         inputManager?.SwitchToOnFootActions();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        UnityEngine.Cursor.lockState = CursorLockMode.Locked;
+        UnityEngine.Cursor.visible = false;
     }
 
     public override void OpenWindow()
     {
-        dialogueCanvas.gameObject.SetActive(true);
+        if (rootElement != null)
+        {
+            rootElement.style.display = DisplayStyle.Flex;
+        }
         inputManager?.SwitchToDialogueUIActions();
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
     }
 
     public void SetNpc(Npc newNpc)
     {
         currentNpc = newNpc;
         Debug.Log(newNpc != null ? $"[DialogueUI] NPC nastavené: {newNpc.name}" : "[DialogueUI] NPC je null");
-    }
-
-    private Button FindButton(string buttonName)
-    {
-        return dialogueCanvas.GetComponentsInChildren<Button>(true).FirstOrDefault(b => b.name == buttonName);
-    }
-
-    private TextMeshProUGUI FindText(string textName)
-    {
-        return dialogueCanvas.GetComponentsInChildren<TextMeshProUGUI>(true).FirstOrDefault(t => t.name == textName);
-    }
-
-    private Transform FindOptionsContainer(string containerName)
-    {
-        return dialogueCanvas.GetComponentsInChildren<Transform>(true).FirstOrDefault(t => t.name == containerName);
     }
 }

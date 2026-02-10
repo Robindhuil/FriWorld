@@ -22,12 +22,12 @@ public class UIManager : MonoBehaviour
     private InputManager inputManager;
     private Player player;
     [Header("UI Prefabs")]
-    [SerializeField] private GameObject buttonPrefab;
     [SerializeField] private AudioMixer audioMixer;
-    [Header("UI Canvases")]
+    [Header("UI Documents")]
     [SerializeField] private UIDocument playerUIDocument;
     [SerializeField] private UIDocument playerWindowsDocument;
-    [SerializeField] private Canvas dialogueCanvas;
+    [SerializeField] private UIDocument dialogueUIDocument;
+    [Header("UI Canvases")]
     [SerializeField] private Canvas menuCanvas;
 
 
@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour
     {
         playerUI = new PlayerUI(playerUIDocument, this);
         inputManager = GetComponent<InputManager>();
-        dialogueUI = new DialogueUI(dialogueCanvas, inputManager, this, buttonPrefab, this);
+        dialogueUI = new DialogueUI(dialogueUIDocument, inputManager, this, this);
     }
 
     void Start()

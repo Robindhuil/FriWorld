@@ -1,0 +1,25 @@
+:root {
+}
+
+.optionButton {
+    font-size: 35px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 8px;
+    padding-right: 10px;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    -unity-text-align: middle-center;
+    white-space: normal;
+    height: 50px;
+    min-height: 50px;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
