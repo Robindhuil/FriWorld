@@ -1,0 +1,59 @@
+using UnityEditor;
+using UnityEngine;
+
+[CustomEditor(typeof(UniversalMenu))]
+public class UniversalMenuEditor : Editor
+{
+    SerializedProperty menuTypeProperty;
+    SerializedProperty sceneToLoadProperty;
+    SerializedProperty menuDocumentProperty;
+    SerializedProperty uiManagerProperty;
+    SerializedProperty backgroundMusicProperty;
+    SerializedProperty buttonClickSoundProperty;
+
+    private void OnEnable()
+    {
+        menuTypeProperty = serializedObject.FindProperty("menuType");
+        sceneToLoadProperty = serializedObject.FindProperty("sceneToLoad");
+        menuDocumentProperty = serializedObject.FindProperty("menuDocument");
+        uiManagerProperty = serializedObject.FindProperty("uiManager");
+        backgroundMusicProperty = serializedObject.FindProperty("backgroundMusic");
+        buttonClickSoundProperty = serializedObject.FindProperty("buttonClickSound");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+
+        // Menu Configuration Header
+        EditorGUILayout.PropertyField(menuTypeProperty);
+
+        EditorGUILayout.Space();
+
+        MenuType currentMenuType = (MenuType)menuTypeProperty.enumValueIndex;
+
+        // Scene Settings (MainMenu only)
+        if (currentMenuType == MenuType.MainMenu)
+        {
+            EditorGUILayout.PropertyField(sceneToLoadProperty, new GUIContent("Scene To Load"));
+            EditorGUILayout.Space();
+        }
+
+        // UI Documents Header
+        EditorGUILayout.PropertyField(menuDocumentProperty);
+
+        // Show/Hide fields based on menu type
+        if (currentMenuType == MenuType.GameplayMenu)
+        {
+            // Gameplay Menu Only References
+            EditorGUILayout.PropertyField(uiManagerProperty);
+            EditorGUILayout.Space();
+        }
+
+        // Optional References
+        EditorGUILayout.PropertyField(backgroundMusicProperty);
+        EditorGUILayout.PropertyField(buttonClickSoundProperty, new GUIContent("Button Click Sound"));
+
+        serializedObject.ApplyModifiedProperties();
+    }
+}

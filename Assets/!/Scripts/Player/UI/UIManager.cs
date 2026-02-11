@@ -27,8 +27,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIDocument playerUIDocument;
     [SerializeField] private UIDocument playerWindowsDocument;
     [SerializeField] private UIDocument dialogueUIDocument;
-    [Header("UI Canvases")]
-    [SerializeField] private Canvas menuCanvas;
+    [Header("Menu")]
+    [SerializeField] private UniversalMenu universalMenu;
 
 
 
@@ -47,7 +47,6 @@ public class UIManager : MonoBehaviour
         InitializeNavigationUI();
         InitializeCodexUI();
         InitializeStatsUI();
-        menuCanvas.gameObject.SetActive(false);
         
         // Ensure all UIs start closed
         CloseAll();
@@ -96,7 +95,10 @@ public class UIManager : MonoBehaviour
         navigationUI.CloseWindow();
         codexUI.CloseWindow();
         statsUI.CloseWindow();
-        menuCanvas.gameObject.SetActive(false);
+        if (universalMenu != null)
+        {
+            universalMenu.CloseMenu();
+        }
     }
 
     private void OnOpenJournal(InputAction.CallbackContext context)
@@ -173,37 +175,50 @@ public class UIManager : MonoBehaviour
 
     private void OnOpenMenu(InputAction.CallbackContext context)
     {
+        if (universalMenu == null) return;
+        
+        // Don't allow menu toggling if it's a MainMenu
+        if (universalMenu.IsMainMenu)
+        {
+            Debug.LogWarning("MainMenu cannot be toggled during gameplay");
+            return;
+        }
+        
         if (tabUI.IsMenuOn)
         {
             CloseAll();
             OpenPlayerUI();
         }
-        else if (menuCanvas.gameObject.activeSelf)
+        else if (universalMenu.IsMenuOpen)
         {
+            universalMenu.CloseMenu();
             OpenPlayerUI();
-
         }
         else
         {
             ClosePlayerUI();
             tabUI.CloseWindow();
-            menuCanvas.gameObject.SetActive(true);
-            menuCanvas.gameObject.transform.Find("Menu").GetComponent<MainMenu>().ShowMusicPanel();
+            universalMenu.OpenMenu();
         }
     }
 
     public void OpenMenu()
     {
-        if (menuCanvas.gameObject.activeSelf)
+        if (universalMenu == null) return;
+        
+        // Don't allow menu toggling if it's a MainMenu
+        if (universalMenu.IsMainMenu) return;
+        
+        if (universalMenu.IsMenuOpen)
         {
+            universalMenu.CloseMenu();
             OpenPlayerUI();
         }
         else
         {
             ClosePlayerUI();
             tabUI.CloseWindow();
-            menuCanvas.gameObject.SetActive(true);
-            menuCanvas.gameObject.transform.Find("Menu").GetComponent<MainMenu>().ShowMusicPanel();
+            universalMenu.OpenMenu();
         }
     }
 
