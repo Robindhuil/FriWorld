@@ -4,8 +4,8 @@
         <engine:Label text="Name" name="NameLabel" style="flex-grow: 0; -unity-text-align: middle-center; font-size: 40px; height: auto; color: rgb(251, 184, 0); -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&amp;guid=5c670b434ca74524386dd732ddcb8661&amp;type=3#bedstead&quot;); -unity-text-auto-size: best-fit 10px 40px; -unity-text-generator: advanced; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; -unity-font-style: bold; width: 500px;"/>
         <engine:VisualElement style="flex-grow: 1;">
             <engine:Label text="Label" name="SliderLevel" style="flex-grow: 0; -unity-text-align: middle-center; margin-right: 0; margin-left: 0; font-size: 30px; justify-content: flex-start; padding-bottom: 0; margin-bottom: 5px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&amp;guid=5c670b434ca74524386dd732ddcb8661&amp;type=3#bedstead&quot;); margin-top: 0; padding-top: 0; padding-right: 0; padding-left: 0; -unity-font-style: normal;"/>
-            <engine:Slider label="
-" value="50" high-value="100" fill="true" name="SelectionSlider" focusable="false" style="margin-right: 7px; margin-bottom: 7px; margin-left: 7px; margin-top: 7px; -unity-text-align: middle-center; flex-grow: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+            <engine:Slider label=" " value="50" high-value="100" fill="true" name="SelectionSlider" focusable="false" style="margin-right: 7px; margin-bottom: 7px; margin-left: 7px; margin-top: 7px; -unity-text-align: middle-center; flex-grow: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
         </engine:VisualElement>
+        <engine:Button text="Reset to default" name="ResetToDefaultButton" class="resetToDefaultButton"/>
     </engine:VisualElement>
 </engine:UXML>

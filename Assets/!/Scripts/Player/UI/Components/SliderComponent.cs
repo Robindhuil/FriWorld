@@ -10,8 +10,13 @@ public partial class SliderComponent : VisualElement
     private Label nameLabel;
     private Label sliderLevel;
     private Slider slider;
+    private Button resetButton;
+
+    private float defaultValue = 50f;
+    private bool useWholeNumbers = false;
 
     public event Action<float> OnValueChanged;
+    public event Action OnResetToDefault;
 
     public SliderComponent()
     {
@@ -27,6 +32,7 @@ public partial class SliderComponent : VisualElement
         nameLabel = this.Q<Label>("NameLabel");
         sliderLevel = this.Q<Label>("SliderLevel");
         slider = this.Q<Slider>();
+        resetButton = this.Q<Button>("ResetToDefaultButton");
 
         if (slider != null)
         {
@@ -34,7 +40,13 @@ public partial class SliderComponent : VisualElement
             slider.RegisterValueChangedCallback(OnSliderValueChanged);
         }
 
+        if (resetButton != null)
+        {
+            resetButton.clicked += OnResetButtonClicked;
+        }
+
         UpdateLevelDisplay();
+        RegisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
     }
 
 
@@ -81,18 +93,87 @@ public partial class SliderComponent : VisualElement
         }
     }
 
+    public float DefaultValue
+    {
+        get => defaultValue;
+        set => defaultValue = value;
+    }
+
+    public bool UseWholeNumbers
+    {
+        get => useWholeNumbers;
+        set
+        {
+            useWholeNumbers = value;
+            if (slider != null && value)
+            {
+                slider.value = Mathf.Round(slider.value);
+            }
+            UpdateLevelDisplay();
+        }
+    }
+
+    public bool ShowResetButton
+    {
+        get => resetButton?.style.display == DisplayStyle.Flex;
+        set
+        {
+            if (resetButton != null)
+                resetButton.style.display = value ? DisplayStyle.Flex : DisplayStyle.None;
+        }
+    }
+
+    public string TooltipText
+    {
+        get => tooltip;
+        set => tooltip = value;
+    }
+
 
     private void OnSliderValueChanged(ChangeEvent<float> evt)
     {
+        float value = evt.newValue;
+        
+        if (useWholeNumbers)
+        {
+            value = Mathf.Round(value);
+            if (value != evt.newValue)
+            {
+                slider.SetValueWithoutNotify(value);
+            }
+        }
+
         UpdateLevelDisplay();
-        OnValueChanged?.Invoke(evt.newValue);
+        OnValueChanged?.Invoke(value);
+    }
+
+    private void OnResetButtonClicked()
+    {
+        Value = defaultValue;
+        OnResetToDefault?.Invoke();
+    }
+
+    private void OnDetachFromPanel(DetachFromPanelEvent evt)
+    {
+        if (slider != null)
+        {
+            slider.UnregisterValueChangedCallback(OnSliderValueChanged);
+        }
+
+        if (resetButton != null)
+        {
+            resetButton.clicked -= OnResetButtonClicked;
+        }
+
+        UnregisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
     }
 
     private void UpdateLevelDisplay()
     {
         if (sliderLevel != null && slider != null)
         {
-            sliderLevel.text = $"{slider.value:0}%";
+            float displayValue = useWholeNumbers ? Mathf.Round(slider.value) : slider.value;
+            sliderLevel.text = $"{displayValue:0}%";
         }
     }
 
@@ -108,8 +189,27 @@ public partial class SliderComponent : VisualElement
     {
         if (slider != null)
         {
-            slider.SetValueWithoutNotify(value);
+            float finalValue = useWholeNumbers ? Mathf.Round(value) : value;
+            slider.SetValueWithoutNotify(finalValue);
             UpdateLevelDisplay();
         }
+    }
+
+    public void Initialize(string name, float min, float max, float defaultVal, bool wholeNumbers = false)
+    {
+        NameText = name;
+        MinValue = min;
+        MaxValue = max;
+        DefaultValue = defaultVal;
+        UseWholeNumbers = wholeNumbers;
+        Value = defaultVal;
+    }
+
+    public new void SetEnabled(bool enabled)
+    {
+        if (slider != null)
+            slider.SetEnabled(enabled);
+        if (resetButton != null)
+            resetButton.SetEnabled(enabled);
     }
 }

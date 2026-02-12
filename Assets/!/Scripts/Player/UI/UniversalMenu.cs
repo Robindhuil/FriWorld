@@ -22,6 +22,9 @@ public class UniversalMenu : MonoBehaviour
     [Header("References (Gameplay Menu Only)")]
     [SerializeField] private UIManager uiManager;
     
+    [Header("Settings References")]
+    [SerializeField] private AudioSettings audioSettings;
+    
     [Header("References (Optional)")]
     [SerializeField] private BackgroundMusic backgroundMusic;
     [SerializeField] private GlobalButtonClickSound buttonClickSound;
@@ -38,6 +41,21 @@ public class UniversalMenu : MonoBehaviour
     private Label authorNameLabel;
     private Label songNameLabel;
     
+    // Settings Tab Buttons
+    private Button gameTabButton;
+    private Button videoTabButton;
+    private Button audioTabButton;
+    private Button controlsTabButton;
+    
+    // Settings Windows
+    private VisualElement gameWindow;
+    private VisualElement videoWindow;
+    private VisualElement audioWindow;
+    private VisualElement controlsWindow;
+    
+    // Settings Content Containers
+    private VisualElement audioSettingsElements;
+    
     private bool isMenuOpen = false;
     
     void Awake()
@@ -49,6 +67,9 @@ public class UniversalMenu : MonoBehaviour
     
     void Start()
     {
+        // Initialize settings UI
+        InitializeSettingsUI();
+        
         // MainMenu is always visible at start, Gameplay menu starts hidden
         if (menuType == MenuType.MainMenu)
         {
@@ -89,6 +110,21 @@ public class UniversalMenu : MonoBehaviour
         
         // Get settings close button
         closeButton = root.Q<Button>("CloseButton");
+        
+        // Get settings tab buttons
+        gameTabButton = root.Q<Button>("GameButton");
+        videoTabButton = root.Q<Button>("VideoButton");
+        audioTabButton = root.Q<Button>("AudioButton");
+        controlsTabButton = root.Q<Button>("ControlsButton");
+        
+        // Get settings windows
+        gameWindow = root.Q<VisualElement>("GameWindow");
+        videoWindow = root.Q<VisualElement>("VideoWindow");
+        audioWindow = root.Q<VisualElement>("AudioWindow");
+        controlsWindow = root.Q<VisualElement>("ControlsWindow");
+        
+        // Get settings content containers
+        audioSettingsElements = root.Q<VisualElement>("AudioSettingsElements");
         
         // Get labels
         versionLabel = root.Q<Label>("VersionNumber");
@@ -158,6 +194,19 @@ public class UniversalMenu : MonoBehaviour
         
         if (closeButton != null)
             closeButton.clicked += OnCloseSettingsClicked;
+        
+        // Register settings tab callbacks
+        if (gameTabButton != null)
+            gameTabButton.clicked += () => SwitchToTab(SettingsTab.Game);
+        
+        if (videoTabButton != null)
+            videoTabButton.clicked += () => SwitchToTab(SettingsTab.Video);
+        
+        if (audioTabButton != null)
+            audioTabButton.clicked += () => SwitchToTab(SettingsTab.Audio);
+        
+        if (controlsTabButton != null)
+            controlsTabButton.clicked += () => SwitchToTab(SettingsTab.Controls);
     }
     
     public void OpenMenu()
@@ -293,11 +342,13 @@ public class UniversalMenu : MonoBehaviour
     private void OnOptionsClicked()
     {
         PlayButtonSound();
-        Debug.Log("Options button clicked - Settings not implemented yet");
+        Debug.Log("Options button clicked");
         // Hide the menu and show settings window
         // Background remains visible in both cases
         HideMenu();
         ShowSettings();
+        // Set default tab to Game
+        SwitchToTab(SettingsTab.Game);
     }
     
     private void OnExitClicked()
@@ -347,6 +398,71 @@ public class UniversalMenu : MonoBehaviour
         Debug.Log("Close settings button clicked");
         HideSettings();
         ShowMenu();
+    }
+    
+    #endregion
+    
+    #region Settings Initialization
+    
+    private void InitializeSettingsUI()
+    {
+        // Initialize Audio Settings
+        if (audioSettings != null && audioSettingsElements != null)
+        {
+            audioSettings.CreateAllAudioSliders(audioSettingsElements);
+            Debug.Log("Audio settings UI initialized");
+        }
+        else
+        {
+            if (audioSettings == null)
+                Debug.LogWarning("AudioSettings component not assigned!");
+            if (audioSettingsElements == null)
+                Debug.LogWarning("AudioSettingsElements container not found in UI!");
+        }
+    }
+    
+    #endregion
+    
+    #region Settings Tab Management
+    
+    private enum SettingsTab
+    {
+        Game,
+        Video,
+        Audio,
+        Controls
+    }
+    
+    private void SwitchToTab(SettingsTab tab)
+    {
+        PlayButtonSound();
+        
+        // Hide all windows
+        if (gameWindow != null) gameWindow.style.display = DisplayStyle.None;
+        if (videoWindow != null) videoWindow.style.display = DisplayStyle.None;
+        if (audioWindow != null) audioWindow.style.display = DisplayStyle.None;
+        if (controlsWindow != null) controlsWindow.style.display = DisplayStyle.None;
+        
+        // Show selected window
+        switch (tab)
+        {
+            case SettingsTab.Game:
+                if (gameWindow != null) gameWindow.style.display = DisplayStyle.Flex;
+                Debug.Log("Switched to Game settings");
+                break;
+            case SettingsTab.Video:
+                if (videoWindow != null) videoWindow.style.display = DisplayStyle.Flex;
+                Debug.Log("Switched to Video settings");
+                break;
+            case SettingsTab.Audio:
+                if (audioWindow != null) audioWindow.style.display = DisplayStyle.Flex;
+                Debug.Log("Switched to Audio settings");
+                break;
+            case SettingsTab.Controls:
+                if (controlsWindow != null) controlsWindow.style.display = DisplayStyle.Flex;
+                Debug.Log("Switched to Controls settings");
+                break;
+        }
     }
     
     #endregion
