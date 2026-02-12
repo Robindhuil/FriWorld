@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3052692371053013939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6633153332724074958}
+  - component: {fileID: 542959788735834526}
+  m_Layer: 0
+  m_Name: GameSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6633153332724074958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052692371053013939}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0, z: -9.653832}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8541268223223390657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &542959788735834526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3052692371053013939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aad12cb5c53767449e7a6d48fe7d48f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameSettings
+  prefsManager: {fileID: 4735757905168956006}
+  playerLook: {fileID: 0}
 --- !u!1 &3874309957752258109
 GameObject:
   m_ObjectHideFlags: 0
@@ -83,6 +129,7 @@ Transform:
   - {fileID: 5973182343825712605}
   - {fileID: 8486654974462005476}
   - {fileID: 5221834145799025240}
+  - {fileID: 6633153332724074958}
   - {fileID: 5617375665440943820}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -104,6 +151,7 @@ MonoBehaviour:
   uiManager: {fileID: 0}
   audioSettings: {fileID: 6573800903539114496}
   videoSettings: {fileID: 5568655064134040983}
+  gameSettings: {fileID: 542959788735834526}
   backgroundMusic: {fileID: 7375634434204280014}
   buttonClickSound: {fileID: 0}
 --- !u!1 &4833468013042138495

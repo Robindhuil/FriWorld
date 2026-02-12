@@ -15,6 +15,11 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     private const string VSYNC_KEY = "VSync";
     private const string QUALITY_LEVEL_KEY = "QualityLevel";
     
+    // Game Keys
+    private const string MOUSE_SENSITIVITY_KEY = "MouseSensitivity";
+    private const string INVERT_X_KEY = "InvertX";
+    private const string INVERT_Y_KEY = "InvertY";
+    
     private const string FIRST_RUN_KEY = "FirstRun";
     #endregion
 
@@ -30,6 +35,11 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     public static readonly int DEFAULT_FULLSCREEN_MODE = 0; // FullScreenWindow
     public static readonly int DEFAULT_VSYNC = 1; // On
     public static readonly int DEFAULT_QUALITY_LEVEL = 2; // Medium (typically)
+    
+    // Game Defaults
+    public static readonly float DEFAULT_MOUSE_SENSITIVITY = 800f; // DPI (400-1600 range)
+    public static readonly bool DEFAULT_INVERT_X = false;
+    public static readonly bool DEFAULT_INVERT_Y = false;
     #endregion
 
     #region Audio Settings Properties
@@ -44,6 +54,12 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     public int FullscreenMode { get; private set; }
     public int VSync { get; private set; }
     public int QualityLevel { get; private set; }
+    #endregion
+    
+    #region Game Settings Properties
+    public float MouseSensitivity { get; private set; }
+    public bool InvertX { get; private set; }
+    public bool InvertY { get; private set; }
     #endregion
 
     #region Unity Lifecycle
@@ -100,6 +116,9 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         SaveFullscreenMode(DEFAULT_FULLSCREEN_MODE);
         SaveVSync(DEFAULT_VSYNC);
         SaveQualityLevel(DEFAULT_QUALITY_LEVEL);
+        SaveMouseSensitivity(DEFAULT_MOUSE_SENSITIVITY);
+        SaveInvertX(DEFAULT_INVERT_X);
+        SaveInvertY(DEFAULT_INVERT_Y);
     }
     #endregion
 
@@ -111,6 +130,7 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     {
         LoadAudioSettings();
         LoadVideoSettings();
+        LoadGameSettings();
     }
     #endregion
 
@@ -186,6 +206,30 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     public void LoadQualityLevel()
     {
         QualityLevel = PlayerPrefs.GetInt(QUALITY_LEVEL_KEY, DEFAULT_QUALITY_LEVEL);
+    }
+    
+    /// <summary>
+    /// Loads the Mouse Sensitivity preference
+    /// </summary>
+    public void LoadMouseSensitivity()
+    {
+        MouseSensitivity = PlayerPrefs.GetFloat(MOUSE_SENSITIVITY_KEY, DEFAULT_MOUSE_SENSITIVITY);
+    }
+    
+    /// <summary>
+    /// Loads the Invert X preference
+    /// </summary>
+    public void LoadInvertX()
+    {
+        InvertX = PlayerPrefs.GetInt(INVERT_X_KEY, DEFAULT_INVERT_X ? 1 : 0) == 1;
+    }
+    
+    /// <summary>
+    /// Loads the Invert Y preference
+    /// </summary>
+    public void LoadInvertY()
+    {
+        InvertY = PlayerPrefs.GetInt(INVERT_Y_KEY, DEFAULT_INVERT_Y ? 1 : 0) == 1;
     }
     #endregion
 
@@ -269,6 +313,39 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         PlayerPrefs.SetInt(QUALITY_LEVEL_KEY, level);
         PlayerPrefs.Save();
     }
+    
+    /// <summary>
+    /// Saves the Mouse Sensitivity preference
+    /// </summary>
+    /// <param name="sensitivity">Mouse sensitivity (400-1600 DPI range)</param>
+    public void SaveMouseSensitivity(float sensitivity)
+    {
+        MouseSensitivity = Mathf.Clamp(sensitivity, 400f, 1600f);
+        PlayerPrefs.SetFloat(MOUSE_SENSITIVITY_KEY, MouseSensitivity);
+        PlayerPrefs.Save();
+    }
+    
+    /// <summary>
+    /// Saves the Invert X preference
+    /// </summary>
+    /// <param name="invert">True to invert X axis</param>
+    public void SaveInvertX(bool invert)
+    {
+        InvertX = invert;
+        PlayerPrefs.SetInt(INVERT_X_KEY, invert ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+    
+    /// <summary>
+    /// Saves the Invert Y preference
+    /// </summary>
+    /// <param name="invert">True to invert Y axis</param>
+    public void SaveInvertY(bool invert)
+    {
+        InvertY = invert;
+        PlayerPrefs.SetInt(INVERT_Y_KEY, invert ? 1 : 0);
+        PlayerPrefs.Save();
+    }
     #endregion
 
     #region Reset Functions
@@ -348,6 +425,40 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         ResetVSync();
         ResetQualityLevel();
     }
+    
+    /// <summary>
+    /// Resets Mouse Sensitivity to default value
+    /// </summary>
+    public void ResetMouseSensitivity()
+    {
+        SaveMouseSensitivity(DEFAULT_MOUSE_SENSITIVITY);
+    }
+    
+    /// <summary>
+    /// Resets Invert X to default value
+    /// </summary>
+    public void ResetInvertX()
+    {
+        SaveInvertX(DEFAULT_INVERT_X);
+    }
+    
+    /// <summary>
+    /// Resets Invert Y to default value
+    /// </summary>
+    public void ResetInvertY()
+    {
+        SaveInvertY(DEFAULT_INVERT_Y);
+    }
+    
+    /// <summary>
+    /// Resets all game settings to default values
+    /// </summary>
+    public void ResetGameSettings()
+    {
+        ResetMouseSensitivity();
+        ResetInvertX();
+        ResetInvertY();
+    }
     #endregion
 
     #region Utility Functions
@@ -370,6 +481,16 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         LoadFullscreenMode();
         LoadVSync();
         LoadQualityLevel();
+    }
+    
+    /// <summary>
+    /// Loads all game settings from PlayerPrefs
+    /// </summary>
+    private void LoadGameSettings()
+    {
+        LoadMouseSensitivity();
+        LoadInvertX();
+        LoadInvertY();
     }
 
     /// <summary>

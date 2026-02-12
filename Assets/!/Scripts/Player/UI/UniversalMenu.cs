@@ -25,6 +25,7 @@ public class UniversalMenu : MonoBehaviour
     [Header("Settings References")]
     [SerializeField] private AudioSettings audioSettings;
     [SerializeField] private VideoSettings videoSettings;
+    [SerializeField] private GameSettings gameSettings;
     
     [Header("References (Optional)")]
     [SerializeField] private BackgroundMusic backgroundMusic;
@@ -57,6 +58,7 @@ public class UniversalMenu : MonoBehaviour
     // Settings Content Containers
     private VisualElement audioSettingsElements;
     private VisualElement videoSettingsElements;
+    private VisualElement gameSettingsElements;
     
     private bool isMenuOpen = false;
     
@@ -128,6 +130,7 @@ public class UniversalMenu : MonoBehaviour
         // Get settings content containers
         audioSettingsElements = root.Q<VisualElement>("AudioSettingsElements");
         videoSettingsElements = root.Q<VisualElement>("VideoSettingsElements");
+        gameSettingsElements = root.Q<VisualElement>("GameSettingsElements");
         
         // Get labels
         versionLabel = root.Q<Label>("VersionNumber");
@@ -435,6 +438,20 @@ public class UniversalMenu : MonoBehaviour
                 Debug.LogWarning("VideoSettings component not assigned!");
             if (videoSettingsElements == null)
                 Debug.LogWarning("VideoSettingsElements container not found in UI!");
+        }
+        
+        // Initialize Game Settings
+        if (gameSettings != null && gameSettingsElements != null)
+        {
+            gameSettings.CreateAllGameSettings(gameSettingsElements);
+            Debug.Log("Game settings UI initialized");
+        }
+        else
+        {
+            if (gameSettings == null)
+                Debug.LogWarning("GameSettings component not assigned!");
+            if (gameSettingsElements == null)
+                Debug.LogWarning("GameSettingsElements container not found in UI!");
         }
     }
     

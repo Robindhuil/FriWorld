@@ -10,6 +10,7 @@ public class UniversalMenuEditor : Editor
     SerializedProperty uiManagerProperty;
     SerializedProperty audioSettingsProperty;
     SerializedProperty videoSettingsProperty;
+    SerializedProperty gameSettingsProperty;
     SerializedProperty backgroundMusicProperty;
     SerializedProperty buttonClickSoundProperty;
 
@@ -21,6 +22,7 @@ public class UniversalMenuEditor : Editor
         uiManagerProperty = serializedObject.FindProperty("uiManager");
         audioSettingsProperty = serializedObject.FindProperty("audioSettings");
         videoSettingsProperty = serializedObject.FindProperty("videoSettings");
+        gameSettingsProperty = serializedObject.FindProperty("gameSettings");
         backgroundMusicProperty = serializedObject.FindProperty("backgroundMusic");
         buttonClickSoundProperty = serializedObject.FindProperty("buttonClickSound");
     }
@@ -57,6 +59,7 @@ public class UniversalMenuEditor : Editor
         // Settings References (shown for both menu types)
         EditorGUILayout.PropertyField(audioSettingsProperty);
         EditorGUILayout.PropertyField(videoSettingsProperty);
+        EditorGUILayout.PropertyField(gameSettingsProperty);
         EditorGUILayout.Space();
 
         // Optional References

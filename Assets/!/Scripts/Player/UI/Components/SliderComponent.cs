@@ -14,6 +14,7 @@ public partial class SliderComponent : VisualElement
 
     private float defaultValue = 50f;
     private bool useWholeNumbers = false;
+    private string levelFormat = "{0:0}%";
 
     public event Action<float> OnValueChanged;
     public event Action OnResetToDefault;
@@ -40,9 +41,15 @@ public partial class SliderComponent : VisualElement
             slider.RegisterValueChangedCallback(OnSliderValueChanged);
         }
 
+        var globalSound = GameObject.FindFirstObjectByType<GlobalButtonClickSound>();
+
         if (resetButton != null)
         {
-            resetButton.clicked += OnResetButtonClicked;
+            resetButton.RegisterCallback<ClickEvent>(_ =>
+            {
+                OnResetButtonClicked();
+                globalSound?.PlayClickSound();
+            });
         }
 
         UpdateLevelDisplay();
@@ -160,11 +167,6 @@ public partial class SliderComponent : VisualElement
             slider.UnregisterValueChangedCallback(OnSliderValueChanged);
         }
 
-        if (resetButton != null)
-        {
-            resetButton.clicked -= OnResetButtonClicked;
-        }
-
         UnregisterCallback<DetachFromPanelEvent>(OnDetachFromPanel);
     }
 
@@ -173,16 +175,14 @@ public partial class SliderComponent : VisualElement
         if (sliderLevel != null && slider != null)
         {
             float displayValue = useWholeNumbers ? Mathf.Round(slider.value) : slider.value;
-            sliderLevel.text = $"{displayValue:0}%";
+            sliderLevel.text = string.Format(levelFormat, displayValue);
         }
     }
 
     public void SetLevelFormat(string format)
     {
-        if (sliderLevel != null && slider != null)
-        {
-            sliderLevel.text = string.Format(format, slider.value);
-        }
+        levelFormat = format;
+        UpdateLevelDisplay();
     }
 
     public void SetValueWithoutNotify(float value)
