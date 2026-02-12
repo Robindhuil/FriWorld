@@ -3,22 +3,47 @@ using UnityEngine;
 public class PlayerPreferenceSettingsManager : MonoBehaviour
 {
     #region PlayerPrefs Keys
+    // Audio Keys
     private const string MASTER_VOLUME_KEY = "MasterVolume";
     private const string SFX_VOLUME_KEY = "SfxVolume";
     private const string MUSIC_VOLUME_KEY = "MusicVolume";
+    
+    // Video Keys
+    private const string RESOLUTION_WIDTH_KEY = "ResolutionWidth";
+    private const string RESOLUTION_HEIGHT_KEY = "ResolutionHeight";
+    private const string FULLSCREEN_MODE_KEY = "FullscreenMode";
+    private const string VSYNC_KEY = "VSync";
+    private const string QUALITY_LEVEL_KEY = "QualityLevel";
+    
     private const string FIRST_RUN_KEY = "FirstRun";
     #endregion
 
     #region Default Values
+    // Audio Defaults
     public static readonly float DEFAULT_MASTER_VOLUME = 0.5f;
     public static readonly float DEFAULT_SFX_VOLUME = 0.5f;
     public static readonly float DEFAULT_MUSIC_VOLUME = 0.5f;
+    
+    // Video Defaults
+    public static readonly int DEFAULT_RESOLUTION_WIDTH = 1920;
+    public static readonly int DEFAULT_RESOLUTION_HEIGHT = 1080;
+    public static readonly int DEFAULT_FULLSCREEN_MODE = 0; // FullScreenWindow
+    public static readonly int DEFAULT_VSYNC = 1; // On
+    public static readonly int DEFAULT_QUALITY_LEVEL = 2; // Medium (typically)
     #endregion
 
     #region Audio Settings Properties
     public float MasterVolume { get; private set; }
     public float SfxVolume { get; private set; }
     public float MusicVolume { get; private set; }
+    #endregion
+    
+    #region Video Settings Properties
+    public int ResolutionWidth { get; private set; }
+    public int ResolutionHeight { get; private set; }
+    public int FullscreenMode { get; private set; }
+    public int VSync { get; private set; }
+    public int QualityLevel { get; private set; }
     #endregion
 
     #region Unity Lifecycle
@@ -71,6 +96,10 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         SaveMasterVolume(DEFAULT_MASTER_VOLUME);
         SaveSfxVolume(DEFAULT_SFX_VOLUME);
         SaveMusicVolume(DEFAULT_MUSIC_VOLUME);
+        SaveResolution(DEFAULT_RESOLUTION_WIDTH, DEFAULT_RESOLUTION_HEIGHT);
+        SaveFullscreenMode(DEFAULT_FULLSCREEN_MODE);
+        SaveVSync(DEFAULT_VSYNC);
+        SaveQualityLevel(DEFAULT_QUALITY_LEVEL);
     }
     #endregion
 
@@ -81,6 +110,7 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     public void LoadAllPreferences()
     {
         LoadAudioSettings();
+        LoadVideoSettings();
     }
     #endregion
 
@@ -107,6 +137,55 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     public void LoadMusicVolume()
     {
         MusicVolume = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, DEFAULT_MUSIC_VOLUME);
+    }
+    
+    /// <summary>
+    /// Loads the Resolution Width preference
+    /// </summary>
+    public void LoadResolutionWidth()
+    {
+        ResolutionWidth = PlayerPrefs.GetInt(RESOLUTION_WIDTH_KEY, DEFAULT_RESOLUTION_WIDTH);
+    }
+    
+    /// <summary>
+    /// Loads the Resolution Height preference
+    /// </summary>
+    public void LoadResolutionHeight()
+    {
+        ResolutionHeight = PlayerPrefs.GetInt(RESOLUTION_HEIGHT_KEY, DEFAULT_RESOLUTION_HEIGHT);
+    }
+    
+    /// <summary>
+    /// Loads both Resolution Width and Height preferences
+    /// </summary>
+    public void LoadResolution()
+    {
+        LoadResolutionWidth();
+        LoadResolutionHeight();
+    }
+    
+    /// <summary>
+    /// Loads the Fullscreen Mode preference
+    /// </summary>
+    public void LoadFullscreenMode()
+    {
+        FullscreenMode = PlayerPrefs.GetInt(FULLSCREEN_MODE_KEY, DEFAULT_FULLSCREEN_MODE);
+    }
+    
+    /// <summary>
+    /// Loads the VSync preference
+    /// </summary>
+    public void LoadVSync()
+    {
+        VSync = PlayerPrefs.GetInt(VSYNC_KEY, DEFAULT_VSYNC);
+    }
+    
+    /// <summary>
+    /// Loads the Quality Level preference
+    /// </summary>
+    public void LoadQualityLevel()
+    {
+        QualityLevel = PlayerPrefs.GetInt(QUALITY_LEVEL_KEY, DEFAULT_QUALITY_LEVEL);
     }
     #endregion
 
@@ -141,6 +220,53 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     {
         MusicVolume = value;
         PlayerPrefs.SetFloat(MUSIC_VOLUME_KEY, value);
+        PlayerPrefs.Save();
+    }
+    
+    /// <summary>
+    /// Saves the Resolution preference
+    /// </summary>
+    /// <param name="width">Resolution width</param>
+    /// <param name="height">Resolution height</param>
+    public void SaveResolution(int width, int height)
+    {
+        ResolutionWidth = width;
+        ResolutionHeight = height;
+        PlayerPrefs.SetInt(RESOLUTION_WIDTH_KEY, width);
+        PlayerPrefs.SetInt(RESOLUTION_HEIGHT_KEY, height);
+        PlayerPrefs.Save();
+    }
+    
+    /// <summary>
+    /// Saves the Fullscreen Mode preference
+    /// </summary>
+    /// <param name="mode">Fullscreen mode (0 = FullScreenWindow, 1 = ExclusiveFullScreen, 2 = Windowed)</param>
+    public void SaveFullscreenMode(int mode)
+    {
+        FullscreenMode = mode;
+        PlayerPrefs.SetInt(FULLSCREEN_MODE_KEY, mode);
+        PlayerPrefs.Save();
+    }
+    
+    /// <summary>
+    /// Saves the VSync preference
+    /// </summary>
+    /// <param name="vsync">VSync count (0 = off, 1 = on, 2 = every second frame)</param>
+    public void SaveVSync(int vsync)
+    {
+        VSync = vsync;
+        PlayerPrefs.SetInt(VSYNC_KEY, vsync);
+        PlayerPrefs.Save();
+    }
+    
+    /// <summary>
+    /// Saves the Quality Level preference
+    /// </summary>
+    /// <param name="level">Quality level index</param>
+    public void SaveQualityLevel(int level)
+    {
+        QualityLevel = level;
+        PlayerPrefs.SetInt(QUALITY_LEVEL_KEY, level);
         PlayerPrefs.Save();
     }
     #endregion
@@ -179,6 +305,49 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         ResetSfxVolume();
         ResetMusicVolume();
     }
+    
+    /// <summary>
+    /// Resets Resolution to default value
+    /// </summary>
+    public void ResetResolution()
+    {
+        SaveResolution(DEFAULT_RESOLUTION_WIDTH, DEFAULT_RESOLUTION_HEIGHT);
+    }
+    
+    /// <summary>
+    /// Resets Fullscreen Mode to default value
+    /// </summary>
+    public void ResetFullscreenMode()
+    {
+        SaveFullscreenMode(DEFAULT_FULLSCREEN_MODE);
+    }
+    
+    /// <summary>
+    /// Resets VSync to default value
+    /// </summary>
+    public void ResetVSync()
+    {
+        SaveVSync(DEFAULT_VSYNC);
+    }
+    
+    /// <summary>
+    /// Resets Quality Level to default value
+    /// </summary>
+    public void ResetQualityLevel()
+    {
+        SaveQualityLevel(DEFAULT_QUALITY_LEVEL);
+    }
+    
+    /// <summary>
+    /// Resets all video settings to default values
+    /// </summary>
+    public void ResetVideoSettings()
+    {
+        ResetResolution();
+        ResetFullscreenMode();
+        ResetVSync();
+        ResetQualityLevel();
+    }
     #endregion
 
     #region Utility Functions
@@ -190,6 +359,17 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         LoadMasterVolume();
         LoadSfxVolume();
         LoadMusicVolume();
+    }
+    
+    /// <summary>
+    /// Loads all video settings from PlayerPrefs
+    /// </summary>
+    private void LoadVideoSettings()
+    {
+        LoadResolution();
+        LoadFullscreenMode();
+        LoadVSync();
+        LoadQualityLevel();
     }
 
     /// <summary>

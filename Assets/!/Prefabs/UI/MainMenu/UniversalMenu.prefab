@@ -82,6 +82,7 @@ Transform:
   - {fileID: 5888108016539349037}
   - {fileID: 5973182343825712605}
   - {fileID: 8486654974462005476}
+  - {fileID: 5221834145799025240}
   - {fileID: 5617375665440943820}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -102,6 +103,7 @@ MonoBehaviour:
   menuDocument: {fileID: 3980119852216182432}
   uiManager: {fileID: 0}
   audioSettings: {fileID: 6573800903539114496}
+  videoSettings: {fileID: 5568655064134040983}
   backgroundMusic: {fileID: 7375634434204280014}
   buttonClickSound: {fileID: 0}
 --- !u!1 &4833468013042138495
@@ -323,6 +325,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0454fb21d32379549ba03881516b97ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerPreferenceSettingsManager
+--- !u!1 &7042858684479614441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5221834145799025240}
+  - component: {fileID: 5568655064134040983}
+  m_Layer: 0
+  m_Name: VideoSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5221834145799025240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042858684479614441}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 45.910976, y: 23.196346, z: -9.653832}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8541268223223390657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5568655064134040983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042858684479614441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78fb51154e1b01d4f8dc161e515e20e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VideoSettings
+  prefsManager: {fileID: 4735757905168956006}
 --- !u!1 &9075206426351627199
 GameObject:
   m_ObjectHideFlags: 0

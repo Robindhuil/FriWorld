@@ -10,6 +10,7 @@ public partial class SelectionComponent : VisualElement
 
     private Button leftButton;
     private Button rightButton;
+    private Button resetButton;
     private Label descriptionLabel;
     private Label nameLabel;
 
@@ -27,8 +28,10 @@ public partial class SelectionComponent : VisualElement
 
     private List<SelectionOption> options = new();
     private int currentIndex = 0;
+    private int defaultIndex = 0;
 
     public event Action<SelectionOption> OnSelectionChanged;
+    public event Action OnResetToDefault;
 
     [Serializable]
     public struct SelectionOption
@@ -51,6 +54,7 @@ public partial class SelectionComponent : VisualElement
 
         leftButton = this.Q<Button>("LeftButton");
         rightButton = this.Q<Button>("RightButton");
+        resetButton = this.Q<Button>("ResetToDefaultButton");
         descriptionLabel = this.Q<Label>("DescriptionLabel");
         nameLabel = this.Q<Label>("NameLabel");
 
@@ -61,12 +65,17 @@ public partial class SelectionComponent : VisualElement
         leftButton?.RegisterCallback<ClickEvent>(_ =>
         {
             LeftButtonClicked();
-            globalSound.PlayClickSound();
+            globalSound?.PlayClickSound();
         });
         rightButton?.RegisterCallback<ClickEvent>(_ =>
         {
             RightButtonClicked();
-            globalSound.PlayClickSound();
+            globalSound?.PlayClickSound();
+        });
+        resetButton?.RegisterCallback<ClickEvent>(_ =>
+        {
+            ResetToDefault();
+            globalSound?.PlayClickSound();
         });
 
         UpdateDisplay();
@@ -83,6 +92,16 @@ public partial class SelectionComponent : VisualElement
         if (newOptions == null || newOptions.Count == 0) return;
         options = newOptions;
         currentIndex = Mathf.Clamp(startIndex, 0, options.Count - 1);
+        defaultIndex = currentIndex;
+        UpdateDisplay();
+    }
+
+    public void Initialize(List<SelectionOption> newOptions, int startIndex, int defaultIndexValue)
+    {
+        if (newOptions == null || newOptions.Count == 0) return;
+        options = newOptions;
+        currentIndex = Mathf.Clamp(startIndex, 0, options.Count - 1);
+        defaultIndex = Mathf.Clamp(defaultIndexValue, 0, options.Count - 1);
         UpdateDisplay();
     }
 
@@ -143,4 +162,66 @@ public partial class SelectionComponent : VisualElement
         currentIndex = 0;
         UpdateDisplay();
     }
+
+    public void SetCurrentValueWithoutNotify(string value)
+    {
+        if (options == null || options.Count == 0) return;
+
+        for (int i = 0; i < options.Count; i++)
+        {
+            if (options[i].value == value)
+            {
+                currentIndex = i;
+                UpdateDisplay();
+                return;
+            }
+        }
+
+        currentIndex = 0;
+        UpdateDisplay();
+    }
+
+    public int GetCurrentIndex() => currentIndex;
+
+    public void SetCurrentIndex(int index)
+    {
+        if (options == null || options.Count == 0) return;
+        currentIndex = Mathf.Clamp(index, 0, options.Count - 1);
+        UpdateDisplay();
+        OnSelectionChanged?.Invoke(GetCurrentOption());
+    }
+
+    public void SetCurrentIndexWithoutNotify(int index)
+    {
+        if (options == null || options.Count == 0) return;
+        currentIndex = Mathf.Clamp(index, 0, options.Count - 1);
+        UpdateDisplay();
+    }
+
+    public object GetCurrentData() =>
+        options.Count > 0 ? options[currentIndex].data : null;
+
+    public void SetDefaultIndex(int index)
+    {
+        defaultIndex = Mathf.Clamp(index, 0, options.Count - 1);
+    }
+
+    public int GetDefaultIndex() => defaultIndex;
+
+    private void ResetToDefault()
+    {
+        if (currentIndex == defaultIndex) return;
+        
+        currentIndex = defaultIndex;
+        UpdateDisplay();
+        OnResetToDefault?.Invoke();
+        OnSelectionChanged?.Invoke(GetCurrentOption());
+    }
+
+    public void SetTooltipText(string text)
+    {
+        tooltip = text;
+    }
+
+    public int GetOptionCount() => options.Count;
 }
