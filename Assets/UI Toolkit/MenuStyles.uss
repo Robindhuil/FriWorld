@@ -39,84 +39,6 @@
     color: rgb(0, 0, 0);
 }
 
-#SelectionSlider Label {
-    display: none;
-}
-
-#SelectionSlider #unity-drag-container {
-    display: flex;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    top: auto;
-    width: 20px;
-    height: 0;
-}
-
-#SelectionSlider #unity-fill {
-    background-color: rgb(251, 184, 0);
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
-}
-
-#SelectionSlider #unity-tracker {
-    -unity-background-image-tint-color: rgb(255, 255, 255);
-    height: 30px;
-    border-top-width: 5px;
-    border-right-width: 5px;
-    border-bottom-width: 5px;
-    border-left-width: 5px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-#SelectionSlider #unity-dragger {
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    height: 40px;
-    width: 40px;
-    border-top-left-radius: 60px;
-    border-top-right-radius: 60px;
-    border-bottom-right-radius: 60px;
-    border-bottom-left-radius: 60px;
-    border-left-color: rgb(0, 0, 0);
-    border-right-color: rgb(0, 0, 0);
-    border-top-color: rgb(0, 0, 0);
-    border-bottom-color: rgb(0, 0, 0);
-    border-top-width: 8px;
-    border-right-width: 8px;
-    border-bottom-width: 8px;
-    border-left-width: 8px;
-    background-color: rgb(251, 184, 0);
-    flex-grow: 0;
-    flex-shrink: 0;
-    -unity-text-align: upper-left;
-    top: -7px;
-}
-
 .resetToDefaultButton {
     border-top-width: 0;
     border-right-width: 0;
@@ -141,3 +63,5 @@
     padding-left: 20px;
     width: 216px;
 }
+
+

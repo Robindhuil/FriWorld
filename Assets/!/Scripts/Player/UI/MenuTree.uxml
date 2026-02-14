@@ -1,5 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/MenuStyles.uss?fileID=7433441132597879392&amp;guid=590e1b8c1210fcd448d1db1a50428a3a&amp;type=3#MenuStyles"/>
+    <Style src="project://database/Assets/UI%20Toolkit/ComponentsTweaks.uss?fileID=7433441132597879392&amp;guid=2d1de6111522b504e8623c33697fa89a&amp;type=3#ComponentsTweaks"/>
     <ui:Image name="BackgroundImage" source="project://database/Assets/Resources/title.png?fileID=2800000&amp;guid=339312001c46149419c0fd5e30614dda&amp;type=3#title" scale-mode="StretchToFill" style="flex-grow: 1; font-size: 14px;">
         <ui:VisualElement name="MenuWindow" style="flex-grow: 1; display: none;">
             <ui:VisualElement name="TitleBackgroundBase" style="flex-grow: 0; background-color: rgba(0, 0, 0, 0.71); flex-shrink: 0; height: 250px; margin-top: 0; flex-direction: column;">
