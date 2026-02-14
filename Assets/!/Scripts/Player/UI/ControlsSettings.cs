@@ -12,6 +12,16 @@ public class ControlsSettings : MonoBehaviour
     
     [Header("Runtime References")]
     [SerializeField] private InputManager inputManager;
+
+    [Header("Binding UI Filters")]
+    [Tooltip("Action names that should never appear in the binding UI (case-insensitive)")]
+    [SerializeField] private List<string> hiddenActionNames = new List<string>();
+
+    [Tooltip("Binding paths to hide (case-insensitive). Example: '<Mouse>/delta'")]
+    [SerializeField] private List<string> hiddenBindingPaths = new List<string> { "<Mouse>/delta" };
+
+    [Tooltip("Hide composite root bindings like 'WASD' while keeping their parts (e.g., Up/Down/Left/Right)")]
+    [SerializeField] private bool hideCompositeRoots = true;
     
     private InputActionMap onFootMap;
     private InputActionMap onFootDefaultMap;
@@ -23,9 +33,11 @@ public class ControlsSettings : MonoBehaviour
     public event Action<string, int> OnRebindComplete;
     
     // Event that fires when a rebind is cancelled or fails
-    public event Action OnRebindCancelled;
+    public event Action<string, int> OnRebindCancelled;
     
     private InputActionRebindingExtensions.RebindingOperation rebindOperation;
+    private readonly Dictionary<InputActionRebindingExtensions.RebindingOperation, bool> cancelResetsByOperation =
+        new Dictionary<InputActionRebindingExtensions.RebindingOperation, bool>();
     
     private void Awake()
     {
@@ -107,7 +119,7 @@ public class ControlsSettings : MonoBehaviour
         // Make sure we're not already rebinding
         if (rebindOperation != null && rebindOperation.started)
         {
-            rebindOperation.Cancel();
+            CancelCurrentRebind(false);
         }
         
         // Disable the action before rebinding
@@ -115,8 +127,11 @@ public class ControlsSettings : MonoBehaviour
         
         // Start the rebinding operation
         rebindOperation = action.PerformInteractiveRebinding(bindingIndex)
-            .OnComplete(operation => RebindComplete(actionName, bindingIndex))
-            .OnCancel(operation => RebindCancelled(action));
+            .OnComplete(operation => RebindComplete(actionName, bindingIndex, action, operation))
+            .OnCancel(operation => RebindCancelled(actionName, bindingIndex, action, operation))
+            .WithCancelingThrough("<Keyboard>/escape");
+
+        cancelResetsByOperation[rebindOperation] = true;
         
         // Exclude mouse if requested
         if (excludeMouse)
@@ -131,18 +146,20 @@ public class ControlsSettings : MonoBehaviour
     /// <summary>
     /// Called when rebinding completes successfully
     /// </summary>
-    private void RebindComplete(string actionName, int bindingIndex)
+    private void RebindComplete(string actionName, int bindingIndex, InputAction action,
+        InputActionRebindingExtensions.RebindingOperation operation)
     {
         // Clean up the rebinding operation
-        rebindOperation.Dispose();
-        rebindOperation = null;
+        CleanupRebindOperation(operation);
         
         // Re-enable the action
-        InputAction action = onFootMap.FindAction(actionName);
-        if (action != null)
-        {
-            action.Enable();
-        }
+        action?.Enable();
+
+        // Remove conflicting bindings from other actions
+        RemoveConflictingBindings(actionName, bindingIndex);
+
+        // Refresh UI so cleared bindings show as Unbound
+        UpdateAllBindingDisplays();
         
         // Save the rebind
         SaveBindingOverride(actionName, bindingIndex);
@@ -162,18 +179,34 @@ public class ControlsSettings : MonoBehaviour
     /// <summary>
     /// Called when rebinding is cancelled
     /// </summary>
-    private void RebindCancelled(InputAction action)
+    private void RebindCancelled(string actionName, int bindingIndex, InputAction action,
+        InputActionRebindingExtensions.RebindingOperation operation)
     {
-        // Clean up the rebinding operation
-        rebindOperation.Dispose();
-        rebindOperation = null;
-        
+        bool resetToDefault = true;
+        if (operation != null && cancelResetsByOperation.TryGetValue(operation, out bool shouldReset))
+        {
+            resetToDefault = shouldReset;
+        }
+
+        if (resetToDefault)
+        {
+            // Reset this binding to its default on cancel
+            ResetBinding(actionName, bindingIndex);
+        }
+
+        if (operation != null)
+        {
+            cancelResetsByOperation.Remove(operation);
+        }
+
+        CleanupRebindOperation(operation);
+
         // Re-enable the action
         action?.Enable();
-        
+
         // Notify listeners
-        OnRebindCancelled?.Invoke();
-        
+        OnRebindCancelled?.Invoke(actionName, bindingIndex);
+
         Debug.Log("Rebind cancelled");
     }
     
@@ -182,9 +215,33 @@ public class ControlsSettings : MonoBehaviour
     /// </summary>
     public void CancelRebinding()
     {
-        if (rebindOperation != null && rebindOperation.started)
+        CancelCurrentRebind(true);
+    }
+
+    private void CancelCurrentRebind(bool resetToDefault)
+    {
+        if (rebindOperation == null || !rebindOperation.started)
         {
-            rebindOperation.Cancel();
+            return;
+        }
+
+        cancelResetsByOperation[rebindOperation] = resetToDefault;
+        rebindOperation.Cancel();
+    }
+
+    private void CleanupRebindOperation(InputActionRebindingExtensions.RebindingOperation operation)
+    {
+        if (operation == null)
+        {
+            return;
+        }
+
+        cancelResetsByOperation.Remove(operation);
+        operation.Dispose();
+
+        if (rebindOperation == operation)
+        {
+            rebindOperation = null;
         }
     }
     
@@ -350,7 +407,56 @@ public class ControlsSettings : MonoBehaviour
             return "Not Set";
         }
         
-        return action.GetBindingDisplayString(bindingIndex);
+        string display = action.GetBindingDisplayString(bindingIndex);
+        if (string.IsNullOrEmpty(action.bindings[bindingIndex].effectivePath))
+        {
+            return "Unbound";
+        }
+
+        return display;
+    }
+
+    private void RemoveConflictingBindings(string actionName, int bindingIndex)
+    {
+        if (onFootMap == null)
+        {
+            return;
+        }
+
+        InputAction sourceAction = onFootMap.FindAction(actionName);
+        if (sourceAction == null || bindingIndex >= sourceAction.bindings.Count)
+        {
+            return;
+        }
+
+        string sourcePath = sourceAction.bindings[bindingIndex].effectivePath;
+        if (string.IsNullOrEmpty(sourcePath))
+        {
+            return;
+        }
+
+        foreach (InputAction action in onFootMap.actions)
+        {
+            for (int i = 0; i < action.bindings.Count; i++)
+            {
+                if (action == sourceAction && i == bindingIndex)
+                {
+                    continue;
+                }
+
+                InputBinding binding = action.bindings[i];
+                if (binding.isComposite)
+                {
+                    continue;
+                }
+
+                if (string.Equals(binding.effectivePath, sourcePath, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Unbind the conflicting binding
+                    action.ApplyBindingOverride(i, new InputBinding { overridePath = string.Empty });
+                }
+            }
+        }
     }
     
     /// <summary>
@@ -446,10 +552,25 @@ public class ControlsSettings : MonoBehaviour
         // Iterate through all actions in OnFoot
         foreach (InputAction action in onFootMap.actions)
         {
+            if (ShouldHideAction(action))
+            {
+                continue;
+            }
+
             // Iterate through all bindings for this action
             for (int i = 0; i < action.bindings.Count; i++)
             {
                 InputBinding binding = action.bindings[i];
+
+                if (hideCompositeRoots && binding.isComposite)
+                {
+                    continue;
+                }
+
+                if (ShouldHideBinding(action, binding))
+                {
+                    continue;
+                }
                 
                 // Skip composite bindings if requested
                 if (!includeComposites && binding.isComposite)
@@ -508,11 +629,26 @@ public class ControlsSettings : MonoBehaviour
                 Debug.LogWarning($"Action '{actionName}' not found in OnFoot map!");
                 continue;
             }
+
+            if (ShouldHideAction(action))
+            {
+                continue;
+            }
             
             // For each action, create components for non-composite bindings
             for (int i = 0; i < action.bindings.Count; i++)
             {
                 InputBinding binding = action.bindings[i];
+
+                if (hideCompositeRoots && binding.isComposite)
+                {
+                    continue;
+                }
+
+                if (ShouldHideBinding(action, binding))
+                {
+                    continue;
+                }
                 
                 // Skip composite bindings themselves, but include their parts
                 if (binding.isComposite)
@@ -548,6 +684,53 @@ public class ControlsSettings : MonoBehaviour
         
         // Track for cleanup
         bindKeyComponents.Add(component);
+    }
+
+    private bool ShouldHideAction(InputAction action)
+    {
+        if (action == null || hiddenActionNames == null || hiddenActionNames.Count == 0)
+        {
+            return false;
+        }
+
+        for (int i = 0; i < hiddenActionNames.Count; i++)
+        {
+            string hiddenName = hiddenActionNames[i];
+            if (!string.IsNullOrWhiteSpace(hiddenName) &&
+                string.Equals(action.name, hiddenName, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool ShouldHideBinding(InputAction action, InputBinding binding)
+    {
+        if (hideCompositeRoots && binding.isComposite)
+        {
+            return true;
+        }
+
+        if (hiddenBindingPaths != null && hiddenBindingPaths.Count > 0)
+        {
+            string effectivePath = binding.effectivePath;
+            if (!string.IsNullOrEmpty(effectivePath))
+            {
+                for (int i = 0; i < hiddenBindingPaths.Count; i++)
+                {
+                    string hiddenPath = hiddenBindingPaths[i];
+                    if (!string.IsNullOrWhiteSpace(hiddenPath) &&
+                        string.Equals(effectivePath, hiddenPath, StringComparison.OrdinalIgnoreCase))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
     
     /// <summary>

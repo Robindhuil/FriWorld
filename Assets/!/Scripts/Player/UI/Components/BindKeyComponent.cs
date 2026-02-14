@@ -176,9 +176,12 @@ public partial class BindKeyComponent : VisualElement
     /// <summary>
     /// Called when rebinding is cancelled
     /// </summary>
-    private void OnRebindCancelled()
+    private void OnRebindCancelled(string cancelledAction, int cancelledBinding)
     {
         if (!isRebinding)
+            return;
+
+        if (cancelledAction != actionName || cancelledBinding != bindingIndex)
             return;
         
         isRebinding = false;

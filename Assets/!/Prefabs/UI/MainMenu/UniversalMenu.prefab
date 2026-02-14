@@ -376,6 +376,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControlsSettings
   inputActions: {fileID: -944628639613478452, guid: 721306665704b0c4b9f579f20bf95973, type: 3}
+  inputManager: {fileID: 0}
+  hiddenActionNames:
+  - Look
+  - OpenMenu
+  hiddenBindingPaths:
+  - <Mouse>/delta
+  hideCompositeRoots: 1
 --- !u!1 &6910906297887016387
 GameObject:
   m_ObjectHideFlags: 0

@@ -104620,6 +104620,10 @@ PrefabInstance:
       propertyPath: playerLook
       value: 
       objectReference: {fileID: 1887814976}
+    - target: {fileID: 1723990150774749145, guid: 4dfe2e9e106f65d46b9b6004ced1851f, type: 3}
+      propertyPath: inputManager
+      value: 
+      objectReference: {fileID: 1887814957}
     - target: {fileID: 4734573048348069963, guid: 4dfe2e9e106f65d46b9b6004ced1851f, type: 3}
       propertyPath: m_Name
       value: UniversalMenu
