@@ -258,75 +258,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""LeftStick"",
-                    ""id"": ""0ab2d311-3f88-44db-b2b0-63c3282241e6"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""a0fa681a-b870-4e06-b9ce-7bfcf0a08129"",
-                    ""path"": ""<Gamepad>/leftStick/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""82a1d6b7-4150-4ecc-8499-c49109446cc7"",
-                    ""path"": ""<Gamepad>/leftStick/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""e6c06d8c-b4ae-4f75-a3e8-ffbe9baa1b21"",
-                    ""path"": ""<Gamepad>/leftStick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""626f6ebf-fc48-46a0-99bc-a189e59b8ecc"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": """",
                     ""id"": ""ebfd0265-4093-425d-94b1-992eaccfb80c"",
                     ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""743d0602-444a-496e-969d-9aebbf470b67"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -347,30 +281,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""ba7879cb-d869-427c-a287-7eec6864ffbc"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""92b526a3-1acc-4555-b90a-528dcdcd2780"",
                     ""path"": ""<Keyboard>/shift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Sprint"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""04154b8e-ff43-442c-ad7c-a703bb27ace6"",
-                    ""path"": ""<Gamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -391,30 +303,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""df3988d9-a57f-42c3-999e-7d2d713e7ccb"",
-                    ""path"": ""<Gamepad>/leftStickPress"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Crouch"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a1ac2803-ca95-4a20-a7b6-3015db512589"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""36d91822-c20c-47e3-9079-f78d4859837c"",
-                    ""path"": ""<Gamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -480,6 +370,298 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3ea8c391-7c49-4ce6-b510-f89781f4bd9a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""OnFootDefault"",
+            ""id"": ""b9f4a206-0fd5-4cf9-9c1e-3ec73b067fe1"",
+            ""actions"": [
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Value"",
+                    ""id"": ""b2aef024-f7d7-4242-b343-a1f170275640"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""e22958ee-4236-4432-95d5-5bb594d11fbf"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""f3f04ab3-7009-4f78-bd82-213fe5e5bb83"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Sprint"",
+                    ""type"": ""Button"",
+                    ""id"": ""f28a080c-fd1d-476e-a6d7-5ebd66110f46"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Crouch"",
+                    ""type"": ""Button"",
+                    ""id"": ""bbf65971-347e-4a32-9269-1076eb54e3ca"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""798279b9-f526-4e85-bb40-97c840428ec2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenNavigation"",
+                    ""type"": ""Button"",
+                    ""id"": ""e9389df1-c346-407b-a5f8-785263c8ca6b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenJournal"",
+                    ""type"": ""Button"",
+                    ""id"": ""720a7a42-47a5-4554-bf08-690ed2ce5536"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenManager"",
+                    ""type"": ""Button"",
+                    ""id"": ""ff286619-95a4-4187-b5aa-03e0796c1ff2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenStats"",
+                    ""type"": ""Button"",
+                    ""id"": ""e8524a1c-bccd-47ed-acfc-788f9b4ae92f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenCodex"",
+                    ""type"": ""Button"",
+                    ""id"": ""785c64f1-cc98-4785-80b5-a2cecf4ed103"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""a6b6567f-0562-4c38-9d5d-06a27670f312"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": ""WASD"",
+                    ""id"": ""7e2a4ae2-9972-4dae-bd97-bdf291bc30a5"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""798c009c-4681-4856-b7d1-7746349a3b50"",
+                    ""path"": ""<Keyboard>/w"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""f49bfa4d-a2de-452c-99aa-aee2c42777e6"",
+                    ""path"": ""<Keyboard>/s"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""656b903a-6fb5-4812-adf1-d0ffd961873e"",
+                    ""path"": ""<Keyboard>/a"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""84a4be4f-3fc5-4234-8840-21a889b35729"",
+                    ""path"": ""<Keyboard>/d"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7a45f9aa-7302-4219-9327-b1027870c5ce"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c21b18d1-f0f7-422b-b0c5-158715cebb38"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82bf8b3c-b414-4b35-a6f7-1dc09acea4a7"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Sprint"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d395f732-02a2-444d-88d9-2736f4fb7c0b"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Crouch"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""aa97686d-fa21-46c6-b4c6-c7450c73efb5"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""adf68a8d-8901-4f44-89a2-70cc053bb122"",
+                    ""path"": ""<Keyboard>/n"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenNavigation"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""99684946-05bf-4de2-a568-6749563fad6b"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenJournal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""cb694304-2367-4576-a1b1-d65e9241b96b"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenManager"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b21e4f8c-372c-48f2-98ec-0d90b92f339e"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenStats"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e72167f9-cddd-4285-9e11-e6bf8948e2de"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenCodex"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""487c691e-7bee-4b64-91fc-0dcfd9b0c1b6"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -1062,6 +1244,20 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_OnFoot_OpenStats = m_OnFoot.FindAction("OpenStats", throwIfNotFound: true);
         m_OnFoot_OpenCodex = m_OnFoot.FindAction("OpenCodex", throwIfNotFound: true);
         m_OnFoot_OpenMenu = m_OnFoot.FindAction("OpenMenu", throwIfNotFound: true);
+        // OnFootDefault
+        m_OnFootDefault = asset.FindActionMap("OnFootDefault", throwIfNotFound: true);
+        m_OnFootDefault_Movement = m_OnFootDefault.FindAction("Movement", throwIfNotFound: true);
+        m_OnFootDefault_Jump = m_OnFootDefault.FindAction("Jump", throwIfNotFound: true);
+        m_OnFootDefault_Look = m_OnFootDefault.FindAction("Look", throwIfNotFound: true);
+        m_OnFootDefault_Sprint = m_OnFootDefault.FindAction("Sprint", throwIfNotFound: true);
+        m_OnFootDefault_Crouch = m_OnFootDefault.FindAction("Crouch", throwIfNotFound: true);
+        m_OnFootDefault_Interact = m_OnFootDefault.FindAction("Interact", throwIfNotFound: true);
+        m_OnFootDefault_OpenNavigation = m_OnFootDefault.FindAction("OpenNavigation", throwIfNotFound: true);
+        m_OnFootDefault_OpenJournal = m_OnFootDefault.FindAction("OpenJournal", throwIfNotFound: true);
+        m_OnFootDefault_OpenManager = m_OnFootDefault.FindAction("OpenManager", throwIfNotFound: true);
+        m_OnFootDefault_OpenStats = m_OnFootDefault.FindAction("OpenStats", throwIfNotFound: true);
+        m_OnFootDefault_OpenCodex = m_OnFootDefault.FindAction("OpenCodex", throwIfNotFound: true);
+        m_OnFootDefault_OpenMenu = m_OnFootDefault.FindAction("OpenMenu", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1082,6 +1278,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     ~@PlayerInput()
     {
         UnityEngine.Debug.Assert(!m_OnFoot.enabled, "This will cause a leak and performance issues, PlayerInput.OnFoot.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_OnFootDefault.enabled, "This will cause a leak and performance issues, PlayerInput.OnFootDefault.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInput.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_DialogueUi.enabled, "This will cause a leak and performance issues, PlayerInput.DialogueUi.Disable() has not been called.");
     }
@@ -1372,6 +1569,223 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="OnFootActions" /> instance referencing this action map.
     /// </summary>
     public OnFootActions @OnFoot => new OnFootActions(this);
+
+    // OnFootDefault
+    private readonly InputActionMap m_OnFootDefault;
+    private List<IOnFootDefaultActions> m_OnFootDefaultActionsCallbackInterfaces = new List<IOnFootDefaultActions>();
+    private readonly InputAction m_OnFootDefault_Movement;
+    private readonly InputAction m_OnFootDefault_Jump;
+    private readonly InputAction m_OnFootDefault_Look;
+    private readonly InputAction m_OnFootDefault_Sprint;
+    private readonly InputAction m_OnFootDefault_Crouch;
+    private readonly InputAction m_OnFootDefault_Interact;
+    private readonly InputAction m_OnFootDefault_OpenNavigation;
+    private readonly InputAction m_OnFootDefault_OpenJournal;
+    private readonly InputAction m_OnFootDefault_OpenManager;
+    private readonly InputAction m_OnFootDefault_OpenStats;
+    private readonly InputAction m_OnFootDefault_OpenCodex;
+    private readonly InputAction m_OnFootDefault_OpenMenu;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "OnFootDefault".
+    /// </summary>
+    public struct OnFootDefaultActions
+    {
+        private @PlayerInput m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public OnFootDefaultActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/Movement".
+        /// </summary>
+        public InputAction @Movement => m_Wrapper.m_OnFootDefault_Movement;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/Jump".
+        /// </summary>
+        public InputAction @Jump => m_Wrapper.m_OnFootDefault_Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/Look".
+        /// </summary>
+        public InputAction @Look => m_Wrapper.m_OnFootDefault_Look;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/Sprint".
+        /// </summary>
+        public InputAction @Sprint => m_Wrapper.m_OnFootDefault_Sprint;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/Crouch".
+        /// </summary>
+        public InputAction @Crouch => m_Wrapper.m_OnFootDefault_Crouch;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/Interact".
+        /// </summary>
+        public InputAction @Interact => m_Wrapper.m_OnFootDefault_Interact;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/OpenNavigation".
+        /// </summary>
+        public InputAction @OpenNavigation => m_Wrapper.m_OnFootDefault_OpenNavigation;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/OpenJournal".
+        /// </summary>
+        public InputAction @OpenJournal => m_Wrapper.m_OnFootDefault_OpenJournal;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/OpenManager".
+        /// </summary>
+        public InputAction @OpenManager => m_Wrapper.m_OnFootDefault_OpenManager;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/OpenStats".
+        /// </summary>
+        public InputAction @OpenStats => m_Wrapper.m_OnFootDefault_OpenStats;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/OpenCodex".
+        /// </summary>
+        public InputAction @OpenCodex => m_Wrapper.m_OnFootDefault_OpenCodex;
+        /// <summary>
+        /// Provides access to the underlying input action "OnFootDefault/OpenMenu".
+        /// </summary>
+        public InputAction @OpenMenu => m_Wrapper.m_OnFootDefault_OpenMenu;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_OnFootDefault; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="OnFootDefaultActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(OnFootDefaultActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="OnFootDefaultActions" />
+        public void AddCallbacks(IOnFootDefaultActions instance)
+        {
+            if (instance == null || m_Wrapper.m_OnFootDefaultActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_OnFootDefaultActionsCallbackInterfaces.Add(instance);
+            @Movement.started += instance.OnMovement;
+            @Movement.performed += instance.OnMovement;
+            @Movement.canceled += instance.OnMovement;
+            @Jump.started += instance.OnJump;
+            @Jump.performed += instance.OnJump;
+            @Jump.canceled += instance.OnJump;
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Sprint.started += instance.OnSprint;
+            @Sprint.performed += instance.OnSprint;
+            @Sprint.canceled += instance.OnSprint;
+            @Crouch.started += instance.OnCrouch;
+            @Crouch.performed += instance.OnCrouch;
+            @Crouch.canceled += instance.OnCrouch;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
+            @OpenNavigation.started += instance.OnOpenNavigation;
+            @OpenNavigation.performed += instance.OnOpenNavigation;
+            @OpenNavigation.canceled += instance.OnOpenNavigation;
+            @OpenJournal.started += instance.OnOpenJournal;
+            @OpenJournal.performed += instance.OnOpenJournal;
+            @OpenJournal.canceled += instance.OnOpenJournal;
+            @OpenManager.started += instance.OnOpenManager;
+            @OpenManager.performed += instance.OnOpenManager;
+            @OpenManager.canceled += instance.OnOpenManager;
+            @OpenStats.started += instance.OnOpenStats;
+            @OpenStats.performed += instance.OnOpenStats;
+            @OpenStats.canceled += instance.OnOpenStats;
+            @OpenCodex.started += instance.OnOpenCodex;
+            @OpenCodex.performed += instance.OnOpenCodex;
+            @OpenCodex.canceled += instance.OnOpenCodex;
+            @OpenMenu.started += instance.OnOpenMenu;
+            @OpenMenu.performed += instance.OnOpenMenu;
+            @OpenMenu.canceled += instance.OnOpenMenu;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="OnFootDefaultActions" />
+        private void UnregisterCallbacks(IOnFootDefaultActions instance)
+        {
+            @Movement.started -= instance.OnMovement;
+            @Movement.performed -= instance.OnMovement;
+            @Movement.canceled -= instance.OnMovement;
+            @Jump.started -= instance.OnJump;
+            @Jump.performed -= instance.OnJump;
+            @Jump.canceled -= instance.OnJump;
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Sprint.started -= instance.OnSprint;
+            @Sprint.performed -= instance.OnSprint;
+            @Sprint.canceled -= instance.OnSprint;
+            @Crouch.started -= instance.OnCrouch;
+            @Crouch.performed -= instance.OnCrouch;
+            @Crouch.canceled -= instance.OnCrouch;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
+            @OpenNavigation.started -= instance.OnOpenNavigation;
+            @OpenNavigation.performed -= instance.OnOpenNavigation;
+            @OpenNavigation.canceled -= instance.OnOpenNavigation;
+            @OpenJournal.started -= instance.OnOpenJournal;
+            @OpenJournal.performed -= instance.OnOpenJournal;
+            @OpenJournal.canceled -= instance.OnOpenJournal;
+            @OpenManager.started -= instance.OnOpenManager;
+            @OpenManager.performed -= instance.OnOpenManager;
+            @OpenManager.canceled -= instance.OnOpenManager;
+            @OpenStats.started -= instance.OnOpenStats;
+            @OpenStats.performed -= instance.OnOpenStats;
+            @OpenStats.canceled -= instance.OnOpenStats;
+            @OpenCodex.started -= instance.OnOpenCodex;
+            @OpenCodex.performed -= instance.OnOpenCodex;
+            @OpenCodex.canceled -= instance.OnOpenCodex;
+            @OpenMenu.started -= instance.OnOpenMenu;
+            @OpenMenu.performed -= instance.OnOpenMenu;
+            @OpenMenu.canceled -= instance.OnOpenMenu;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="OnFootDefaultActions.UnregisterCallbacks(IOnFootDefaultActions)" />.
+        /// </summary>
+        /// <seealso cref="OnFootDefaultActions.UnregisterCallbacks(IOnFootDefaultActions)" />
+        public void RemoveCallbacks(IOnFootDefaultActions instance)
+        {
+            if (m_Wrapper.m_OnFootDefaultActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="OnFootDefaultActions.AddCallbacks(IOnFootDefaultActions)" />
+        /// <seealso cref="OnFootDefaultActions.RemoveCallbacks(IOnFootDefaultActions)" />
+        /// <seealso cref="OnFootDefaultActions.UnregisterCallbacks(IOnFootDefaultActions)" />
+        public void SetCallbacks(IOnFootDefaultActions instance)
+        {
+            foreach (var item in m_Wrapper.m_OnFootDefaultActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_OnFootDefaultActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="OnFootDefaultActions" /> instance referencing this action map.
+    /// </summary>
+    public OnFootDefaultActions @OnFootDefault => new OnFootDefaultActions(this);
 
     // UI
     private readonly InputActionMap m_UI;
@@ -1669,6 +2083,98 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// <seealso cref="OnFootActions.AddCallbacks(IOnFootActions)" />
     /// <seealso cref="OnFootActions.RemoveCallbacks(IOnFootActions)" />
     public interface IOnFootActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMovement(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSprint(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Crouch" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCrouch(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnInteract(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenNavigation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenNavigation(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenJournal" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenJournal(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenManager" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenManager(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenStats" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenStats(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenCodex" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenCodex(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "OpenMenu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnOpenMenu(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "OnFootDefault" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="OnFootDefaultActions.AddCallbacks(IOnFootDefaultActions)" />
+    /// <seealso cref="OnFootDefaultActions.RemoveCallbacks(IOnFootDefaultActions)" />
+    public interface IOnFootDefaultActions
     {
         /// <summary>
         /// Method invoked when associated input action "Movement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.

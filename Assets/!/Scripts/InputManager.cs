@@ -12,6 +12,10 @@ public class InputManager : MonoBehaviour
     void Awake()
     {
         playerInput = new PlayerInput();
+        
+        // Load saved binding overrides IMMEDIATELY after instantiation
+        LoadBindingOverrides();
+        
         onFoot = playerInput.OnFoot;
         dialogueUI = playerInput.DialogueUi;
         motor = GetComponent<PlayerMotor>();
@@ -21,6 +25,37 @@ public class InputManager : MonoBehaviour
         onFoot.Crouch.performed += ctx => motor.ToggleCrouch();
         onFoot.Sprint.started += ctx => motor.StartSprint();
         onFoot.Sprint.canceled += ctx => motor.StopSprint();
+    }
+    
+    /// <summary>
+    /// Load saved binding overrides from PlayerPrefs
+    /// </summary>
+    private void LoadBindingOverrides()
+    {
+        string rebinds = PlayerPrefs.GetString("InputRebinds", string.Empty);
+        
+        if (!string.IsNullOrEmpty(rebinds))
+        {
+            playerInput.asset.LoadBindingOverridesFromJson(rebinds);
+            Debug.Log("InputManager: Loaded input binding overrides");
+        }
+    }
+    
+    /// <summary>
+    /// Reload binding overrides - call this when rebinds change during runtime
+    /// </summary>
+    public void ReloadBindingOverrides()
+    {
+        LoadBindingOverrides();
+        Debug.Log("InputManager: Reloaded binding overrides");
+    }
+    
+    /// <summary>
+    /// Get the InputActionAsset being used by this player
+    /// </summary>
+    public InputActionAsset GetInputActionAsset()
+    {
+        return playerInput?.asset;
     }
 
     void FixedUpdate()

@@ -26,6 +26,7 @@ public class UniversalMenu : MonoBehaviour
     [SerializeField] private AudioSettings audioSettings;
     [SerializeField] private VideoSettings videoSettings;
     [SerializeField] private GameSettings gameSettings;
+    [SerializeField] private ControlsSettings controlsSettings;
     
     [Header("References (Optional)")]
     [SerializeField] private BackgroundMusic backgroundMusic;
@@ -59,6 +60,7 @@ public class UniversalMenu : MonoBehaviour
     private VisualElement audioSettingsElements;
     private VisualElement videoSettingsElements;
     private VisualElement gameSettingsElements;
+    private VisualElement controlsSettingsElements;
     
     private bool isMenuOpen = false;
     
@@ -131,6 +133,7 @@ public class UniversalMenu : MonoBehaviour
         audioSettingsElements = root.Q<VisualElement>("AudioSettingsElements");
         videoSettingsElements = root.Q<VisualElement>("VideoSettingsElements");
         gameSettingsElements = root.Q<VisualElement>("GameSettingsElements");
+        controlsSettingsElements = root.Q<VisualElement>("ControlsSettingsElements");
         
         // Get labels
         versionLabel = root.Q<Label>("VersionNumber");
@@ -453,6 +456,21 @@ public class UniversalMenu : MonoBehaviour
             if (gameSettingsElements == null)
                 Debug.LogWarning("GameSettingsElements container not found in UI!");
         }
+        
+        // Initialize Controls Settings
+        if (controlsSettings != null && controlsSettingsElements != null)
+        {
+            controlsSettings.LoadBindingOverrides();
+            controlsSettings.PopulateBindingsContainer(controlsSettingsElements, true);
+            Debug.Log("Controls settings UI initialized");
+        }
+        else
+        {
+            if (controlsSettings == null)
+                Debug.LogWarning("ControlsSettings component not assigned!");
+            if (controlsSettingsElements == null)
+                Debug.LogWarning("ControlsSettingsElements container not found in UI!");
+        }
     }
     
     #endregion
@@ -512,6 +530,15 @@ public class UniversalMenu : MonoBehaviour
     }
     
     #endregion
+    
+    private void OnDestroy()
+    {
+        // Clean up controls settings UI
+        if (controlsSettings != null && controlsSettingsElements != null)
+        {
+            controlsSettings.ClearBindingsContainer(controlsSettingsElements);
+        }
+    }
     
     public bool IsMenuOpen => isMenuOpen;
     public MenuType Type => menuType;

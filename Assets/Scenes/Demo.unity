@@ -104616,6 +104616,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 649824383}
     m_Modifications:
+    - target: {fileID: 542959788735834526, guid: 4dfe2e9e106f65d46b9b6004ced1851f, type: 3}
+      propertyPath: playerLook
+      value: 
+      objectReference: {fileID: 1887814976}
     - target: {fileID: 4734573048348069963, guid: 4dfe2e9e106f65d46b9b6004ced1851f, type: 3}
       propertyPath: m_Name
       value: UniversalMenu

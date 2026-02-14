@@ -130,6 +130,7 @@ Transform:
   - {fileID: 8486654974462005476}
   - {fileID: 5221834145799025240}
   - {fileID: 6633153332724074958}
+  - {fileID: 6788034963675624952}
   - {fileID: 5617375665440943820}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -152,6 +153,7 @@ MonoBehaviour:
   audioSettings: {fileID: 6573800903539114496}
   videoSettings: {fileID: 5568655064134040983}
   gameSettings: {fileID: 542959788735834526}
+  controlsSettings: {fileID: 1723990150774749145}
   backgroundMusic: {fileID: 7375634434204280014}
   buttonClickSound: {fileID: 0}
 --- !u!1 &4833468013042138495
@@ -329,6 +331,51 @@ MonoBehaviour:
     - https://www.youtube.com/watch?v=QKsgn622Dq4&ab_channel=Mikel
     - https://gamechops.com/
   audioSource: {fileID: 4095688175065936338}
+--- !u!1 &5628589322922382702
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6788034963675624952}
+  - component: {fileID: 1723990150774749145}
+  m_Layer: 0
+  m_Name: ControlsSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6788034963675624952
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5628589322922382702}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.448974, y: 21.761505, z: -9.653832}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8541268223223390657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1723990150774749145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5628589322922382702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afb015a27de51542b9f6d482f461a36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControlsSettings
+  inputActions: {fileID: -944628639613478452, guid: 721306665704b0c4b9f579f20bf95973, type: 3}
 --- !u!1 &6910906297887016387
 GameObject:
   m_ObjectHideFlags: 0
