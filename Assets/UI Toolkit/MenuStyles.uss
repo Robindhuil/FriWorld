@@ -64,4 +64,35 @@
     width: 216px;
 }
 
+.menuButton:hover {
+    background-color: rgba(0, 0, 0, 0.78);
+}
 
+.settingsTab:hover {
+    background-color: rgb(251, 151, 0);
+}
+
+.resetToDefaultButton:hover {
+    background-color: rgba(36, 36, 36, 0.78);
+}
+
+.CloseSettingsButton {
+}
+
+.CloseSettingsButton:hover {
+    background-color: rgb(144, 0, 0);
+}
+
+.RespawnButton {
+}
+
+.RespawnButton:hover {
+    background-color: rgb(115, 0, 0);
+}
+
+.rollNextButton {
+}
+
+.rollNextButton:hover {
+    color: rgb(94, 94, 94);
+}

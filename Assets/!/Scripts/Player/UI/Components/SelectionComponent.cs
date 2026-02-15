@@ -58,6 +58,33 @@ public partial class SelectionComponent : VisualElement
         descriptionLabel = this.Q<Label>("DescriptionLabel");
         nameLabel = this.Q<Label>("NameLabel");
 
+        // Apply USS classes for styling
+        if (leftButton != null)
+            leftButton.AddToClassList("rollNextButton");
+        if (rightButton != null)
+            rightButton.AddToClassList("rollNextButton");
+        if (resetButton != null)
+            resetButton.AddToClassList("resetToDefaultButton");
+
+        // Add hover effects for left/right buttons (inline styles override USS, so we handle in C#)
+        leftButton?.RegisterCallback<MouseEnterEvent>(evt => 
+        {
+            leftButton.style.color = new Color(94f/255f, 94f/255f, 94f/255f);
+        });
+        leftButton?.RegisterCallback<MouseLeaveEvent>(evt => 
+        {
+            leftButton.style.color = Color.white;
+        });
+        
+        rightButton?.RegisterCallback<MouseEnterEvent>(evt => 
+        {
+            rightButton.style.color = new Color(94f/255f, 94f/255f, 94f/255f);
+        });
+        rightButton?.RegisterCallback<MouseLeaveEvent>(evt => 
+        {
+            rightButton.style.color = Color.white;
+        });
+
         UpdateNameLabel();
 
         var globalSound = GameObject.FindFirstObjectByType<GlobalButtonClickSound>();

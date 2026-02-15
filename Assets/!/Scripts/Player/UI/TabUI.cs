@@ -10,17 +10,16 @@ public class TabUI : BaseUi
     private readonly VisualElement root;
     private readonly VisualElement backgroundBase;
     private readonly VisualElement tabsUIElement;
+    private GlobalButtonClickSound globalButtonClickSound;
     public UnityEngine.UIElements.Button ActiveButton { get; private set; }
     public UnityEngine.UIElements.Button[] Buttons { get; set; }
 
-    private static readonly Color ACTIVE_BUTTON_COLOR = new Color(0.984f, 0.721f, 0f);
-    private static readonly Color HOVER_COLOR = Color.grey;
-    private static readonly Color DEFAULT_COLOR = Color.clear;
+
 
     /// <summary>
     /// Konštruktor inicializuje UI prvky a nastavuje ich správanie.
     /// </summary>
-    public TabUI(UIDocument sharedDocument)
+    public TabUI(UIDocument sharedDocument, GlobalButtonClickSound buttonClickSound)
     {
         if (sharedDocument == null)
         {
@@ -28,6 +27,7 @@ public class TabUI : BaseUi
             return;
         }
 
+        globalButtonClickSound = buttonClickSound;
         root = sharedDocument.rootVisualElement;
         backgroundBase = root.Q<VisualElement>("BackgroundBase");
         tabsUIElement = root.Q<VisualElement>("TabsUI");
@@ -62,6 +62,9 @@ public class TabUI : BaseUi
     /// </summary>
     private void AddButtonListeners(UnityEngine.UIElements.Button button)
     {
+        // Click sound
+        button.RegisterCallback<ClickEvent>(evt => globalButtonClickSound?.PlayClickSound());
+        
         // Hover effects
         button.RegisterCallback<MouseEnterEvent>(evt => OnHoverEnter(button));
         button.RegisterCallback<MouseLeaveEvent>(evt => OnHoverExit(button));
@@ -74,10 +77,14 @@ public class TabUI : BaseUi
     {
         if (ActiveButton != null)
         {
-            ActiveButton.style.backgroundColor = DEFAULT_COLOR;
+            var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
+            ActiveButton.style.backgroundColor = primaryColorSet.backgroundColor;
+            ActiveButton.style.color = primaryColorSet.textColor;
         }
         ActiveButton = button;
-        ActiveButton.style.backgroundColor = ACTIVE_BUTTON_COLOR;
+        var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
+        ActiveButton.style.backgroundColor = successColorSet.backgroundColor;
+        ActiveButton.style.color = successColorSet.textColor;
     }
 
     /// <summary>
@@ -87,7 +94,15 @@ public class TabUI : BaseUi
     {
         if (button != ActiveButton)
         {
-            button.style.backgroundColor = HOVER_COLOR;
+            var hoverColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
+            button.style.backgroundColor = hoverColorSet.hoverBackgroundColor;
+            button.style.color = hoverColorSet.hoverTextColor;
+        }
+        else
+        {
+            var successHoverColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
+            button.style.backgroundColor = successHoverColorSet.hoverBackgroundColor;
+            button.style.color = successHoverColorSet.hoverTextColor;
         }
     }
 
@@ -98,7 +113,41 @@ public class TabUI : BaseUi
     {
         if (button != ActiveButton)
         {
-            button.style.backgroundColor = DEFAULT_COLOR;
+            var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
+            button.style.backgroundColor = primaryColorSet.backgroundColor;
+            button.style.color = primaryColorSet.textColor;
+        }
+        else
+        {
+            var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
+            button.style.backgroundColor = successColorSet.backgroundColor;
+            button.style.color = successColorSet.textColor;
+        }
+    }
+
+    /// <summary>
+    /// Resets all button colors to their default state (or active state if active).
+    /// </summary>
+    private void ResetAllButtonColors()
+    {
+        var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
+        var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
+        
+        foreach (var button in Buttons)
+        {
+            if (button != null)
+            {
+                if (button == ActiveButton)
+                {
+                    button.style.backgroundColor = successColorSet.backgroundColor;
+                    button.style.color = successColorSet.textColor;
+                }
+                else
+                {
+                    button.style.backgroundColor = primaryColorSet.backgroundColor;
+                    button.style.color = primaryColorSet.textColor;
+                }
+            }
         }
     }
 
@@ -123,6 +172,7 @@ public class TabUI : BaseUi
         {
             backgroundBase.style.display = DisplayStyle.Flex;
         }
+        ResetAllButtonColors();
         IsMenuOn = true;
     }
 }

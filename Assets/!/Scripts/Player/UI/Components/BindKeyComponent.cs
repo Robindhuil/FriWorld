@@ -7,7 +7,7 @@ public partial class BindKeyComponent : VisualElement
     private const string UxmlPath = "UI/BindKey";
 
     private Label actionLabel;
-    private Label bindingLabel;
+    private Button bindingButton;
     private Button resetButton;
     
     private ControlsSettings controlsSettings;
@@ -30,11 +30,11 @@ public partial class BindKeyComponent : VisualElement
 
     public string CurrentKey
     {
-        get => bindingLabel?.text;
+        get => bindingButton?.text;
         set
         {
-            if (bindingLabel != null && !isRebinding)
-                bindingLabel.text = value;
+            if (bindingButton != null && !isRebinding)
+                bindingButton.text = value;
         }
     }
 
@@ -50,35 +50,45 @@ public partial class BindKeyComponent : VisualElement
         visualTree.CloneTree(this);
 
         actionLabel = this.Q<Label>("ActionLabel");
-        bindingLabel = this.Q<Label>("CurrentBindingLabel");
+        bindingButton = this.Q<Button>("CurrentBindingButton");
         resetButton = this.Q<Button>("ResetToDefaultButton");
 
-        if (actionLabel == null || bindingLabel == null)
+        if (actionLabel == null || bindingButton == null)
         {
-            Debug.LogError("BindKey: Could not find required labels inside UXML.");
+            Debug.LogError("BindKey: Could not find required button inside UXML.");
             return;
         }
 
-        // Make the binding label clickable for rebinding
-        bindingLabel.RegisterCallback<ClickEvent>(OnBindingLabelClicked);
+        // Apply USS class for styling
+        if (resetButton != null)
+            resetButton.AddToClassList("resetToDefaultButton");
+
+        // Make the binding button clickable for rebinding
+        bindingButton.RegisterCallback<ClickEvent>(OnBindingButtonClicked);
         
         // Add visual feedback on hover
-        bindingLabel.RegisterCallback<MouseEnterEvent>(evt => 
+        bindingButton.RegisterCallback<MouseEnterEvent>(evt => 
         {
             if (!isRebinding)
-                bindingLabel.style.backgroundColor = new Color(0.3f, 0.3f, 0.3f, 0.5f);
+                bindingButton.style.backgroundColor = new Color(0.3f, 0.3f, 0.3f, 0.5f);
         });
         
-        bindingLabel.RegisterCallback<MouseLeaveEvent>(evt => 
+        bindingButton.RegisterCallback<MouseLeaveEvent>(evt => 
         {
             if (!isRebinding)
-                bindingLabel.style.backgroundColor = new Color(0, 0, 0, 0.2f);
+                bindingButton.style.backgroundColor = new Color(0, 0, 0, 0.2f);
         });
         
         // Setup reset button
+        var globalSound = GameObject.FindFirstObjectByType<GlobalButtonClickSound>();
+        
         if (resetButton != null)
         {
-            resetButton.clicked += OnResetButtonClicked;
+            resetButton.RegisterCallback<ClickEvent>(_ =>
+            {
+                OnResetButtonClicked();
+                globalSound?.PlayClickSound();
+            });
         }
         else
         {
@@ -107,7 +117,7 @@ public partial class BindKeyComponent : VisualElement
     }
 
     /// <summary>
-    /// Update the binding label to show the current key
+    /// Update the binding button to show the current key
     /// </summary>
     public void UpdateBindingDisplay()
     {
@@ -115,16 +125,16 @@ public partial class BindKeyComponent : VisualElement
             return;
             
         string displayString = controlsSettings.GetBindingDisplayString(actionName, bindingIndex);
-        if (bindingLabel != null && !isRebinding)
+        if (bindingButton != null && !isRebinding)
         {
-            bindingLabel.text = displayString;
+            bindingButton.text = displayString;
         }
     }
 
     /// <summary>
-    /// Called when the binding label is clicked - starts rebinding
+    /// Called when the binding button is clicked - starts rebinding
     /// </summary>
-    private void OnBindingLabelClicked(ClickEvent evt)
+    private void OnBindingButtonClicked(ClickEvent evt)
     {
         if (controlsSettings == null || string.IsNullOrEmpty(actionName) || isRebinding)
             return;
@@ -138,11 +148,11 @@ public partial class BindKeyComponent : VisualElement
     private void StartRebinding()
     {
         isRebinding = true;
-        originalLabelText = bindingLabel.text;
+        originalLabelText = bindingButton.text;
         
         // Update UI to show waiting for input
-        bindingLabel.text = "Press any key...";
-        bindingLabel.style.backgroundColor = new Color(0.5f, 0.3f, 0, 0.5f);
+        bindingButton.text = "Press any key...";
+        bindingButton.style.backgroundColor = new Color(0.5f, 0.3f, 0, 0.5f);
         
         // Disable reset button during rebinding
         if (resetButton != null)
@@ -167,7 +177,7 @@ public partial class BindKeyComponent : VisualElement
         UpdateBindingDisplay();
         
         // Reset UI state
-        bindingLabel.style.backgroundColor = new Color(0, 0, 0, 0.2f);
+        bindingButton.style.backgroundColor = new Color(0, 0, 0, 0.2f);
         
         if (resetButton != null)
             resetButton.SetEnabled(true);
@@ -187,11 +197,11 @@ public partial class BindKeyComponent : VisualElement
         isRebinding = false;
         
         // Restore original text
-        if (bindingLabel != null)
-            bindingLabel.text = originalLabelText;
+        if (bindingButton != null)
+            bindingButton.text = originalLabelText;
         
         // Reset UI state
-        bindingLabel.style.backgroundColor = new Color(0, 0, 0, 0.2f);
+        bindingButton.style.backgroundColor = new Color(0, 0, 0, 0.2f);
         
         if (resetButton != null)
             resetButton.SetEnabled(true);
@@ -222,14 +232,14 @@ public partial class BindKeyComponent : VisualElement
         }
         
         // Unregister callbacks
-        if (bindingLabel != null)
+        if (bindingButton != null)
         {
-            bindingLabel.UnregisterCallback<ClickEvent>(OnBindingLabelClicked);
+            bindingButton.UnregisterCallback<ClickEvent>(OnBindingButtonClicked);
         }
         
         if (resetButton != null)
         {
-            resetButton.clicked -= OnResetButtonClicked;
+            resetButton.UnregisterCallback<ClickEvent>(_ => OnResetButtonClicked());
         }
     }
 }

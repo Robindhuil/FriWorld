@@ -23,6 +23,7 @@ public class UIManager : MonoBehaviour
     private Player player;
     [Header("UI Prefabs")]
     [SerializeField] private AudioMixer audioMixer;
+    [SerializeField] private GlobalButtonClickSound globalButtonClickSound;
     [Header("UI Documents")]
     [SerializeField] private UIDocument playerUIDocument;
     [SerializeField] private UIDocument playerWindowsDocument;
@@ -225,13 +226,13 @@ public class UIManager : MonoBehaviour
     public void InitializeJournalUI()
     {
         Journal journal = player.PlayerManagment.journal;
-        journalUI = new JournalUI(playerWindowsDocument, journal);
+        journalUI = new JournalUI(playerWindowsDocument, journal, globalButtonClickSound);
         journalUI.SetTrackButtonCallback(TrackQuest);
     }
 
     public void InitializeTabUI()
     {
-        tabUI = new TabUI(playerWindowsDocument);
+        tabUI = new TabUI(playerWindowsDocument, globalButtonClickSound);
         
         // Connect button clicks to actions (order: Journal, Codex, Navigation, Stats)
         tabUI.Buttons[0].clicked += OpenJournal;
@@ -242,13 +243,13 @@ public class UIManager : MonoBehaviour
 
     public void InitializeNavigationUI()
     {
-        navigationUI = new NavigationUI(playerWindowsDocument, this);
+        navigationUI = new NavigationUI(playerWindowsDocument, globalButtonClickSound);
         navigationUI.TrackButton.clicked += TrackRoom;
     }
 
     public void InitializeCodexUI()
     {
-        codexUI = new CodexUI(playerWindowsDocument, this, audioMixer);
+        codexUI = new CodexUI(playerWindowsDocument, audioMixer, globalButtonClickSound);
     }
     public void InitializeStatsUI()
     {

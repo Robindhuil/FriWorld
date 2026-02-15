@@ -35,6 +35,10 @@ public partial class SliderComponent : VisualElement
         slider = this.Q<Slider>();
         resetButton = this.Q<Button>("ResetToDefaultButton");
 
+        // Apply USS class for styling
+        if (resetButton != null)
+            resetButton.AddToClassList("resetToDefaultButton");
+
         if (slider != null)
         {
             slider.label = "";

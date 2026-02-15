@@ -145,6 +145,33 @@ public class UniversalMenu : MonoBehaviour
         {
             versionLabel.text = $"Version {Application.version}";
         }
+        
+        // Apply USS classes and hover effects
+        if (closeButton != null)
+        {
+            closeButton.AddToClassList("CloseSettingsButton");
+            closeButton.RegisterCallback<MouseEnterEvent>(evt =>
+            {
+                closeButton.style.backgroundColor = new Color(251f/255f, 184f/255f, 0);
+            });
+            closeButton.RegisterCallback<MouseLeaveEvent>(evt =>
+            {
+                closeButton.style.backgroundColor = new StyleColor(StyleKeyword.Null);
+            });
+        }
+        
+        if (respawnButton != null)
+        {
+            respawnButton.AddToClassList("RespawnButton");
+            respawnButton.RegisterCallback<MouseEnterEvent>(evt =>
+            {
+                respawnButton.style.backgroundColor = new Color(115f/255f, 0, 0);
+            });
+            respawnButton.RegisterCallback<MouseLeaveEvent>(evt =>
+            {
+                respawnButton.style.backgroundColor = new StyleColor(StyleKeyword.Null);
+            });
+        }
     }
     
     private void ConfigureMenuForType()

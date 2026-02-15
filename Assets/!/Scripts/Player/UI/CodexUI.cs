@@ -14,17 +14,19 @@ public class CodexUI : BaseUi
     private ScrollView infoScrollView;
     private Label entryNameLabel;
     private Image pictureElement;
+    private GlobalButtonClickSound globalButtonClickSound;
     public bool IsMenuOn { get; set; }
 
     private Button lastCategoryButton;
     private Button lastSubButton;
-    private MonoBehaviour runner;
     private VideoPlayerUI videoPlayerUI;
 
-    public CodexUI(UIDocument document, MonoBehaviour runner, AudioMixer mixer)
+
+
+    public CodexUI(UIDocument document, AudioMixer mixer, GlobalButtonClickSound buttonClickSound)
     {
         this.uiDocument = document;
-        this.runner = runner;
+        globalButtonClickSound = buttonClickSound;
         
         rootElement = uiDocument.rootVisualElement;
         codexUIElement = rootElement.Q<VisualElement>("CodexUI");
@@ -81,6 +83,7 @@ public class CodexUI : BaseUi
     {
         var button = new Button();
         button.AddToClassList("codexButton");
+        button.style.marginBottom = 5;
         
         button.RegisterCallback<MouseEnterEvent>(evt => OnButtonHoverEnter(evt.target as Button));
         button.RegisterCallback<MouseLeaveEvent>(evt => OnButtonHoverExit(evt.target as Button));
@@ -98,10 +101,38 @@ public class CodexUI : BaseUi
                 button.text = categories[index];
                 button.userData = categories[index];
                 
+                // Update appearance if this is the active button
+                if (button == lastCategoryButton)
+                {
+                    var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
+                    button.style.backgroundColor = successColorSet.backgroundColor;
+                    button.style.color = successColorSet.textColor;
+                }
+                else
+                {
+                    var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
+                    button.style.backgroundColor = ghostColorSet.backgroundColor;
+                    button.style.color = ghostColorSet.textColor;
+                }
+                
                 // Clear previous click handlers
                 button.clicked -= null;
                 button.clicked += () => 
                 {
+                    globalButtonClickSound?.PlayClickSound();
+                    // Clear previous button styling
+                    if (lastCategoryButton != null && lastCategoryButton != button)
+                    {
+                        var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
+                        lastCategoryButton.style.backgroundColor = ghostColorSet.backgroundColor;
+                        lastCategoryButton.style.color = ghostColorSet.textColor;
+                    }
+                    
+                    lastCategoryButton = button;
+                    var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
+                    button.style.backgroundColor = successColorSet.backgroundColor;
+                    button.style.color = successColorSet.textColor;
+                    
                     categoriesList.selectedIndex = index;
                     ShowSubList(categories[index]);
                 };
@@ -118,10 +149,38 @@ public class CodexUI : BaseUi
                 button.text = RemoveTitles(entries[index].name);
                 button.userData = entries[index];
                 
+                // Update appearance if this is the active button
+                if (button == lastSubButton)
+                {
+                    var secondaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Secondary);
+                    button.style.backgroundColor = secondaryColorSet.backgroundColor;
+                    button.style.color = secondaryColorSet.textColor;
+                }
+                else
+                {
+                    var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
+                    button.style.backgroundColor = ghostColorSet.backgroundColor;
+                    button.style.color = ghostColorSet.textColor;
+                }
+                
                 // Clear previous click handlers
                 button.clicked -= null;
                 button.clicked += () => 
                 {
+                    globalButtonClickSound?.PlayClickSound();
+                    // Clear previous button styling
+                    if (lastSubButton != null && lastSubButton != button)
+                    {
+                        var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
+                        lastSubButton.style.backgroundColor = ghostColorSet.backgroundColor;
+                        lastSubButton.style.color = ghostColorSet.textColor;
+                    }
+                    
+                    lastSubButton = button;
+                    var secondaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Secondary);
+                    button.style.backgroundColor = secondaryColorSet.backgroundColor;
+                    button.style.color = secondaryColorSet.textColor;
+                    
                     subCategoriesList.selectedIndex = index;
                     ShowEntryDetails(entries[index]);
                 };
@@ -151,7 +210,21 @@ public class CodexUI : BaseUi
     {
         if (button != null && button != lastCategoryButton && button != lastSubButton)
         {
-            button.style.backgroundColor = new Color(1, 1, 1, 0.7f);
+            var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
+            button.style.backgroundColor = ghostColorSet.hoverBackgroundColor;
+            button.style.color = ghostColorSet.hoverTextColor;
+        }
+        else if (button == lastCategoryButton)
+        {
+            var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
+            button.style.backgroundColor = successColorSet.hoverBackgroundColor;
+            button.style.color = successColorSet.hoverTextColor;
+        }
+        else if (button == lastSubButton)
+        {
+            var secondaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Secondary);
+            button.style.backgroundColor = secondaryColorSet.hoverBackgroundColor;
+            button.style.color = secondaryColorSet.hoverTextColor;
         }
     }
 
@@ -159,7 +232,21 @@ public class CodexUI : BaseUi
     {
         if (button != null && button != lastCategoryButton && button != lastSubButton)
         {
-            button.style.backgroundColor = new Color(0, 0, 0, 0);
+            var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
+            button.style.backgroundColor = ghostColorSet.backgroundColor;
+            button.style.color = ghostColorSet.textColor;
+        }
+        else if (button == lastCategoryButton)
+        {
+            var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
+            button.style.backgroundColor = successColorSet.backgroundColor;
+            button.style.color = successColorSet.textColor;
+        }
+        else if (button == lastSubButton)
+        {
+            var secondaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Secondary);
+            button.style.backgroundColor = secondaryColorSet.backgroundColor;
+            button.style.color = secondaryColorSet.textColor;
         }
     }
 
@@ -228,7 +315,11 @@ public class CodexUI : BaseUi
             if (entry.category == "Programovanie" && !string.IsNullOrEmpty(entry.video))
             {
                 // Register click handler for video
-                pictureElement.RegisterCallback<ClickEvent>(evt => videoPlayerUI?.PlayVideo(entry.video));
+                pictureElement.RegisterCallback<ClickEvent>(evt => 
+                {
+                    globalButtonClickSound?.PlayClickSound();
+                    videoPlayerUI?.PlayVideo(entry.video);
+                });
 
                 if (!string.IsNullOrEmpty(entry.photo))
                 {
@@ -278,6 +369,20 @@ public class CodexUI : BaseUi
         if (pictureElement != null)
         {
             pictureElement.style.backgroundImage = null;
+        }
+
+        if (lastCategoryButton != null)
+        {
+            var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
+            lastCategoryButton.style.backgroundColor = ghostColorSet.backgroundColor;
+            lastCategoryButton.style.color = ghostColorSet.textColor;
+        }
+
+        if (lastSubButton != null)
+        {
+            var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
+            lastSubButton.style.backgroundColor = ghostColorSet.backgroundColor;
+            lastSubButton.style.color = ghostColorSet.textColor;
         }
 
         if (subCategoriesList != null)
