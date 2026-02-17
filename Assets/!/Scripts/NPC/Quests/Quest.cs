@@ -1,7 +1,7 @@
 [System.Serializable]
 public class Quest
 {
-    public int id;
+    public string id;
     public string questName;
     public string questObjective;
     public string questInfo;
@@ -15,7 +15,7 @@ public class Quest
     /// Inicializuje novú úlohu s danými parametrami a nastaví jej stav na neaktívny.
     /// Parameter switchGiverModeOnCompletion môže byť voliteľný – predvolene false.
     /// </summary>
-    public Quest(int id, string questName, string questObjective, string questInfo, bool switchGiverModeOnCompletion = false)
+    public Quest(string id, string questName, string questObjective, string questInfo, bool switchGiverModeOnCompletion = false)
     {
         this.id = id;
         this.questName = questName;

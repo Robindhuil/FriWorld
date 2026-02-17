@@ -1,282 +1,533 @@
 {
-    "levels": [
+  "StartNodeId": "start",
+  "Nodes": [
+    {
+      "Id": "start",
+      "Text": "",
+      "Type": 2,
+      "Choices": [
         {
-            "level": 1,
-            "dialogue": [
-                {
-                    "id": 0,
-                    "text": "Ahoj! Som doc. Ing. Ján Janech, PhD. z Fakulty riadenia a informatiky Žilinskej univerzity. Čo ťa zaujíma?",
-                    "choices": [
-                        {
-                            "text": "Prečo by som mal študovať práve na FRI?",
-                            "next": 1,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Aké predmety vyučujete a čo sa v nich naučím?",
-                            "next": 2,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Potrebujete s niečím pomôcť na fakulte?",
-                            "next": 10,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 1,
-                    "text": "FRI ponúka unikátnu kombináciu teórie a praxe. Máme moderné laboratóriá, aktívnu spoluprácu s firmami a dôraz na reálne projekty. Študenti získajú nielen znalosti, ale aj praktické skúsenosti, ktoré sú v IT sektore nevyhnutné.",
-                    "choices": [
-                        {
-                            "text": "Aké konkrétne zručnosti získam ako váš študent?",
-                            "next": 3,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Ako využijem tieto znalosti v budúcom zamestnaní?",
-                            "next": 4,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "text": "Vyučujem kľúčové IT predmety: Informatika 1-2 (základy programovania), Softvérové modelovanie (návrh systémov), Metaprogramovanie (pokročilé techniky) a Softvérové inžinierstvo (komplexný vývoj). Všetko s dôrazom na praktické aplikácie.",
-                    "choices": [
-                        {
-                            "text": "Môžete uviesť príklad praktického projektu?",
-                            "next": 5,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Ako súvisí váš výskum s výučbou?",
-                            "next": 6,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "text": "Naučíš sa nielen programovať v rôznych jazykoch, ale aj navrhovať komplexné systémy, pracovať s databázami a riešiť reálne problémy. Dôležité je, že získaš schopnosť učiť sa nové technológie - čo je v IT najdôležitejšie.",
-                    "choices": [
-                        {
-                            "text": "Aké najčastejšie pracovné pozície majú vaši absolventi?",
-                            "next": 7,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na otázku o výhodách FRI",
-                            "next": 1,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 4,
-                    "text": "Naši absolventi pracujú ako softvéroví inžinieri, vývojári, IT konzultanti alebo systémoví analytici. Firmy oceňujú, že vedia aplikovať teoretické znalosti v praxi a rýchlo sa adaptujú na nové technológie.",
-                    "choices": [
-                        {
-                            "text": "Ako vyzerá vaša spolupráca s firmami?",
-                            "next": 8,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na otázku o zručnostiach",
-                            "next": 3,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 5,
-                    "text": "Napríklad v Softvérovom inžinierstve študenti vytvárajú komplexné aplikácie - od analýzy po implementáciu. V Metaprogramovaní pracujú na nástrojoch, ktoré generujú kód automaticky. Všetko na reálnych problémoch.",
-                    "choices": [
-                        {
-                            "text": "Späť na výber predmetov",
-                            "next": 2,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 6,
-                    "text": "Môj výskum v oblasti VANET a distribuovaných systémov priamo vplýva na výučbu. Študenti sa tak učia najnovšie trendy a technológie, ktoré následne môžu aplikovať v praxi.",
-                    "choices": [
-                        {
-                            "text": "Môžu sa študenti zapojiť do výskumu?",
-                            "next": 9,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na výber predmetov",
-                            "next": 2,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 7,
-                    "text": "Najčastejšie ako backend/fullstack vývojári, systémoví analytici, databázoví špecialisti alebo IT konzultanti. Mnohí zakladajú aj vlastné startupy.",
-                    "choices": [
-                        {
-                            "text": "Späť na otázku o zručnostiach",
-                            "next": 3,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 8,
-                    "text": "Spolupracujeme s viacerými IT firmami, ktoré ponúkajú stáže, zadania pre študentov a často priamo zamestnávajú naších absolventov. Študenti tak majú možnosť získať kontakty už počas štúdia.",
-                    "choices": [
-                        {
-                            "text": "Späť na otázku o absolventoch",
-                            "next": 4,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 9,
-                    "text": "Áno, prostredníctvom záverečných prác, študentských projektov alebo výskumných stáží. Najlepší študenti často publikujú svoje výsledky na konferenciách.",
-                    "choices": [
-                        {
-                            "text": "Späť na otázku o výskume",
-                            "next": 6,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 10,
-                    "text": "Potreboval by som ale najprv si ťa musím overiť. V jednej z miestností na fakulte máme menší test – nachádza sa tam 10 popisov rôznych jazykov. Niektoré sú programovacie (napríklad Python či C++), iné bežné hovorené jazyky (napríklad angličtina či španielčina). Potrebujem, aby si zistil, ktoré sú programovacie a ktoré hovorené. Je to test tvojich vedomostí i schopnosti rozlišovať detaily.",
-                    "choices": [
-                        {
-                            "text": "Jasné, rád to skúsim!",
-                            "next": null,
-                            "quest": 1
-                        },
-                        {
-                            "text": "Neviem, či som na to pripravený, ale pokúsim sa.",
-                            "next": null,
-                            "quest": 1
-                        }
-                    ]
-                }
-            ]
+          "Text": "",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [
+            {
+              "Key": "quest_1_programming_languages_Completed",
+              "Type": 0,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
         },
         {
-            "level": 2,
-            "dialogue": [
-                {
-                    "id": 0,
-                    "text": "Vitaj naspäť! Dobrá práca prešiel si testom! Teraz keď som si ťa overil, či budeš schopný pomôcť s ďalsími úlohami. Dopočul som sa, že pán Meško by potreboval s niečím pomôcť. Nájdi ho a skús mu pomôcť prosím ťa. Ďakujem!",
-                    "choices": [
-                        {
-                            "text": "Neviete prosím povedať, kde by som mohol nájsť pána Meška?",
-                            "next": 1,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 1,
-                    "quest": -1,
-                    "text": "Samozrejme pán Meško by sa mal pohybovať niekde okolo svojho kabinetu s označením RA124.",
-                    "choices": [
-                        {
-                            "text": "Rozumiem, skúsim ho nájsť.",
-                            "next": null,
-                            "quest": 3
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "level": 3,
-            "dialogue": [
-                {
-                    "id": 0,
-                    "text": "Počul som, že si pomohol mnoho učiteľom a tým si sa overil, že si zručný v riešní problémov. Mám pre teba poslednú úlohu, v ktorej potrebujem aby si doplnil priezivská učitelov, ktorých si doteraz stretol v rámci predmetu Informatika 1.",
-                    "choices": [
-                        {
-                            "text": "Takže len doplním do kódu priezviská učiteľov? Ako viem ktorí to sú?",
-                            "next": 1,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Teším sa. Dúfam že to zvládnem",
-                            "next": null,
-                            "quest": 22
-                        }
-                    ]
-                },
-                {
-                    "id": 1,
-                    "text": "Stretol si ich, len si si musel zapamätať ich priezviská. Som to ja, pán Ďuračik, pán Meško, pán Kvet, pán Tóth, pani Petríková a pani Gregorová.",
-                    "choices": [
-                        {
-                            "text": "Okej ďakujem vrhnem sa na to.",
-                            "next": null,
-                            "quest": 22
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "level": 4,
-            "dialogue": [
-                {
-                    "id": 0,
-                    "text": "Výborná práca a teraz... pripravil som si pre teba finálny test, v ktorom sa otestujě ako moc si sa toho naučil.",
-                    "choices": [
-                        {
-                            "text": "Teším sa. Dúfam že to zvládnem",
-                            "next": null,
-                            "quest": 24
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "level": 5,
-            "dialogue": [
-                {
-                    "id": 0,
-                    "text": "Tebe sa to podarilo! Dobrá práca, teraz si pripravený príjsť na našu školu a zistiť naozaj o čom je Fakulta riadenia a informatiky! Teším sa na teba.",
-                    "choices": [
-                        {
-                            "text": "Ďakujem veľmi som si to užil. Dovidenia",
-                            "next": null,
-                            "quest": -1
-                        }
-                    ]
-                }
-            ]
+          "Text": "",
+          "NextNodeId": "level0_first_greeting",
+          "Conditions": [],
+          "Effects": []
         }
-    ]
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level0_first_greeting",
+      "Text": "Ahoj! Som doc. Ing. Ján Janech, PhD. z Fakulty riadenia a informatiky Žilinskej univerzity.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Dobrý deň, pán Janech. Rád vás poznávam.",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_greeting",
+      "Text": "Čo by si potreboval vedieť?",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Prečo by som mal študovať práve na FRI?",
+          "NextNodeId": "level1_node1",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Aké predmety vyučujete a čo sa v nich naučím?",
+          "NextNodeId": "level1_node2",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Potrebujete s niečím pomôcť na fakulte?",
+          "NextNodeId": "level1_quest_1_programming_languages_offer",
+          "Conditions": [
+            {
+              "Key": "quest_0_start_Completed",
+              "Type": 0,
+              "IntValue": 0
+            },
+            {
+              "Key": "quest_1_programming_languages_Completed",
+              "Type": 4,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
+        },
+        {
+          "Text": "Dokončil som Váš test, čo mám teraz robiť?",
+          "NextNodeId": "level2_quest_3_mesko_offer",
+          "Conditions": [
+            {
+              "Key": "quest_1_programming_languages_Completed",
+              "Type": 0,
+              "IntValue": 0
+            },
+            {
+              "Key": "quest_4_forgotten_password_Completed",
+              "Type": 4,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
+        },
+        {
+          "Text": "Opäť zdravím, ževraj ma potrebujete?",
+          "NextNodeId": "level3_quest_22_cs1_teachers_offer",
+          "Conditions": [
+            {
+              "Key": "quest_20_return_to_kvet_Completed",
+              "Type": 0,
+              "IntValue": 0
+            },
+            {
+              "Key": "quest_22_cs1_teachers_Completed",
+              "Type": 4,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
+        },
+        {
+          "Text": "Urobil som o čo ste ma žiadali, doplnil som tie priezviská.",
+          "NextNodeId": "level4_quest_24_final_test_offer",
+          "Conditions": [
+            {
+              "Key": "quest_22_cs1_teachers_Completed",
+              "Type": 0,
+              "IntValue": 0
+            },
+            {
+              "Key": "quest_24_final_quest_Completed",
+              "Type": 4,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
+        },
+        {
+          "Text": "Úspešne som prešiel testom, čo bude ďalej?",
+          "NextNodeId": "level5_last_node",
+          "Conditions": [
+            {
+              "Key": "quest_24_final_quest_Completed",
+              "Type": 0,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": [
+        {
+          "Key": "entry_teachers_jan_janech",
+          "Type": 0,
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Id": "level1_node1",
+      "Text": "FRI ponúka unikátnu kombináciu teórie a praxe. Máme moderné laboratóriá, aktívnu spoluprácu s firmami a dôraz na reálne projekty. Študenti získajú nielen znalosti, ale aj praktické skúsenosti, ktoré sú v IT sektore nevyhnutné.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Aké konkrétne zručnosti získam ako váš študent?",
+          "NextNodeId": "level1_node3",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Ako využijem tieto znalosti v budúcom zamestnaní?",
+          "NextNodeId": "level1_node4",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node2",
+      "Text": "Vyučujem kľúčové IT predmety: Informatika 1-2 (základy programovania), Softvérové modelovanie (návrh systémov), Metaprogramovanie (pokročilé techniky) a Softvérové inžinierstvo (komplexný vývoj). Všetko s dôrazom na praktické aplikácie.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Môžete uviesť príklad praktického projektu?",
+          "NextNodeId": "level1_node5",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Ako súvisí váš výskum s výučbou?",
+          "NextNodeId": "level1_node6",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node3",
+      "Text": "Naučíš sa nielen programovať v rôznych jazykoch, ale aj navrhovať komplexné systémy, pracovať s databázami a riešiť reálne problémy. Dôležité je, že získaš schopnosť učiť sa nové technológie - čo je v IT najdôležitejšie.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Aké najčastejšie pracovné pozície majú vaši absolventi?",
+          "NextNodeId": "level1_node7",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na otázku o výhodách FRI)",
+          "NextNodeId": "level1_node1",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node4",
+      "Text": "Naši absolventi pracujú ako softvéroví inžinieri, vývojári, IT konzultanti alebo systémoví analytici. Firmy oceňujú, že vedia aplikovať teoretické znalosti v praxi a rýchlo sa adaptujú na nové technológie.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Ako vyzerá vaša spolupráca s firmami?",
+          "NextNodeId": "level1_node8",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na otázku o zručnostiach)",
+          "NextNodeId": "level1_node3",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node5",
+      "Text": "Napríklad v Softvérovom inžinierstve študenti vytvárajú komplexné aplikácie - od analýzy po implementáciu. V Metaprogramovaní pracujú na nástrojoch, ktoré generujú kód automaticky. Všetko na reálnych problémoch.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na výber predmetov)",
+          "NextNodeId": "level1_node2",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node6",
+      "Text": "Môj výskum v oblasti VANET a distribuovaných systémov priamo vplýva na výučbu. Študenti sa tak učia najnovšie trendy a technológie, ktoré následne môžu aplikovať v praxi.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Môžu sa študenti zapojiť do výskumu?",
+          "NextNodeId": "level1_node9",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na výber predmetov)",
+          "NextNodeId": "level1_node2",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node7",
+      "Text": "Najčastejšie ako backend/fullstack vývojári, systémoví analytici, databázoví špecialisti alebo IT konzultanti. Mnohí zakladajú aj vlastné startupy.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na otázku o zručnostiach)",
+          "NextNodeId": "level1_node3",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node8",
+      "Text": "Spolupracujeme s viacerými IT firmami, ktoré ponúkajú stáže, zadania pre študentov a často priamo zamestnávajú naších absolventov. Študenti tak majú možnosť získať kontakty už počas štúdia.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na otázku o absolventoch)",
+          "NextNodeId": "level1_node4",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node9",
+      "Text": "Áno, prostredníctvom záverečných prác, študentských projektov alebo výskumných stáží. Najlepší študenti často publikujú svoje výsledky na konferenciách.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na otázku o výskume)",
+          "NextNodeId": "level1_node6",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_quest_1_programming_languages_offer",
+      "Text": "Potreboval by som ale najprv si ťa musím overiť. V jednej z miestností na fakulte máme menší test – nachádza sa tam 10 popisov rôznych jazykov. Niektoré sú programovacie (napríklad Python či C++), iné bežné hovorené jazyky (napríklad angličtina či španielčina). Potrebujem, aby si zistil, ktoré sú programovacie a ktoré hovorené. Je to test tvojich vedomostí i schopnosti rozlišovať detaily.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Jasné, rád to skúsim!",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_1_programming_languages",
+              "Type": 3,
+              "Value": 0
+            },
+            {
+              "Key": "entry_programming_programming_language",
+              "Type": 0,
+              "Value": 0
+            }
+          ]
+        },
+        {
+          "Text": "Neviem, či som na to pripravený, ale pokúsim sa.",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_1_programming_languages",
+              "Type": 3,
+              "Value": 0
+            }
+          ]
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level2_quest_3_mesko_offer",
+      "Text": "Dobrá práca prešiel si testom! Teraz keď som si ťa overil, či budeš schopný pomôcť s ďalsími úlohami. Dopočul som sa, že pán Meško by potreboval s niečím pomôcť. Nájdi ho a skús mu pomôcť prosím ťa. Ďakujem!",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Neviete prosím povedať, kde by som mohol nájsť pána Meška?",
+          "NextNodeId": "level2_node1",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level2_node1",
+      "Text": "Samozrejme pán Meško by sa mal pohybovať niekde okolo svojho kabinetu s označením RA124.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Rozumiem, skúsim ho nájsť.",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_3_mesko",
+              "Type": 3,
+              "Value": 0
+            }
+          ]
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level3_quest_22_cs1_teachers_offer",
+      "Text": "Počul som, že si pomohol mnoho učiteľom a tým si sa overil, že si zručný v riešní problémov. Mám pre teba poslednú úlohu, v ktorej potrebujem aby si doplnil priezivská učitelov, ktorých si doteraz stretol v rámci predmetu Informatika 1.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Takže len doplním do kódu priezviská učiteľov? Ako viem ktorí to sú?",
+          "NextNodeId": "level3_node1",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Teším sa. Dúfam že to zvládnem",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_22_cs1_teachers",
+              "Type": 3,
+              "Value": 0
+            }
+          ]
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level3_node1",
+      "Text": "Stretol si ich, len si si musel zapamätať ich priezviská. Som to ja, pán Ďuračik, pán Meško, pán Kvet, pán Tóth, pani Petríková a pani Gregorová.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Okej ďakujem vrhnem sa na to.",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_22_cs1_teachers",
+              "Type": 3,
+              "Value": 0
+            }
+          ]
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level4_quest_24_final_test_offer",
+      "Text": "Výborná práca a teraz... pripravil som si pre teba finálny test, v ktorom sa otestujě ako moc si sa toho naučil.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Teším sa. Dúfam že to zvládnem",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_24_final_quest",
+              "Type": 3,
+              "Value": 0
+            }
+          ]
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level5_last_node",
+      "Text": "Tebe sa to podarilo! Dobrá práca, teraz si pripravený príjsť na našu školu a zistiť naozaj o čom je Fakulta riadenia a informatiky! Teším sa na teba.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Ďakujem veľmi som si to užil. Dovidenia",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "end",
+      "Text": "",
+      "Type": 2,
+      "Choices": [],
+      "Conditions": [],
+      "Effects": []
+    }
+  ]
 }

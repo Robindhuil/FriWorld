@@ -4,31 +4,31 @@ public class QuestComplete
 {
     private PlayerUI playerUI;
     private Npc npc;
-    private int[] questIds;
+    private string[] questIds;
 
-    public QuestComplete(PlayerUI playerUI, Npc npc, int[] questIds)
+    public QuestComplete(PlayerUI playerUI, Npc npc, string[] questIds)
     {
         this.playerUI = playerUI;
         this.npc = npc;
         this.questIds = questIds;
     }
 
-    private int CheckForActiveQuests()
+    private string CheckForActiveQuests()
     {
         QuestManager questManager = QuestManager.Instance;
-        foreach (int id in questIds)
+        foreach (string id in questIds)
         {
             if (questManager.GetQuestById(id).Status == QuestStatus.Active)
             {
                 return id;
             }
         }
-        return -1;
+        return null;
     }
 
-    private bool IsLocalQuest(int questId)
+    private bool IsLocalQuest(string questId)
     {
-        foreach (int id in questIds)
+        foreach (string id in questIds)
         {
             if (id == questId)
                 return true;
@@ -38,8 +38,8 @@ public class QuestComplete
 
     public void CompleteQuest(Journal journal)
     {
-        int questId = CheckForActiveQuests();
-        if (questId != -1)
+        string questId = CheckForActiveQuests();
+        if (questId != null)
         {
             Quest quest = QuestManager.Instance.GetQuestById(questId);
             if (quest == null)
@@ -53,22 +53,12 @@ public class QuestComplete
 
             if (IsLocalQuest(questId))
             {
-
-                if (quest.fromNpc != null && quest.fromNpc != npc)
-                {
-                    quest.fromNpc.SwitchDialogueMode();
-                    if (quest.fromNpc.QuestDialogueManager.CanIncreaseDialogueLevel())
-                    {
-                        quest.fromNpc.QuestDialogueManager.IncreaseDialogueLevel();
-                    }
-                    npc.SwitchDialogueMode();
-                    Debug.Log($"[QuestComplete] NPC {quest.fromNpc.name} prešiel do casual módu.");
-                }
-                else
-                {
-                    npc.QuestDialogueManager.IncreaseDialogueLevel();
-                    Debug.Log($"[QuestComplete] NPC {npc.name} prešiel do ďalšieho levelu quest dialógu.");
-                }
+                // Set quest completion state for dialogue system
+                GameState.Instance.SetBool($"{questId}_Completed", true);
+                Debug.Log($"[QuestComplete] Quest {questId} completion state set in GameState.");
+                
+                // Node-based dialogue system automatically handles progression via conditions
+                Debug.Log($"[QuestComplete] NPC {npc.name} dialogue will update based on quest completion.");
             }
         }
     }

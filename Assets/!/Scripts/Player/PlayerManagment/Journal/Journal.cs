@@ -8,7 +8,7 @@ public class Journal
 {
     private QuestManager questManager;
 
-    public Dictionary<int, Transform> QuestPositions { get; private set; }
+    public Dictionary<string, Transform> QuestPositions { get; private set; }
 
     public List<Quest> ActiveQuests { get; private set; }
     public List<Quest> InactiveQuests { get; private set; }
@@ -20,7 +20,7 @@ public class Journal
     public Journal()
     {
         questManager = QuestManager.Instance;
-        QuestPositions = new Dictionary<int, Transform>(questManager.QuestPositions);
+        QuestPositions = new Dictionary<string, Transform>(questManager.QuestPositions);
         ActiveQuests = new List<Quest>();
         InactiveQuests = new List<Quest>();
         CompletedQuests = new List<Quest>();
@@ -75,7 +75,7 @@ public class Journal
     /// <summary>
     /// Skontroluje, či je quest aktívny.
     /// </summary>
-    public bool IsQuestActive(int questId)
+    public bool IsQuestActive(string questId)
     {
         return ActiveQuests.Exists(quest => quest.id == questId);
     }
@@ -83,7 +83,7 @@ public class Journal
     /// <summary>
     /// Získa transformáciu questu podľa jeho ID.
     /// </summary>
-    public Transform GetQuestTransform(int questId)
+    public Transform GetQuestTransform(string questId)
     {
         return questManager.GetQuestPosition(questId);
     }

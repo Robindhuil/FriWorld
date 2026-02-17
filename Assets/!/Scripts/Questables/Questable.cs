@@ -5,7 +5,7 @@ public class Questable : Interactable
     [Header("Quest Settings")]
     [Tooltip("ID úlohy priradený tomuto objektu.")]
     [SerializeField]
-    protected int questId;
+    protected string questId;
     [SerializeField]
     [Tooltip("NPC, ktorý je súčasťou úlohy.")]
     private PlayerUI playerUI;
@@ -14,7 +14,7 @@ public class Questable : Interactable
     public bool CanBeInteracted { get; set; } = true;
     private UIManager uIManager;
     [Header("Quests to activate")]
-    [SerializeField] private int[] questIds;
+    [SerializeField] private string[] questIds;
     private QuestActivator questActivator;
     private Npc npc;
 
@@ -33,7 +33,7 @@ public class Questable : Interactable
 
     private bool IsValidQuest()
     {
-        return questId > 0 && transform != null;
+        return !string.IsNullOrEmpty(questId) && transform != null;
     }
 
     protected override void Interact()
@@ -79,6 +79,11 @@ public class Questable : Interactable
 
         journal.ChangeQuestStatus(quest, QuestStatus.Completed);
         Debug.Log($"[Questable] Quest {questId} completed.");
+        
+        // Set quest completion state for dialogue system
+        GameState.Instance.SetBool($"{questId}_Completed", true);
+        Debug.Log($"[Questable] Quest {questId} completion state set in GameState.");
+        
         playerUI.DisplayQuestComplete(quest.questName);
 
         Navigation nav = FindFirstObjectByType<Navigation>();

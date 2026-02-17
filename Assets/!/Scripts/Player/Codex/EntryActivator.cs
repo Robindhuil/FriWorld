@@ -1,39 +1,45 @@
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EntryActivator : MonoBehaviour
+/// <summary>
+/// Utility class for unlocking codex entries
+/// </summary>
+public static class EntryActivator
 {
-    [SerializeField]
-    private List<EntryMapping> entryMappings = new List<EntryMapping>();
-    private PlayerUI playerUI;
-
-    void Start()
-    {
-        UIManager uIManager = FindFirstObjectByType<UIManager>();
-
-        playerUI = uIManager.playerUI;
-    }
     /// <summary>
-    /// Aktivuje codex entry na základe quest ID.
-    /// Uistite sa, že mapovania tu sú len pre quest-specific entry,
-    /// nie pre učiteľské entry.
+    /// Activates a codex entry by ID.
+    /// Works for all categories including teachers.
     /// </summary>
-    public void ActivateEntryForQuest(int questId)
+    public static void ActivateEntryById(string entryId, PlayerUI playerUI)
     {
-        var mappings = entryMappings.Where(m => m.questId == questId);
-        foreach (var mapping in mappings)
+        if (string.IsNullOrEmpty(entryId))
         {
-            CodexEntry entryToUnlock = Codex.Instance.Entries.FirstOrDefault(e =>
-                e.name == mapping.codexEntryName && e.category != "Učitelia");
+            Debug.LogWarning("[EntryActivator] Entry ID is null or empty!");
+            return;
+        }
 
-            if (entryToUnlock != null && !Codex.Instance.IsEntryUnlocked(entryToUnlock))
-            {
-                Codex.Instance.UnlockEntry(entryToUnlock);
-                playerUI?.DisplayCodexUnlock(mapping.codexEntryName);
-                Debug.Log($"[EntryActivator] Odomkol sa quest-specific entry: {mapping.codexEntryName}");
-            }
+        if (Codex.Instance == null)
+        {
+            Debug.LogError("[EntryActivator] Codex.Instance is null!");
+            return;
+        }
+
+        CodexEntry entryToUnlock = Codex.Instance.Entries.FirstOrDefault(e => e.id == entryId);
+
+        if (entryToUnlock != null && !Codex.Instance.IsEntryUnlocked(entryToUnlock))
+        {
+            Codex.Instance.UnlockEntry(entryToUnlock);
+            playerUI?.DisplayCodexUnlock(entryToUnlock.name);
+            Debug.Log($"[EntryActivator] Odomkol sa entry: {entryToUnlock.name}");
+        }
+        else if (entryToUnlock == null)
+        {
+            Debug.LogWarning($"[EntryActivator] Entry s ID '{entryId}' nebola nájdená."); 
+        }
+
+        if (entryToUnlock != null && GameState.Instance != null)
+        {
+            GameState.Instance.SetBool($"{entryId}_Unlocked", true);
         }
     }
-
 }

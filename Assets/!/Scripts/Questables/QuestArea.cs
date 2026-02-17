@@ -4,7 +4,7 @@ public class QuestArea : MonoBehaviour
 {
     [Header("Quest Activation Settings")]
     [Tooltip("ID questov, ktoré sa majú aktivovať")]
-    [SerializeField] private int[] questIds;
+    [SerializeField] private string[] questIds;
 
     [Header("Collider Settings")]
     [Tooltip("Referencia na collider komponent")]
@@ -42,13 +42,17 @@ public class QuestArea : MonoBehaviour
 
     private void ActivateQuests(Journal journal)
     {
-        foreach (int questId in questIds)
+        foreach (string questId in questIds)
         {
             Quest quest = QuestManager.Instance.GetQuestById(questId);
             if (quest != null && quest.Status == QuestStatus.Inactive)
             {
                 journal.ChangeQuestStatus(quest, QuestStatus.Active);
                 Debug.Log($"[QuestArea] Quest {questId} bol aktivovaný cez QuestArea");
+
+                // Set quest started state for dialogue system
+                GameState.Instance.SetBool($"{questId}_Started", true);
+                Debug.Log($"[QuestArea] Quest {questId} started state set in GameState.");
 
                 UIManager uiManager = FindFirstObjectByType<UIManager>();
                 if (uiManager != null && uiManager.playerUI != null)

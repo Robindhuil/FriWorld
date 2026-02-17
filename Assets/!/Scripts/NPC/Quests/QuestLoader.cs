@@ -31,8 +31,9 @@ public class QuestLoader
             if (parts.Length == 3)
             {
                 string[] idAndName = parts[0].Trim().Split(' ', 2);
-                if (idAndName.Length == 2 && int.TryParse(idAndName[0], out int id))
+                if (idAndName.Length == 2)
                 {
+                    string id = idAndName[0].Trim();
                     var quest = new Quest(
                         id,
                         idAndName[1].Trim(),

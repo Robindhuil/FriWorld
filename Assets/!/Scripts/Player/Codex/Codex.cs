@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class CodexEntry
 {
+    public string id;
     public string category;
     public string name;
     public string description;
@@ -15,15 +16,14 @@ public class CodexEntry
     {
         if (obj is CodexEntry other)
         {
-            return name == other.name && category == other.category;
+            return id == other.id;
         }
         return false;
     }
 
     public override int GetHashCode()
     {
-        return (name != null ? name.GetHashCode() : 0) ^
-               (category != null ? category.GetHashCode() : 0);
+        return id != null ? id.GetHashCode() : 0;
     }
 }
 
@@ -79,12 +79,12 @@ public class Codex : MonoBehaviour
     {
         if (entry == null) return;
 
-        if (!unlockedEntries.Any(e => e.name == entry.name && e.category == entry.category))
+        if (!unlockedEntries.Any(e => e.id == entry.id))
         {
             unlockedEntries.Add(entry);
             unlockedCategories.Add(entry.category);
             OnCodexUpdated?.Invoke();
-            Debug.Log($"[CodexEntry] Unlocked entry: {entry.name} (Category: {entry.category})");
+            Debug.Log($"[CodexEntry] Unlocked entry: {entry.name} (ID: {entry.id}, Category: {entry.category})");
         }
     }
 

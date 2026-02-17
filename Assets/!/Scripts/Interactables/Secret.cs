@@ -5,6 +5,8 @@ public class Secret : Collectible
 {
     [SerializeField]
     private string secretName;
+    [SerializeField]
+    private string secretId;
     protected override void Interact()
     {
         Player player = FindFirstObjectByType<Player>();
@@ -12,13 +14,8 @@ public class Secret : Collectible
         player.PlayerManagment.stats.AddSecret();
         PlayerUI playerUI = player.GetComponent<UIManager>().playerUI;
 
+        EntryActivator.ActivateEntryById(secretId, playerUI);
 
-        CodexEntry secretEntry = Codex.Instance.Entries.FirstOrDefault(e => e.name == secretName);
-        if (secretEntry != null && !Codex.Instance.IsEntryUnlocked(secretEntry))
-        {
-            Codex.Instance.UnlockEntry(secretEntry);
-            playerUI.DisplaySecretUnlock(secretName);
-        }
         base.Interact();
     }
 }

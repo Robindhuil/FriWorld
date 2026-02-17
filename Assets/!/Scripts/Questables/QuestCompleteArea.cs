@@ -4,7 +4,7 @@ public class QuestCompleteArea : MonoBehaviour
 {
     [Header("Quest Completion Settings")]
     [Tooltip("ID questov, ktoré sa majú dokončiť")]
-    [SerializeField] private int[] questIds;
+    [SerializeField] private string[] questIds;
 
     [Header("Collider Settings")]
     [Tooltip("Referencia na collider komponent")]
@@ -42,13 +42,17 @@ public class QuestCompleteArea : MonoBehaviour
 
     private void CompleteQuests(Journal journal)
     {
-        foreach (int questId in questIds)
+        foreach (string questId in questIds)
         {
             Quest quest = QuestManager.Instance.GetQuestById(questId);
             if (quest != null && quest.Status == QuestStatus.Active)
             {
                 journal.ChangeQuestStatus(quest, QuestStatus.Completed);
                 Debug.Log($"[QuestCompleteArea] Quest {questId} bol dokončený cez QuestCompleteArea");
+
+                // Set quest completion state for dialogue system
+                GameState.Instance.SetBool($"{questId}_Completed", true);
+                Debug.Log($"[QuestCompleteArea] Quest {questId} completion state set in GameState.");
 
                 UIManager uiManager = FindFirstObjectByType<UIManager>();
                 if (uiManager != null && uiManager.playerUI != null)

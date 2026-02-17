@@ -19,10 +19,10 @@ public class QuestManager
     }
 
     private List<Quest> quests = new List<Quest>();
-    private Dictionary<int, Transform> questPositions = new Dictionary<int, Transform>();
+    private Dictionary<string, Transform> questPositions = new Dictionary<string, Transform>();
     private string questFilePath = "Quests/questList";
     public List<Quest> Quests => quests;
-    public Dictionary<int, Transform> QuestPositions => questPositions;
+    public Dictionary<string, Transform> QuestPositions => questPositions;
 
     private QuestManager()
     {
@@ -42,7 +42,7 @@ public class QuestManager
     /// <summary>
     /// Nastaví pozíciu úlohy podľa ID.
     /// </summary>
-    public void SetQuestPosition(int questId, Transform position)
+    public void SetQuestPosition(string questId, Transform position)
     {
         if (!questPositions.ContainsKey(questId))
         {
@@ -58,7 +58,7 @@ public class QuestManager
     /// <summary>
     /// Získa pozíciu úlohy podľa ID.
     /// </summary>
-    public Transform GetQuestPosition(int questId)
+    public Transform GetQuestPosition(string questId)
     {
         if (questPositions.TryGetValue(questId, out Transform position))
         {
@@ -71,7 +71,7 @@ public class QuestManager
     /// <summary>
     /// Získa úlohu podľa ID.
     /// </summary>
-    public Quest GetQuestById(int id)
+    public Quest GetQuestById(string id)
     {
         Quest quest = quests.Find(q => q.id == id);
         if (quest != null)
@@ -86,7 +86,7 @@ public class QuestManager
     }
 
 
-    public bool IsQuestActive(int questId)
+    public bool IsQuestActive(string questId)
     {
         Quest quest = quests.Find(q => q.id == questId);
         if (quest != null && quest.Status == QuestStatus.Active)
@@ -96,7 +96,7 @@ public class QuestManager
         return false;
     }
 
-    internal bool IsQuestCompleted(int questId)
+    internal bool IsQuestCompleted(string questId)
     {
         Quest quest = quests.Find(q => q.id == questId);
         if (quest != null && quest.Status == QuestStatus.Completed)

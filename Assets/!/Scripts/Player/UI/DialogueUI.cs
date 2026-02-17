@@ -15,11 +15,13 @@ public class DialogueUI : BaseUi
     private Label npcNameText;
     private ListView optionsList;
     private List<string> currentOptions = new List<string>();
+    private List<bool> currentOptionStartsQuest = new List<bool>();
     private InputManager inputManager;
     private UIManager uiManager;
     private Npc currentNpc;
     private MonoBehaviour runner;
     private Coroutine _currentTypingCoroutine;
+    private readonly Color questOptionColor = new Color32(4, 131, 178, 255);
 
 
     public DialogueUI(UIDocument document, InputManager manager, UIManager uiManager, MonoBehaviour runner)
@@ -74,18 +76,6 @@ public class DialogueUI : BaseUi
             button.style.minHeight = 50;
             button.style.flexGrow = 0;
             button.style.flexShrink = 0;
-            
-            // Add hover effects
-            button.RegisterCallback<MouseEnterEvent>(evt =>
-            {
-                button.style.color = new Color(251f / 255f, 184f / 255f, 0f);
-            });
-            
-            button.RegisterCallback<MouseLeaveEvent>(evt =>
-            {
-                button.style.color = Color.white;
-            });
-            
             return button;
         };
 
@@ -95,26 +85,72 @@ public class DialogueUI : BaseUi
             if (button != null && index < currentOptions.Count)
             {
                 button.text = currentOptions[index];
-                // Clear any existing callbacks
-                var existingCallbacks = button.userData as System.Action;
-                if (existingCallbacks != null)
+
+                var existingData = button.userData as OptionButtonData;
+                if (existingData != null)
                 {
-                    button.clicked -= existingCallbacks;
+                    if (existingData.ClickCallback != null)
+                    {
+                        button.clicked -= existingData.ClickCallback;
+                    }
+
+                    if (existingData.EnterCallback != null)
+                    {
+                        button.UnregisterCallback(existingData.EnterCallback);
+                    }
+
+                    if (existingData.LeaveCallback != null)
+                    {
+                        button.UnregisterCallback(existingData.LeaveCallback);
+                    }
                 }
-                
-                // Create a new callback that captures the current index
-                System.Action callback = () => OnOptionSelected(index);
-                button.clicked += callback;
-                button.userData = callback;
+
+                bool startsQuest = index < currentOptionStartsQuest.Count && currentOptionStartsQuest[index];
+                var baseColor = startsQuest ? questOptionColor : Color.white;
+                button.style.color = baseColor;
+
+                var data = new OptionButtonData
+                {
+                    BaseColor = baseColor
+                };
+
+                data.ClickCallback = () => OnOptionSelected(index);
+                data.EnterCallback = evt =>
+                {
+                    button.style.color = new Color(251f / 255f, 184f / 255f, 0f);
+                };
+                data.LeaveCallback = evt =>
+                {
+                    button.style.color = data.BaseColor;
+                };
+
+                button.clicked += data.ClickCallback;
+                button.RegisterCallback(data.EnterCallback);
+                button.RegisterCallback(data.LeaveCallback);
+                button.userData = data;
             }
         };
 
         optionsList.unbindItem = (element, index) =>
         {
             var button = element as Button;
-            if (button != null && button.userData is System.Action callback)
+            if (button != null && button.userData is OptionButtonData data)
             {
-                button.clicked -= callback;
+                if (data.ClickCallback != null)
+                {
+                    button.clicked -= data.ClickCallback;
+                }
+
+                if (data.EnterCallback != null)
+                {
+                    button.UnregisterCallback(data.EnterCallback);
+                }
+
+                if (data.LeaveCallback != null)
+                {
+                    button.UnregisterCallback(data.LeaveCallback);
+                }
+
                 button.userData = null;
             }
         };
@@ -149,17 +185,44 @@ public class DialogueUI : BaseUi
         _currentTypingCoroutine = null;
     }
 
-    public void UpdateOptionButtons(string[] options)
+    public void UpdateOptionButtons(List<DialogueChoice> choices)
     {
         currentOptions.Clear();
-        currentOptions.AddRange(options);
+        currentOptionStartsQuest.Clear();
+
+        if (choices != null)
+        {
+            foreach (var choice in choices)
+            {
+                currentOptions.Add(choice?.Text ?? string.Empty);
+                currentOptionStartsQuest.Add(ChoiceIsOffer(choice));
+            }
+        }
         
         if (optionsList != null)
         {
             optionsList.itemsSource = currentOptions;
             optionsList.Rebuild();
-            optionsList.style.display = options.Length > 0 ? DisplayStyle.Flex : DisplayStyle.None;
+            optionsList.style.display = currentOptions.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }
+    }
+
+    private bool ChoiceIsOffer(DialogueChoice choice)
+    {
+        if (choice == null || string.IsNullOrEmpty(choice.NextNodeId))
+        {
+            return false;
+        }
+
+        return choice.NextNodeId.IndexOf("offer", System.StringComparison.OrdinalIgnoreCase) >= 0;
+    }
+
+    private class OptionButtonData
+    {
+        public System.Action ClickCallback;
+        public EventCallback<MouseEnterEvent> EnterCallback;
+        public EventCallback<MouseLeaveEvent> LeaveCallback;
+        public Color BaseColor;
     }
 
     private void OnOptionSelected(int choiceIndex)

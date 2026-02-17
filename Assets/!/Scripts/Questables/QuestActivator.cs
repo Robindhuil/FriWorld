@@ -4,10 +4,10 @@ public class QuestActivator
 {
     private Player player;
     private PlayerUI playerUI;
-    private int[] questIds;
+    private string[] questIds;
     private Npc npcRef;
 
-    public QuestActivator(Player player, PlayerUI playerUI, int[] questIds, Npc npc)
+    public QuestActivator(Player player, PlayerUI playerUI, string[] questIds, Npc npc)
     {
         this.player = player;
         this.playerUI = playerUI;
@@ -16,10 +16,10 @@ public class QuestActivator
         Debug.Log("[QuestActivator] Bol vytvorený pre NPC: " + npcRef.NpcName);
     }
 
-    private int CheckForNonActiveQuests()
+    private string CheckForNonActiveQuests()
     {
         QuestManager questManager = QuestManager.Instance;
-        foreach (int id in questIds)
+        foreach (string id in questIds)
         {
             Quest quest = questManager.GetQuestById(id);
             if (quest != null && quest.Status == QuestStatus.Inactive)
@@ -28,25 +28,50 @@ public class QuestActivator
                 return id;
             }
         }
-        Debug.Log("[QuestActivator] Žiadny inaktívny quest sa nenašiel, vraciam -1");
-        return -1;
+        Debug.Log("[QuestActivator] Žiadny inaktívny quest sa nenašiel, vraciam null");
+        return null;
     }
 
     public void ActivateQuest()
     {
-        QuestManager questManager = QuestManager.Instance;
-        int questId = CheckForNonActiveQuests();
-        Quest quest = questManager.GetQuestById(questId);
-        if (quest != null && !questManager.IsQuestActive(questId) && !questManager.IsQuestCompleted(questId))
-        {
-            playerUI.DisplayQuestUnlock(quest.questName);
-            player.PlayerManagment.journal.ChangeQuestStatus(quest, QuestStatus.Active);
-            quest.fromNpc = npcRef;
-            Debug.Log($"[QuestActivator] Quest s ID {questId} bol aktivovaný pre NPC {npcRef.NpcName}");
-        }
-        else
+        string questId = CheckForNonActiveQuests();
+        if (!TryActivateQuest(player, playerUI, npcRef, questId))
         {
             Debug.Log($"[QuestActivator] Quest s ID {questId} nebol aktivovaný.");
         }
+    }
+
+    public static bool TryActivateQuest(Player player, PlayerUI playerUI, Npc npcRef, string questId)
+    {
+        if (string.IsNullOrWhiteSpace(questId))
+        {
+            Debug.LogWarning("[QuestActivator] Neplatné questId, aktivácia zrušená.");
+            return false;
+        }
+
+        QuestManager questManager = QuestManager.Instance;
+        Quest quest = questManager.GetQuestById(questId);
+        if (quest == null)
+        {
+            Debug.LogWarning($"[QuestActivator] Quest s ID {questId} nebol nájdený.");
+            return false;
+        }
+
+        if (questManager.IsQuestActive(questId) || questManager.IsQuestCompleted(questId))
+        {
+            Debug.Log($"[QuestActivator] Quest {questId} je už aktívny alebo dokončený.");
+            return false;
+        }
+
+        quest.fromNpc = npcRef;
+        playerUI?.DisplayQuestUnlock(quest.questName);
+        player?.PlayerManagment?.journal?.ChangeQuestStatus(quest, QuestStatus.Active);
+
+        // Set quest started state for dialogue system
+        GameState.Instance.SetBool($"{questId}_Started", true);
+        Debug.Log($"[QuestActivator] Quest {questId} started state set in GameState.");
+
+        Debug.Log($"[QuestActivator] Quest s ID {questId} bol aktivovaný pre NPC {npcRef?.NpcName}");
+        return true;
     }
 }
