@@ -1,0 +1,214 @@
+:root {
+}
+
+.ideUpperPanelWindowButtons {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    color: rgb(156, 156, 156);
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    background-size: 40% 40%;
+}
+
+.menuBarButton {
+    flex-shrink: 0;
+    color: rgb(156, 156, 156);
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 15px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    margin-top: 10px;
+    margin-right: 5px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    -unity-text-align: middle-center;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    height: auto;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.LeftPanelIdeButton {
+    width: 40px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 10px;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    height: 40px;
+    color: rgb(156, 156, 156);
+    -unity-text-align: middle-center;
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-size: 60% 60%;
+}
+
+.TopEnviromentPanelButton {
+    flex-shrink: 0;
+    color: rgb(156, 156, 156);
+    -unity-text-align: middle-center;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 10px;
+    padding-bottom: 0;
+    padding-left: 10px;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 0;
+    border-left-color: rgb(41, 41, 41);
+    border-right-color: rgb(41, 41, 41);
+    border-top-color: rgb(41, 41, 41);
+    border-bottom-color: rgb(41, 41, 41);
+}
+
+.TPEMoreActionButton {
+    margin-top: 3px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 5px;
+    padding-bottom: 0;
+    padding-left: 5px;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(204, 201, 193);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-size: 100% 50%;
+}
+
+Scroller #unity-low-button {
+    display: none;
+}
+
+Scroller #unity-high-button {
+    display: none;
+}
+
+Scroller #unity-slider {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    background-size: 100% 100%;
+}
+
+Scroller #unity-drag-container {
+    border-left-color: rgb(31, 31, 31);
+    border-right-color: rgb(31, 31, 31);
+    border-top-color: rgb(31, 31, 31);
+    border-bottom-color: rgb(31, 31, 31);
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+Scroller #unity-tracker {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-left-color: rgb(16, 17, 20);
+    border-right-color: rgb(16, 17, 20);
+    border-top-color: rgb(16, 17, 20);
+    border-bottom-color: rgb(16, 17, 20);
+}
+
+Scroller #unity-dragger {
+    background-color: rgba(87, 87, 87, 0.49);
+}
+
+TextField {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+TextField Label {
+    display: none;
+}
+
+TextField #unity-text-input {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 15px;
+    color: rgb(255, 255, 255);
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+TextField TextElement {
+}
+
+.terminalHeaderButton {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    color: rgb(114, 114, 114);
+    margin-top: 5px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 12px;
+}

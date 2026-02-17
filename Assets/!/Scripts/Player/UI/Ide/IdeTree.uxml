@@ -1,0 +1,83 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/IdeStyles.uss?fileID=7433441132597879392&amp;guid=82052d44d16415843a1a4571d479ba65&amp;type=3#IdeStyles"/>
+    <ui:VisualElement name="IdeWindowBase" style="flex-grow: 1;">
+        <ui:VisualElement name="UpperPanelBase" style="flex-grow: 0; flex-shrink: 0; height: 40px; flex-direction: row; background-color: rgb(31, 31, 31); border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-top-width: 0; border-right-width: 0; border-bottom-width: 2px; border-left-width: 0; color: rgb(31, 31, 31);">
+            <ui:VisualElement name="MenuBarButtonsBase" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
+                <ui:Image name="MenuBarIdeLogo" style="width: 30px; height: 30px; margin-top: 5px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; background-color: rgba(255, 0, 0, 0); background-image: resource(&quot;IdeIcons/ide logo&quot;); background-size: 80% 85%;"/>
+                <ui:Button text="File" name="FileMenuIdeButton" class="menuBarButton"/>
+                <ui:Button text="Edit" name="EditMenIdeuButton" class="menuBarButton"/>
+                <ui:Button text="Selection" name="SelectionMenudeButton" class="menuBarButton"/>
+                <ui:Button text="View" name="ViewMenudeButton" class="menuBarButton"/>
+                <ui:Button text="Go" name="GoMenudeButton" class="menuBarButton"/>
+                <ui:Button text="Run" name="RunMenudeButton" class="menuBarButton"/>
+                <ui:Button text="Terminal" name="TerminalMenudeButton" class="menuBarButton"/>
+                <ui:Button text="Help" name="HelpMenudeButton" class="menuBarButton"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="IdeUtilitiesBase" style="flex-grow: 1;"/>
+            <ui:VisualElement name="WindowButtonsBase" style="flex-grow: 0; flex-shrink: 0; flex-direction: row;">
+                <ui:Button text="" name="IdeCFullscreenWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-minimize&quot;); background-size: 40% 10%;"/>
+                <ui:Button text="" name="IdeMinimizeWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-restore&quot;);"/>
+                <ui:Button text="" name="IdeCloseWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-close&quot;);"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="EnviromentPlaceBase" style="flex-grow: 1; flex-direction: row;">
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; flex-direction: row;">
+                <ui:VisualElement name="LeftPanel" style="flex-grow: 0; flex-shrink: 0; width: 400px; background-color: rgb(24, 24, 24); flex-direction: row;">
+                    <ui:VisualElement name="LeftPanelIdeButtonsBase" style="flex-grow: 0; flex-shrink: 0; width: 40px; height: auto; max-height: none;">
+                        <ui:Button text="" name="LPExplorerButton" class="LeftPanelIdeButton" style="background-image: resource(&quot;IdeIcons/files&quot;); padding-right: 0; margin-top: 0; margin-right: 0; margin-bottom: 10px; margin-left: 0; background-size: 60% 70%; border-left-width: 2px; border-left-color: rgb(0, 120, 212); border-right-color: rgb(0, 120, 212); border-top-color: rgb(0, 120, 212); border-bottom-color: rgb(0, 120, 212);"/>
+                        <ui:Button text="" name="LPSearchButton" class="LeftPanelIdeButton" style="background-image: resource(&quot;IdeIcons/search-large&quot;);"/>
+                        <ui:Button text="" name="LPSourceControlButton" class="LeftPanelIdeButton" style="background-image: resource(&quot;IdeIcons/source-control&quot;); background-size: 50% 60%;"/>
+                        <ui:Button text="" name="LPRunDebugButton" class="LeftPanelIdeButton" style="background-image: resource(&quot;IdeIcons/debug-alt&quot;);"/>
+                        <ui:Button text="" name="LPExtensionButton" class="LeftPanelIdeButton" style="background-image: resource(&quot;IdeIcons/extensions&quot;);"/>
+                        <ui:Button text="" name="LPTestingButton" class="LeftPanelIdeButton" style="background-image: resource(&quot;IdeIcons/beaker&quot;);"/>
+                        <ui:VisualElement name="SplitVE" style="flex-grow: 1;"/>
+                        <ui:Button text="" name="LPProfileButton" class="LeftPanelIdeButton" style="background-image: resource(&quot;IdeIcons/account&quot;); background-color: rgba(255, 0, 0, 0);"/>
+                        <ui:Button text="" name="LPManageButton" class="LeftPanelIdeButton" style="background-image: resource(&quot;IdeIcons/gear&quot;); margin-bottom: 0;"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ProjectFileNavigationBase" style="flex-grow: 1; border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-left-width: 2px; border-right-width: 2px; border-bottom-width: 0; border-top-width: 0;"/>
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 1;">
+                    <ui:VisualElement name="TopEnviromentPanelBase" style="flex-grow: 0; flex-shrink: 0; height: 30px; background-color: rgb(24, 24, 24); border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-bottom-width: 0; border-top-width: 0; border-right-width: 0; border-left-width: 0; flex-direction: row;">
+                        <ui:VisualElement name="FileButtonsBase" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
+                            <ui:Button text="Main.java" name="MainFileButton" class="TopEnviromentPanelButton" style="flex-direction: row; border-bottom-width: 0; background-color: rgb(31, 31, 31); border-top-width: 2px; border-top-color: rgb(0, 120, 212);"/>
+                            <ui:Button text="Main.java" name="DummyFileButton" class="TopEnviromentPanelButton" style="flex-direction: row;"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="SpliVE" style="flex-grow: 1;"/>
+                        <ui:VisualElement name="MoreActionsBase" style="flex-grow: 0; flex-shrink: 0; flex-direction: row;">
+                            <ui:Button text="" name="TPERunButton" class="TPEMoreActionButton" style="background-image: resource(&quot;IdeIcons/play&quot;); margin-right: 2px; background-size: 100% 50%;"/>
+                            <ui:Button text="" name="TPERunDebugButto" class="TPEMoreActionButton" style="background-image: resource(&quot;IdeIcons/chevron-down&quot;); background-size: 100% 24%;"/>
+                            <ui:Button text="" name="TPESplitButton" class="TPEMoreActionButton" style="background-image: resource(&quot;IdeIcons/split-horizontal&quot;); background-size: 100% 47%;"/>
+                            <ui:Button text="" name="TPEMoreButton" class="TPEMoreActionButton" style="margin-right: 5px; background-image: resource(&quot;IdeIcons/ellipsis&quot;); background-size: 100% 10%;"/>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="TextEditorWindowBase" style="flex-grow: 1; background-color: rgb(31, 31, 31); flex-direction: column;">
+                        <ui:VisualElement name="EnviromentHeaderBase" style="flex-grow: 0; flex-shrink: 0; height: 15px;"/>
+                        <ui:VisualElement name="EnviromentBase" style="flex-grow: 1; flex-direction: row;">
+                            <ui:VisualElement name="CodeLineNumbers" style="flex-grow: 0; flex-shrink: 0; width: 60px; border-top-width: 0; border-right-width: 2px; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41);"/>
+                            <ui:ScrollView name="" mode="VerticalAndHorizontal" vertical-scroller-visibility="AlwaysVisible" horizontal-scroller-visibility="Auto" style="flex-grow: 1;">
+                                <ui:VisualElement name="TextEditor" style="flex-grow: 1;">
+                                    <ui:TextField label="Text Field" placeholder-text="filler text" value="" style="flex-shrink: 1; flex-grow: 1;"/>
+                                </ui:VisualElement>
+                            </ui:ScrollView>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="TerminalWindowBase" style="flex-grow: 0; flex-shrink: 0; height: 250px; background-color: rgb(24, 24, 24); border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-top-width: 2px;">
+                        <ui:VisualElement name="TTopPanel" style="flex-grow: 0; flex-shrink: 0; height: 25px; flex-direction: row;">
+                            <ui:Button text="PROBLEMS" name="TProblemsButton" class="terminalHeaderButton"/>
+                            <ui:Button text="OUTPUT" name="TProblemsButton" class="terminalHeaderButton"/>
+                            <ui:Button text="DEBUG CONSOLE" name="TProblemsButton" class="terminalHeaderButton"/>
+                            <ui:Button text="TERMINAL" name="TProblemsButton" class="terminalHeaderButton" style="border-bottom-width: 2px; border-left-color: rgb(0, 120, 212); border-right-color: rgb(0, 120, 212); border-top-color: rgb(0, 120, 212); border-bottom-color: rgb(0, 120, 212);"/>
+                            <ui:Button text="PORTS" name="TProblemsButton" class="terminalHeaderButton"/>
+                        </ui:VisualElement>
+                        <ui:VisualElement name="TerminalWindowBase" style="flex-grow: 1;">
+                            <ui:ScrollView mode="VerticalAndHorizontal" vertical-scroller-visibility="AlwaysVisible" style="flex-grow: 1;">
+                                <ui:VisualElement name="TerminalWindow" style="flex-grow: 1;"/>
+                            </ui:ScrollView>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="BotPanelBase" style="flex-grow: 0; flex-shrink: 0; height: 20px; background-color: rgb(24, 24, 24); border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-top-width: 2px;"/>
+    </ui:VisualElement>
+</ui:UXML>
