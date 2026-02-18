@@ -52,13 +52,17 @@
                     </ui:VisualElement>
                     <ui:VisualElement name="TextEditorWindowBase" style="flex-grow: 1; background-color: rgb(31, 31, 31); flex-direction: column;">
                         <ui:VisualElement name="EnviromentHeaderBase" style="flex-grow: 0; flex-shrink: 0; height: 15px;"/>
-                        <ui:VisualElement name="EnviromentBase" style="flex-grow: 1; flex-direction: row;">
-                            <ui:VisualElement name="CodeLineNumbers" style="flex-grow: 0; flex-shrink: 0; width: 60px; border-top-width: 0; border-right-width: 2px; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41);"/>
-                            <ui:ScrollView name="" mode="VerticalAndHorizontal" vertical-scroller-visibility="AlwaysVisible" horizontal-scroller-visibility="Auto" style="flex-grow: 1;">
-                                <ui:VisualElement name="TextEditor" style="flex-grow: 1;">
-                                    <ui:TextField label="Text Field" placeholder-text="filler text" value="" style="flex-shrink: 1; flex-grow: 1;"/>
-                                </ui:VisualElement>
-                            </ui:ScrollView>
+                        <ui:VisualElement style="flex-grow: 1; flex-direction: row;">
+                            <ui:VisualElement name="EnviromentBase" style="flex-grow: 1; flex-direction: row;">
+                                <ui:ScrollView vertical-scroller-visibility="AlwaysVisible" name="TextEditorScrollView" mode="Vertical" style="flex-grow: 1;">
+                                    <ui:VisualElement style="flex-grow: 1; flex-direction: row; height: auto;">
+                                        <ui:VisualElement name="CodeLineNumbers" style="flex-grow: 0; flex-shrink: 0; width: 60px; border-top-width: 0; border-right-width: 2px; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); flex-direction: column;">
+                                            <ui:Label text="" name="LineNumbers" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 5px; padding-right: 12px; padding-bottom: 0; padding-left: 12px; -unity-text-align: upper-center; flex-shrink: 1; flex-grow: 1; color: rgb(135, 135, 135); -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/JetBrainsMono-Regular.ttf?fileID=12800000&amp;guid=e47f2a20581f9284d8578265f0c14ce7&amp;type=3#JetBrainsMono-Regular&quot;); font-size: 17px; white-space: normal;"/>
+                                        </ui:VisualElement>
+                                        <ui:TextField label="Text Field" placeholder-text="" value="" name="TextEditorSpace" vertical-scroller-visibility="AlwaysVisible" style="font-size: 25px; -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/JetBrainsMono-Regular.ttf?fileID=12800000&amp;guid=e47f2a20581f9284d8578265f0c14ce7&amp;type=3#JetBrainsMono-Regular&quot;); -unity-text-align: upper-left; flex-grow: 1; flex-shrink: 1; padding-top: 0; padding-right: 5px; padding-bottom: 0; padding-left: 5px;"/>
+                                    </ui:VisualElement>
+                                </ui:ScrollView>
+                            </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="TerminalWindowBase" style="flex-grow: 0; flex-shrink: 0; height: 250px; background-color: rgb(24, 24, 24); border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-top-width: 2px;">

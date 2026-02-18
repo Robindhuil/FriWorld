@@ -171,6 +171,7 @@ TextField {
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
+    width: 100%;
 }
 
 TextField Label {
@@ -180,19 +181,25 @@ TextField Label {
 TextField #unity-text-input {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
-    font-size: 15px;
+    font-size: 17px;
     color: rgb(255, 255, 255);
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
+    padding-top: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-left: 5px;
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
     border-left-width: 0;
+    align-items: flex-start;
+    white-space: normal;
+    min-height: auto;
+    height: auto;
+    --unity-cursor-color: #B4B4B4;
 }
 
 TextField TextElement {
+    white-space: pre-wrap;
 }
 
 .terminalHeaderButton {
@@ -211,4 +218,16 @@ TextField TextElement {
     padding-left: 10px;
     background-color: rgba(0, 0, 0, 0);
     font-size: 12px;
+}
+
+.transparentCursor {
+    --unity-cursor-color: rgba(0, 0, 0, 0);
+}
+
+TextField.transparentCursor #unity-text-input {
+    --unity-cursor-color: rgba(0, 0, 0, 0);
+}
+
+.unity-text-element.transparentCursor {
+    --unity-cursor-color: rgba(0, 0, 0, 0);
 }
