@@ -112,6 +112,7 @@
     border-bottom-width: 0;
     border-left-width: 0;
     background-size: 100% 50%;
+    width: 36px;
 }
 
 Scroller #unity-low-button {
@@ -182,7 +183,7 @@ TextField #unity-text-input {
     flex-grow: 1;
     background-color: rgba(0, 0, 0, 0);
     font-size: 17px;
-    color: rgb(255, 255, 255);
+    color: rgba(255, 255, 255, 0);
     padding-top: 5px;
     padding-right: 5px;
     padding-bottom: 5px;
@@ -195,7 +196,7 @@ TextField #unity-text-input {
     white-space: normal;
     min-height: auto;
     height: auto;
-    --unity-cursor-color: #B4B4B4;
+    --unity-cursor-color: rgb(180, 180, 180);
 }
 
 TextField TextElement {
@@ -230,4 +231,12 @@ TextField.transparentCursor #unity-text-input {
 
 .unity-text-element.transparentCursor {
     --unity-cursor-color: rgba(0, 0, 0, 0);
+}
+
+#TextEditorContainer {
+    position: relative;
+}
+
+#SyntaxHighlightOverlay {
+    -unity-text-align: upper-left;
 }

@@ -37,17 +37,16 @@
                     <ui:VisualElement name="ProjectFileNavigationBase" style="flex-grow: 1; border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-left-width: 2px; border-right-width: 2px; border-bottom-width: 0; border-top-width: 0;"/>
                 </ui:VisualElement>
                 <ui:VisualElement style="flex-grow: 1;">
-                    <ui:VisualElement name="TopEnviromentPanelBase" style="flex-grow: 0; flex-shrink: 0; height: 30px; background-color: rgb(24, 24, 24); border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-bottom-width: 0; border-top-width: 0; border-right-width: 0; border-left-width: 0; flex-direction: row;">
+                    <ui:VisualElement name="TopEnviromentPanelBase" style="flex-grow: 0; flex-shrink: 0; height: 40px; background-color: rgb(24, 24, 24); border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-bottom-width: 0; border-top-width: 0; border-right-width: 0; border-left-width: 0; flex-direction: row;">
                         <ui:VisualElement name="FileButtonsBase" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
                             <ui:Button text="Main.java" name="MainFileButton" class="TopEnviromentPanelButton" style="flex-direction: row; border-bottom-width: 0; background-color: rgb(31, 31, 31); border-top-width: 2px; border-top-color: rgb(0, 120, 212);"/>
-                            <ui:Button text="Main.java" name="DummyFileButton" class="TopEnviromentPanelButton" style="flex-direction: row;"/>
+                            <ui:Button text="Pogram.java" name="DummyFileButton" class="TopEnviromentPanelButton" style="flex-direction: row;"/>
                         </ui:VisualElement>
                         <ui:VisualElement name="SpliVE" style="flex-grow: 1;"/>
                         <ui:VisualElement name="MoreActionsBase" style="flex-grow: 0; flex-shrink: 0; flex-direction: row;">
-                            <ui:Button text="" name="TPERunButton" class="TPEMoreActionButton" style="background-image: resource(&quot;IdeIcons/play&quot;); margin-right: 2px; background-size: 100% 50%;"/>
-                            <ui:Button text="" name="TPERunDebugButto" class="TPEMoreActionButton" style="background-image: resource(&quot;IdeIcons/chevron-down&quot;); background-size: 100% 24%;"/>
-                            <ui:Button text="" name="TPESplitButton" class="TPEMoreActionButton" style="background-image: resource(&quot;IdeIcons/split-horizontal&quot;); background-size: 100% 47%;"/>
-                            <ui:Button text="" name="TPEMoreButton" class="TPEMoreActionButton" style="margin-right: 5px; background-image: resource(&quot;IdeIcons/ellipsis&quot;); background-size: 100% 10%;"/>
+                            <ui:Button text="" name="TPERunButton" class="TPEMoreActionButton" style="background-image: resource(&quot;IdeIcons/play&quot;); margin-right: 2px; background-size: 73% 80%; flex-shrink: 1; flex-grow: 1;"/>
+                            <ui:Button text="" name="TPESplitButton" class="TPEMoreActionButton" style="background-image: resource(&quot;IdeIcons/split-horizontal&quot;); background-size: 69% 81%;"/>
+                            <ui:Button text="" name="TPEMoreButton" class="TPEMoreActionButton" style="margin-right: 5px; background-image: resource(&quot;IdeIcons/ellipsis&quot;); background-size: 79% 16%;"/>
                         </ui:VisualElement>
                     </ui:VisualElement>
                     <ui:VisualElement name="TextEditorWindowBase" style="flex-grow: 1; background-color: rgb(31, 31, 31); flex-direction: column;">
@@ -59,7 +58,10 @@
                                         <ui:VisualElement name="CodeLineNumbers" style="flex-grow: 0; flex-shrink: 0; width: 60px; border-top-width: 0; border-right-width: 2px; border-bottom-width: 0; border-left-width: 0; border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); flex-direction: column;">
                                             <ui:Label text="" name="LineNumbers" style="margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 5px; padding-right: 12px; padding-bottom: 0; padding-left: 12px; -unity-text-align: upper-center; flex-shrink: 1; flex-grow: 1; color: rgb(135, 135, 135); -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/JetBrainsMono-Regular.ttf?fileID=12800000&amp;guid=e47f2a20581f9284d8578265f0c14ce7&amp;type=3#JetBrainsMono-Regular&quot;); font-size: 17px; white-space: normal;"/>
                                         </ui:VisualElement>
-                                        <ui:TextField label="Text Field" placeholder-text="" value="" name="TextEditorSpace" vertical-scroller-visibility="AlwaysVisible" style="font-size: 25px; -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/JetBrainsMono-Regular.ttf?fileID=12800000&amp;guid=e47f2a20581f9284d8578265f0c14ce7&amp;type=3#JetBrainsMono-Regular&quot;); -unity-text-align: upper-left; flex-grow: 1; flex-shrink: 1; padding-top: 0; padding-right: 5px; padding-bottom: 0; padding-left: 5px;"/>
+                                        <ui:VisualElement name="TextEditorContainer" style="flex-grow: 1; position: relative; padding-right: 0; padding-left: 0; margin-right: 5px; margin-left: 5px;">
+                                            <ui:Label text="" name="SyntaxHighlightOverlay" enable-rich-text="true" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; font-size: 17px; -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/JetBrainsMono-Regular.ttf?fileID=12800000&amp;guid=e47f2a20581f9284d8578265f0c14ce7&amp;type=3#JetBrainsMono-Regular&quot;); padding-top: 6px; padding-right: 6px; padding-bottom: 0; padding-left: 6px; color: rgb(255, 255, 255); white-space: normal; margin: 0;"/>
+                                            <ui:TextField label="Text Field" placeholder-text="" value="" name="TextEditorSpace" vertical-scroller-visibility="AlwaysVisible" style="font-size: 17px; -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/JetBrainsMono-Regular.ttf?fileID=12800000&amp;guid=e47f2a20581f9284d8578265f0c14ce7&amp;type=3#JetBrainsMono-Regular&quot;); -unity-text-align: upper-left; flex-grow: 1; flex-shrink: 1; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;"/>
+                                        </ui:VisualElement>
                                     </ui:VisualElement>
                                 </ui:ScrollView>
                             </ui:VisualElement>
@@ -68,14 +70,14 @@
                     <ui:VisualElement name="TerminalWindowBase" style="flex-grow: 0; flex-shrink: 0; height: 250px; background-color: rgb(24, 24, 24); border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-top-width: 2px;">
                         <ui:VisualElement name="TTopPanel" style="flex-grow: 0; flex-shrink: 0; height: 25px; flex-direction: row;">
                             <ui:Button text="PROBLEMS" name="TProblemsButton" class="terminalHeaderButton"/>
-                            <ui:Button text="OUTPUT" name="TProblemsButton" class="terminalHeaderButton"/>
+                            <ui:Button text="OUTPUT" name="TProblemsButton" class="terminalHeaderButton" style="border-left-color: rgb(0, 120, 212); border-right-color: rgb(0, 120, 212); border-top-color: rgb(0, 120, 212); border-bottom-color: rgb(0, 120, 212); border-bottom-width: 2px;"/>
                             <ui:Button text="DEBUG CONSOLE" name="TProblemsButton" class="terminalHeaderButton"/>
-                            <ui:Button text="TERMINAL" name="TProblemsButton" class="terminalHeaderButton" style="border-bottom-width: 2px; border-left-color: rgb(0, 120, 212); border-right-color: rgb(0, 120, 212); border-top-color: rgb(0, 120, 212); border-bottom-color: rgb(0, 120, 212);"/>
+                            <ui:Button text="TERMINAL" name="TProblemsButton" class="terminalHeaderButton" style="border-bottom-width: 0; border-left-color: rgb(0, 120, 212); border-right-color: rgb(0, 120, 212); border-top-color: rgb(0, 120, 212); border-bottom-color: rgb(0, 120, 212); border-top-width: 0; border-right-width: 0; border-left-width: 0;"/>
                             <ui:Button text="PORTS" name="TProblemsButton" class="terminalHeaderButton"/>
                         </ui:VisualElement>
                         <ui:VisualElement name="TerminalWindowBase" style="flex-grow: 1;">
-                            <ui:ScrollView mode="VerticalAndHorizontal" vertical-scroller-visibility="AlwaysVisible" style="flex-grow: 1;">
-                                <ui:VisualElement name="TerminalWindow" style="flex-grow: 1;"/>
+                            <ui:ScrollView mode="VerticalAndHorizontal" vertical-scroller-visibility="AlwaysVisible" name="TerminalScrollView" style="flex-grow: 1;">
+                                <ui:Label text="" name="TerminalOutput" style="margin-top: 15px; margin-right: 5px; margin-bottom: 5px; margin-left: 5px; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 10px; color: rgb(255, 255, 255); -unity-font-definition: url(&quot;project://database/Assets/!/Prefabs/UI/Fonts/Courier%20Prime%20Code.ttf?fileID=12800000&amp;guid=3634fc2acf8da7c4e9077db51abf4fb0&amp;type=3#Courier Prime Code&quot;); -unity-text-align: middle-left; white-space: normal; font-size: 20px;"/>
                             </ui:ScrollView>
                         </ui:VisualElement>
                     </ui:VisualElement>
