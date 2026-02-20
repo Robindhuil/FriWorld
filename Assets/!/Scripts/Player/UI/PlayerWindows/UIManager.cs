@@ -55,8 +55,9 @@ public class UIManager : MonoBehaviour
         InitializeStatsUI();
         InitializeIdeUI();
         
-        // Ensure all UIs start closed
+        // Ensure all UIs start closed and initialize input actions
         CloseAll();
+        inputManager.SwitchToOnFootActions();
         OpenPlayerUI();
 
         if (inputManager != null)
@@ -67,6 +68,8 @@ public class UIManager : MonoBehaviour
             inputManager.onFoot.OpenStats.performed += OnOpenStats;
             inputManager.onFoot.OpenCodex.performed += OnOpenCodex;
             inputManager.onFoot.OpenMenu.performed += OnOpenMenu;
+            inputManager.inUI.ToggleUI.performed += OnOpenMenu;
+
 
 
         }
@@ -78,8 +81,7 @@ public class UIManager : MonoBehaviour
         playerUI.OpenWindow();
         notificationUI.OpenWindow();
         tabUI.CloseWindow();
-        inputManager.onFoot.Look.Enable();
-        inputManager.onFoot.Movement.Enable();
+        inputManager.SwitchToOnFootActions();
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
         UnityEngine.Cursor.visible = false;
     }
@@ -205,12 +207,15 @@ public class UIManager : MonoBehaviour
         }
         else if (universalMenu.IsMenuOpen)
         {
+            inputManager.SwitchToOnFootActions();
             universalMenu.CloseMenu();
             notificationUI.OpenWindow();
             OpenPlayerUI();
+            
         }
         else
         {
+            inputManager.SwitchToInUIActions();
             ClosePlayerUI();
             tabUI.CloseWindow();
             notificationUI.CloseWindow();
@@ -229,11 +234,13 @@ public class UIManager : MonoBehaviour
         {
             universalMenu.CloseMenu();
             notificationUI.OpenWindow();
+            inputManager.SwitchToOnFootActions();
             OpenPlayerUI();
         }
         else
         {
             ClosePlayerUI();
+            inputManager.SwitchToInUIActions();
             tabUI.CloseWindow();
             notificationUI.CloseWindow();
             universalMenu.OpenMenu();
@@ -285,11 +292,12 @@ public class UIManager : MonoBehaviour
 
     public void OpenIde()
     {
+        inputManager.SwitchToInUIActions();
+        
         CloseAll();
         ideUI.OpenWindow();
         notificationUI.OpenWindow();
-        inputManager.onFoot.Look.Disable();
-        inputManager.onFoot.Movement.Disable();
+        inputManager.inUI.ToggleUI.Disable();
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         UnityEngine.Cursor.visible = true;
         // Fix cursor offset by setting hotspot to top-left (0,0)
@@ -301,6 +309,8 @@ public class UIManager : MonoBehaviour
         if (ideUI != null && ideUI.IsMenuOn)
         {
             ideUI.CloseWindow();
+            inputManager.SwitchToOnFootActions();
+            inputManager.inUI.ToggleUI.Enable();
             OpenPlayerUI();
         }
     }

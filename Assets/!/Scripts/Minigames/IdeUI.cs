@@ -13,6 +13,7 @@ public class IdeUI
     private UIManager uiManager;
     private Minigames.InterpreterType selectedInterpreter;
     private Button closeButton;
+    private Button minimizeButton;
     private Button runButton;
     private TextField textEditor;
     private ScrollView scrollView;
@@ -20,7 +21,10 @@ public class IdeUI
     private Label syntaxHighlightOverlay;
     private Label terminalOutput;
     private IVisualElementScheduledItem cursorBlinkScheduler;
+    private string savedCode = "";
     private const float cursorBlinkInterval = 500; // milliseconds
+    private float lastRunTime = -999f; // Track last execution time
+    private const float runCooldown = 1.0f; // Cooldown in seconds
 
     public IdeUI(UIDocument ideUIDocument, UIManager uiManager)
     {
@@ -56,11 +60,23 @@ public class IdeUI
         {
             // Ensure the button can receive pointer events
             closeButton.pickingMode = PickingMode.Position;
-            closeButton.clicked += () => uiManager.CloseIde();
+            closeButton.clicked += ResetAndClose;
         }
         else
         {
             Debug.LogError("[IdeUI] IdeCloseWindowButton nebol nájdený v UI!");
+        }
+
+        // Find and setup the minimize button
+        minimizeButton = ideUIDocument.rootVisualElement.Q<Button>("IdeMinimizeWindowButton");
+        if (minimizeButton != null)
+        {
+            minimizeButton.pickingMode = PickingMode.Position;
+            minimizeButton.clicked += SaveAndMinimize;
+        }
+        else
+        {
+            Debug.LogError("[IdeUI] IdeMinimizeWindowButton nebol nájdený v UI!");
         }
 
         // Find and setup the run button
@@ -163,15 +179,24 @@ public class IdeUI
             terminalOutput.text = string.Empty;
         }
         
-        // Load default code from file if provided
+        // Load code - use saved code if available, otherwise use default file
         // Defer loading by one frame to prevent input events (like 'E' key) from being processed before the value is set
-        if (textEditor != null && defaultCodeFile != null)
+        if (textEditor != null)
         {
             ideUIDocument.rootVisualElement.schedule.Execute(() =>
             {
                 if (textEditor != null)
                 {
-                    textEditor.value = defaultCodeFile.text;
+                    // Use saved code if it exists, otherwise use the default file
+                    if (!string.IsNullOrEmpty(savedCode))
+                    {
+                        textEditor.value = savedCode;
+                    }
+                    else if (defaultCodeFile != null)
+                    {
+                        textEditor.value = defaultCodeFile.text;
+                    }
+                    
                     textEditor.Focus();
                     UpdateLineNumbers();
                     ApplySyntaxHighlighting();
@@ -335,6 +360,34 @@ public class IdeUI
     }
 
     /// <summary>
+    /// Saves the current code and minimizes (closes) the IDE window.
+    /// </summary>
+    public void SaveAndMinimize()
+    {
+        // Save the current code
+        if (textEditor != null)
+        {
+            savedCode = textEditor.value ?? "";
+        }
+
+        // Close the IDE window
+        uiManager.CloseIde();
+    }
+
+    /// <summary>
+    /// Resets the saved code and closes the IDE window.
+    /// Next time the IDE opens, it will load the default code file.
+    /// </summary>
+    public void ResetAndClose()
+    {
+        // Clear the saved code so default file loads next time
+        savedCode = "";
+
+        // Close the IDE window
+        uiManager.CloseIde();
+    }
+
+    /// <summary>
     /// Appends a colored message to the terminal output.
     /// </summary>
     /// <param name="message">The message to append</param>
@@ -359,6 +412,20 @@ public class IdeUI
 
     private void RunCode()
     {
+        // Check cooldown to prevent rapid multiple executions
+        float currentTime = Time.time;
+        if (currentTime - lastRunTime < runCooldown)
+        {
+            Debug.Log($"[IdeUI] Run button on cooldown. Please wait {runCooldown - (currentTime - lastRunTime):F1}s");
+            if (terminalOutput != null)
+            {
+                AppendTerminalMessage("⏳ Please wait before running again...", false);
+            }
+            return;
+        }
+        
+        lastRunTime = currentTime;
+        
         if (textEditor == null)
         {
             Debug.LogWarning("[IdeUI] TextEditorSpace nie je dostupný.");

@@ -1140,6 +1140,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "InUI",
+            "id": "6cd20667-6109-428a-a097-964f2387172d",
+            "actions": [
+                {
+                    "name": "ToggleUI",
+                    "type": "Button",
+                    "id": "cdbef009-10b9-491a-8d51-c10bcf0fee8b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a108b795-fd06-46fd-b6b2-30f82d39c519",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleUI",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

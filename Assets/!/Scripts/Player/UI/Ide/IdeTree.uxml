@@ -15,8 +15,8 @@
             </ui:VisualElement>
             <ui:VisualElement name="IdeUtilitiesBase" style="flex-grow: 1;"/>
             <ui:VisualElement name="WindowButtonsBase" style="flex-grow: 0; flex-shrink: 0; flex-direction: row;">
-                <ui:Button text="" name="IdeCFullscreenWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-minimize&quot;); background-size: 40% 10%;"/>
-                <ui:Button text="" name="IdeMinimizeWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-restore&quot;);"/>
+                <ui:Button text="" name="IdeMinimizeWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-minimize&quot;); background-size: 40% 10%;"/>
+                <ui:Button text="" name="IdeCFullscreenWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-restore&quot;);"/>
                 <ui:Button text="" name="IdeCloseWindowButton" class="closeButton" style="background-image: resource(&quot;IdeIcons/chrome-close&quot;);"/>
             </ui:VisualElement>
         </ui:VisualElement>

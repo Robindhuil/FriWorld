@@ -1226,6 +1226,34 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""InUI"",
+            ""id"": ""6cd20667-6109-428a-a097-964f2387172d"",
+            ""actions"": [
+                {
+                    ""name"": ""ToggleUI"",
+                    ""type"": ""Button"",
+                    ""id"": ""cdbef009-10b9-491a-8d51-c10bcf0fee8b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""a108b795-fd06-46fd-b6b2-30f82d39c519"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -1273,6 +1301,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         // DialogueUi
         m_DialogueUi = asset.FindActionMap("DialogueUi", throwIfNotFound: true);
         m_DialogueUi_Exit = m_DialogueUi.FindAction("Exit", throwIfNotFound: true);
+        // InUI
+        m_InUI = asset.FindActionMap("InUI", throwIfNotFound: true);
+        m_InUI_ToggleUI = m_InUI.FindAction("ToggleUI", throwIfNotFound: true);
     }
 
     ~@PlayerInput()
@@ -1281,6 +1312,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_OnFootDefault.enabled, "This will cause a leak and performance issues, PlayerInput.OnFootDefault.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_UI.enabled, "This will cause a leak and performance issues, PlayerInput.UI.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_DialogueUi.enabled, "This will cause a leak and performance issues, PlayerInput.DialogueUi.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_InUI.enabled, "This will cause a leak and performance issues, PlayerInput.InUI.Disable() has not been called.");
     }
 
     /// <summary>
@@ -2077,6 +2109,102 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     /// Provides a new <see cref="DialogueUiActions" /> instance referencing this action map.
     /// </summary>
     public DialogueUiActions @DialogueUi => new DialogueUiActions(this);
+
+    // InUI
+    private readonly InputActionMap m_InUI;
+    private List<IInUIActions> m_InUIActionsCallbackInterfaces = new List<IInUIActions>();
+    private readonly InputAction m_InUI_ToggleUI;
+    /// <summary>
+    /// Provides access to input actions defined in input action map "InUI".
+    /// </summary>
+    public struct InUIActions
+    {
+        private @PlayerInput m_Wrapper;
+
+        /// <summary>
+        /// Construct a new instance of the input action map wrapper class.
+        /// </summary>
+        public InUIActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        /// <summary>
+        /// Provides access to the underlying input action "InUI/ToggleUI".
+        /// </summary>
+        public InputAction @ToggleUI => m_Wrapper.m_InUI_ToggleUI;
+        /// <summary>
+        /// Provides access to the underlying input action map instance.
+        /// </summary>
+        public InputActionMap Get() { return m_Wrapper.m_InUI; }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Enable()" />
+        public void Enable() { Get().Enable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.Disable()" />
+        public void Disable() { Get().Disable(); }
+        /// <inheritdoc cref="UnityEngine.InputSystem.InputActionMap.enabled" />
+        public bool enabled => Get().enabled;
+        /// <summary>
+        /// Implicitly converts an <see ref="InUIActions" /> to an <see ref="InputActionMap" /> instance.
+        /// </summary>
+        public static implicit operator InputActionMap(InUIActions set) { return set.Get(); }
+        /// <summary>
+        /// Adds <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <param name="instance">Callback instance.</param>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c> or <paramref name="instance"/> have already been added this method does nothing.
+        /// </remarks>
+        /// <seealso cref="InUIActions" />
+        public void AddCallbacks(IInUIActions instance)
+        {
+            if (instance == null || m_Wrapper.m_InUIActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_InUIActionsCallbackInterfaces.Add(instance);
+            @ToggleUI.started += instance.OnToggleUI;
+            @ToggleUI.performed += instance.OnToggleUI;
+            @ToggleUI.canceled += instance.OnToggleUI;
+        }
+
+        /// <summary>
+        /// Removes <see cref="InputAction.started"/>, <see cref="InputAction.performed"/> and <see cref="InputAction.canceled"/> callbacks provided via <param cref="instance" /> on all input actions contained in this map.
+        /// </summary>
+        /// <remarks>
+        /// Calling this method when <paramref name="instance" /> have not previously been registered has no side-effects.
+        /// </remarks>
+        /// <seealso cref="InUIActions" />
+        private void UnregisterCallbacks(IInUIActions instance)
+        {
+            @ToggleUI.started -= instance.OnToggleUI;
+            @ToggleUI.performed -= instance.OnToggleUI;
+            @ToggleUI.canceled -= instance.OnToggleUI;
+        }
+
+        /// <summary>
+        /// Unregisters <param cref="instance" /> and unregisters all input action callbacks via <see cref="InUIActions.UnregisterCallbacks(IInUIActions)" />.
+        /// </summary>
+        /// <seealso cref="InUIActions.UnregisterCallbacks(IInUIActions)" />
+        public void RemoveCallbacks(IInUIActions instance)
+        {
+            if (m_Wrapper.m_InUIActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        /// <summary>
+        /// Replaces all existing callback instances and previously registered input action callbacks associated with them with callbacks provided via <param cref="instance" />.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="instance" /> is <c>null</c>, calling this method will only unregister all existing callbacks but not register any new callbacks.
+        /// </remarks>
+        /// <seealso cref="InUIActions.AddCallbacks(IInUIActions)" />
+        /// <seealso cref="InUIActions.RemoveCallbacks(IInUIActions)" />
+        /// <seealso cref="InUIActions.UnregisterCallbacks(IInUIActions)" />
+        public void SetCallbacks(IInUIActions instance)
+        {
+            foreach (var item in m_Wrapper.m_InUIActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_InUIActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    /// <summary>
+    /// Provides a new <see cref="InUIActions" /> instance referencing this action map.
+    /// </summary>
+    public InUIActions @InUI => new InUIActions(this);
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "OnFoot" which allows adding and removing callbacks.
     /// </summary>
@@ -2353,5 +2481,20 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnExit(InputAction.CallbackContext context);
+    }
+    /// <summary>
+    /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "InUI" which allows adding and removing callbacks.
+    /// </summary>
+    /// <seealso cref="InUIActions.AddCallbacks(IInUIActions)" />
+    /// <seealso cref="InUIActions.RemoveCallbacks(IInUIActions)" />
+    public interface IInUIActions
+    {
+        /// <summary>
+        /// Method invoked when associated input action "ToggleUI" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnToggleUI(InputAction.CallbackContext context);
     }
 }

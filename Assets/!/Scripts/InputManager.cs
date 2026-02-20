@@ -5,7 +5,8 @@ public class InputManager : MonoBehaviour
     private PlayerInput playerInput;
     public PlayerInput.OnFootActions onFoot;
     public PlayerInput.DialogueUiActions dialogueUI;
-
+    public PlayerInput.InUIActions inUI;
+        
     private PlayerMotor motor;
     private PlayerLook look;
 
@@ -18,6 +19,7 @@ public class InputManager : MonoBehaviour
         
         onFoot = playerInput.OnFoot;
         dialogueUI = playerInput.DialogueUi;
+        inUI = playerInput.InUI;
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
         onFoot.Jump.performed += ctx => motor.Jump();
@@ -68,25 +70,24 @@ public class InputManager : MonoBehaviour
         look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
     }
 
-    private void OnEnable()
-    {
-        onFoot.Enable();
-    }
-
-    private void OnDisable()
-    {
-        onFoot.Disable();
-    }
-
     public void SwitchToOnFootActions()
     {
         dialogueUI.Disable();
+        inUI.Disable();
         onFoot.Enable();
     }
 
     public void SwitchToDialogueUIActions()
     {
         onFoot.Disable();
+        inUI.Disable();
         dialogueUI.Enable();
+    }
+
+    public void SwitchToInUIActions()
+    {
+        onFoot.Disable();
+        dialogueUI.Disable();
+        inUI.Enable();
     }
 }
