@@ -22,6 +22,35 @@
     background-size: 40% 40%;
 }
 
+.ideUpperPanelWindowButtons:hover {
+    background-color: rgb(67, 67, 67);
+}
+
+.closeButton {
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    color: rgb(156, 156, 156);
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    background-size: 40% 40%;
+}
+
+.closeButton:hover {
+    background-color: rgb(173, 0, 0);
+}
+
 .menuBarButton {
     flex-shrink: 0;
     color: rgb(156, 156, 156);
@@ -36,15 +65,19 @@
     margin-bottom: 10px;
     margin-left: 5px;
     -unity-text-align: middle-center;
-    padding-top: 5px;
+    padding-top: 10px;
     padding-right: 5px;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
     padding-left: 5px;
     height: auto;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
+}
+
+.menuBarButton:hover {
+    background-color: rgb(67, 67, 67);
 }
 
 .LeftPanelIdeButton {
@@ -66,12 +99,17 @@
     border-bottom-width: 0;
     border-left-width: 0;
     background-size: 60% 60%;
+    -unity-background-image-tint-color: rgb(142, 142, 142);
+}
+
+.LeftPanelIdeButton:hover {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .TopEnviromentPanelButton {
     flex-shrink: 0;
     color: rgb(156, 156, 156);
-    -unity-text-align: middle-center;
+    -unity-text-align: middle-left;
     margin-top: 0;
     margin-right: 0;
     margin-bottom: 0;
@@ -90,6 +128,11 @@
     border-right-color: rgb(41, 41, 41);
     border-top-color: rgb(41, 41, 41);
     border-bottom-color: rgb(41, 41, 41);
+    width: 100px;
+}
+
+.TopEnviromentPanelButton:hover {
+    background-color: rgb(31, 31, 31);
 }
 
 .TPEMoreActionButton {
@@ -97,9 +140,9 @@
     margin-right: 10px;
     margin-bottom: 3px;
     margin-left: 0;
-    padding-top: 0;
+    padding-top: 5px;
     padding-right: 5px;
-    padding-bottom: 0;
+    padding-bottom: 5px;
     padding-left: 5px;
     background-color: rgba(0, 0, 0, 0);
     color: rgb(204, 201, 193);
@@ -113,6 +156,32 @@
     border-left-width: 0;
     background-size: 100% 50%;
     width: 36px;
+}
+
+.TPEMoreActionButton:hover {
+    background-color: rgb(67, 67, 67);
+}
+
+.terminalHeaderButton {
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    color: rgb(114, 114, 114);
+    margin-top: 5px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+    padding-left: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 12px;
+}
+
+.terminalHeaderButton:hover {
+    color: rgb(255, 255, 255);
 }
 
 Scroller #unity-low-button {
@@ -201,24 +270,6 @@ TextField #unity-text-input {
 
 TextField TextElement {
     white-space: pre-wrap;
-}
-
-.terminalHeaderButton {
-    border-top-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    color: rgb(114, 114, 114);
-    margin-top: 5px;
-    margin-right: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-    padding-top: 5px;
-    padding-right: 10px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    background-color: rgba(0, 0, 0, 0);
-    font-size: 12px;
 }
 
 .transparentCursor {

@@ -23,3 +23,30 @@
     flex-grow: 0;
     flex-shrink: 0;
 }
+
+.closeButton {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding-top: 0;
+    padding-right: 30px;
+    padding-bottom: 0;
+    padding-left: 30px;
+    flex-grow: 1;
+    flex-direction: column;
+    background-color: rgb(173, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 20px;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    font-size: 18px;
+    -unity-font-style: bold;
+}
+
+.closeButton:hover {
+    background-color: rgb(125, 0, 0);
+}

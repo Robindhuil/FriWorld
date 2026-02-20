@@ -17,7 +17,7 @@
             <ui:VisualElement name="WindowButtonsBase" style="flex-grow: 0; flex-shrink: 0; flex-direction: row;">
                 <ui:Button text="" name="IdeCFullscreenWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-minimize&quot;); background-size: 40% 10%;"/>
                 <ui:Button text="" name="IdeMinimizeWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-restore&quot;);"/>
-                <ui:Button text="" name="IdeCloseWindowButton" class="ideUpperPanelWindowButtons" style="background-image: resource(&quot;IdeIcons/chrome-close&quot;);"/>
+                <ui:Button text="" name="IdeCloseWindowButton" class="closeButton" style="background-image: resource(&quot;IdeIcons/chrome-close&quot;);"/>
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="EnviromentPlaceBase" style="flex-grow: 1; flex-direction: row;">
@@ -39,8 +39,8 @@
                 <ui:VisualElement style="flex-grow: 1;">
                     <ui:VisualElement name="TopEnviromentPanelBase" style="flex-grow: 0; flex-shrink: 0; height: 40px; background-color: rgb(24, 24, 24); border-left-color: rgb(41, 41, 41); border-right-color: rgb(41, 41, 41); border-top-color: rgb(41, 41, 41); border-bottom-color: rgb(41, 41, 41); border-bottom-width: 0; border-top-width: 0; border-right-width: 0; border-left-width: 0; flex-direction: row;">
                         <ui:VisualElement name="FileButtonsBase" style="flex-grow: 0; flex-direction: row; flex-shrink: 0;">
-                            <ui:Button text="Main.java" name="MainFileButton" class="TopEnviromentPanelButton" style="flex-direction: row; border-bottom-width: 0; background-color: rgb(31, 31, 31); border-top-width: 2px; border-top-color: rgb(0, 120, 212);"/>
-                            <ui:Button text="Pogram.java" name="DummyFileButton" class="TopEnviromentPanelButton" style="flex-direction: row;"/>
+                            <ui:Button text="Main.java" name="MainFileButton" class="TopEnviromentPanelButton" style="flex-direction: row; border-bottom-width: 0; background-color: rgb(31, 31, 31); border-top-width: 2px; border-top-color: rgb(0, 120, 212); width: 110px;"/>
+                            <ui:Button text="Pogram.java" name="DummyFileButton" class="TopEnviromentPanelButton" style="flex-direction: row; width: 120px;"/>
                         </ui:VisualElement>
                         <ui:VisualElement name="SpliVE" style="flex-grow: 1;"/>
                         <ui:VisualElement name="MoreActionsBase" style="flex-grow: 0; flex-shrink: 0; flex-direction: row;">

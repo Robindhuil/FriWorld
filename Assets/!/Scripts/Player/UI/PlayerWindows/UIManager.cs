@@ -16,6 +16,7 @@ public class UIManager : MonoBehaviour
     public DialogueUI dialogueUI;
     private JournalUI journalUI;
     public NavigationUI navigationUI;
+    private NotificationUI notificationUI;
     private TabUI tabUI;
     private StatsUI statsUI;
     private CodexUI codexUI;
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIDocument playerUIDocument;
     [SerializeField] private UIDocument playerWindowsDocument;
     [SerializeField] private UIDocument dialogueUIDocument;
+    [SerializeField] private UIDocument notificationUIDocument;
     [SerializeField] private UIDocument ideUIDocument;
     [Header("Menu")]
     [SerializeField] private UniversalMenu universalMenu;
@@ -37,7 +39,8 @@ public class UIManager : MonoBehaviour
 
     void Awake()
     {
-        playerUI = new PlayerUI(playerUIDocument, this);
+        notificationUI = new NotificationUI(notificationUIDocument, this);
+        playerUI = new PlayerUI(playerUIDocument, this, notificationUI);
         inputManager = GetComponent<InputManager>();
         dialogueUI = new DialogueUI(dialogueUIDocument, inputManager, this, this);
     }
@@ -73,6 +76,7 @@ public class UIManager : MonoBehaviour
     {
         CloseAll();
         playerUI.OpenWindow();
+        notificationUI.OpenWindow();
         tabUI.CloseWindow();
         inputManager.onFoot.Look.Enable();
         inputManager.onFoot.Movement.Enable();
@@ -86,6 +90,7 @@ public class UIManager : MonoBehaviour
         inputManager.onFoot.Look.Disable();
         inputManager.onFoot.Movement.Disable();
         tabUI.OpenWindow();
+        notificationUI.OpenWindow();
         playerUI.CloseWindow();
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         UnityEngine.Cursor.visible = true;
@@ -99,6 +104,7 @@ public class UIManager : MonoBehaviour
         navigationUI.CloseWindow();
         codexUI.CloseWindow();
         statsUI.CloseWindow();
+        notificationUI.CloseWindow();
         if (ideUI != null)
         {
             ideUI.CloseWindow();
@@ -200,12 +206,14 @@ public class UIManager : MonoBehaviour
         else if (universalMenu.IsMenuOpen)
         {
             universalMenu.CloseMenu();
+            notificationUI.OpenWindow();
             OpenPlayerUI();
         }
         else
         {
             ClosePlayerUI();
             tabUI.CloseWindow();
+            notificationUI.CloseWindow();
             universalMenu.OpenMenu();
         }
     }
@@ -220,12 +228,14 @@ public class UIManager : MonoBehaviour
         if (universalMenu.IsMenuOpen)
         {
             universalMenu.CloseMenu();
+            notificationUI.OpenWindow();
             OpenPlayerUI();
         }
         else
         {
             ClosePlayerUI();
             tabUI.CloseWindow();
+            notificationUI.CloseWindow();
             universalMenu.OpenMenu();
         }
     }
@@ -277,6 +287,7 @@ public class UIManager : MonoBehaviour
     {
         CloseAll();
         ideUI.OpenWindow();
+        notificationUI.OpenWindow();
         inputManager.onFoot.Look.Disable();
         inputManager.onFoot.Movement.Disable();
         UnityEngine.Cursor.lockState = CursorLockMode.None;
@@ -298,6 +309,7 @@ public class UIManager : MonoBehaviour
     {
         CloseAll();
         journalUI.OpenWindow();
+        notificationUI.OpenWindow();
         tabUI.SetActiveButton(tabUI.Buttons[0]);
     }
 
@@ -305,6 +317,7 @@ public class UIManager : MonoBehaviour
     {
         CloseAll();
         navigationUI.OpenWindow();
+        notificationUI.OpenWindow();
         tabUI.SetActiveButton(tabUI.Buttons[2]);
     }
 
@@ -312,12 +325,14 @@ public class UIManager : MonoBehaviour
     {
         CloseAll();
         codexUI.OpenWindow();
+        notificationUI.OpenWindow();
         tabUI.SetActiveButton(tabUI.Buttons[1]);
     }
     public void OpenStats()
     {
         CloseAll();
         statsUI.OpenWindow();
+        notificationUI.OpenWindow();
         tabUI.SetActiveButton(tabUI.Buttons[3]);
     }
 
