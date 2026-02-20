@@ -2521,7 +2521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -2538,6 +2538,61 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1510007326}
   m_SourcePrefab: {fileID: 100100000, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+--- !u!1 &57654838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 57654839}
+  - component: {fileID: 57654840}
+  m_Layer: 6
+  m_Name: Ide
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &57654839
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57654838}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0017402904, y: 0.998254, z: 0.040053643, w: 0.04337834}
+  m_LocalPosition: {x: 13.283295, y: 2.463458, z: 14.023932}
+  m_LocalScale: {x: 29.766893, y: 17.780924, z: 17.78092}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 649824383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &57654840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57654838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 26cb30c3ac9a4a54a8c69d5d746f3a31, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: a864a37911d70154f93af646636a26dd, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1001 &58236015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17825,61 +17880,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab00e4f8e8a20fd408995f18bdfb4c55, type: 3}
   m_PrefabInstance: {fileID: 1973877129}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &414250192
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 414250193}
-  - component: {fileID: 414250194}
-  m_Layer: 0
-  m_Name: Ide
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &414250193
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 414250192}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 950621414}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &414250194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 414250192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
-  m_PanelSettings: {fileID: 11400000, guid: 26cb30c3ac9a4a54a8c69d5d746f3a31, type: 2}
-  m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: a864a37911d70154f93af646636a26dd, type: 3}
-  m_SortingOrder: 0
-  m_Position: 0
-  m_WorldSpaceSizeMode: 1
-  m_WorldSpaceWidth: 1920
-  m_WorldSpaceHeight: 1080
-  m_PivotReferenceSize: 0
-  m_Pivot: 0
-  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1001 &415323432
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21345,7 +21345,12 @@ MonoBehaviour:
   questId: quest_0_start
   questIds:
   - quest_1_programming_languages
-  ideUIDocument: {fileID: 414250194}
+  defaultCodeFile: {fileID: 4900000, guid: 72e0c5c27ee9abf42a82a0c73b98d7ef, type: 3}
+  selectedInterpreter: 0
+  expectedOutput: 'O je: 813Ara102false'
+  caseInsensitiveComparison: 1
+  trimWhitespace: 1
+  uiManager: {fileID: 1887814971}
 --- !u!1001 &483155912
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28623,6 +28628,7 @@ Transform:
   - {fileID: 1186114254}
   - {fileID: 1377509761}
   - {fileID: 1292812642}
+  - {fileID: 57654839}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &651704316
@@ -41341,7 +41347,6 @@ Transform:
   - {fileID: 1584782195}
   - {fileID: 1137976669}
   - {fileID: 145010619}
-  - {fileID: 414250193}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &952073812
@@ -79546,6 +79551,7 @@ MonoBehaviour:
   playerUIDocument: {fileID: 1373851771}
   playerWindowsDocument: {fileID: 1186114255}
   dialogueUIDocument: {fileID: 1377509762}
+  ideUIDocument: {fileID: 57654840}
   universalMenu: {fileID: 1292812643}
 --- !u!114 &1887814976
 MonoBehaviour:

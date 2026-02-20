@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     private TabUI tabUI;
     private StatsUI statsUI;
     private CodexUI codexUI;
+    private IdeUI ideUI;
     private InputManager inputManager;
     private Player player;
     [Header("UI Prefabs")]
@@ -28,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIDocument playerUIDocument;
     [SerializeField] private UIDocument playerWindowsDocument;
     [SerializeField] private UIDocument dialogueUIDocument;
+    [SerializeField] private UIDocument ideUIDocument;
     [Header("Menu")]
     [SerializeField] private UniversalMenu universalMenu;
 
@@ -48,6 +50,7 @@ public class UIManager : MonoBehaviour
         InitializeNavigationUI();
         InitializeCodexUI();
         InitializeStatsUI();
+        InitializeIdeUI();
         
         // Ensure all UIs start closed
         CloseAll();
@@ -96,6 +99,10 @@ public class UIManager : MonoBehaviour
         navigationUI.CloseWindow();
         codexUI.CloseWindow();
         statsUI.CloseWindow();
+        if (ideUI != null)
+        {
+            ideUI.CloseWindow();
+        }
         if (universalMenu != null)
         {
             universalMenu.CloseMenu();
@@ -254,6 +261,37 @@ public class UIManager : MonoBehaviour
     public void InitializeStatsUI()
     {
         statsUI = new StatsUI(playerWindowsDocument, this);
+    }
+
+    public void InitializeIdeUI()
+    {
+        ideUI = new IdeUI(ideUIDocument, this);
+    }
+
+    public IdeUI GetIdeUI()
+    {
+        return ideUI;
+    }
+
+    public void OpenIde()
+    {
+        CloseAll();
+        ideUI.OpenWindow();
+        inputManager.onFoot.Look.Disable();
+        inputManager.onFoot.Movement.Disable();
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+        // Fix cursor offset by setting hotspot to top-left (0,0)
+        UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+    }
+
+    public void CloseIde()
+    {
+        if (ideUI != null && ideUI.IsMenuOn)
+        {
+            ideUI.CloseWindow();
+            OpenPlayerUI();
+        }
     }
 
     public void OpenJournal()

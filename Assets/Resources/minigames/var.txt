@@ -1,17 +1,19 @@
-public class TempProgram {
-    public static void main(String[] args) {
-        int pocetOkien = ___;
-        int casHodina = ___;
-        String menoMiestnosti = "___";
-        boolean vonkuJeTma = ___;
-        char aktualnyBlok = '___';
+//Tip: replace ___ symbols with correct value
+
+void Program() {
+        int pocetOkien = ___;               //Tip: count windows and add value here 
+        int casHodina = ___;                //Tip: find clock and input value of hour
+        String menoMiestnosti = "___";      //Tip: input the name of the room
+        boolean vonkuJeTma = ___;           //Tip: look if is dark or light outside
+        char aktualnyBlok = '___';          //Tip: character of the current sector you are in
 
         System.out.println("O je: "
             + pocetOkien
             + casHodina
             + aktualnyBlok
-            + menoMiestnosti.substring(2, 5)
-            + Boolean.compare(vonkuJeTma, false)
+            + menoMiestnosti
+            + vonkuJeTma
         );
-    }
 }
+
+Program(); 

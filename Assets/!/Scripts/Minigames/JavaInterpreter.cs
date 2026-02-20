@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Minigames
 {
-	public sealed class JavaInterpreter
+	public class JavaInterpreter : IInterpreter
 	{
 		public InterpreterResult Run(string code)
 		{
@@ -238,8 +238,10 @@ namespace Minigames
 		Int,
 		Double,
 		Bool,
+		Char,
 		String,
 		IntArray,
+		CharArray,
 		StringArray,
 		Void
 	}
@@ -258,16 +260,20 @@ namespace Minigames
 		public static Value FromInt(int value) => new Value(ValueType.Int, value);
 		public static Value FromDouble(double value) => new Value(ValueType.Double, value);
 		public static Value FromBool(bool value) => new Value(ValueType.Bool, value);
+		public static Value FromChar(char value) => new Value(ValueType.Char, value);
 		public static Value FromString(string value) => new Value(ValueType.String, value ?? string.Empty);
 		public static Value FromIntArray(int[] value) => new Value(ValueType.IntArray, value ?? Array.Empty<int>());
+		public static Value FromCharArray(char[] value) => new Value(ValueType.CharArray, value ?? Array.Empty<char>());
 		public static Value FromStringArray(string[] value) => new Value(ValueType.StringArray, value ?? Array.Empty<string>());
 		public static Value Void() => new Value(ValueType.Void, null);
 
 		public int AsInt() => (int)_value;
 		public double AsDouble() => (double)_value;
 		public bool AsBool() => (bool)_value;
+		public char AsChar() => (char)_value;
 		public string AsString() => (string)_value;
 		public int[] AsIntArray() => (int[])_value;
+		public char[] AsCharArray() => (char[])_value;
 		public string[] AsStringArray() => (string[])_value;
 
 		public string ToPrintString()
@@ -280,10 +286,14 @@ namespace Minigames
 					return AsDouble().ToString(CultureInfo.InvariantCulture);
 				case ValueType.Bool:
 					return AsBool() ? "true" : "false";
+				case ValueType.Char:
+					return AsChar().ToString();
 				case ValueType.String:
 					return AsString();
 				case ValueType.IntArray:
 					return "[" + string.Join(", ", AsIntArray()) + "]";
+				case ValueType.CharArray:
+					return "[" + string.Join(", ", AsCharArray()) + "]";
 				case ValueType.StringArray:
 					return "[" + string.Join(", ", AsStringArray()) + "]";
 				default:
@@ -368,10 +378,14 @@ namespace Minigames
 					return Value.FromDouble(0.0);
 				case ValueType.Bool:
 					return Value.FromBool(false);
+				case ValueType.Char:
+					return Value.FromChar('\0');
 				case ValueType.String:
 					return Value.FromString(string.Empty);
 				case ValueType.IntArray:
 					return Value.FromIntArray(Array.Empty<int>());
+				case ValueType.CharArray:
+					return Value.FromCharArray(Array.Empty<char>());
 				case ValueType.StringArray:
 					return Value.FromStringArray(Array.Empty<string>());
 				default:
@@ -409,6 +423,18 @@ namespace Minigames
 				}
 				var value = TypeSystem.CastOrThrow(ValueExpr.Evaluate(runtime), ValueType.Int, Line, Column);
 				array[index] = value.AsInt();
+				return;
+			}
+
+			if (arrayValue.Type == ValueType.CharArray)
+			{
+				var array = arrayValue.AsCharArray();
+				if (index < 0 || index >= array.Length)
+				{
+					throw new RuntimeException("Array index out of range.", Line, Column);
+				}
+				var value = TypeSystem.CastOrThrow(ValueExpr.Evaluate(runtime), ValueType.Char, Line, Column);
+				array[index] = value.AsChar();
 				return;
 			}
 
@@ -650,6 +676,16 @@ namespace Minigames
 				return Value.FromInt(array[index]);
 			}
 
+			if (arrayValue.Type == ValueType.CharArray)
+			{
+				var array = arrayValue.AsCharArray();
+				if (index < 0 || index >= array.Length)
+				{
+					throw new RuntimeException("Array index out of range.", Line, Column);
+				}
+				return Value.FromChar(array[index]);
+			}
+
 			if (arrayValue.Type == ValueType.StringArray)
 			{
 				var array = arrayValue.AsStringArray();
@@ -687,10 +723,12 @@ namespace Minigames
 			{
 				case ValueType.Int:
 					return Value.FromIntArray(new int[length]);
+				case ValueType.Char:
+					return Value.FromCharArray(new char[length]);
 				case ValueType.String:
 					return Value.FromStringArray(new string[length]);
 				default:
-					throw new RuntimeException("Only int[] and string[] are supported.", Line, Column);
+					throw new RuntimeException("Only int[], char[], and string[] are supported.", Line, Column);
 			}
 		}
 	}
@@ -847,6 +885,11 @@ namespace Minigames
 				return Value.FromBool(intOp(left.AsInt(), right.AsInt()));
 			}
 
+			if (left.Type == ValueType.Char && right.Type == ValueType.Char)
+			{
+				return Value.FromBool(intOp(left.AsChar(), right.AsChar()));
+			}
+
 			if ((left.Type == ValueType.Double || left.Type == ValueType.Int) &&
 				(right.Type == ValueType.Double || right.Type == ValueType.Int))
 			{
@@ -881,6 +924,8 @@ namespace Minigames
 					return Math.Abs(left.AsDouble() - right.AsDouble()) < 0.0000001;
 				case ValueType.Bool:
 					return left.AsBool() == right.AsBool();
+				case ValueType.Char:
+					return left.AsChar() == right.AsChar();
 				case ValueType.String:
 					return string.Equals(left.AsString(), right.AsString(), StringComparison.Ordinal);
 				case ValueType.IntArray:
@@ -1360,6 +1405,11 @@ namespace Minigames
 				var token = Previous();
 				return new LiteralExpr { Value = Value.FromString((string)token.Literal), Line = token.Line, Column = token.Column };
 			}
+			if (Match(TokenType.Char))
+			{
+				var token = Previous();
+				return new LiteralExpr { Value = Value.FromChar((char)token.Literal), Line = token.Line, Column = token.Column };
+			}
 			if (Match(TokenType.Identifier))
 			{
 				var name = Previous();
@@ -1440,6 +1490,15 @@ namespace Minigames
 			}
 			if (Match(TokenType.Double)) return ValueType.Double;
 			if (Match(TokenType.Bool)) return ValueType.Bool;
+			if (Match(TokenType.CharType))
+			{
+				if (Match(TokenType.LeftBracket))
+				{
+					Consume(TokenType.RightBracket, "Expected ']'.");
+					return ValueType.CharArray;
+				}
+				return ValueType.Char;
+			}
 			if (Match(TokenType.StringType))
 			{
 				if (Match(TokenType.LeftBracket))
@@ -1460,13 +1519,14 @@ namespace Minigames
 			if (Match(TokenType.StringType)) return ValueType.String;
 			if (Match(TokenType.Double)) return ValueType.Double;
 			if (Match(TokenType.Bool)) return ValueType.Bool;
+			if (Match(TokenType.CharType)) return ValueType.Char;
 			throw Error(Peek(), "Expected element type.");
 		}
 
 		private bool IsTypeKeyword(Token token)
 		{
 			return token.Type == TokenType.Int || token.Type == TokenType.Double || token.Type == TokenType.Bool ||
-				   token.Type == TokenType.StringType || token.Type == TokenType.Void;
+			       token.Type == TokenType.CharType || token.Type == TokenType.StringType || token.Type == TokenType.Void;
 		}
 
 		private bool IsArrayAssignmentStart()
@@ -1567,9 +1627,11 @@ namespace Minigames
 		Identifier,
 		Number,
 		String,
+		Char,
 		Int,
 		Double,
 		Bool,
+		CharType,
 		StringType,
 		Void,
 		New,
@@ -1639,8 +1701,9 @@ namespace Minigames
 		{
 			{ "int", TokenType.Int },
 			{ "double", TokenType.Double },
-			{ "bool", TokenType.Bool },
-			{ "string", TokenType.StringType },
+			{ "boolean", TokenType.Bool },
+			{ "char", TokenType.CharType },
+			{ "String", TokenType.StringType },
 			{ "void", TokenType.Void },
 			{ "new", TokenType.New },
 			{ "break", TokenType.Break },
@@ -1757,6 +1820,9 @@ namespace Minigames
 				case '"':
 					String();
 					break;
+				case '\'':
+					CharLiteral();
+					break;
 				default:
 					if (char.IsDigit(c))
 					{
@@ -1861,6 +1927,56 @@ namespace Minigames
 
 			Advance();
 			AddToken(TokenType.String, new string(buffer.ToArray()));
+		}
+
+		private void CharLiteral()
+		{
+			var startLine = _line;
+			var startColumn = _column;
+			if (IsAtEnd() || Peek() == '\n')
+			{
+				throw new ParseException("Unterminated char literal.", startLine, startColumn);
+			}
+
+			char value;
+			var c = Advance();
+			if (c == '\\')
+			{
+				if (IsAtEnd())
+				{
+					throw new ParseException("Unterminated char literal.", startLine, startColumn);
+				}
+				var next = Advance();
+				switch (next)
+				{
+					case 'n':
+						value = '\n';
+						break;
+					case 't':
+						value = '\t';
+						break;
+					case '\'':
+						value = '\'';
+						break;
+					case '\\':
+						value = '\\';
+						break;
+					default:
+						value = next;
+						break;
+				}
+			}
+			else
+			{
+				value = c;
+			}
+
+			if (IsAtEnd() || Peek() != '\'')
+			{
+				throw new ParseException("Unterminated char literal.", startLine, startColumn);
+			}
+			Advance();
+			AddToken(TokenType.Char, value);
 		}
 
 		private void SkipBlockComment()

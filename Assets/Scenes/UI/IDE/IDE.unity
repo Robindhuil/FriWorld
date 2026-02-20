@@ -421,10 +421,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 821760961}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 856d6cea6d5808742abf56a63a11e807, type: 3}
+  m_Script: {fileID: 11500000, guid: 18ebc1440cd33d7449978ce9bb105935, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IdeMiniGame
+  m_EditorClassIdentifier: Assembly-CSharp::IdeUI
   ideUIDocument: {fileID: 480996404}
+  selectedInterpreter: 0
+  defaultCodeFile: {fileID: 4900000, guid: 72e0c5c27ee9abf42a82a0c73b98d7ef, type: 3}
 --- !u!1 &910391409
 GameObject:
   m_ObjectHideFlags: 0
