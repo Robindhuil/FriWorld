@@ -176,6 +176,13 @@ public class JournalUI : BaseUi
             // Add completed quests
             allQuests.AddRange(journal.CompletedQuests);
         }
+
+        // Untrack quest if it has been completed
+        if (TrackedQuest != null && journal.CompletedQuests.Contains(TrackedQuest))
+        {
+            TrackedQuest = null;
+            UpdateTrackButton();
+        }
         
         questListView.itemsSource = allQuests;
         questListView.Rebuild();
@@ -318,14 +325,7 @@ public class JournalUI : BaseUi
         questObjectiveText.text = quest.questObjective;
         questInfoText.text = quest.questInfo;
         
-        if (journal.GetQuestTransform(SelectedQuest.id) == null)
-        {
-            trackQuestButton.style.display = DisplayStyle.None;
-        }
-        else
-        {
-            trackQuestButton.style.display = journal.ActiveQuests.Contains(quest) ? DisplayStyle.Flex : DisplayStyle.None;
-        }
+        trackQuestButton.style.display = journal.ActiveQuests.Contains(quest) ? DisplayStyle.Flex : DisplayStyle.None;
         
         UpdateTrackButton();
     }

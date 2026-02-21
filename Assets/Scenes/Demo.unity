@@ -28643,8 +28643,8 @@ Transform:
   - {fileID: 1377509761}
   - {fileID: 1292812642}
   - {fileID: 57654839}
-  - {fileID: 1303615964}
   - {fileID: 1992397189}
+  - {fileID: 1303615964}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &651704316
@@ -54852,7 +54852,7 @@ MonoBehaviour:
   m_PanelSettings: {fileID: 11400000, guid: 26cb30c3ac9a4a54a8c69d5d746f3a31, type: 2}
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: a1448a0c22442a9498569daea4511aea, type: 3}
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_Position: 0
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920

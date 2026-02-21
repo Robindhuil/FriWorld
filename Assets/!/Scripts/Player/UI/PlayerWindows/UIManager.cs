@@ -395,10 +395,6 @@ public class UIManager : MonoBehaviour
             Navigation nav = GetComponent<Navigation>();
             Journal journal = player.PlayerManagment.journal;
 
-            if (journal.GetQuestTransform(journalUI.SelectedQuest.id) == null)
-            {
-                return;
-            }
             Transform questTransform = journal.GetQuestTransform(journalUI.SelectedQuest.id);
 
             if (journalUI.TrackedQuest == null)
@@ -412,6 +408,13 @@ public class UIManager : MonoBehaviour
             {
                 // Tracking the quest
                 playerUI.DisplayQuest(journalUI.TrackedQuest.questName, journalUI.TrackedQuest.questObjective);
+                if (questTransform == null)
+                {
+                    // No valid tracking target: show quest panel only
+                    nav.ClearQuestPath();
+                    nav.DrawQuestLine = false;
+                    return;
+                }
                 nav.QuestDestination = questTransform;
                 nav.DrawQuestLine = true;
             }
