@@ -1,0 +1,155 @@
+:root {
+}
+
+.closeButton {
+    background-color: rgb(173, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    font-size: 20px;
+    width: 80px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+    margin-left: 5px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}
+
+.closeButton:hover {
+    background-color: rgb(130, 0, 0);
+}
+
+.optionButton {
+    flex-grow: 0;
+    margin-top: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    font-size: 45px;
+    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    background-color: rgba(0, 0, 0, 0);
+    color: rgb(255, 255, 255);
+    -unity-font-style: bold;
+    flex-direction: row;
+    -unity-text-align: middle-left;
+    -unity-text-auto-size: best-fit 10px 45px;
+    -unity-text-generator: advanced;
+    white-space: nowrap;
+    width: auto;
+    min-width: 925px;
+    max-width: 925px;
+}
+
+.optionButton:hover {
+    background-color: rgb(24, 24, 24);
+}
+
+.optionButton1 {
+    background-color: rgb(4, 131, 178);
+}
+
+.optionButton1:hover {
+    background-color: rgb(0, 98, 135);
+}
+
+.optionButton2 {
+    background-color: rgb(18, 168, 0);
+}
+
+.optionButton2:hover {
+    background-color: rgb(14, 132, 0);
+}
+
+.optionButton3 {
+    background-color: rgb(173, 0, 0);
+}
+
+.optionButton3:hover {
+    background-color: rgb(128, 0, 0);
+}
+
+.optionButton4 {
+    background-color: rgb(251, 184, 0);
+}
+
+.optionButton4:hover {
+    background-color: rgb(192, 141, 0);
+}
+
+.startButton {
+    flex-grow: 1;
+    color: rgb(255, 255, 255);
+    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-text-align: middle-center;
+    font-size: 60px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    padding-top: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.beginRetryQuizButton {
+    background-color: rgb(18, 168, 0);
+}
+
+.beginRetryQuizButton:hover {
+    background-color: rgb(14, 130, 0);
+}
+
+.endQiuzButton {
+    background-color: rgb(173, 0, 0);
+}
+
+.endQiuzButton:hover {
+    background-color: rgb(128, 0, 0);
+}
+
+.defaultQuizElement {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.correctQuizElement {
+    background-color: rgb(18, 168, 0);
+}
+
+.wrongQuizElement {
+    background-color: rgb(173, 0, 0);
+}
+
+.defaultOptionButton {
+    background-color: rgb(84, 83, 83);
+}

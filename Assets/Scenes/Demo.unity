@@ -1720,12 +1720,26 @@ MonoBehaviour:
   audioSource: {fileID: 38112738}
   soundClip: {fileID: 8300000, guid: de36e221f71a659469dd217d00b5ed61, type: 3}
   questId: 
+  <CanBeInteracted>k__BackingField: 1
+  uIManager: {fileID: 0}
   questIds:
   - 
+  npc: {fileID: 0}
   canvasPrefab: {fileID: 4908434930886964272, guid: f8f448377434e2345b563fb1b7e0bc6b, type: 3}
   quizJson: {fileID: 4900000, guid: 077a7d5689cda3348a62f3a5c97c6e4f, type: 3}
   answerButtonPrefab: {fileID: 3857181991861468279, guid: 2b75d88f1413bb94aab71a791fa90a51, type: 3}
   questionFont: {fileID: 11400000, guid: f9cef8c8dd6ef394f99ca2c35d6ee1e0, type: 2}
+  canvasInstance: {fileID: 0}
+  inputManager: {fileID: 0}
+  totalScoreTMP: {fileID: 0}
+  goodScoreTMP: {fileID: 0}
+  answersParent: {fileID: 0}
+  questionPanel: {fileID: 0}
+  quizData:
+    questions: []
+  currentQuestionIndex: 0
+  correctAnswersCount: 0
+  isCompleted: 0
 --- !u!4 &38611949 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab00e4f8e8a20fd408995f18bdfb4c55, type: 3}
@@ -21153,15 +21167,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.19210911
+      value: -67.041
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9001646
+      value: 9.711
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -55.321236
+      value: -46.873
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21342,9 +21356,9 @@ MonoBehaviour:
   playSoundEffect: 1
   audioSource: {fileID: 483096970}
   soundClip: {fileID: 8300000, guid: de36e221f71a659469dd217d00b5ed61, type: 3}
-  questId: quest_0_start
+  questId: quest_4_forgotten_password
   questIds:
-  - quest_1_programming_languages
+  - quest_5_return_to_mesko
   defaultCodeFile: {fileID: 4900000, guid: 72e0c5c27ee9abf42a82a0c73b98d7ef, type: 3}
   selectedInterpreter: 0
   expectedOutput: 'O je: 813Ara102false'
@@ -26260,7 +26274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -38.096
+      value: -38.17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_LocalPosition.y
@@ -26268,7 +26282,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -48.196
+      value: -48.218
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26320,10 +26334,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1458928281}
+      addedObject: {fileID: 1458928285}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1458928285}
+      addedObject: {fileID: 1458928289}
   m_SourcePrefab: {fileID: 100100000, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
 --- !u!1001 &601859672
 PrefabInstance:
@@ -28629,6 +28643,8 @@ Transform:
   - {fileID: 1377509761}
   - {fileID: 1292812642}
   - {fileID: 57654839}
+  - {fileID: 1303615964}
+  - {fileID: 1992397189}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &651704316
@@ -41341,6 +41357,7 @@ Transform:
   - {fileID: 38112736}
   - {fileID: 1510007321}
   - {fileID: 483096968}
+  - {fileID: 1668925544}
   - {fileID: 864152648}
   - {fileID: 2053033624}
   - {fileID: 1341728770}
@@ -54788,6 +54805,61 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e09823221c17ddd4d92db3c84e4fa86b, type: 3}
   m_PrefabInstance: {fileID: 1302173538}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1303615963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1303615964}
+  - component: {fileID: 1303615965}
+  m_Layer: 0
+  m_Name: NotificationUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1303615964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303615963}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 649824383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1303615965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303615963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 26cb30c3ac9a4a54a8c69d5d746f3a31, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: a1448a0c22442a9498569daea4511aea, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1 &1307215703
 GameObject:
   m_ObjectHideFlags: 0
@@ -61185,30 +61257,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
   m_PrefabInstance: {fileID: 597459104}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1458928281
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1458928275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9315da14047aea24391ee260ef5c8d85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useEvents: 0
-  promptMessage: "'E' Za\u010Dni quiz"
-  playSoundEffect: 1
-  audioSource: {fileID: 1458928285}
-  soundClip: {fileID: 8300000, guid: de36e221f71a659469dd217d00b5ed61, type: 3}
-  questId: quest_1_programming_languages
-  questIds:
-  - quest_2_return_to_janech_1
-  canvasPrefab: {fileID: 4908434930886964272, guid: f8f448377434e2345b563fb1b7e0bc6b, type: 3}
-  quizJson: {fileID: 4900000, guid: 66741eedfa1aa3644b34bb59136e88d9, type: 3}
-  answerButtonPrefab: {fileID: 3857181991861468279, guid: 2b75d88f1413bb94aab71a791fa90a51, type: 3}
-  questionFont: {fileID: 11400000, guid: f9cef8c8dd6ef394f99ca2c35d6ee1e0, type: 2}
 --- !u!82 &1458928285
 AudioSource:
   m_ObjectHideFlags: 0
@@ -61306,6 +61354,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1458928289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458928275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f2890b30f0414489cc590f08ef925d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::QuizMiniGame
+  useEvents: 0
+  promptMessage: Play quiz
+  playSoundEffect: 1
+  audioSource: {fileID: 1458928285}
+  soundClip: {fileID: 8300000, guid: de36e221f71a659469dd217d00b5ed61, type: 3}
+  questId: quest_1_programming_languages
+  questIds:
+  - quest_2_return_to_janech_1
+  quizJsonPath: minigames/Quiz/entryQuiz
+  quizName: Entry Quiz
 --- !u!4 &1459294946 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab00e4f8e8a20fd408995f18bdfb4c55, type: 3}
@@ -70474,6 +70544,226 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 83f30aa390b01da45a95dabc440a02cd, type: 3}
   m_PrefabInstance: {fileID: 1668128401}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1668925543
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 950621414}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 29.766891
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 17.780922
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 17.780922
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.86
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -57.11
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.04337834
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0017402904
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.998254
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.040053643
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -4.578
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 175.008
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.399
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_Name
+      value: Var (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1668925547}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1668925546}
+  m_SourcePrefab: {fileID: 100100000, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+--- !u!4 &1668925544 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+  m_PrefabInstance: {fileID: 1668925543}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1668925545 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 74679ac96915e914c9b1171f94469f21, type: 3}
+  m_PrefabInstance: {fileID: 1668925543}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1668925546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668925545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 856d6cea6d5808742abf56a63a11e807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IdeMiniGame
+  useEvents: 0
+  promptMessage: Play game
+  playSoundEffect: 1
+  audioSource: {fileID: 1668925547}
+  soundClip: {fileID: 8300000, guid: de36e221f71a659469dd217d00b5ed61, type: 3}
+  questId: quest_0_start
+  questIds:
+  - quest_5_return_to_mesko
+  defaultCodeFile: {fileID: 4900000, guid: 72e0c5c27ee9abf42a82a0c73b98d7ef, type: 3}
+  selectedInterpreter: 0
+  expectedOutput: 'O je: 813Ara102false'
+  caseInsensitiveComparison: 1
+  trimWhitespace: 1
+  uiManager: {fileID: 1887814971}
+--- !u!82 &1668925547
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668925545}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 1752580199495326187, guid: f6e323ef5143e7c41b32fdbe76a5cfb9, type: 2}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &1670233250
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -79551,7 +79841,9 @@ MonoBehaviour:
   playerUIDocument: {fileID: 1373851771}
   playerWindowsDocument: {fileID: 1186114255}
   dialogueUIDocument: {fileID: 1377509762}
+  notificationUIDocument: {fileID: 1303615965}
   ideUIDocument: {fileID: 57654840}
+  quizUIDocument: {fileID: 1992397190}
   universalMenu: {fileID: 1292812643}
 --- !u!114 &1887814976
 MonoBehaviour:
@@ -84056,6 +84348,61 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8e8ff8db04e94f34a9eaab3a5d551be0, type: 3}
   m_PrefabInstance: {fileID: 1991497283}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1992397188
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1992397189}
+  - component: {fileID: 1992397190}
+  m_Layer: 0
+  m_Name: QuizUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1992397189
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992397188}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 649824383}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1992397190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992397188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 26cb30c3ac9a4a54a8c69d5d746f3a31, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 5b20c88680979c749bf06d6783af387d, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1001 &1994882788
 PrefabInstance:
   m_ObjectHideFlags: 0

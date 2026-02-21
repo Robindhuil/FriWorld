@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     private StatsUI statsUI;
     private CodexUI codexUI;
     private IdeUI ideUI;
+    private QuizUI quizUI;
     private InputManager inputManager;
     private Player player;
     [Header("UI Prefabs")]
@@ -32,6 +33,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private UIDocument dialogueUIDocument;
     [SerializeField] private UIDocument notificationUIDocument;
     [SerializeField] private UIDocument ideUIDocument;
+    [SerializeField] private UIDocument quizUIDocument;
     [Header("Menu")]
     [SerializeField] private UniversalMenu universalMenu;
 
@@ -54,6 +56,7 @@ public class UIManager : MonoBehaviour
         InitializeCodexUI();
         InitializeStatsUI();
         InitializeIdeUI();
+        InitializeQuizUI();
         
         // Ensure all UIs start closed and initialize input actions
         CloseAll();
@@ -110,6 +113,10 @@ public class UIManager : MonoBehaviour
         if (ideUI != null)
         {
             ideUI.CloseWindow();
+        }
+        if (quizUI != null)
+        {
+            quizUI.CloseWindow();
         }
         if (universalMenu != null)
         {
@@ -285,9 +292,19 @@ public class UIManager : MonoBehaviour
         ideUI = new IdeUI(ideUIDocument, this);
     }
 
+    public void InitializeQuizUI()
+    {
+        quizUI = new QuizUI(quizUIDocument, this);
+    }
+
     public IdeUI GetIdeUI()
     {
         return ideUI;
+    }
+
+    public QuizUI GetQuizUI()
+    {
+        return quizUI;
     }
 
     public void OpenIde()
@@ -309,6 +326,30 @@ public class UIManager : MonoBehaviour
         if (ideUI != null && ideUI.IsMenuOn)
         {
             ideUI.CloseWindow();
+            inputManager.inUI.Enable();
+            inputManager.SwitchToOnFootActions();
+            OpenPlayerUI();
+        }
+    }
+
+    public void OpenQuiz()
+    {
+        inputManager.SwitchToInUIActions();
+        inputManager.inUI.Disable();
+        
+        CloseAll();
+        quizUI.OpenWindow();
+        notificationUI.OpenWindow();
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
+        UnityEngine.Cursor.SetCursor(null, Vector2.zero, CursorMode.Auto);
+    }
+
+    public void CloseQuiz()
+    {
+        if (quizUI != null && quizUI.IsMenuOn)
+        {
+            quizUI.CloseWindow();
             inputManager.inUI.Enable();
             inputManager.SwitchToOnFootActions();
             OpenPlayerUI();
