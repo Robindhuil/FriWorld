@@ -306,6 +306,11 @@ public class Outline : MonoBehaviour
     mesh.SetTriangles(mesh.triangles, mesh.subMeshCount - 1);
   }
 
+  public void ForceUpdateMaterials()
+  {
+    UpdateMaterialProperties();
+  }
+
   void UpdateMaterialProperties()
   {
 

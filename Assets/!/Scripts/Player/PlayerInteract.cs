@@ -5,7 +5,7 @@ public class PlayerInteract : MonoBehaviour
 {
     private Camera cam;
     [SerializeField] private float distance = 3f;
-    [SerializeField] private LayerMask mask;
+    [SerializeField] private LayerMask mask; // set it to obstacles and interactables layers in inspector
     private PlayerUI playerUI;
     private InputManager inputManager;
 
@@ -102,6 +102,7 @@ public class PlayerInteract : MonoBehaviour
         outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineColor = highlightColor;
         outline.OutlineWidth = outlineWidth;
+        outline.ForceUpdateMaterials();
         outline.enabled = true;
 
         currentOutlinedObject = outline;
