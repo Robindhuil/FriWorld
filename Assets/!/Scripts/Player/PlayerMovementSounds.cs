@@ -14,11 +14,37 @@ public class PlayerMovementSounds : MonoBehaviour
     public LayerMask groundLayers;
 
     private bool wasGrounded = true;
+    private InputManager inputManager;
+    private PlayerInput.OnFootActions onFoot;
+
+    private void Awake()
+    {
+        inputManager = FindFirstObjectByType<InputManager>();
+        if (inputManager != null)
+        {
+            onFoot = inputManager.onFoot;
+        }
+        else
+        {
+            Debug.LogWarning("[PlayerMovementSounds] InputManager not found. Movement sounds will not sync to input.");
+        }
+    }
 
     void Update()
     {
-        bool isMoving = Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) ||
-                       Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D);
+        if (inputManager == null)
+        {
+            return;
+        }
+
+        if (!onFoot.enabled)
+        {
+            DisableMovementSounds();
+            return;
+        }
+
+        Vector2 moveInput = onFoot.Movement.ReadValue<Vector2>();
+        bool isMoving = moveInput.sqrMagnitude > 0.001f;
 
         bool isGrounded = CheckIfGrounded();
 
@@ -31,7 +57,7 @@ public class PlayerMovementSounds : MonoBehaviour
 
     void HandleJumpSounds(bool isGrounded)
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (onFoot.Jump.WasPressedThisFrame() && isGrounded)
         {
             jumpStartSound.Play();
         }
@@ -47,7 +73,7 @@ public class PlayerMovementSounds : MonoBehaviour
     {
         if (isMoving && isGrounded)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (onFoot.Sprint.IsPressed())
             {
                 footstepsSound.enabled = false;
                 sprintSound.enabled = true;
@@ -63,6 +89,12 @@ public class PlayerMovementSounds : MonoBehaviour
             footstepsSound.enabled = false;
             sprintSound.enabled = false;
         }
+    }
+
+    void DisableMovementSounds()
+    {
+        footstepsSound.enabled = false;
+        sprintSound.enabled = false;
     }
 
     bool CheckIfGrounded()
