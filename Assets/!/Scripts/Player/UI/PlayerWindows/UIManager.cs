@@ -293,11 +293,11 @@ public class UIManager : MonoBehaviour
     public void OpenIde()
     {
         inputManager.SwitchToInUIActions();
+        inputManager.inUI.Disable();
         
         CloseAll();
         ideUI.OpenWindow();
         notificationUI.OpenWindow();
-        inputManager.inUI.ToggleUI.Disable();
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         UnityEngine.Cursor.visible = true;
         // Fix cursor offset by setting hotspot to top-left (0,0)
@@ -309,8 +309,8 @@ public class UIManager : MonoBehaviour
         if (ideUI != null && ideUI.IsMenuOn)
         {
             ideUI.CloseWindow();
+            inputManager.inUI.Enable();
             inputManager.SwitchToOnFootActions();
-            inputManager.inUI.ToggleUI.Enable();
             OpenPlayerUI();
         }
     }

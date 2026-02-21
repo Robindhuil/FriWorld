@@ -1,11 +1,11 @@
 //Tip: replace ___ symbols with correct value
 
 void Program() {
-        int pocetOkien = ___;               //Tip: count windows and add value here 
-        int casHodina = ___;                //Tip: find clock and input value of hour
-        String menoMiestnosti = "___";      //Tip: input the name of the room
-        boolean vonkuJeTma = ___;           //Tip: look if is dark or light outside
-        char aktualnyBlok = '___';          //Tip: character of the current sector you are in
+        int pocetOkien = 8 ;               //Tip: count windows and add value here 
+        int casHodina = 13 ;                //Tip: find clock and input value of hour
+        String menoMiestnosti = "ra102" ;      //Tip: input the name of the room
+        boolean vonkuJeTma = false ;           //Tip: look if is dark or light outside
+        char aktualnyBlok = 'A' ;          //Tip: character of the current sector you are in
 
         System.out.println("O je: "
             + pocetOkien

@@ -23,8 +23,7 @@ public class IdeUI
     private IVisualElementScheduledItem cursorBlinkScheduler;
     private string savedCode = "";
     private const float cursorBlinkInterval = 500; // milliseconds
-    private float lastRunTime = -999f; // Track last execution time
-    private const float runCooldown = 1.0f; // Cooldown in seconds
+    private bool isRunning = false; // Prevent multiple executions
 
     public IdeUI(UIDocument ideUIDocument, UIManager uiManager)
     {
@@ -238,6 +237,21 @@ public class IdeUI
                 textEditor.RemoveFromClassList("transparentCursor");
         });
 
+        // Prevent TextField from losing focus when Escape is pressed
+        textEditor.RegisterCallback<KeyDownEvent>(evt =>
+        {
+            if (evt.keyCode == KeyCode.Escape)
+            {
+                evt.StopPropagation();
+            }
+        }, TrickleDown.TrickleDown);
+
+        // Also catch NavigationCancelEvent which is triggered by Escape
+        textEditor.RegisterCallback<NavigationCancelEvent>(evt =>
+        {
+            evt.StopPropagation();
+        }, TrickleDown.TrickleDown);
+
         textEditor.RegisterCallback<MouseDownEvent>(evt =>
         {
             ScrollToCursor();
@@ -412,23 +426,25 @@ public class IdeUI
 
     private void RunCode()
     {
-        // Check cooldown to prevent rapid multiple executions
-        float currentTime = Time.time;
-        if (currentTime - lastRunTime < runCooldown)
+        // Prevent re-entry - this is the primary guard against multiple clicks
+        if (isRunning)
         {
-            Debug.Log($"[IdeUI] Run button on cooldown. Please wait {runCooldown - (currentTime - lastRunTime):F1}s");
-            if (terminalOutput != null)
-            {
-                AppendTerminalMessage("⏳ Please wait before running again...", false);
-            }
+            Debug.Log("[IdeUI] Run already in progress, ignoring duplicate click");
             return;
         }
         
-        lastRunTime = currentTime;
+        isRunning = true;
+        
+        // Disable button visually during execution
+        if (runButton != null)
+        {
+            runButton.SetEnabled(false);
+        }
         
         if (textEditor == null)
         {
             Debug.LogWarning("[IdeUI] TextEditorSpace nie je dostupný.");
+            ResetRunState();
             return;
         }
 
@@ -446,6 +462,7 @@ public class IdeUI
             {
                 terminalOutput.text = errorMsg;
             }
+            ResetRunState();
             return;
         }
 
@@ -477,6 +494,20 @@ public class IdeUI
 
         // Fire the OnCodeExecuted event with the result
         OnCodeExecuted?.Invoke(result);
+        
+        ResetRunState();
+    }
+
+    /// <summary>
+    /// Resets the run button state after code execution.
+    /// </summary>
+    private void ResetRunState()
+    {
+        if (runButton != null)
+        {
+            runButton.SetEnabled(true);
+        }
+        isRunning = false;
     }
 
     /// <summary>
