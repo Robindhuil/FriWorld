@@ -43,7 +43,7 @@ public class NavigationUI : BaseUi
     private List<RoomData> sectorBData;
     private List<RoomData> sectorCData;
 
-    public NavigationUI(UIDocument sharedDocument, GlobalButtonClickSound buttonClickSound)
+    public NavigationUI(UIDocument sharedDocument, GlobalButtonClickSound buttonClickSound, MonoBehaviour runner)
     {
         if (sharedDocument == null)
         {
@@ -114,7 +114,7 @@ public class NavigationUI : BaseUi
         SetupListViews();
         SetupLevelFilters();
         
-        qrCodeGenerator = new QRCodeGenerator(qrImage);
+        qrCodeGenerator = new QRCodeGenerator(qrImage, runner);
         
         CloseWindow();
     }

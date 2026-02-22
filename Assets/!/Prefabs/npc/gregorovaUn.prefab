@@ -88,9 +88,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 829d6fb782c70594faa0d9ecc02016ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2363155530675527895}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 829d6fb782c70594faa0d9ecc02016ff, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7296509726739507296}
   m_SourcePrefab: {fileID: 100100000, guid: 829d6fb782c70594faa0d9ecc02016ff, type: 3}
 --- !u!1 &1220230880531767856 stripped
 GameObject:
@@ -173,21 +170,4 @@ MonoBehaviour:
   nextWaypointIndex: 0
   canCommunicate: 1
   dialogueFileQuest: {fileID: 4900000, guid: 338d08a2126b6f940afaced193df44a1, type: 3}
-  dialogueFileCasual: {fileID: 4900000, guid: 58e53981796af45429437c16a1c5cb21, type: 3}
-  defaultDialogueMode: 1
-  questIds: 0f00000011000000
---- !u!114 &7296509726739507296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1220230880531767856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7a34e95c76ce04694f57af8aab9eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryMappings:
-  - questId: 16
-    codexEntryName: Podmienka if
+  questIds: []

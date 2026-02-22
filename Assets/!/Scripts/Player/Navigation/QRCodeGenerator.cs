@@ -9,23 +9,26 @@ public class QRCodeGenerator
     private RawImage qrRawImage;
     private UnityEngine.UIElements.Image qrUIImage;
     private bool useUIToolkit;
+    private MonoBehaviour runner;
 
-    public QRCodeGenerator(RawImage qrImage)
+    public QRCodeGenerator(RawImage qrImage, MonoBehaviour runner)
     {
         this.qrRawImage = qrImage;
         this.useUIToolkit = false;
+        this.runner = runner;
     }
 
-    public QRCodeGenerator(UnityEngine.UIElements.Image qrImage)
+    public QRCodeGenerator(UnityEngine.UIElements.Image qrImage, MonoBehaviour runner)
     {
         this.qrUIImage = qrImage;
         this.useUIToolkit = true;
+        this.runner = runner;
     }
 
     public void GenerateQRCode(string text)
     {
         string qrCodeUrl = $"https://api.qrserver.com/v1/create-qr-code/?size=256x256&data={UnityWebRequest.EscapeURL(text)}";
-        CoroutineRunner.Instance.RunCoroutine(DownloadQRCode(qrCodeUrl));
+        runner.StartCoroutine(DownloadQRCode(qrCodeUrl));
     }
 
 

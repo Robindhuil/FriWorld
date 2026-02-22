@@ -72,9 +72,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1cf1e6a3f6fcb8499f44bb96302d0e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4117437279810387912}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a1cf1e6a3f6fcb8499f44bb96302d0e6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3002398897975982338}
   m_SourcePrefab: {fileID: 100100000, guid: a1cf1e6a3f6fcb8499f44bb96302d0e6, type: 3}
 --- !u!1 &8180950826257586297 stripped
 GameObject:
@@ -148,28 +145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf00efe7d28f97e4a9bd644324639dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateMachine: {fileID: 0}
   isInDialogue: 0
   npcName: "Ing. \u0160tefan Toth, PhD."
   canMove: 0
+  randomMovement: 0
   path: {fileID: 0}
   nextWaypointIndex: 0
   canCommunicate: 1
   dialogueFileQuest: {fileID: 4900000, guid: f5a9e20b58bdf52409116d438eda67a4, type: 3}
-  dialogueFileCasual: {fileID: 4900000, guid: 884b98a4911e4f4448459129579862d3, type: 3}
-  defaultDialogueMode: 1
-  questIds: 0c0000000e000000
---- !u!114 &3002398897975982338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8180950826257586297}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7a34e95c76ce04694f57af8aab9eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryMappings:
-  - questId: 13
-    codexEntryName: For Loop
+  questIds: []

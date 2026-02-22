@@ -71,9 +71,6 @@ PrefabInstance:
       addedObject: {fileID: 1626168870500800138}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5035683971408971085}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5766768769409886952}
   m_SourcePrefab: {fileID: 100100000, guid: 43c04f2c725b42e46af7a7782646e929, type: 3}
 --- !u!1 &2380126360230597009 stripped
@@ -126,31 +123,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf00efe7d28f97e4a9bd644324639dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateMachine: {fileID: 0}
   isInDialogue: 0
   npcName: doc. Ing. Marek Kvet, PhD.
   canMove: 1
+  randomMovement: 0
   path: {fileID: 0}
   nextWaypointIndex: 0
   canCommunicate: 1
   dialogueFileQuest: {fileID: 4900000, guid: 54e1593fb2958254db98b06c422158f0, type: 3}
-  dialogueFileCasual: {fileID: 4900000, guid: db6775d06a430854fa8e6b7af83d6ccf, type: 3}
-  defaultDialogueMode: 1
-  questIds: 090000000b000000
---- !u!114 &5035683971408971085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2380126360230597009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7a34e95c76ce04694f57af8aab9eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryMappings:
-  - questId: 10
-    codexEntryName: Funkcie
+  questIds: []
 --- !u!195 &5766768769409886952
 NavMeshAgent:
   m_ObjectHideFlags: 0

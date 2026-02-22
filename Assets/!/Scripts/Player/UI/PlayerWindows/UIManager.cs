@@ -274,7 +274,7 @@ public class UIManager : MonoBehaviour
 
     public void InitializeNavigationUI()
     {
-        navigationUI = new NavigationUI(playerWindowsDocument, globalButtonClickSound);
+        navigationUI = new NavigationUI(playerWindowsDocument, globalButtonClickSound, this);
         navigationUI.TrackButton.clicked += TrackRoom;
     }
 

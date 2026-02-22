@@ -72,9 +72,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 47f4acd51e54f65458d8aa3bcf75777d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6465876802287332123}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 47f4acd51e54f65458d8aa3bcf75777d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8266058518839645813}
   m_SourcePrefab: {fileID: 100100000, guid: 47f4acd51e54f65458d8aa3bcf75777d, type: 3}
 --- !u!1 &1050661410838751626 stripped
 GameObject:
@@ -148,28 +145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf00efe7d28f97e4a9bd644324639dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateMachine: {fileID: 0}
   isInDialogue: 0
   npcName: "Ing. Michal \u010Eura\u010D\xEDk, PhD."
   canMove: 1
+  randomMovement: 0
   path: {fileID: 0}
   nextWaypointIndex: 0
   canCommunicate: 1
   dialogueFileQuest: {fileID: 4900000, guid: 96d59112734267244b60bccb6e066171, type: 3}
-  dialogueFileCasual: {fileID: 4900000, guid: dd9f6c65c92ac694fa5aab048dee6a3c, type: 3}
-  defaultDialogueMode: 1
-  questIds: 0300000005000000
---- !u!114 &8266058518839645813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1050661410838751626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7a34e95c76ce04694f57af8aab9eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryMappings:
-  - questId: 4
-    codexEntryName: Trieda
+  questIds: []

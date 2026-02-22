@@ -72,9 +72,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f11cc94ca7377db448522b14fbdc7775, type: 3}
       insertIndex: -1
       addedObject: {fileID: 69531393743813748}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f11cc94ca7377db448522b14fbdc7775, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2040902757217599640}
   m_SourcePrefab: {fileID: 100100000, guid: f11cc94ca7377db448522b14fbdc7775, type: 3}
 --- !u!1 &5730255087503128801 stripped
 GameObject:
@@ -148,28 +145,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf00efe7d28f97e4a9bd644324639dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateMachine: {fileID: 0}
   isInDialogue: 0
   npcName: "Ing. Dominika Petr\xEDkov\xE1, PhD."
   canMove: 1
+  randomMovement: 0
   path: {fileID: 0}
   nextWaypointIndex: 0
   canCommunicate: 1
   dialogueFileQuest: {fileID: 4900000, guid: dac223fc7e9211e4585f6f04e6777b7b, type: 3}
-  dialogueFileCasual: {fileID: 4900000, guid: a8333479e7965074e934ecfd5505cbb9, type: 3}
-  defaultDialogueMode: 1
-  questIds: 1200000014000000
---- !u!114 &2040902757217599640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5730255087503128801}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7a34e95c76ce04694f57af8aab9eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryMappings:
-  - questId: 19
-    codexEntryName: While loop
+  questIds: []

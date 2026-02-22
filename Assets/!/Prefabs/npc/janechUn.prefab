@@ -287,9 +287,6 @@ PrefabInstance:
       addedObject: {fileID: 8007702867032524186}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d5c3782017c22c41b10a86ed9ea4a72, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7306570021499465039}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9d5c3782017c22c41b10a86ed9ea4a72, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7359556440561879516}
   m_SourcePrefab: {fileID: 100100000, guid: 9d5c3782017c22c41b10a86ed9ea4a72, type: 3}
 --- !u!1 &7351915357401904397 stripped
@@ -342,33 +339,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf00efe7d28f97e4a9bd644324639dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateMachine: {fileID: 0}
   isInDialogue: 0
   npcName: "doc. Ing. J\xE1n Janech, PhD."
   canMove: 0
+  randomMovement: 0
   path: {fileID: 0}
   nextWaypointIndex: 0
   canCommunicate: 1
   dialogueFileQuest: {fileID: 4900000, guid: 2a43b5b18b38556428ce6b501dd8750c, type: 3}
-  dialogueFileCasual: {fileID: 4900000, guid: 332968f5f895da04c93b1c884dcfe3cc, type: 3}
-  defaultDialogueMode: 0
-  questIds: 02000000150000001700000019000000
---- !u!114 &7306570021499465039
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7351915357401904397}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7a34e95c76ce04694f57af8aab9eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryMappings:
-  - questId: 1
-    codexEntryName: "Programovac\xED jazyk"
-  - questId: 22
-    codexEntryName: Pole
+  questIds: []
 --- !u!195 &7359556440561879516
 NavMeshAgent:
   m_ObjectHideFlags: 0

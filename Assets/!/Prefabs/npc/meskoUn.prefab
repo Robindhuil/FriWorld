@@ -81,9 +81,6 @@ PrefabInstance:
       addedObject: {fileID: 2282516575870790889}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 66a83c0480e2b4f49ba3bc2c5eff61aa, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8271004383365731322}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 66a83c0480e2b4f49ba3bc2c5eff61aa, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5217636220396660479}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 66a83c0480e2b4f49ba3bc2c5eff61aa, type: 3}
       insertIndex: -1
@@ -109,31 +106,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf00efe7d28f97e4a9bd644324639dde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateMachine: {fileID: 0}
   isInDialogue: 0
   npcName: "Ing. Matej Me\u0161ko, PhD."
   canMove: 0
+  randomMovement: 0
   path: {fileID: 0}
   nextWaypointIndex: 0
   canCommunicate: 1
   dialogueFileQuest: {fileID: 4900000, guid: b0a7ee0f5f228fb45a5135c052a6cc48, type: 3}
-  dialogueFileCasual: {fileID: 4900000, guid: 47b00983a35e0b34982c2ffd6aad613c, type: 3}
-  defaultDialogueMode: 1
-  questIds: 0600000008000000
---- !u!114 &8271004383365731322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2135857760655550899}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd7a34e95c76ce04694f57af8aab9eab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entryMappings:
-  - questId: 7
-    codexEntryName: "Premenn\xE9"
+  questIds: []
 --- !u!114 &5217636220396660479
 MonoBehaviour:
   m_ObjectHideFlags: 0

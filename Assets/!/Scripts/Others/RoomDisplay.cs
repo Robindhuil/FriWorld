@@ -43,7 +43,7 @@ public class RoomDisplay : MonoBehaviour
 
         if (qrImage != null)
         {
-            qrCodeGenerator = new QRCodeGenerator(qrImage);
+            qrCodeGenerator = new QRCodeGenerator(qrImage, this);
         }
     }
 
