@@ -394,6 +394,11 @@
               "Key": "quest_1_programming_languages",
               "Type": 3,
               "Value": 0
+            },
+            {
+              "Key": "entry_programming_programming_language",
+              "Type": 0,
+              "Value": 0
             }
           ]
         }

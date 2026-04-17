@@ -84,7 +84,7 @@ public class Questable : Interactable
         GameState.Instance.SetBool($"{questId}_Completed", true);
         Debug.Log($"[Questable] Quest {questId} completion state set in GameState.");
         
-        playerUI.DisplayQuestComplete(quest.questName);
+        playerUI.DisplayQuestComplete(quest.QuestName);
 
         Navigation nav = FindFirstObjectByType<Navigation>();
 

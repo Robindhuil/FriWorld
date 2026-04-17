@@ -105,14 +105,14 @@ public class CodexUI : BaseUi
                 if (button == lastCategoryButton)
                 {
                     var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-                    button.style.backgroundColor = successColorSet.backgroundColor;
-                    button.style.color = successColorSet.textColor;
+                    button.style.backgroundColor = successColorSet.BackgroundColor;
+                    button.style.color = successColorSet.TextColor;
                 }
                 else
                 {
                     var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
-                    button.style.backgroundColor = ghostColorSet.backgroundColor;
-                    button.style.color = ghostColorSet.textColor;
+                    button.style.backgroundColor = ghostColorSet.BackgroundColor;
+                    button.style.color = ghostColorSet.TextColor;
                 }
                 
                 // Clear previous click handlers
@@ -124,14 +124,14 @@ public class CodexUI : BaseUi
                     if (lastCategoryButton != null && lastCategoryButton != button)
                     {
                         var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
-                        lastCategoryButton.style.backgroundColor = ghostColorSet.backgroundColor;
-                        lastCategoryButton.style.color = ghostColorSet.textColor;
+                        lastCategoryButton.style.backgroundColor = ghostColorSet.BackgroundColor;
+                        lastCategoryButton.style.color = ghostColorSet.TextColor;
                     }
                     
                     lastCategoryButton = button;
                     var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-                    button.style.backgroundColor = successColorSet.backgroundColor;
-                    button.style.color = successColorSet.textColor;
+                    button.style.backgroundColor = successColorSet.BackgroundColor;
+                    button.style.color = successColorSet.TextColor;
                     
                     categoriesList.selectedIndex = index;
                     ShowSubList(categories[index]);
@@ -153,14 +153,14 @@ public class CodexUI : BaseUi
                 if (button == lastSubButton)
                 {
                     var secondaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Secondary);
-                    button.style.backgroundColor = secondaryColorSet.backgroundColor;
-                    button.style.color = secondaryColorSet.textColor;
+                    button.style.backgroundColor = secondaryColorSet.BackgroundColor;
+                    button.style.color = secondaryColorSet.TextColor;
                 }
                 else
                 {
                     var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
-                    button.style.backgroundColor = ghostColorSet.backgroundColor;
-                    button.style.color = ghostColorSet.textColor;
+                    button.style.backgroundColor = ghostColorSet.BackgroundColor;
+                    button.style.color = ghostColorSet.TextColor;
                 }
                 
                 // Clear previous click handlers
@@ -172,14 +172,14 @@ public class CodexUI : BaseUi
                     if (lastSubButton != null && lastSubButton != button)
                     {
                         var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
-                        lastSubButton.style.backgroundColor = ghostColorSet.backgroundColor;
-                        lastSubButton.style.color = ghostColorSet.textColor;
+                        lastSubButton.style.backgroundColor = ghostColorSet.BackgroundColor;
+                        lastSubButton.style.color = ghostColorSet.TextColor;
                     }
                     
                     lastSubButton = button;
                     var secondaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Secondary);
-                    button.style.backgroundColor = secondaryColorSet.backgroundColor;
-                    button.style.color = secondaryColorSet.textColor;
+                    button.style.backgroundColor = secondaryColorSet.BackgroundColor;
+                    button.style.color = secondaryColorSet.TextColor;
                     
                     subCategoriesList.selectedIndex = index;
                     ShowEntryDetails(entries[index]);
@@ -211,20 +211,20 @@ public class CodexUI : BaseUi
         if (button != null && button != lastCategoryButton && button != lastSubButton)
         {
             var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
-            button.style.backgroundColor = ghostColorSet.hoverBackgroundColor;
-            button.style.color = ghostColorSet.hoverTextColor;
+            button.style.backgroundColor = ghostColorSet.HoverBackgroundColor;
+            button.style.color = ghostColorSet.HoverTextColor;
         }
         else if (button == lastCategoryButton)
         {
             var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-            button.style.backgroundColor = successColorSet.hoverBackgroundColor;
-            button.style.color = successColorSet.hoverTextColor;
+            button.style.backgroundColor = successColorSet.HoverBackgroundColor;
+            button.style.color = successColorSet.HoverTextColor;
         }
         else if (button == lastSubButton)
         {
             var secondaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Secondary);
-            button.style.backgroundColor = secondaryColorSet.hoverBackgroundColor;
-            button.style.color = secondaryColorSet.hoverTextColor;
+            button.style.backgroundColor = secondaryColorSet.HoverBackgroundColor;
+            button.style.color = secondaryColorSet.HoverTextColor;
         }
     }
 
@@ -233,20 +233,20 @@ public class CodexUI : BaseUi
         if (button != null && button != lastCategoryButton && button != lastSubButton)
         {
             var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
-            button.style.backgroundColor = ghostColorSet.backgroundColor;
-            button.style.color = ghostColorSet.textColor;
+            button.style.backgroundColor = ghostColorSet.BackgroundColor;
+            button.style.color = ghostColorSet.TextColor;
         }
         else if (button == lastCategoryButton)
         {
             var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-            button.style.backgroundColor = successColorSet.backgroundColor;
-            button.style.color = successColorSet.textColor;
+            button.style.backgroundColor = successColorSet.BackgroundColor;
+            button.style.color = successColorSet.TextColor;
         }
         else if (button == lastSubButton)
         {
             var secondaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Secondary);
-            button.style.backgroundColor = secondaryColorSet.backgroundColor;
-            button.style.color = secondaryColorSet.textColor;
+            button.style.backgroundColor = secondaryColorSet.BackgroundColor;
+            button.style.color = secondaryColorSet.TextColor;
         }
     }
 
@@ -374,15 +374,15 @@ public class CodexUI : BaseUi
         if (lastCategoryButton != null)
         {
             var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
-            lastCategoryButton.style.backgroundColor = ghostColorSet.backgroundColor;
-            lastCategoryButton.style.color = ghostColorSet.textColor;
+            lastCategoryButton.style.backgroundColor = ghostColorSet.BackgroundColor;
+            lastCategoryButton.style.color = ghostColorSet.TextColor;
         }
 
         if (lastSubButton != null)
         {
             var ghostColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Ghost);
-            lastSubButton.style.backgroundColor = ghostColorSet.backgroundColor;
-            lastSubButton.style.color = ghostColorSet.textColor;
+            lastSubButton.style.backgroundColor = ghostColorSet.BackgroundColor;
+            lastSubButton.style.color = ghostColorSet.TextColor;
         }
 
         if (subCategoriesList != null)

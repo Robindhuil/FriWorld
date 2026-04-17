@@ -73,7 +73,7 @@ public class QuestManager
     /// </summary>
     public Quest GetQuestById(string id)
     {
-        Quest quest = quests.Find(q => q.id == id);
+        Quest quest = quests.Find(q => q.Id == id);
         if (quest != null)
         {
             //Debug.Log($"[QuestLoader] Úloha nájdená: {quest.questName} - {quest.questObjective}");
@@ -88,7 +88,7 @@ public class QuestManager
 
     public bool IsQuestActive(string questId)
     {
-        Quest quest = quests.Find(q => q.id == questId);
+        Quest quest = quests.Find(q => q.Id == questId);
         if (quest != null && quest.Status == QuestStatus.Active)
         {
             return true;
@@ -98,7 +98,7 @@ public class QuestManager
 
     internal bool IsQuestCompleted(string questId)
     {
-        Quest quest = quests.Find(q => q.id == questId);
+        Quest quest = quests.Find(q => q.Id == questId);
         if (quest != null && quest.Status == QuestStatus.Completed)
         {
             return true;

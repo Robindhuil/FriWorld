@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class NotificationUI : BaseUi
@@ -15,41 +15,50 @@ public class NotificationUI : BaseUi
     {
         notificationUIDocument = uiDocument;
         coroutineRunner = runner;
-        
+
         // Ensure the GameObject is active so the visual tree is available
         if (!notificationUIDocument.gameObject.activeSelf)
         {
             notificationUIDocument.gameObject.SetActive(true);
         }
-        
+
         rootVisualElement = notificationUIDocument.rootVisualElement;
         notificationPanel = rootVisualElement.Q<VisualElement>("NotificationPanel");
 
         if (notificationPanel == null)
         {
-            Debug.LogError("[NotificationUI] NotificationPanel not found in NotificationUI. Make sure it exists in the UXML.");
+            Debug.LogError(
+                "[NotificationUI] NotificationPanel not found in NotificationUI. Make sure it exists in the UXML."
+            );
         }
-        
+
         // Make UI not block clicks - pass through to UI elements beneath
         rootVisualElement.pickingMode = PickingMode.Ignore;
         if (notificationPanel != null)
         {
             notificationPanel.pickingMode = PickingMode.Ignore;
         }
-        
+
         // Always visible
         rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
     public void AddNotification(string title, string message)
     {
+        AddNotification(title, message, UnityEngine.Color.white);
+    }
+
+    public void AddNotification(string title, string message, UnityEngine.Color titleColor)
+    {
         if (notificationPanel == null)
         {
-            Debug.LogError("[NotificationUI] NotificationPanel is null. Cannot display notification.");
+            Debug.LogError(
+                "[NotificationUI] NotificationPanel is null. Cannot display notification."
+            );
             return;
         }
 
-        NotificationComponent notification = CreateNotification(title, message);
+        NotificationComponent notification = CreateNotification(title, message, titleColor);
         notificationPanel.Add(notification);
 
         notificationQueue.Enqueue(notification);
@@ -58,10 +67,15 @@ public class NotificationUI : BaseUi
         notification.Animate(coroutineRunner, () => OnNotificationComplete(notification));
     }
 
-    private NotificationComponent CreateNotification(string title, string message)
+    private NotificationComponent CreateNotification(
+        string title,
+        string message,
+        UnityEngine.Color titleColor
+    )
     {
         NotificationComponent notification = new NotificationComponent();
         notification.SetNotification(title, message);
+        notification.SetTitleColor(titleColor);
         notification.style.top = notificationQueue.Count * notificationSpacing;
         notification.pickingMode = PickingMode.Ignore;
         return notification;

@@ -6,7 +6,7 @@ public class DialogueState : BaseState
 
     public override void Enter()
     {
-        npc.Animator.SetBool("IsDialogue", true);
+        Npc.Animator.SetBool("IsDialogue", true);
     }
 
     public override void Perform()
@@ -15,6 +15,6 @@ public class DialogueState : BaseState
 
     public override void Exit()
     {
-        npc.Animator.SetBool("IsDialogue", false);
+        Npc.Animator.SetBool("IsDialogue", false);
     }
 }

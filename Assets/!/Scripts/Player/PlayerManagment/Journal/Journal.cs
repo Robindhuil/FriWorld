@@ -77,7 +77,7 @@ public class Journal
     /// </summary>
     public bool IsQuestActive(string questId)
     {
-        return ActiveQuests.Exists(quest => quest.id == questId);
+        return ActiveQuests.Exists(quest => quest.Id == questId);
     }
 
     /// <summary>
@@ -95,21 +95,21 @@ public class Journal
     {
         foreach (var quest in ActiveQuests)
         {
-            if (quest.questName == questName)
+            if (quest.QuestName == questName)
             {
                 return quest;
             }
         }
         foreach (var quest in InactiveQuests)
         {
-            if (quest.questName == questName)
+            if (quest.QuestName == questName)
             {
                 return quest;
             }
         }
         foreach (var quest in CompletedQuests)
         {
-            if (quest.questName == questName)
+            if (quest.QuestName == questName)
             {
                 return quest;
             }
@@ -173,8 +173,8 @@ public class Journal
         Debug.Log(title);
         foreach (var quest in quests)
         {
-            Debug.Log($"[Journal] {quest.id}: {quest.questName}");
-            if (QuestPositions.TryGetValue(quest.id, out Transform questTransform))
+            Debug.Log($"[Journal] {quest.Id}: {quest.QuestName}");
+            if (QuestPositions.TryGetValue(quest.Id, out Transform questTransform))
             {
                 if (questTransform != null)
                 {

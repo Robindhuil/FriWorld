@@ -57,7 +57,7 @@ public class QuestCompleteArea : MonoBehaviour
                 UIManager uiManager = FindFirstObjectByType<UIManager>();
                 if (uiManager != null && uiManager.playerUI != null)
                 {
-                    uiManager.playerUI.DisplayQuestComplete(quest.questName);
+                    uiManager.playerUI.DisplayQuestComplete(quest.QuestName);
                 }
 
                 Navigation nav = FindFirstObjectByType<Navigation>();

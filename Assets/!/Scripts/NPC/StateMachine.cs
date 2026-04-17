@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
-    public BaseState activeState;
-    public WonderState wonderState;
+    private BaseState activeState;
+    private WonderState wonderState;
 
     public void Initialise()
     {
@@ -33,8 +33,8 @@ public class StateMachine : MonoBehaviour
 
         if (activeState != null)
         {
-            activeState.stateMachine = this;
-            activeState.npc = GetComponent<Npc>();
+            activeState.StateMachine = this;
+            activeState.Npc = GetComponent<Npc>();
             activeState.Enter();
         }
     }

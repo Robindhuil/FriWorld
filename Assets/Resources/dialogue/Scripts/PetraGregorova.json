@@ -1,202 +1,373 @@
 {
-    "levels": [
+  "StartNodeId": "start",
+  "Nodes": [
+    {
+      "Id": "start",
+      "Text": "",
+      "Type": 2,
+      "Choices": [
         {
-            "level": 1,
-            "dialogue": [
-                {
-                    "id": 0,
-                    "text": "Dobrý deň, som Petra Gregorová. Na FRI učím základy informatiky pre technických aj netechnických študentov a venujem sa výskumu v oblasti databáz a umelej inteligencie. Čo ťa zaujíma?",
-                    "choices": [
-                        {
-                            "text": "Ako sa líši výučba informatiky pre manažérov od štandardných kurzov?",
-                            "next": 1,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Môžete mi povedať viac o svojom výskume expertných systémov?",
-                            "next": 2,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Dopočul som sa od pána Meška, že máte nejaký problém so stoličkami vedel by som nejako pomôcť?",
-                            "next": 8,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 1,
-                    "text": "Informatika pre manažérov je zameraná na praktické využitie IT v obchodnom prostredí. Učíme, ako efektívne komunikovať s IT tímami, ako vyhodnocovať IT projekty a ako využívať informačné systémy pre rozhodovanie. Oproti technickým kurzom je tu menší dôraz na programovanie a väčší na stratégie a procesy.",
-                    "choices": [
-                        {
-                            "text": "Aké praktické príklady používate vo výučbe?",
-                            "next": 3,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Ako prepojujete výučbu s výskumom?",
-                            "next": 4,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "text": "Môj výskum expertných systémov sa zameriava na kombináciu klasických databázových technológií s modernými metódami umelej inteligencie. Vyvíjame systémy, ktoré dokážu napríklad diagnostikovať chyby v IT infraštruktúre alebo odporúčať optimálne riešenia pre obchodné procesy.",
-                    "choices": [
-                        {
-                            "text": "Môžu sa študenti zapojiť do tohto výskumu?",
-                            "next": 5,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Aké sú praktické aplikácie týchto systémov?",
-                            "next": 6,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "text": "Pracujeme s reálnymi prípadovými štúdiami - napríklad ako firma zavádzala nový ERP systém alebo ako sa riešil dátový analytický projekt. Študenti analyzujú úspechy a zlyhania a učia sa z nich.",
-                    "choices": [
-                        {
-                            "text": "Späť na výučbu",
-                            "next": 1,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 4,
-                    "text": "Výskumné poznatky implementujem do výučby - napríklad v informatike pre manažérov ukazujeme, ako expertné systémy pomáhajú pri rozhodovaní. Naopak, diskusie so študentmi často inšpirujú nové výskumné smery.",
-                    "choices": [
-                        {
-                            "text": "Späť na výučbu",
-                            "next": 1,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 5,
-                    "text": "Áno, prostredníctvom záverečných prác alebo výskumných stáží. Študenti sa môžu podieľať na vývoji konkrétnych modulov expertných systémov, testovaní alebo analýze dát. Je to výborná príležitosť pre tých, ktorí chcú skúsiť reálny výskum.",
-                    "choices": [
-                        {
-                            "text": "Aké zručnosti by mali mať záujemcovia?",
-                            "next": 7,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na výskum",
-                            "next": 2,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 6,
-                    "text": "Naše systémy sa využívajú v rôznych odvetviach - od diagnostiky chýb v počítačových sieťach po podporu rozhodovania v logistike. Spolupracujeme s firmami na implementácii týchto riešení do ich procesov.",
-                    "choices": [
-                        {
-                            "text": "Späť na výskum",
-                            "next": 2,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 7,
-                    "text": "Základy práce s dátami a analytické myslenie sú výhodou, ale dôležitejší je záujem o problematiku. Špecifické znalosti sa dajú doplniť počas práce na výskume. Pre manažérsky zameraných študentov je dôležité pochopenie obchodných procesov.",
-                    "choices": [
-                        {
-                            "text": "Ďakujem za informácie!",
-                            "next": null,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 8,
-                    "text": "Haha ano dopočul si sa dobre je tu problém so stoličkami. Zajtra sa koná skúška v miestnosti RA301 a hrozí, že nebude dosť stoličiek ku každému monitoru. Nechceme to potom riešiť na poslednú cvhíľu a tak by som potrebovala aby sa na to niekto pozrel.",
-                    "choices": [
-                        {
-                            "text": "Preto som su! Ako viem teda pomôcť s touto stoličkovou núdzou?",
-                            "next": 9,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 9,
-                    "text": "V tej istej miestnosti je program ktorý dokáže posúdiť či treba stoličky a koľko stačí len nazbierať dáta ktoré program potrebuje, trochu opraviť kód a mal by si dostať výpis s informáciou. Brnkačka.",
-                    "choices": [
-                        {
-                            "text": "Dobre rozumiem pôjdem sa teda na to pozrieť",
-                            "next": null,
-                            "quest": 7
-                        }
-                    ]
-                }
-            ]
+          "Text": "",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [
+            {
+              "Key": "quest_7_chair_shortage_Completed",
+              "Type": 0,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
         },
         {
-            "level": 2,
-            "dialogue": [
-                {
-                    "id": 0,
-                    "text": "Zdravím zachvíľu odchádzam podarilo sa ti vyriešiť môj problém so stoličkami?",
-                    "choices": [
-                        {
-                            "text": "Áno podarilo.",
-                            "next": 1,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 1,
-                    "text": "To je skvelá správa! Aký je teda výsledok treba na zajtra doplniť nejaké stoličky?",
-                    "choices": [
-                        {
-                            "text": "Opravil som program, doplnil dáta ktore to potrebovalo a výpis tvrdí, že treba doplniť dve stoličky.",
-                            "next": 2,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "text": "Výborne ďakujem veľmi pekne ešte dnes to oznámim aby sa zajtra na to nezabudlo. Veľmi dobrá práca. Každopádne rozpravála som sa s mojou kolegyňou Dominikou Petríkovou a spomenula som aj teba. Ževraj aj jej by sa hodila nejaká pomocná ruka pozrieš sa na to? Pani Petríkovú nájdeš vonku v pri altánku",
-                    "choices": [
-                        {
-                            "text": "Ďakujem a áno prečo nie, pôjdem pani Petríkovú navštíviť. Dovidenia.",
-                            "next": null,
-                            "quest": 9
-                        }
-                    ]
-                }
-            ]
+          "Text": "",
+          "NextNodeId": "level0_first_greeting",
+          "Conditions": [],
+          "Effects": []
         }
-    ]
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level0_first_greeting",
+      "Text": "Dobrý deň, som Petra Gregorová na fakulte riadenia a informatiky.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Dobrý deň, páni Gregorová.",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_greeting",
+      "Text": "Čo by si potreboval vedieť?",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Ako sa líši výučba informatiky pre manažérov od štandardných kurzov?",
+          "NextNodeId": "level1_node1",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Môžete mi povedať viac o svojom výskume expertných systémov?",
+          "NextNodeId": "level1_node2",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Dopočul som sa od pána Meška, že máte nejaký problém so stoličkami vedel by som nejako pomôcť?",
+          "NextNodeId": "level1_quest_7_chair_shortage_offer",
+          "Conditions": [
+            {
+              "Key": "quest_6_gregorova_Completed",
+              "Type": 0,
+              "IntValue": 0
+            },
+            {
+              "Key": "quest_7_chair_shortage_Completed",
+              "Type": 4,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
+        },
+        {
+          "Text": "Som tu späť ohľadne vášho stoličkového problému.",
+          "NextNodeId": "level2_quest_9_petrikova_offer",
+          "Conditions": [
+            {
+              "Key": "quest_7_chair_shortage_Completed",
+              "Type": 0,
+              "IntValue": 0
+            },
+            {
+              "Key": "quest_10_frozen_program_Completed",
+              "Type": 4,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": [
+        {
+          "Key": "entry_teachers_petra_gregorova",
+          "Type": 0,
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Id": "level1_node1",
+      "Text": "Informatika pre manažérov je zameraná na praktické využitie IT v obchodnom prostredí. Učíme, ako efektívne komunikovať s IT tímami, ako vyhodnocovať IT projekty a ako využívať informačné systémy pre rozhodovanie. Oproti technickým kurzom je tu menší dôraz na programovanie a väčší na stratégie a procesy.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Aké praktické príklady používate vo výučbe?",
+          "NextNodeId": "level1_node3",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Ako prepojujete výučbu s výskumom?",
+          "NextNodeId": "level1_node4",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node2",
+      "Text": "Môj výskum expertných systémov sa zameriava na kombináciu klasických databázových technológií s modernými metódami umelej inteligencie. Vyvíjame systémy, ktoré dokážu napríklad diagnostikovať chyby v IT infraštruktúre alebo odporúčať optimálne riešenia pre obchodné procesy.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Môžu sa študenti zapojiť do tohto výskumu?",
+          "NextNodeId": "level1_node5",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Aké sú praktické aplikácie týchto systémov?",
+          "NextNodeId": "level1_node6",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node3",
+      "Text": "Pracujeme s reálnymi prípadovými štúdiami - napríklad ako firma zavádzala nový ERP systém alebo ako sa riešil dátový analytický projekt. Študenti analyzujú úspechy a zlyhania a učia sa z nich.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na otázku o výučbe na FRI)",
+          "NextNodeId": "level1_node1",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node4",
+      "Text": "Výskumné poznatky implementujem do výučby - napríklad v informatike pre manažérov ukazujeme, ako expertné systémy pomáhajú pri rozhodovaní. Naopak, diskusie so študentmi často inšpirujú nové výskumné smery.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na otázku o výučbe na FRI)",
+          "NextNodeId": "level1_node1",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node5",
+      "Text": "Áno, prostredníctvom záverečných prác alebo výskumných stáží. Študenti sa môžu podieľať na vývoji konkrétnych modulov expertných systémov, testovaní alebo analýze dát. Je to výborná príležitosť pre tých, ktorí chcú skúsiť reálny výskum.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Aké zručnosti by mali mať záujemcovia?",
+          "NextNodeId": "level1_node7",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na otázky o výskume)",
+          "NextNodeId": "level1_node2",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node6",
+      "Text": "Naše systémy sa využívajú v rôznych odvetviach - od diagnostiky chýb v počítačových sieťach po podporu rozhodovania v logistike. Spolupracujeme s firmami na implementácii týchto riešení do ich procesov.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na otázky o výskume)",
+          "NextNodeId": "level1_node2",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node7",
+      "Text": "Základy práce s dátami a analytické myslenie sú výhodou, ale dôležitejší je záujem o problematiku. Špecifické znalosti sa dajú doplniť počas práce na výskume. Pre manažérsky zameraných študentov je dôležité pochopenie obchodných procesov.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na otázky o výskume)",
+          "NextNodeId": "level1_node2",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_quest_7_chair_shortage_offer",
+      "Text": "Haha ano dopočul si sa dobre je tu problém so stoličkami. Zajtra sa koná skúška v miestnosti RA301 a hrozí, že nebude dosť stoličiek ku každému monitoru. Nechceme to potom riešiť na poslednú cvhíľu a tak by som potrebovala aby sa na to niekto pozrel.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Preto som Tu! Ako viem teda pomôcť s touto stoličkovou núdzou?",
+          "NextNodeId": "level1_node8",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+        {
+      "Id": "level1_node8",
+      "Text": "V tej istej miestnosti je program ktorý dokáže posúdiť či treba stoličky a koľko stačí len nazbierať dáta ktoré program potrebuje, trochu opraviť kód a mal by si dostať výpis s informáciou. Brnkačka.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Dobre rozumiem pôjdem sa teda na to pozrieť",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_7_chair_shortage",
+              "Type": 3,
+              "Value": 0
+            },
+            {
+              "Key": "entry_programming_if_condition",
+              "Type": 0,
+              "Value": 0
+            }
+          ]
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level2_quest_9_petrikova_offer",
+      "Text": "Zachvíľu odchádzam podarilo sa ti vyriešiť môj problém so stoličkami?",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Áno podarilo.",
+          "NextNodeId": "level2_node1",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level2_node1",
+      "Text": "To je skvelá správa! Aký je teda výsledok treba na zajtra doplniť nejaké stoličky?",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Opravil som program, doplnil dáta ktore to potrebovalo a výpis tvrdí, že treba doplniť dve stoličky.",
+          "NextNodeId": "level2_node3",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+        {
+      "Id": "level2_node3",
+      "Text": "Výborne ďakujem veľmi pekne ešte dnes to oznámim aby sa zajtra na to nezabudlo. Veľmi dobrá práca. Každopádne rozpravála som sa s mojou kolegyňou Dominikou Petríkovou a spomenula som aj teba. Ževraj aj jej by sa hodila nejaká pomocná ruka pozrieš sa na to? Pani Petríkovú nájdeš vonku v pri altánku",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Ďakujem a áno prečo nie, pôjdem pani Petríkovú navštíviť. Dovidenia.",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_9_petrikova",
+              "Type": 3,
+              "Value": 0
+            }
+          ]
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "end",
+      "Text": "",
+      "Type": 2,
+      "Choices": [],
+      "Conditions": [],
+      "Effects": []
+    }
+  ]
 }

@@ -5,13 +5,13 @@ using UnityEngine.AI;
 public class NPCSpawner : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    public GameObject[] npcPrefabs;
-    public int maxActiveNPCs = 20;
-    public float spawnRadius = 5f;
-    public float minLifetime = 300f;
-    public float maxLifetime = 600f;
-    public float minSpawnDelay = 1f;
-    public float maxSpawnDelay = 4f;
+    [SerializeField] private GameObject[] npcPrefabs;
+    [SerializeField] private int maxActiveNPCs = 20;
+    [SerializeField] private float spawnRadius = 5f;
+    [SerializeField] private float minLifetime = 300f;
+    [SerializeField] private float maxLifetime = 600f;
+    [SerializeField] private float minSpawnDelay = 1f;
+    [SerializeField] private float maxSpawnDelay = 4f;
 
     private int activeNpcs = 0;
 

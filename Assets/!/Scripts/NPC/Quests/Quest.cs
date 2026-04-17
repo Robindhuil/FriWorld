@@ -1,12 +1,12 @@
 [System.Serializable]
 public class Quest
 {
-    public string id;
-    public string questName;
-    public string questObjective;
-    public string questInfo;
+    public string Id { get; private set; }
+    public string QuestName { get; private set; }
+    public string QuestObjective { get; private set; }
+    public string QuestInfo { get; private set; }
 
-    public bool switchGiverModeOnCompletion;
+    public bool SwitchGiverModeOnCompletion { get; private set; }
 
     public QuestStatus Status { get; set; }
     public Npc fromNpc { get; set; }
@@ -17,11 +17,11 @@ public class Quest
     /// </summary>
     public Quest(string id, string questName, string questObjective, string questInfo, bool switchGiverModeOnCompletion = false)
     {
-        this.id = id;
-        this.questName = questName;
-        this.questObjective = questObjective;
-        this.questInfo = questInfo;
-        this.switchGiverModeOnCompletion = switchGiverModeOnCompletion;
+        this.Id = id;
+        this.QuestName = questName;
+        this.QuestObjective = questObjective;
+        this.QuestInfo = questInfo;
+        this.SwitchGiverModeOnCompletion = switchGiverModeOnCompletion;
         SetInactive();
         fromNpc = null;
     }

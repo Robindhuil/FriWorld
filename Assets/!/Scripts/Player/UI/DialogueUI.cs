@@ -45,7 +45,7 @@ public class DialogueUI : BaseUi
         
         if (inputManager != null)
         {
-            inputManager.dialogueUI.Exit.performed += ctx => CloseWindow();
+            inputManager.DialogueUI.Exit.performed += ctx => CloseWindow();
         }
     }
 

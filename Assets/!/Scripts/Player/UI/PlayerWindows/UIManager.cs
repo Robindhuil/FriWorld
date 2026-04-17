@@ -24,20 +24,36 @@ public class UIManager : MonoBehaviour
     private QuizUI quizUI;
     private InputManager inputManager;
     private Player player;
+
     [Header("UI Prefabs")]
-    [SerializeField] private AudioMixer audioMixer;
-    [SerializeField] private GlobalButtonClickSound globalButtonClickSound;
+    [SerializeField]
+    private AudioMixer audioMixer;
+
+    [SerializeField]
+    private GlobalButtonClickSound globalButtonClickSound;
+
     [Header("UI Documents")]
-    [SerializeField] private UIDocument playerUIDocument;
-    [SerializeField] private UIDocument playerWindowsDocument;
-    [SerializeField] private UIDocument dialogueUIDocument;
-    [SerializeField] private UIDocument notificationUIDocument;
-    [SerializeField] private UIDocument ideUIDocument;
-    [SerializeField] private UIDocument quizUIDocument;
+    [SerializeField]
+    private UIDocument playerUIDocument;
+
+    [SerializeField]
+    private UIDocument playerWindowsDocument;
+
+    [SerializeField]
+    private UIDocument dialogueUIDocument;
+
+    [SerializeField]
+    private UIDocument notificationUIDocument;
+
+    [SerializeField]
+    private UIDocument ideUIDocument;
+
+    [SerializeField]
+    private UIDocument quizUIDocument;
+
     [Header("Menu")]
-    [SerializeField] private UniversalMenu universalMenu;
-
-
+    [SerializeField]
+    private UniversalMenu universalMenu;
 
     void Awake()
     {
@@ -57,7 +73,7 @@ public class UIManager : MonoBehaviour
         InitializeStatsUI();
         InitializeIdeUI();
         InitializeQuizUI();
-        
+
         // Ensure all UIs start closed and initialize input actions
         CloseAll();
         inputManager.SwitchToOnFootActions();
@@ -65,16 +81,13 @@ public class UIManager : MonoBehaviour
 
         if (inputManager != null)
         {
-            inputManager.onFoot.OpenJournal.performed += OnOpenJournal;
-            inputManager.onFoot.OpenManager.performed += OnOpenManager;
-            inputManager.onFoot.OpenNavigation.performed += OnOpenNavigation;
-            inputManager.onFoot.OpenStats.performed += OnOpenStats;
-            inputManager.onFoot.OpenCodex.performed += OnOpenCodex;
-            inputManager.onFoot.OpenMenu.performed += OnOpenMenu;
-            inputManager.inUI.ToggleUI.performed += OnOpenMenu;
-
-
-
+            inputManager.OnFoot.OpenJournal.performed += OnOpenJournal;
+            inputManager.OnFoot.OpenManager.performed += OnOpenManager;
+            inputManager.OnFoot.OpenNavigation.performed += OnOpenNavigation;
+            inputManager.OnFoot.OpenStats.performed += OnOpenStats;
+            inputManager.OnFoot.OpenCodex.performed += OnOpenCodex;
+            inputManager.OnFoot.OpenMenu.performed += OnOpenMenu;
+            inputManager.InUI.ToggleUI.performed += OnOpenMenu;
         }
     }
 
@@ -92,14 +105,13 @@ public class UIManager : MonoBehaviour
     public void ClosePlayerUI()
     {
         CloseAll();
-        inputManager.onFoot.Look.Disable();
-        inputManager.onFoot.Movement.Disable();
+        inputManager.OnFoot.Look.Disable();
+        inputManager.OnFoot.Movement.Disable();
         tabUI.OpenWindow();
         notificationUI.OpenWindow();
         playerUI.CloseWindow();
         UnityEngine.Cursor.lockState = CursorLockMode.None;
         UnityEngine.Cursor.visible = true;
-
     }
 
     public void CloseAll()
@@ -137,7 +149,6 @@ public class UIManager : MonoBehaviour
             tabUI.SetActiveButton(tabUI.Buttons[0]);
         }
     }
-
 
     private void OnOpenManager(InputAction.CallbackContext context)
     {
@@ -195,18 +206,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
     private void OnOpenMenu(InputAction.CallbackContext context)
     {
-        if (universalMenu == null) return;
-        
+        if (universalMenu == null)
+            return;
+
         // Don't allow menu toggling if it's a MainMenu
         if (universalMenu.IsMainMenu)
         {
             Debug.LogWarning("MainMenu cannot be toggled during gameplay");
             return;
         }
-        
+
         if (tabUI.IsMenuOn)
         {
             CloseAll();
@@ -218,7 +229,6 @@ public class UIManager : MonoBehaviour
             universalMenu.CloseMenu();
             notificationUI.OpenWindow();
             OpenPlayerUI();
-            
         }
         else
         {
@@ -232,11 +242,13 @@ public class UIManager : MonoBehaviour
 
     public void OpenMenu()
     {
-        if (universalMenu == null) return;
-        
+        if (universalMenu == null)
+            return;
+
         // Don't allow menu toggling if it's a MainMenu
-        if (universalMenu.IsMainMenu) return;
-        
+        if (universalMenu.IsMainMenu)
+            return;
+
         if (universalMenu.IsMenuOpen)
         {
             universalMenu.CloseMenu();
@@ -264,7 +276,7 @@ public class UIManager : MonoBehaviour
     public void InitializeTabUI()
     {
         tabUI = new TabUI(playerWindowsDocument, globalButtonClickSound);
-        
+
         // Connect button clicks to actions (order: Journal, Codex, Navigation, Stats)
         tabUI.Buttons[0].clicked += OpenJournal;
         tabUI.Buttons[1].clicked += OpenCodex;
@@ -282,6 +294,7 @@ public class UIManager : MonoBehaviour
     {
         codexUI = new CodexUI(playerWindowsDocument, audioMixer, globalButtonClickSound);
     }
+
     public void InitializeStatsUI()
     {
         statsUI = new StatsUI(playerWindowsDocument, this);
@@ -310,8 +323,8 @@ public class UIManager : MonoBehaviour
     public void OpenIde()
     {
         inputManager.SwitchToInUIActions();
-        inputManager.inUI.Disable();
-        
+        inputManager.InUI.Disable();
+
         CloseAll();
         ideUI.OpenWindow();
         notificationUI.OpenWindow();
@@ -326,7 +339,7 @@ public class UIManager : MonoBehaviour
         if (ideUI != null && ideUI.IsMenuOn)
         {
             ideUI.CloseWindow();
-            inputManager.inUI.Enable();
+            inputManager.InUI.Enable();
             inputManager.SwitchToOnFootActions();
             OpenPlayerUI();
         }
@@ -335,8 +348,8 @@ public class UIManager : MonoBehaviour
     public void OpenQuiz()
     {
         inputManager.SwitchToInUIActions();
-        inputManager.inUI.Disable();
-        
+        inputManager.InUI.Disable();
+
         CloseAll();
         quizUI.OpenWindow();
         notificationUI.OpenWindow();
@@ -350,7 +363,7 @@ public class UIManager : MonoBehaviour
         if (quizUI != null && quizUI.IsMenuOn)
         {
             quizUI.CloseWindow();
-            inputManager.inUI.Enable();
+            inputManager.InUI.Enable();
             inputManager.SwitchToOnFootActions();
             OpenPlayerUI();
         }
@@ -379,6 +392,7 @@ public class UIManager : MonoBehaviour
         notificationUI.OpenWindow();
         tabUI.SetActiveButton(tabUI.Buttons[1]);
     }
+
     public void OpenStats()
     {
         CloseAll();
@@ -387,7 +401,6 @@ public class UIManager : MonoBehaviour
         tabUI.SetActiveButton(tabUI.Buttons[3]);
     }
 
-
     public void TrackQuest()
     {
         if (journalUI.SelectedQuest != null)
@@ -395,7 +408,7 @@ public class UIManager : MonoBehaviour
             Navigation nav = GetComponent<Navigation>();
             Journal journal = player.PlayerManagment.journal;
 
-            Transform questTransform = journal.GetQuestTransform(journalUI.SelectedQuest.id);
+            Transform questTransform = journal.GetQuestTransform(journalUI.SelectedQuest.Id);
 
             if (journalUI.TrackedQuest == null)
             {
@@ -407,7 +420,10 @@ public class UIManager : MonoBehaviour
             else if (journalUI.TrackedQuest == journalUI.SelectedQuest)
             {
                 // Tracking the quest
-                playerUI.DisplayQuest(journalUI.TrackedQuest.questName, journalUI.TrackedQuest.questObjective);
+                playerUI.DisplayQuest(
+                    journalUI.TrackedQuest.QuestName,
+                    journalUI.TrackedQuest.QuestObjective
+                );
                 if (questTransform == null)
                 {
                     // No valid tracking target: show quest panel only
@@ -418,7 +434,6 @@ public class UIManager : MonoBehaviour
                 nav.QuestDestination = questTransform;
                 nav.DrawQuestLine = true;
             }
-
         }
     }
 
@@ -441,8 +456,28 @@ public class UIManager : MonoBehaviour
                 navigationUI.TrackRoom(navigationUI.SelectedRoom);
                 nav.DrawRoomLine = true;
             }
-
         }
     }
 
+    private const float RoomArrivalDistance = 2f;
+
+    private void Update()
+    {
+        if (navigationUI.TrackedRoom == null)
+            return;
+
+        Navigation nav = GetComponent<Navigation>();
+        if (nav == null || !nav.DrawRoomLine || nav.RoomDestination == null)
+            return;
+
+        float distance = Vector3.Distance(transform.position, nav.RoomDestination.position);
+        if (distance <= RoomArrivalDistance)
+        {
+            string arrivedRoomName = navigationUI.TrackedRoom?.Name ?? string.Empty;
+            nav.ClearRoomPath();
+            nav.DrawRoomLine = false;
+            navigationUI.UntrackRoom();
+            playerUI.DisplayRoomArrival(arrivedRoomName);
+        }
+    }
 }

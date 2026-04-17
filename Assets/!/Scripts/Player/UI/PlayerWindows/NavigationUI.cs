@@ -198,8 +198,8 @@ public class NavigationUI : BaseUi
                 if (btn != null && btn.userData is RoomData room)
                 {
                     var colorSet = GetRoomColorSet(room);
-                    btn.style.backgroundColor = colorSet.hoverBackgroundColor;
-                    btn.style.color = colorSet.hoverTextColor;
+                    btn.style.backgroundColor = colorSet.HoverBackgroundColor;
+                    btn.style.color = colorSet.HoverTextColor;
                 }
             });
             
@@ -288,8 +288,8 @@ public class NavigationUI : BaseUi
                     bool isSelected = currentFilteredLevel[sectorBase] == currentLevel;
                     var colorScheme = isSelected ? ButtonColorScheme.ButtonType.Success : ButtonColorScheme.ButtonType.Secondary;
                     var colorSet = ButtonColorScheme.Instance.GetColorSet(colorScheme);
-                    currentButton.style.backgroundColor = colorSet.hoverBackgroundColor;
-                    currentButton.style.color = colorSet.hoverTextColor;
+                    currentButton.style.backgroundColor = colorSet.HoverBackgroundColor;
+                    currentButton.style.color = colorSet.HoverTextColor;
                 });
                 
                 currentButton.RegisterCallback<MouseLeaveEvent>(evt =>
@@ -339,8 +339,8 @@ public class NavigationUI : BaseUi
     {
         var buttonType = isSelected ? ButtonColorScheme.ButtonType.Success : ButtonColorScheme.ButtonType.Secondary;
         var colorSet = ButtonColorScheme.Instance.GetColorSet(buttonType);
-        button.style.backgroundColor = colorSet.backgroundColor;
-        button.style.color = colorSet.textColor;
+        button.style.backgroundColor = colorSet.BackgroundColor;
+        button.style.color = colorSet.TextColor;
     }
 
     private void ApplyLevelFilter(VisualElement sectorBase, ListView listView, List<RoomData> allRooms)
@@ -412,8 +412,8 @@ public class NavigationUI : BaseUi
     private void UpdateRoomElementColor(VisualElement element, RoomData room)
     {
         var colorSet = GetRoomColorSet(room);
-        element.style.backgroundColor = colorSet.backgroundColor;
-        element.style.color = colorSet.textColor;
+        element.style.backgroundColor = colorSet.BackgroundColor;
+        element.style.color = colorSet.TextColor;
     }
 
     public void SelectRoom(RoomData room)
@@ -500,15 +500,15 @@ public class NavigationUI : BaseUi
         {
             trackRoomButton.text = "Prestať sledovať miestnosť";
             var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-            trackRoomButton.style.backgroundColor = successColorSet.backgroundColor;
-            trackRoomButton.style.color = successColorSet.textColor;
+            trackRoomButton.style.backgroundColor = successColorSet.BackgroundColor;
+            trackRoomButton.style.color = successColorSet.TextColor;
         }
         else
         {
             trackRoomButton.text = "Sledovať miestnosť";
             var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-            trackRoomButton.style.backgroundColor = primaryColorSet.backgroundColor;
-            trackRoomButton.style.color = primaryColorSet.textColor;
+            trackRoomButton.style.backgroundColor = primaryColorSet.BackgroundColor;
+            trackRoomButton.style.color = primaryColorSet.TextColor;
         }
     }
 
@@ -517,14 +517,14 @@ public class NavigationUI : BaseUi
         if (TrackedRoom != null && SelectedRoom == TrackedRoom)
         {
             var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-            trackRoomButton.style.backgroundColor = successColorSet.hoverBackgroundColor;
-            trackRoomButton.style.color = successColorSet.hoverTextColor;
+            trackRoomButton.style.backgroundColor = successColorSet.HoverBackgroundColor;
+            trackRoomButton.style.color = successColorSet.HoverTextColor;
         }
         else
         {
             var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-            trackRoomButton.style.backgroundColor = primaryColorSet.hoverBackgroundColor;
-            trackRoomButton.style.color = primaryColorSet.hoverTextColor;
+            trackRoomButton.style.backgroundColor = primaryColorSet.HoverBackgroundColor;
+            trackRoomButton.style.color = primaryColorSet.HoverTextColor;
         }
     }
 

@@ -64,7 +64,7 @@ public class QuestActivator
         }
 
         quest.fromNpc = npcRef;
-        playerUI?.DisplayQuestUnlock(quest.questName);
+        playerUI?.DisplayQuestUnlock(quest.QuestName);
         player?.PlayerManagment?.journal?.ChangeQuestStatus(quest, QuestStatus.Active);
 
         // Set quest started state for dialogue system

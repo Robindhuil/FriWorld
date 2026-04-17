@@ -120,13 +120,13 @@ public class JournalUI : BaseUi
             var button = element as Button;
             var quest = allQuests[index];
             
-            button.text = quest.questName;
+            button.text = quest.QuestName;
             button.userData = quest;
             
             // Set initial color
             var initialColorSet = GetQuestColorSet(quest);
-            button.style.backgroundColor = initialColorSet.backgroundColor;
-            button.style.color = initialColorSet.textColor;
+            button.style.backgroundColor = initialColorSet.BackgroundColor;
+            button.style.color = initialColorSet.TextColor;
             
             // Add hover effects
             button.RegisterCallback<MouseEnterEvent>(evt =>
@@ -136,8 +136,8 @@ public class JournalUI : BaseUi
                 if (q != SelectedQuest)
                 {
                     var hoverColorSet = GetQuestColorSet(q);
-                    btn.style.backgroundColor = hoverColorSet.hoverBackgroundColor;
-                    btn.style.color = hoverColorSet.hoverTextColor;
+                    btn.style.backgroundColor = hoverColorSet.HoverBackgroundColor;
+                    btn.style.color = hoverColorSet.HoverTextColor;
                 }
             });
             
@@ -146,8 +146,8 @@ public class JournalUI : BaseUi
                 var btn = evt.target as Button;
                 var q = btn.userData as Quest;
                 var colorSet = GetQuestColorSet(q);
-                btn.style.backgroundColor = colorSet.backgroundColor;
-                btn.style.color = colorSet.textColor;
+                btn.style.backgroundColor = colorSet.BackgroundColor;
+                btn.style.color = colorSet.TextColor;
             });
             
             // Handle click
@@ -209,22 +209,22 @@ public class JournalUI : BaseUi
         if (showingActiveQuests)
         {
             var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-            activeQuestsButton.style.backgroundColor = primaryColorSet.backgroundColor;
-            activeQuestsButton.style.color = primaryColorSet.textColor;
+            activeQuestsButton.style.backgroundColor = primaryColorSet.BackgroundColor;
+            activeQuestsButton.style.color = primaryColorSet.TextColor;
             
             var fadedColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Faded);
-            completedQuestsButton.style.backgroundColor = fadedColorSet.backgroundColor;
-            completedQuestsButton.style.color = fadedColorSet.textColor;
+            completedQuestsButton.style.backgroundColor = fadedColorSet.BackgroundColor;
+            completedQuestsButton.style.color = fadedColorSet.TextColor;
         }
         else
         {
             var fadedColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Faded);
-            activeQuestsButton.style.backgroundColor = fadedColorSet.backgroundColor;
-            activeQuestsButton.style.color = fadedColorSet.textColor;
+            activeQuestsButton.style.backgroundColor = fadedColorSet.BackgroundColor;
+            activeQuestsButton.style.color = fadedColorSet.TextColor;
             
             var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-            completedQuestsButton.style.backgroundColor = successColorSet.backgroundColor;
-            completedQuestsButton.style.color = successColorSet.textColor;
+            completedQuestsButton.style.backgroundColor = successColorSet.BackgroundColor;
+            completedQuestsButton.style.color = successColorSet.TextColor;
         }
     }
 
@@ -238,14 +238,14 @@ public class JournalUI : BaseUi
                 if (showingActiveQuests)
                 {
                     var hovering = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-                    btn.style.backgroundColor = hovering.hoverBackgroundColor;
-                    btn.style.color = hovering.hoverTextColor;
+                    btn.style.backgroundColor = hovering.HoverBackgroundColor;
+                    btn.style.color = hovering.HoverTextColor;
                 }
                 else
                 {
                     var hovering = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Faded);
-                    btn.style.backgroundColor = hovering.hoverBackgroundColor;
-                    btn.style.color = hovering.hoverTextColor;
+                    btn.style.backgroundColor = hovering.HoverBackgroundColor;
+                    btn.style.color = hovering.HoverTextColor;
                 }
             }
             else if (btn == completedQuestsButton)
@@ -253,14 +253,14 @@ public class JournalUI : BaseUi
                 if (showingActiveQuests)
                 {
                     var hovering = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Faded);
-                    btn.style.backgroundColor = hovering.hoverBackgroundColor;
-                    btn.style.color = hovering.hoverTextColor;
+                    btn.style.backgroundColor = hovering.HoverBackgroundColor;
+                    btn.style.color = hovering.HoverTextColor;
                 }
                 else
                 {
                     var hovering = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-                    btn.style.backgroundColor = hovering.hoverBackgroundColor;
-                    btn.style.color = hovering.hoverTextColor;
+                    btn.style.backgroundColor = hovering.HoverBackgroundColor;
+                    btn.style.color = hovering.HoverTextColor;
                 }
             }
         });
@@ -274,14 +274,14 @@ public class JournalUI : BaseUi
                 if (showingActiveQuests)
                 {
                     var normal = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-                    btn.style.backgroundColor = normal.backgroundColor;
-                    btn.style.color = normal.textColor;
+                    btn.style.backgroundColor = normal.BackgroundColor;
+                    btn.style.color = normal.TextColor;
                 }
                 else
                 {
                     var normal = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Faded);
-                    btn.style.backgroundColor = normal.backgroundColor;
-                    btn.style.color = normal.textColor;
+                    btn.style.backgroundColor = normal.BackgroundColor;
+                    btn.style.color = normal.TextColor;
                 }
             }
             else if (btn == completedQuestsButton)
@@ -289,14 +289,14 @@ public class JournalUI : BaseUi
                 if (showingActiveQuests)
                 {
                     var normal = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Faded);
-                    btn.style.backgroundColor = normal.backgroundColor;
-                    btn.style.color = normal.textColor;
+                    btn.style.backgroundColor = normal.BackgroundColor;
+                    btn.style.color = normal.TextColor;
                 }
                 else
                 {
                     var normal = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-                    btn.style.backgroundColor = normal.backgroundColor;
-                    btn.style.color = normal.textColor;
+                    btn.style.backgroundColor = normal.BackgroundColor;
+                    btn.style.color = normal.TextColor;
                 }
             }
         });
@@ -308,8 +308,8 @@ public class JournalUI : BaseUi
         {
             var prevQuest = selectedQuestElement.userData as Quest;
             var prevColorSet = GetQuestColorSet(prevQuest);
-            selectedQuestElement.style.backgroundColor = prevColorSet.backgroundColor;
-            selectedQuestElement.style.color = prevColorSet.textColor;
+            selectedQuestElement.style.backgroundColor = prevColorSet.BackgroundColor;
+            selectedQuestElement.style.color = prevColorSet.TextColor;
         }
 
         selectedQuestElement = questButton;
@@ -318,12 +318,12 @@ public class JournalUI : BaseUi
         RefreshQuestColors();
 
         var selectedColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Secondary);
-        selectedQuestElement.style.backgroundColor = selectedColorSet.backgroundColor;
-        selectedQuestElement.style.color = selectedColorSet.textColor;
+        selectedQuestElement.style.backgroundColor = selectedColorSet.BackgroundColor;
+        selectedQuestElement.style.color = selectedColorSet.TextColor;
 
-        questNameText.text = quest.questName;
-        questObjectiveText.text = quest.questObjective;
-        questInfoText.text = quest.questInfo;
+        questNameText.text = quest.QuestName;
+        questObjectiveText.text = quest.QuestObjective;
+        questInfoText.text = quest.QuestInfo;
         
         trackQuestButton.style.display = journal.ActiveQuests.Contains(quest) ? DisplayStyle.Flex : DisplayStyle.None;
         
@@ -362,15 +362,15 @@ public class JournalUI : BaseUi
         {
             trackQuestButton.text = "Prestať sledovať úlohu";
             var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-            trackQuestButton.style.backgroundColor = successColorSet.backgroundColor;
-            trackQuestButton.style.color = successColorSet.textColor;
+            trackQuestButton.style.backgroundColor = successColorSet.BackgroundColor;
+            trackQuestButton.style.color = successColorSet.TextColor;
         }
         else
         {
             trackQuestButton.text = "Sledovať úlohu";
             var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-            trackQuestButton.style.backgroundColor = primaryColorSet.backgroundColor;
-            trackQuestButton.style.color = primaryColorSet.textColor;
+            trackQuestButton.style.backgroundColor = primaryColorSet.BackgroundColor;
+            trackQuestButton.style.color = primaryColorSet.TextColor;
         }
     }
 
@@ -379,14 +379,14 @@ public class JournalUI : BaseUi
         if (TrackedQuest == SelectedQuest)
         {
             var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-            trackQuestButton.style.backgroundColor = successColorSet.hoverBackgroundColor;
-            trackQuestButton.style.color = successColorSet.hoverTextColor;
+            trackQuestButton.style.backgroundColor = successColorSet.HoverBackgroundColor;
+            trackQuestButton.style.color = successColorSet.HoverTextColor;
         }
         else
         {
             var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-            trackQuestButton.style.backgroundColor = primaryColorSet.hoverBackgroundColor;
-            trackQuestButton.style.color = primaryColorSet.hoverTextColor;
+            trackQuestButton.style.backgroundColor = primaryColorSet.HoverBackgroundColor;
+            trackQuestButton.style.color = primaryColorSet.HoverTextColor;
         }
     }
 

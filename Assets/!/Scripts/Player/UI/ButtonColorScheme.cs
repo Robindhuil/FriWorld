@@ -9,10 +9,10 @@ public class ButtonColorScheme
     [System.Serializable]
     public class ButtonColorSet
     {
-        public Color backgroundColor;
-        public Color textColor;
-        public Color hoverBackgroundColor;
-        public Color hoverTextColor;
+        public Color BackgroundColor { get; set; }
+        public Color TextColor { get; set; }
+        public Color HoverBackgroundColor { get; set; }
+        public Color HoverTextColor { get; set; }
     }
 
     public enum ButtonType
@@ -35,60 +35,60 @@ public class ButtonColorScheme
                 ButtonType.Primary,
                 new ButtonColorSet
                 {
-                    backgroundColor = HexToColor("FBB800"),
-                    textColor = Color.black,
-                    hoverBackgroundColor = HexToColor("E8A500"),
-                    hoverTextColor = Color.black
+                    BackgroundColor = HexToColor("FBB800"),
+                    TextColor = Color.black,
+                    HoverBackgroundColor = HexToColor("E8A500"),
+                    HoverTextColor = Color.black
                 }
             },
             {
                 ButtonType.Secondary,
                 new ButtonColorSet
                 {
-                    backgroundColor = HexToColor("0483B2"),
-                    textColor = Color.white,
-                    hoverBackgroundColor = HexToColor("036A94"),
-                    hoverTextColor = Color.white
+                    BackgroundColor = HexToColor("0483B2"),
+                    TextColor = Color.white,
+                    HoverBackgroundColor = HexToColor("036A94"),
+                    HoverTextColor = Color.white
                 }
             },
             {
                 ButtonType.Success,
                 new ButtonColorSet
                 {
-                    backgroundColor = HexToColor("12A800"),
-                    textColor = Color.white,
-                    hoverBackgroundColor = HexToColor("0E8600"),
-                    hoverTextColor = Color.black
+                    BackgroundColor = HexToColor("12A800"),
+                    TextColor = Color.white,
+                    HoverBackgroundColor = HexToColor("0E8600"),
+                    HoverTextColor = Color.black
                 }
             },
             {
                 ButtonType.Danger,
                 new ButtonColorSet
                 {
-                    backgroundColor = HexToColor("AD0000"),
-                    textColor = Color.white,
-                    hoverBackgroundColor = HexToColor("8B0000"),
-                    hoverTextColor = Color.white
+                    BackgroundColor = HexToColor("AD0000"),
+                    TextColor = Color.white,
+                    HoverBackgroundColor = HexToColor("8B0000"),
+                    HoverTextColor = Color.white
                 }
             },
             {
                 ButtonType.Ghost,
                 new ButtonColorSet
                 {
-                    backgroundColor = new Color(1f, 1f, 1f, 0f),
-                    textColor = Color.white,
-                    hoverBackgroundColor = new Color(1f, 1f, 1f, 0.1f),
-                    hoverTextColor = Color.white
+                    BackgroundColor = new Color(1f, 1f, 1f, 0f),
+                    TextColor = Color.white,
+                    HoverBackgroundColor = new Color(1f, 1f, 1f, 0.1f),
+                    HoverTextColor = Color.white
                 }
             },
             {
                 ButtonType.Faded,
                 new ButtonColorSet
                 {
-                    backgroundColor = HexToColor("666666"),
-                    textColor = Color.white,
-                    hoverBackgroundColor = HexToColor("777777"),
-                    hoverTextColor = Color.white
+                    BackgroundColor = HexToColor("666666"),
+                    TextColor = Color.white,
+                    HoverBackgroundColor = HexToColor("777777"),
+                    HoverTextColor = Color.white
                 }
             }
         };
@@ -107,22 +107,22 @@ public class ButtonColorScheme
 
     public Color GetBackgroundColor(ButtonType buttonType)
     {
-        return GetColorSet(buttonType).backgroundColor;
+        return GetColorSet(buttonType).BackgroundColor;
     }
 
     public Color GetTextColor(ButtonType buttonType)
     {
-        return GetColorSet(buttonType).textColor;
+        return GetColorSet(buttonType).TextColor;
     }
 
     public Color GetHoverBackgroundColor(ButtonType buttonType)
     {
-        return GetColorSet(buttonType).hoverBackgroundColor;
+        return GetColorSet(buttonType).HoverBackgroundColor;
     }
 
     public Color GetHoverTextColor(ButtonType buttonType)
     {
-        return GetColorSet(buttonType).hoverTextColor;
+        return GetColorSet(buttonType).HoverTextColor;
     }
 
     private Color HexToColor(string hex)

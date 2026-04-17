@@ -49,7 +49,7 @@ public class QuestComplete
             }
             journal.ChangeQuestStatus(quest, QuestStatus.Completed);
             Debug.Log($"[QuestComplete] Quest {questId} completed.");
-            playerUI.DisplayQuestComplete(quest.questName);
+            playerUI.DisplayQuestComplete(quest.QuestName);
 
             if (IsLocalQuest(questId))
             {

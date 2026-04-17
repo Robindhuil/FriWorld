@@ -1,159 +1,292 @@
 {
-    "levels": [
+  "StartNodeId": "start",
+  "Nodes": [
+    {
+      "Id": "start",
+      "Text": "",
+      "Type": 2,
+      "Choices": [
         {
-            "level": 1,
-            "dialogue": [
-                {
-                    "id": 0,
-                    "text": "Dobrý deň, som Dominika Petríková. Na FRI vyučujem základy programovania a venujem sa výskumu v oblasti medicínskej informatiky. Čo ťa zaujíma?",
-                    "choices": [
-                        {
-                            "text": "Aké témy pokrývajú vaše predmety Informatika 1 a 2?",
-                            "next": 1,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Môžete mi povedať viac o svojom výskume v biomedicíne?",
-                            "next": 2,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Idem od pani Gregorovej, ževraj potrebujete pomoc?",
-                            "next": 6,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 1,
-                    "text": "V Informatike 1 sa sústreďujeme na základy algoritmického myslenia a programovania v jazyku Java. Informatika 2 už prehlbuje tieto znalosti a objektovo orientované programovanie. Oba predmety sú dôležitým základom pre ďalšie IT štúdium.",
-                    "choices": [
-                        {
-                            "text": "Ako vyzerajú praktické úlohy v týchto predmetoch?",
-                            "next": 3,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "text": "Môj výskum sa zameriava na aplikáciu hlbokého učenia pri analýze histopatologických snímok. Vyvíjame algoritmy, ktoré pomáhajú patológom pri diagnostike - automatizujú náročné vyhľadávanie abnormalít v tkanivových vzorkách.",
-                    "choices": [
-                        {
-                            "text": "Ako sa študenti môžu zapojiť do tohto výskumu?",
-                            "next": 4,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 3,
-                    "text": "Študenti riešia postupne náročnejšie programovacie úlohy - od jednoduchých algoritmov po komplexnejšie projekty. Napríklad v Informatike 2 vytvárajú vlastné aplikácie s grafickým rozhraním, ktoré pracujú s reálnymi dátami.",
-                    "choices": [
-                        {
-                            "text": "Späť na výučbu",
-                            "next": 1,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 4,
-                    "text": "Študenti sa môžu zapojiť prostredníctvom záverečných prác alebo výskumných stáží. Najčastejšie pracujú na čiastkových úlohách ako je predspracovanie obrazových dát alebo optimalizácia neurónových sietí pre konkrétne typy snímok.",
-                    "choices": [
-                        {
-                            "text": "Aké zručnosti by mali mať záujemcovia?",
-                            "next": 5,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 5,
-                    "text": "Ideálne je mať základy programovania v Jave a záujem o strojové učenie. Ale najdôležitejšie je nadšenie pre výskum a ochotu učiť sa nové veci - zvyšok sa dá doplniť počas práce.",
-                    "choices": [
-                        {
-                            "text": "Ďakujem za informácie!",
-                            "next": null,
-                            "quest": -1
-                        },
-                        {
-                            "text": "Späť na úvod",
-                            "next": 0,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 6,
-                    "text": "Áno som rada že si prišiel. Jeden môj študent začal robiť semestrálnu prácu a dnes ráno mi spominál že má akýsi bug v kóde. Vedel by si sa mu na to prosím pozrieť? Ja mám teraz trochu na pilno.",
-                    "choices": [
-                        {
-                            "text": "Samozrejme idem sa na to pozrieť",
-                            "next": null,
-                            "quest": 10
-                        }
-                    ]
-                }
-            ]
+          "Text": "",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [
+            {
+              "Key": "quest_10_frozen_program_Completed",
+              "Type": 0,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
         },
         {
-            "level": 2,
-            "dialogue": [
-                {
-                    "id": 0,
-                    "text": "Ďakujem krásne za pomoc, ušetril si mi nejakú tú prácu.",
-                    "choices": [
-                        {
-                            "text": "Nieje za čo, rád som pomohol",
-                            "next": 1,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 1,
-                    "text": "Predtým ešte ako odídeš, pán Tóth sa po tebe pýtal. Vedel by si sa prosím za ním zastaviť?",
-                    "choices": [
-                        {
-                            "text": "Okej, okej tak ja sa za ním zastavím kde by som ho vedel nájsť?",
-                            "next": 2,
-                            "quest": -1
-                        }
-                    ]
-                },
-                {
-                    "id": 2,
-                    "text": "Pán Tóth ma kabinet v miestnosti RA124 ale podľa jeho rozvrhu má voľno a aktuálne by mal byť v jedálni kde sa išiel naobedovať.",
-                    "choices": [
-                        {
-                            "text": "Okej pôjdem ho teda pohľadať, zatial dovidenia!",
-                            "next": null,
-                            "quest": 12
-                        }
-                    ]
-                }
-            ]
+          "Text": "",
+          "NextNodeId": "level0_first_greeting",
+          "Conditions": [],
+          "Effects": []
         }
-    ]
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level0_first_greeting",
+      "Text": "Dobrý deň, som Dominika Petríková. Na FRI vyučujem základy programovania a venujem sa výskumu v oblasti medicínskej informatiky.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Dobrý deň, pani Petríková. Rad vás poznávam.",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_greeting",
+      "Text": "Čo by si potreboval vedieť?",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Aké témy pokrývajú vaše predmety Informatika 1 a 2?",
+          "NextNodeId": "level1_node1",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Môžete mi povedať viac o svojom výskume v biomedicíne?",
+          "NextNodeId": "level1_node2",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "Idem od pani Gregorovej, ževraj potrebujete pomoc?",
+          "NextNodeId": "level1_quest_10_frozen_program_offer",
+          "Conditions": [
+            {
+              "Key": "quest_9_petrikova_Completed",
+              "Type": 0,
+              "IntValue": 0
+            },
+            {
+              "Key": "quest_10_frozen_program_Completed",
+              "Type": 4,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
+        },
+        {
+          "Text": "",
+          "NextNodeId": "level2_quest_12_toth_offer",
+          "Conditions": [
+            {
+              "Key": "quest_10_frozen_program_Completed",
+              "Type": 0,
+              "IntValue": 0
+            },
+            {
+              "Key": "quest_13_exam_generation_Completed",
+              "Type": 4,
+              "IntValue": 0
+            }
+          ],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": [
+        {
+          "Key": "entry_teachers_stefan_toth",
+          "Type": 0,
+          "Value": 0
+        }
+      ]
+    },
+    {
+      "Id": "level1_node1",
+      "Text": "V Informatike 1 sa sústreďujeme na základy algoritmického myslenia a programovania v jazyku Java. Informatika 2 už prehlbuje tieto znalosti a objektovo orientované programovanie. Oba predmety sú dôležitým základom pre ďalšie IT štúdium.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Ako vyzerajú praktické úlohy v týchto predmetoch?",
+          "NextNodeId": "level1_node3",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node2",
+      "Text": "Môj výskum sa zameriava na aplikáciu hlbokého učenia pri analýze histopatologických snímok. Vyvíjame algoritmy, ktoré pomáhajú patológom pri diagnostike - automatizujú náročné vyhľadávanie abnormalít v tkanivových vzorkách.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Ako sa študenti môžu zapojiť do tohto výskumu?",
+          "NextNodeId": "level1_node4",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node3",
+      "Text": "Študenti riešia postupne náročnejšie programovacie úlohy - od jednoduchých algoritmov po komplexnejšie projekty. Napríklad v Informatike 2 vytvárajú vlastné aplikácie s grafickým rozhraním, ktoré pracujú s reálnymi dátami.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na výučbu)",
+          "NextNodeId": "level1_node1",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node4",
+      "Text": "Študenti sa môžu zapojiť prostredníctvom záverečných prác alebo výskumných stáží. Najčastejšie pracujú na čiastkových úlohách ako je predspracovanie obrazových dát alebo optimalizácia neurónových sietí pre konkrétne typy snímok.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Aké zručnosti by mali mať záujemcovia?",
+          "NextNodeId": "level1_node5",
+          "Conditions": [],
+          "Effects": []
+        },
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_node5",
+      "Text": "Ideálne je mať základy programovania v Jave a záujem o strojové učenie. Ale najdôležitejšie je nadšenie pre výskum a ochotu učiť sa nové veci - zvyšok sa dá doplniť počas práce.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "(Späť na úvod)",
+          "NextNodeId": "level1_greeting",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level1_quest_10_frozen_program_offer",
+      "Text": "Áno som rada že si prišiel. Jeden môj študent začal robiť semestrálnu prácu a dnes ráno mi spominál že má akýsi bug v kóde. Vedel by si sa mu na to prosím pozrieť? Ja mám teraz trochu na pilno.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Samozrejme idem sa na to pozrieť",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_10_frozen_program",
+              "Type": 3,
+              "Value": 0
+            },
+            {
+              "Key": "entry_programming_while_loop",
+              "Type": 0,
+              "Value": 0
+            }
+          ]
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level2_quest_12_toth_offer",
+      "Text": "Ďakujem krásne za pomoc, ušetril si mi nejakú tú prácu.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Nieje za čo, rád som pomohol",
+          "NextNodeId": "level2_node1",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "level2_node1",
+      "Text": "Predtým ešte ako odídeš, pán Toth sa po tebe pýtal. Vedel by si sa prosím za ním zastaviť?",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Okej, okej tak ja sa za ním zastavím kde by som ho vedel nájsť?",
+          "NextNodeId": "level2_node2",
+          "Conditions": [],
+          "Effects": []
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+        {
+      "Id": "level2_node2",
+      "Text": "Pán Toth ma kabinet v miestnosti RA124 ale podľa jeho rozvrhu má voľno a aktuálne by mal byť v jedálni kde sa išiel naobedovať.",
+      "Type": 0,
+      "Choices": [
+        {
+          "Text": "Okej pôjdem ho teda pohľadať, zatial dovidenia!",
+          "NextNodeId": "end",
+          "Conditions": [],
+          "Effects": [
+            {
+              "Key": "quest_12_toth",
+              "Type": 3,
+              "Value": 0
+            }
+          ]
+        }
+      ],
+      "Conditions": [],
+      "Effects": []
+    },
+    {
+      "Id": "end",
+      "Text": "",
+      "Type": 2,
+      "Choices": [],
+      "Conditions": [],
+      "Effects": []
+    }
+  ]
 }

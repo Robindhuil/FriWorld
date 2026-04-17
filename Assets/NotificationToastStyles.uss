@@ -1,0 +1,6 @@
+:root {
+}
+
+.labelColor {
+    color: rgb(255, 251, 251);
+}

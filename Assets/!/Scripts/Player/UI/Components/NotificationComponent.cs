@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [UxmlElement]
-
 public partial class NotificationComponent : VisualElement
 {
     private const string UxmlPath = "UI/NotificationComponentTree";
@@ -49,6 +48,15 @@ public partial class NotificationComponent : VisualElement
         if (notificationDescriptionLabel != null)
         {
             notificationDescriptionLabel.text = description;
+        }
+    }
+
+    public void SetTitleColor(UnityEngine.Color color)
+    {
+        if (notificationNameLabel != null)
+        {
+            notificationNameLabel.RemoveFromClassList("labelColor");
+            notificationNameLabel.style.color = color;
         }
     }
 
@@ -101,5 +109,4 @@ public partial class NotificationComponent : VisualElement
 
         onComplete?.Invoke();
     }
-
 }

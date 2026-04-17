@@ -57,7 +57,7 @@ public class QuestArea : MonoBehaviour
                 UIManager uiManager = FindFirstObjectByType<UIManager>();
                 if (uiManager != null && uiManager.playerUI != null)
                 {
-                    uiManager.playerUI.DisplayQuestUnlock(quest.questName);
+                    uiManager.playerUI.DisplayQuestUnlock(quest.QuestName);
                 }
             }
         }

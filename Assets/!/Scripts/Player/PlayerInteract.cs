@@ -51,14 +51,14 @@ public class PlayerInteract : MonoBehaviour
             if (hitInfo.collider.GetComponent<Interactable>() != null)
             {
                 Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                playerUI.UpdateText(interactable.promptMessage);
+                playerUI.UpdateText(interactable.PromptMessage);
 
                 if (((1 << hitInfo.collider.gameObject.layer) & interactableLayer) != 0)
                 {
                     AddOutlineToObject(hitInfo.collider.gameObject);
                 }
 
-                if (inputManager.onFoot.Interact.triggered)
+                if (inputManager.OnFoot.Interact.triggered)
                 {
                     interactable.BaseInteract();
                 }
@@ -66,7 +66,7 @@ public class PlayerInteract : MonoBehaviour
             else if (hitInfo.collider.GetComponent<Npc>() != null)
             {
                 Npc npc = hitInfo.collider.GetComponent<Npc>();
-                if (npc.canCommunicate)
+                if (npc.CanCommunicate)
                 {
                     playerUI.UpdateText(npc.NpcName);
 
@@ -75,7 +75,7 @@ public class PlayerInteract : MonoBehaviour
                         AddOutlineToObject(hitInfo.collider.gameObject);
                     }
 
-                    if (inputManager.onFoot.Interact.triggered)
+                    if (inputManager.OnFoot.Interact.triggered)
                     {
                         npc.StartDialogue();
                     }

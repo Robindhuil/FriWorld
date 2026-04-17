@@ -7,11 +7,12 @@ using UnityEngine;
 /// </summary>
 public class PathWay : MonoBehaviour
 {
-    public List<Transform> waypoints;
+    [SerializeField] private List<Transform> waypoints;
+    public List<Transform> Waypoints => waypoints;
     [SerializeField] private bool alwaysDrawPath;
     [SerializeField] private bool drawAsLoop;
     [SerializeField] private bool drawNumbers;
-    public Color debugColour = Color.white;
+    private Color debugColour = Color.white;
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
@@ -27,23 +28,23 @@ public class PathWay : MonoBehaviour
     /// </summary>
     public void DrawPath()
     {
-        for (int i = 0; i < waypoints.Count; i++)
+        for (int i = 0; i < Waypoints.Count; i++)
         {
             GUIStyle labelStyle = CreateLabelStyle();
 
             if (drawNumbers)
             {
-                Handles.Label(waypoints[i].position, i.ToString(), labelStyle);
+                Handles.Label(Waypoints[i].position, i.ToString(), labelStyle);
             }
 
             if (i >= 1)
             {
                 Gizmos.color = debugColour;
-                Gizmos.DrawLine(waypoints[i - 1].position, waypoints[i].position);
+                Gizmos.DrawLine(Waypoints[i - 1].position, Waypoints[i].position);
 
-                if (drawAsLoop && i == waypoints.Count - 1)
+                if (drawAsLoop && i == Waypoints.Count - 1)
                 {
-                    Gizmos.DrawLine(waypoints[i].position, waypoints[0].position);
+                    Gizmos.DrawLine(Waypoints[i].position, Waypoints[0].position);
                 }
             }
         }

@@ -18,31 +18,33 @@ public class PlayerUI : BaseUi
         playerUIDocument = uiDocument;
         coroutineRunner = runner;
         this.notificationUI = notificationUI;
-        
+
         // Ensure the GameObject is active so the visual tree is available
         if (!playerUIDocument.gameObject.activeSelf)
         {
             playerUIDocument.gameObject.SetActive(true);
         }
-        
+
         rootVisualElement = playerUIDocument.rootVisualElement;
 
         promptText = rootVisualElement.Q<Label>("PromptText");
         questName = rootVisualElement.Q<Label>("QuestName");
         questInfo = rootVisualElement.Q<Label>("QuestDescription");
-        
+
         if (questName == null || questInfo == null)
         {
-            Debug.LogError("[PlayerUI] Could not find QuestName or QuestDescription labels in the UXML.");
+            Debug.LogError(
+                "[PlayerUI] Could not find QuestName or QuestDescription labels in the UXML."
+            );
         }
-        
+
         questPanel = rootVisualElement.Q<VisualElement>("QuestPanel");
 
         if (questPanel != null)
         {
             questPanel.style.display = DisplayStyle.None;
         }
-        
+
         // Start visible by default
         rootVisualElement.style.display = DisplayStyle.Flex;
     }
@@ -72,7 +74,11 @@ public class PlayerUI : BaseUi
         HideQuestInfo();
         if (notificationUI != null)
         {
-            notificationUI.AddNotification("Úloha dokončená", questName);
+            notificationUI.AddNotification(
+                "Úloha dokončená",
+                questName,
+                ButtonColorScheme.Instance.GetBackgroundColor(ButtonColorScheme.ButtonType.Success)
+            );
         }
     }
 
@@ -84,11 +90,27 @@ public class PlayerUI : BaseUi
         }
     }
 
+    public void DisplayRoomArrival(string roomName)
+    {
+        if (notificationUI != null)
+        {
+            notificationUI.AddNotification(
+                "Cieľová destinácia",
+                roomName,
+                ButtonColorScheme.Instance.GetBackgroundColor(ButtonColorScheme.ButtonType.Secondary)
+            );
+        }
+    }
+
     public void DisplayCodexUnlock(string entryName)
     {
         if (notificationUI != null)
         {
-            notificationUI.AddNotification("Codex odomknutý", entryName);
+            notificationUI.AddNotification(
+                "Codex odomknutý",
+                entryName,
+                ButtonColorScheme.Instance.GetBackgroundColor(ButtonColorScheme.ButtonType.Faded)
+            );
         }
     }
 
@@ -96,7 +118,11 @@ public class PlayerUI : BaseUi
     {
         if (notificationUI != null)
         {
-            notificationUI.AddNotification("Nová úloha", questName);
+            notificationUI.AddNotification(
+                "Nová úloha",
+                questName,
+                ButtonColorScheme.Instance.GetBackgroundColor(ButtonColorScheme.ButtonType.Primary)
+            );
         }
     }
 
@@ -104,7 +130,11 @@ public class PlayerUI : BaseUi
     {
         if (notificationUI != null)
         {
-            notificationUI.AddNotification("Našiel si secret!", name);
+            notificationUI.AddNotification(
+                "Našiel si secret!",
+                name,
+                ButtonColorScheme.Instance.GetBackgroundColor(ButtonColorScheme.ButtonType.Danger)
+            );
         }
     }
 

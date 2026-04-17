@@ -78,13 +78,13 @@ public class TabUI : BaseUi
         if (ActiveButton != null)
         {
             var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-            ActiveButton.style.backgroundColor = primaryColorSet.backgroundColor;
-            ActiveButton.style.color = primaryColorSet.textColor;
+            ActiveButton.style.backgroundColor = primaryColorSet.BackgroundColor;
+            ActiveButton.style.color = primaryColorSet.TextColor;
         }
         ActiveButton = button;
         var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-        ActiveButton.style.backgroundColor = successColorSet.backgroundColor;
-        ActiveButton.style.color = successColorSet.textColor;
+        ActiveButton.style.backgroundColor = successColorSet.BackgroundColor;
+        ActiveButton.style.color = successColorSet.TextColor;
     }
 
     /// <summary>
@@ -95,14 +95,14 @@ public class TabUI : BaseUi
         if (button != ActiveButton)
         {
             var hoverColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-            button.style.backgroundColor = hoverColorSet.hoverBackgroundColor;
-            button.style.color = hoverColorSet.hoverTextColor;
+            button.style.backgroundColor = hoverColorSet.HoverBackgroundColor;
+            button.style.color = hoverColorSet.HoverTextColor;
         }
         else
         {
             var successHoverColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-            button.style.backgroundColor = successHoverColorSet.hoverBackgroundColor;
-            button.style.color = successHoverColorSet.hoverTextColor;
+            button.style.backgroundColor = successHoverColorSet.HoverBackgroundColor;
+            button.style.color = successHoverColorSet.HoverTextColor;
         }
     }
 
@@ -114,14 +114,14 @@ public class TabUI : BaseUi
         if (button != ActiveButton)
         {
             var primaryColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Primary);
-            button.style.backgroundColor = primaryColorSet.backgroundColor;
-            button.style.color = primaryColorSet.textColor;
+            button.style.backgroundColor = primaryColorSet.BackgroundColor;
+            button.style.color = primaryColorSet.TextColor;
         }
         else
         {
             var successColorSet = ButtonColorScheme.Instance.GetColorSet(ButtonColorScheme.ButtonType.Success);
-            button.style.backgroundColor = successColorSet.backgroundColor;
-            button.style.color = successColorSet.textColor;
+            button.style.backgroundColor = successColorSet.BackgroundColor;
+            button.style.color = successColorSet.TextColor;
         }
     }
 
@@ -139,13 +139,13 @@ public class TabUI : BaseUi
             {
                 if (button == ActiveButton)
                 {
-                    button.style.backgroundColor = successColorSet.backgroundColor;
-                    button.style.color = successColorSet.textColor;
+                    button.style.backgroundColor = successColorSet.BackgroundColor;
+                    button.style.color = successColorSet.TextColor;
                 }
                 else
                 {
-                    button.style.backgroundColor = primaryColorSet.backgroundColor;
-                    button.style.color = primaryColorSet.textColor;
+                    button.style.backgroundColor = primaryColorSet.BackgroundColor;
+                    button.style.color = primaryColorSet.TextColor;
                 }
             }
         }

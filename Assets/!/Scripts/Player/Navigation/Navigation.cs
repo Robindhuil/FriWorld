@@ -12,8 +12,20 @@ public class Navigation : MonoBehaviour
     public bool DrawQuestLine { get; set; }
     public bool DrawRoomLine { get; set; }
 
-    [SerializeField] private float lineHeightOffset = 0.4f;
-    [SerializeField] private float segmentLength = 0.1f;
+    [SerializeField]
+    private float lineHeightOffset = 0.4f;
+
+    [SerializeField]
+    private float segmentLength = 0.1f;
+
+    [SerializeField]
+    private NavMeshPathRenderMode pathRenderMode = NavMeshPathRenderMode.Default;
+
+    private const float CenteringProbeOffset = 0.35f;
+    private const float CenteringStartDistance = 0.8f;
+    private const float CenteringDeadZone = 0.04f;
+    private const float CenteringMaxLateralOffset = 0.35f;
+    private const float CenteringSmoothing = 8f;
 
     private void Start()
     {
@@ -44,9 +56,20 @@ public class Navigation : MonoBehaviour
             return;
         }
 
-        NavMeshHit startHit, endHit;
-        bool startOnNavMesh = NavMesh.SamplePosition(transform.position, out startHit, 2f, NavMesh.AllAreas);
-        bool endOnNavMesh = NavMesh.SamplePosition(destination.position, out endHit, 2f, NavMesh.AllAreas);
+        NavMeshHit startHit,
+            endHit;
+        bool startOnNavMesh = NavMesh.SamplePosition(
+            transform.position,
+            out startHit,
+            2f,
+            NavMesh.AllAreas
+        );
+        bool endOnNavMesh = NavMesh.SamplePosition(
+            destination.position,
+            out endHit,
+            2f,
+            NavMesh.AllAreas
+        );
 
         if (startOnNavMesh && endOnNavMesh)
         {
@@ -83,26 +106,56 @@ public class Navigation : MonoBehaviour
 
         float distanceCovered = 0f;
         int currentCorner = 0;
+        float smoothedBias = 0f;
+        float biasBlend = 1f - Mathf.Exp(-CenteringSmoothing * segmentLength);
 
         for (int i = 1; i <= segmentCount; i++)
         {
             distanceCovered += segmentLength;
 
-            while (currentCorner < path.corners.Length - 1 &&
-                   distanceCovered > Vector3.Distance(path.corners[currentCorner], path.corners[currentCorner + 1]))
+            while (
+                currentCorner < path.corners.Length - 1
+                && distanceCovered
+                    > Vector3.Distance(path.corners[currentCorner], path.corners[currentCorner + 1])
+            )
             {
-                distanceCovered -= Vector3.Distance(path.corners[currentCorner], path.corners[currentCorner + 1]);
+                distanceCovered -= Vector3.Distance(
+                    path.corners[currentCorner],
+                    path.corners[currentCorner + 1]
+                );
                 currentCorner++;
             }
 
             if (currentCorner >= path.corners.Length - 1)
             {
-                segmentPoints[i] = path.corners[path.corners.Length - 1] + Vector3.up * lineHeightOffset;
+                segmentPoints[i] =
+                    path.corners[path.corners.Length - 1] + Vector3.up * lineHeightOffset;
                 break;
             }
 
-            Vector3 direction = (path.corners[currentCorner + 1] - path.corners[currentCorner]).normalized;
+            Vector3 direction = (
+                path.corners[currentCorner + 1] - path.corners[currentCorner]
+            ).normalized;
             Vector3 segmentPos = path.corners[currentCorner] + direction * distanceCovered;
+
+            if (pathRenderMode == NavMeshPathRenderMode.Centered)
+            {
+                if (
+                    NavMeshCenteringUtility.TryCalculateNormalizedEdgeBias(
+                        segmentPos,
+                        direction,
+                        CenteringProbeOffset,
+                        CenteringStartDistance,
+                        CenteringDeadZone,
+                        out float targetBias,
+                        out Vector3 right
+                    )
+                )
+                {
+                    smoothedBias = Mathf.Lerp(smoothedBias, targetBias, biasBlend);
+                    segmentPos += right * (smoothedBias * CenteringMaxLateralOffset);
+                }
+            }
 
             NavMeshHit hit;
             if (NavMesh.SamplePosition(segmentPos, out hit, 2f, NavMesh.AllAreas))
@@ -112,15 +165,6 @@ public class Navigation : MonoBehaviour
             else
             {
                 segmentPoints[i] = segmentPos;
-            }
-
-            if (i >= 1)
-            {
-                float heightDifference = segmentPoints[i].y - segmentPoints[i - 1].y;
-                if (Mathf.Abs(heightDifference) > 0.05f)
-                {
-                    float slopeAngle = Mathf.Atan2(heightDifference, segmentLength) * Mathf.Rad2Deg;
-                }
             }
         }
 

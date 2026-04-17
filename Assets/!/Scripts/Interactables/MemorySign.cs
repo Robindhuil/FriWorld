@@ -1,23 +1,31 @@
+using System.IO;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.Video;
-using System.IO;
-using UnityEngine.Networking;
-using UnityEngine.Audio;
 
 public class MemorySign : Interactable
 {
     [Header("Video Settings")]
-    [SerializeField] private Canvas memorySignCanvas;
-    [SerializeField] private RenderTexture renderTextureTemplate;
-    [SerializeField] private string title;
-    [SerializeField] private string videoFileName;
-    [SerializeField] private AudioMixer globalMixer;
+    [SerializeField]
+    private Canvas memorySignCanvas;
+
+    [SerializeField]
+    private RenderTexture renderTextureTemplate;
+
+    [SerializeField]
+    private string title;
+
+    [SerializeField]
+    private string videoFileName;
+
+    [SerializeField]
+    private AudioMixer globalMixer;
 
     private RawImage memorySignImage;
     private VideoPlayer videoPlayer;
-    private AudioSource audioSource;
     private bool isVideoPlaying = false;
     private float previousMusicVolume;
 
@@ -61,17 +69,7 @@ public class MemorySign : Interactable
                 videoPlayer.playOnAwake = false;
                 videoPlayer.audioOutputMode = VideoAudioOutputMode.AudioSource;
 
-                audioSource = GetComponent<AudioSource>();
-                if (audioSource == null)
-                    audioSource = gameObject.AddComponent<AudioSource>();
-
-                audioSource.spatialBlend = 1.0f;
-                audioSource.dopplerLevel = 0f;
-                audioSource.rolloffMode = AudioRolloffMode.Linear;
-                audioSource.minDistance = 1f;
-                audioSource.maxDistance = 15f;
-                audioSource.loop = false;
-                audioSource.playOnAwake = false;
+                EnsureAudioSource();
 
                 videoPlayer.SetTargetAudioSource(0, audioSource);
 
@@ -89,7 +87,8 @@ public class MemorySign : Interactable
             return;
 
 #if UNITY_WEBGL
-        string url = Application.streamingAssetsPath + "/videos/" + UnityWebRequest.EscapeURL(videoFileName);
+        string url =
+            Application.streamingAssetsPath + "/videos/" + UnityWebRequest.EscapeURL(videoFileName);
         videoPlayer.source = VideoSource.Url;
         videoPlayer.url = url;
 #else
@@ -137,7 +136,7 @@ public class MemorySign : Interactable
 
         videoPlayer.Play();
         isVideoPlaying = true;
-        promptMessage = "Stop";
+        SetPromptMessage("Stop");
     }
 
     private void StopVideo()
@@ -148,7 +147,7 @@ public class MemorySign : Interactable
             memorySignImage.enabled = false;
 
         isVideoPlaying = false;
-        promptMessage = "Play";
+        SetPromptMessage("Play");
 
         globalMixer.SetFloat("MusicVolume", previousMusicVolume);
     }

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Npc : MonoBehaviour
 {
-    public StateMachine stateMachine;
+    [SerializeField] private StateMachine stateMachine;
     public NavMeshAgent Agent { get; set; }
     private PlayerUI playerUI;
     private DialogueUI dialogueUI;
@@ -14,21 +14,24 @@ public class Npc : MonoBehaviour
     public NodeDialogueManager QuestDialogueManager { get; private set; }
     public NodeDialogueManager CurrentDialogueManager { get; private set; }
 
-    public bool isInDialogue = false;
+    public bool IsInDialogue { get; private set; } = false;
 
     [Header("NPC Information")]
     [SerializeField] private string npcName;
     public string NpcName => npcName;
 
     [Header("NPC Movement")]
-    [SerializeField] public bool canMove = false;
-    [SerializeField] public bool randomMovement = false;
-
-    public PathWay path;
+    [SerializeField] private bool canMove = false;
+    public bool CanMove => canMove;
+    [SerializeField] private bool randomMovement = false;
+    public bool RandomMovement => randomMovement;
+    [SerializeField] private PathWay path;
+    public PathWay Path => path;
     public int nextWaypointIndex;
 
     [Header("NPC Communication")]
-    [SerializeField] public bool canCommunicate = false;
+    [SerializeField] private bool canCommunicate = false;
+    public bool CanCommunicate => canCommunicate;
     [SerializeField] private TextAsset dialogueFileQuest;
 
     [Header("Complete quest of this npc")]
@@ -53,14 +56,14 @@ public class Npc : MonoBehaviour
 
         QuestDialogueManager = new NodeDialogueManager();
 
-        if (canCommunicate)
+        if (CanCommunicate)
         {
             QuestDialogueManager.LoadDialogue(dialogueFileQuest, GameState.Instance);
         }
 
         CurrentDialogueManager = QuestDialogueManager;
 
-        if (canMove)
+        if (CanMove)
         {
             stateMachine.ChangeState(new WonderState());
         }
@@ -84,11 +87,11 @@ public class Npc : MonoBehaviour
 
     public void StartDialogue()
     {
-        if (!canCommunicate || isInDialogue)
+        if (!CanCommunicate || IsInDialogue)
             return;
 
         questComplete.CompleteQuest(player.PlayerManagment.journal);
-        isInDialogue = true;
+        IsInDialogue = true;
         StopAgent();
         FacePlayer();
         stateMachine.ChangeState(new DialogueState());
@@ -164,10 +167,10 @@ public class Npc : MonoBehaviour
 
     public void StopDialogue()
     {
-        if (!isInDialogue)
+        if (!IsInDialogue)
             return;
 
-        isInDialogue = false;
+        IsInDialogue = false;
         Agent.updateRotation = true;
         playerUI?.OpenWindow();
 
@@ -198,7 +201,7 @@ public class Npc : MonoBehaviour
 
     void Update()
     {
-        if (isInDialogue)
+        if (IsInDialogue)
         {
             FacePlayer();
         }
@@ -291,10 +294,10 @@ public class Npc : MonoBehaviour
 
     private void ResumeStateAfterDialogue()
     {
-        if (canMove)
+        if (CanMove)
         {
             Agent.isStopped = false;
-            stateMachine.ChangeState(new WonderState { waypointIndex = nextWaypointIndex });
+            stateMachine.ChangeState(new WonderState { WaypointIndex = nextWaypointIndex });
         }
         else
         {

@@ -1,11 +1,25 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WonderState : BaseState
 {
-    public int waypointIndex;
-    public float waitTimer;
+    public int WaypointIndex { get; set; }
+
+    [SerializeField]
+    private float waitTimer;
+
     private System.Random random;
     private bool useRandomMovement;
+
+    private const float EdgeBiasStartDistance = 0.8f;
+    private const float EdgeBiasProbeOffset = 0.35f;
+    private const float EdgeBiasMaxLateralSpeed = 0.65f;
+    private const float EdgeBiasSmoothing = 6f;
+    private const float EdgeBiasDeadZone = 0.04f;
+    private const float EdgeBiasMinVelocity = 0.05f;
+
+    private float smoothedLateralBias;
+    private Vector3 lastMoveForward = Vector3.forward;
 
     public WonderState()
     {
@@ -15,55 +29,108 @@ public class WonderState : BaseState
 
     public override void Enter()
     {
-        useRandomMovement = npc.randomMovement;
+        useRandomMovement = Npc.RandomMovement;
 
-        if (npc.canMove)
+        // Better local steering quality helps reduce wall-hugging.
+        Npc.Agent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+
+        if (Npc.CanMove)
         {
-            npc.Agent.SetDestination(npc.path.waypoints[waypointIndex].position);
-            npc.Animator.SetBool("IsWalking", true);
+            Npc.Agent.SetDestination(Npc.Path.Waypoints[WaypointIndex].position);
+            Npc.Animator.SetBool("IsWalking", true);
         }
     }
 
     public override void Perform()
     {
-        if (!npc.isInDialogue && npc.canMove)
+        if (!Npc.IsInDialogue && Npc.CanMove)
         {
             WonderCycle();
+            ApplyEdgeCenteringBias();
 
-            float velocityMagnitude = npc.Agent.velocity.magnitude;
+            float velocityMagnitude = Npc.Agent.velocity.magnitude;
 
-            npc.Animator.SetBool("IsWalking", velocityMagnitude > 0.1f);
+            Npc.Animator.SetBool("IsWalking", velocityMagnitude > 0.1f);
         }
     }
 
     public override void Exit()
     {
-        npc.nextWaypointIndex = waypointIndex;
-        npc.Animator.SetBool("IsWalking", false);
+        Npc.nextWaypointIndex = WaypointIndex;
+        Npc.Animator.SetBool("IsWalking", false);
     }
 
     public void WonderCycle()
     {
-        if (npc.Agent.remainingDistance < npc.Agent.stoppingDistance + 5f)
+        if (Npc.Agent.remainingDistance < Npc.Agent.stoppingDistance + 5f)
         {
             waitTimer += Time.deltaTime;
             if (waitTimer > 3)
             {
                 if (useRandomMovement)
                 {
-                    waypointIndex = random.Next(0, npc.path.waypoints.Count);
+                    WaypointIndex = random.Next(0, Npc.Path.Waypoints.Count);
                 }
                 else
                 {
-                    if (waypointIndex < npc.path.waypoints.Count - 1)
-                        waypointIndex++;
+                    if (WaypointIndex < Npc.Path.Waypoints.Count - 1)
+                        WaypointIndex++;
                     else
-                        waypointIndex = 0;
+                        WaypointIndex = 0;
                 }
 
-                npc.Agent.SetDestination(npc.path.waypoints[waypointIndex].position);
+                Npc.Agent.SetDestination(Npc.Path.Waypoints[WaypointIndex].position);
                 waitTimer = 0f;
             }
         }
+    }
+
+    private void ApplyEdgeCenteringBias()
+    {
+        if (Npc.Agent == null || !Npc.Agent.hasPath || Npc.Agent.pathPending)
+        {
+            return;
+        }
+
+        if (Npc.Agent.velocity.sqrMagnitude < EdgeBiasMinVelocity * EdgeBiasMinVelocity)
+        {
+            return;
+        }
+
+        Vector3 position = Npc.transform.position;
+
+        Vector3 forward = Npc.Agent.desiredVelocity;
+        forward.y = 0f;
+        if (forward.sqrMagnitude > 0.0001f)
+        {
+            forward.Normalize();
+            lastMoveForward = forward;
+        }
+        else
+        {
+            forward = lastMoveForward;
+        }
+
+        if (
+            !NavMeshCenteringUtility.TryCalculateNormalizedEdgeBias(
+                position,
+                forward,
+                EdgeBiasProbeOffset,
+                EdgeBiasStartDistance,
+                EdgeBiasDeadZone,
+                out float targetBias,
+                out Vector3 right
+            )
+        )
+        {
+            return;
+        }
+
+        float blendT = 1f - Mathf.Exp(-EdgeBiasSmoothing * Time.deltaTime);
+        smoothedLateralBias = Mathf.Lerp(smoothedLateralBias, targetBias, blendT);
+
+        Vector3 lateralMove =
+            right * (smoothedLateralBias * EdgeBiasMaxLateralSpeed * Time.deltaTime);
+        Npc.Agent.Move(lateralMove);
     }
 }

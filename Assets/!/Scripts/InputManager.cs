@@ -3,9 +3,9 @@ using UnityEngine.InputSystem;
 public class InputManager : MonoBehaviour
 {
     private PlayerInput playerInput;
-    public PlayerInput.OnFootActions onFoot;
-    public PlayerInput.DialogueUiActions dialogueUI;
-    public PlayerInput.InUIActions inUI;
+    public PlayerInput.OnFootActions OnFoot { get; private set; }
+    public PlayerInput.DialogueUiActions DialogueUI { get; private set; }
+    public PlayerInput.InUIActions InUI { get; private set; }
         
     private PlayerMotor motor;
     private PlayerLook look;
@@ -17,16 +17,16 @@ public class InputManager : MonoBehaviour
         // Load saved binding overrides IMMEDIATELY after instantiation
         LoadBindingOverrides();
         
-        onFoot = playerInput.OnFoot;
-        dialogueUI = playerInput.DialogueUi;
-        inUI = playerInput.InUI;
+        OnFoot = playerInput.OnFoot;
+        DialogueUI = playerInput.DialogueUi;
+        InUI = playerInput.InUI;
         motor = GetComponent<PlayerMotor>();
         look = GetComponent<PlayerLook>();
-        onFoot.Jump.performed += ctx => motor.Jump();
+        OnFoot.Jump.performed += ctx => motor.Jump();
 
-        onFoot.Crouch.performed += ctx => motor.ToggleCrouch();
-        onFoot.Sprint.started += ctx => motor.StartSprint();
-        onFoot.Sprint.canceled += ctx => motor.StopSprint();
+        OnFoot.Crouch.performed += ctx => motor.ToggleCrouch();
+        OnFoot.Sprint.started += ctx => motor.StartSprint();
+        OnFoot.Sprint.canceled += ctx => motor.StopSprint();
     }
     
     /// <summary>
@@ -62,32 +62,32 @@ public class InputManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+        motor.ProcessMove(OnFoot.Movement.ReadValue<Vector2>());
     }
 
     private void LateUpdate()
     {
-        look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+        look.ProcessLook(OnFoot.Look.ReadValue<Vector2>());
     }
 
     public void SwitchToOnFootActions()
     {
-        dialogueUI.Disable();
-        inUI.Disable();
-        onFoot.Enable();
+        DialogueUI.Disable();
+        InUI.Disable();
+        OnFoot.Enable();
     }
 
     public void SwitchToDialogueUIActions()
     {
-        onFoot.Disable();
-        inUI.Disable();
-        dialogueUI.Enable();
+        OnFoot.Disable();
+        InUI.Disable();
+        DialogueUI.Enable();
     }
 
     public void SwitchToInUIActions()
     {
-        onFoot.Disable();
-        dialogueUI.Disable();
-        inUI.Enable();
+        OnFoot.Disable();
+        DialogueUI.Disable();
+        InUI.Enable();
     }
 }

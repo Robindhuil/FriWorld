@@ -7,6 +7,7 @@ TagManager:
   - Room
   - Secret
   - npc
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - UI
   - Interactable
   - Obstacle
-  - 
-  - 
+  - NoObstacle
+  - Nav
   - 
   - 
   - 

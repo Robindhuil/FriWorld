@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: student_24Un
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9bb68925e4ddcad47a8e42e14431bcbc, type: 3}
+      propertyPath: m_TagString
+      value: npc
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 9bb68925e4ddcad47a8e42e14431bcbc, type: 3}
       propertyPath: m_Controller
       value: 
@@ -99,7 +103,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6817491563968004393}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -334000983
   m_Radius: 0.1
   m_Speed: 1.5
   m_Acceleration: 8
@@ -138,7 +142,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 3482688245915491501, guid: e54053811358f484cbddacb5a74807b9, type: 3}
-  isInDialogue: 0
   npcName: 
   canMove: 1
   randomMovement: 1
@@ -146,6 +149,4 @@ MonoBehaviour:
   nextWaypointIndex: 1
   canCommunicate: 0
   dialogueFileQuest: {fileID: 0}
-  dialogueFileCasual: {fileID: 0}
-  defaultDialogueMode: 0
-  questIds: 
+  questIds: []
