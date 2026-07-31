@@ -101,3 +101,28 @@ InitTestScene*.unity*
 
 # Large 3D static models
 /Assets/3Dmodels/static/
+
+# ---- Project cleanup (added 2026-07-31) ----
+
+# Profiler captures — can be hundreds of MB to GB each
+/[Pp]rofiler[Cc]aptures/
+
+# Manual settings/asset backups
+/_[Bb]ackup_*/
+
+# Root Data folder (tool/build output)
+/Data/
+
+# Unity crash / auto-recovery scenes
+/[Aa]ssets/_[Rr]ecovery/
+
+# Unity AI Assistant (Muse) generated project settings
+/ProjectSettings/Packages/com.unity.ai.assistant/
+
+# Baked lightmaps & reflection probes — regenerable, large; keep off git
+[Ll]ightmap-*.exr
+[Ll]ightmap-*.png
+[Ll]ightmap-*.hdr
+[Rr]eflection[Pp]robe-*.exr
+LightingData.asset
+LightingData.asset.meta
