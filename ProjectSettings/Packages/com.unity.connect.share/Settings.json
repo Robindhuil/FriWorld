@@ -19,7 +19,7 @@
             {
                 "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
                 "key": "buildOutputDirList",
-                "value": "{\"m_Value\":\"D:/unity_projects/FriWorldWeb 0.8.6;D:/unity_projects/FriWorldWeb 0.8.5;D:/unity_projects/FriWorldWeb 0.8.4;D:/unity_projects/FriWorld 0.1/FriWorld/WebGL Builds;;;;;;\"}"
+                "value": "{\"m_Value\":\"C:/Users/robob/Documents/ROBIN/unity/friworld/builds/web/build_6_dev;C:/Users/robob/Documents/ROBIN/unity/friworld/builds/web/build_5_dev;C:/Users/robob/Documents/ROBIN/unity/friworld/builds/web/build_4;C:/Users/robob/Documents/ROBIN/unity/friworld/builds/web/build_3;C:/Users/robob/Documents/ROBIN/unity/friworld/builds/web/build_2;C:/Users/robob/Documents/ROBIN/unity/friworld/builds/web;D:/unity_projects/FriWorldWeb 0.8.6;D:/unity_projects/FriWorldWeb 0.8.5;D:/unity_projects/FriWorldWeb 0.8.4;D:/unity_projects/FriWorld 0.1/FriWorld/WebGL Builds\"}"
             }
         ]
     }

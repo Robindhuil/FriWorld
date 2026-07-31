@@ -18,6 +18,8 @@ public static class GenerateColliders
         "roof",
         "sofa",
         "table",
+        "parapet",
+        "pillar",
         //exterior
         "curb",
         "pot_tree",
@@ -36,10 +38,6 @@ public static class GenerateColliders
         "thick_door",
         "foor",
         "door_slide",
-        "parapet",
-        "radiator",
-        "e_box",
-        "pillar",
         "vent",
         "box",
         "couch",
@@ -53,7 +51,6 @@ public static class GenerateColliders
         "handicap_machine",
         //exterior
         "bycicle_shelter_rack",
-        "plant_pot",
         "ventilator_frame",
         "ventilator_floor",
         "ventilator_ladder",
@@ -84,9 +81,12 @@ public static class GenerateColliders
         "radiator_pipe",
         "drain",
         "support",
+        "radiator",
+        "e_box",
         //exterior
         "bush",
         "shrub",
+        "plant_pot",
         "tree_top",
     };
 

@@ -12,6 +12,30 @@ public static class GenerateLayersAndStatic
     // Priority: Interactable > NoObstacle > Obstacle > Nav > default no static change to layers.
     private static readonly string[] InteractableKeywords = { "door", "door_slide" };
 
+    // Names that should be Occluder Static (big solid surfaces that actually block sight).
+    // Everything else that is static gets Occludee only — small props make poor occluders
+    // and only bloat / slow the occlusion bake.
+    private static readonly string[] OccluderKeywords =
+    {
+        "wall",
+        "outer_wall",
+        "ceiling",
+        "roof",
+        "nav",
+    };
+
+    private static readonly StaticEditorFlags AllStaticFlags =
+        StaticEditorFlags.ContributeGI
+        | StaticEditorFlags.OccluderStatic
+        | StaticEditorFlags.OccludeeStatic
+        | StaticEditorFlags.BatchingStatic
+        | StaticEditorFlags.NavigationStatic
+        | StaticEditorFlags.OffMeshLinkGeneration
+        | StaticEditorFlags.ReflectionProbeStatic;
+
+    private static readonly StaticEditorFlags OccludeeOnlyFlags =
+        AllStaticFlags & ~StaticEditorFlags.OccluderStatic;
+
     private static readonly string[] ObstacleKeywords =
     {
         //interior
@@ -287,9 +311,20 @@ public static class GenerateLayersAndStatic
                     }
                 }
 
+                // Static flags: Occluder only on big solid surfaces (wall/outer_wall/ceiling/
+                // roof/nav); every other static object gets Occludee but NOT Occluder.
+                // Non-static objects get no static flags.
+                StaticEditorFlags desiredFlags = (StaticEditorFlags)0;
+                if (targetStatic)
+                {
+                    desiredFlags = IsOccluderName(go.name) ? AllStaticFlags : OccludeeOnlyFlags;
+                }
+
+                StaticEditorFlags currentFlags = GameObjectUtility.GetStaticEditorFlags(go);
+
                 bool hasChange =
                     go.layer != targetLayer
-                    || go.isStatic != targetStatic
+                    || currentFlags != desiredFlags
                     || modifierAdded
                     || modifierConfigured
                     || requiresTagUpdate;
@@ -307,9 +342,9 @@ public static class GenerateLayersAndStatic
                     layerChanged++;
                 }
 
-                if (go.isStatic != targetStatic)
+                if (currentFlags != desiredFlags)
                 {
-                    go.isStatic = targetStatic;
+                    GameObjectUtility.SetStaticEditorFlags(go, desiredFlags);
                     staticChanged++;
                 }
 
@@ -788,6 +823,26 @@ public static class GenerateLayersAndStatic
                 "door_slide",
                 System.StringComparison.OrdinalIgnoreCase
             );
+    }
+
+    private static bool IsOccluderName(string objectName)
+    {
+        List<string> tokens = Tokenize(objectName);
+        if (tokens.Count == 0)
+        {
+            return false;
+        }
+
+        foreach (string keyword in OccluderKeywords)
+        {
+            List<string> keywordTokens = Tokenize(keyword);
+            if (keywordTokens.Count > 0 && ContainsTokenSequence(tokens, keywordTokens))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static bool IsTagDefined(string tag)
