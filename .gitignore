@@ -126,3 +126,8 @@ InitTestScene*.unity*
 [Rr]eflection[Pp]robe-*.exr
 LightingData.asset
 LightingData.asset.meta
+[Ll]ightmap-*.exr.meta
+[Ll]ightmap-*.png.meta
+[Ll]ightmap-*.hdr.meta
+[Rr]eflection[Pp]robe-*.exr.meta
+/[Aa]ssets/_[Rr]ecovery.meta
