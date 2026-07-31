@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf2edee5c58d82540a51f03df9d42094, type: 3}
-  m_Name: RP_Low
+  m_Name: RP_Web
   m_EditorClassIdentifier: 
   k_AssetVersion: 13
   k_AssetPreviousVersion: 13
@@ -25,8 +25,8 @@ MonoBehaviour:
   m_SupportsTerrainHoles: 1
   m_SupportsHDR: 0
   m_HDRColorBufferPrecision: 0
-  m_MSAA: 1
-  m_RenderScale: 0.7
+  m_MSAA: 2
+  m_RenderScale: 1
   m_UpscalingFilter: 0
   m_FsrOverrideSharpness: 0
   m_FsrSharpness: 0.92
@@ -66,7 +66,7 @@ MonoBehaviour:
   m_SoftShadowsSupported: 1
   m_ConservativeEnclosingSphere: 1
   m_NumIterationsEnclosingSphere: 64
-  m_SoftShadowQuality: 1
+  m_SoftShadowQuality: 2
   m_AdditionalLightsCookieResolution: 2048
   m_AdditionalLightsCookieFormat: 3
   m_UseSRPBatcher: 1
