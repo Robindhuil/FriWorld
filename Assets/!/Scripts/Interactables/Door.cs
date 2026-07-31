@@ -302,6 +302,12 @@ public class Door : Interactable
             return;
         }
 
+        // Idle door: already at target — skip the per-frame animator write (most doors, most frames).
+        if (currentDoorRotation == targetDoorRotation)
+        {
+            return;
+        }
+
         float totalRange = Mathf.Max(1f, Mathf.Abs(openRotationAmount));
         float maxStepPerSecond = totalRange / rotationTransitionDurationSeconds;
 

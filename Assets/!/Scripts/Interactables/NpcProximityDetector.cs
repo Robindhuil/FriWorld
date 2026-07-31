@@ -1,12 +1,19 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 /// <summary>
-/// Detects when NPCs enter a proximity zone around a target object and fires an event.
-/// Supports both physics-collider-based detection and NavMeshAgent polling (for agents without colliders).
-/// Plain C# class — instantiate manually, call <see cref="Tick"/> each frame, call <see cref="Dispose"/> on cleanup.
+/// Fires an event when an NPC enters a proximity zone around a target object (e.g. a door).
+///
+/// Detection is fully EVENT-DRIVEN: a trigger BoxCollider is built around the target and
+/// <see cref="HandleTriggerEnter"/> fires when an NPC collider enters it. The physics
+/// broadphase does the spatial work — zero per-frame cost on the door side.
+///
+/// Requirement: NPCs must have a Collider AND a (kinematic) Rigidbody. Without a Rigidbody
+/// Unity sends no trigger messages — which is the whole reason the old per-frame NavMeshAgent
+/// polling existed. That polling is gone now (it cost ~5ms + GC spread across 282 doors).
+///
+/// Plain C# class — instantiate manually, call <see cref="Dispose"/> on cleanup.
+/// <see cref="Tick"/> is now a no-op, kept so existing callers stay valid.
 /// </summary>
 public class NpcProximityDetector
 {
@@ -14,22 +21,16 @@ public class NpcProximityDetector
     public event Action<Vector3> OnNpcEntered;
 
     private readonly string npcTag;
-    private readonly bool detectNavMeshAgents;
-    private readonly float navMeshPadding;
     private readonly GameObject boundsSource;
 
     private BoxCollider npcTriggerCollider;
     private GameObject npcTriggerObject;
 
-    private readonly HashSet<int> previousNpcsInside = new HashSet<int>();
-    private readonly HashSet<int> currentNpcsInside = new HashSet<int>();
-    private NavMeshAgent[] npcAgentsCache = Array.Empty<NavMeshAgent>();
-    private float nextNpcCacheRefreshTime;
-
-    private const float NpcCacheRefreshInterval = 0.5f;
     private const float TriggerSizePadding = 0.1f;
     private const float TriggerHeight = 1f;
 
+    // detectNavMeshAgents / navMeshPadding are kept in the signature for call-site
+    // compatibility but are no longer used (detection is event-driven now).
     public NpcProximityDetector(
         GameObject boundsSource,
         string npcTag = "npc",
@@ -38,21 +39,14 @@ public class NpcProximityDetector
     {
         this.boundsSource = boundsSource;
         this.npcTag = npcTag;
-        this.detectNavMeshAgents = detectNavMeshAgents;
-        this.navMeshPadding = navMeshPadding;
 
         BuildTriggerCollider();
-        RefreshNpcAgentsCache();
     }
 
-    /// <summary>Call this every frame from the owning MonoBehaviour's Update.</summary>
-    public void Tick()
-    {
-        if (detectNavMeshAgents)
-            DetectNpcEntriesFromNavMeshAgents();
-    }
+    /// <summary>No-op. Detection is event-driven via the trigger (see <see cref="HandleTriggerEnter"/>).</summary>
+    public void Tick() { }
 
-    /// <summary>Call this from the owning MonoBehaviour's OnDestroy to clean up the trigger object.</summary>
+    /// <summary>Call from the owning MonoBehaviour's OnDestroy to clean up the trigger object.</summary>
     public void Dispose()
     {
         if (npcTriggerObject == null)
@@ -87,6 +81,8 @@ public class NpcProximityDetector
             Mathf.Max(0.01f, localBounds.size.z + TriggerSizePadding)
         );
 
+        // No Rigidbody here on purpose: the NPCs carry the (kinematic) Rigidbody, so this
+        // stays a cheap Static Trigger Collider.
         TriggerForwarder forwarder = npcTriggerObject.AddComponent<TriggerForwarder>();
         forwarder.OnTriggerEnterAction = HandleTriggerEnter;
     }
@@ -99,47 +95,6 @@ public class NpcProximityDetector
         OnNpcEntered?.Invoke(other.transform.position);
     }
 
-    private void DetectNpcEntriesFromNavMeshAgents()
-    {
-        if (!detectNavMeshAgents || npcTriggerCollider == null)
-            return;
-
-        if (Time.time >= nextNpcCacheRefreshTime)
-            RefreshNpcAgentsCache();
-
-        currentNpcsInside.Clear();
-
-        foreach (NavMeshAgent agent in npcAgentsCache)
-        {
-            if (agent == null || !IsNpcByTag(agent.transform))
-                continue;
-
-            if (!IsInsideTrigger(agent))
-                continue;
-
-            int id = agent.GetInstanceID();
-            currentNpcsInside.Add(id);
-
-            if (!previousNpcsInside.Contains(id))
-                OnNpcEntered?.Invoke(agent.transform.position);
-        }
-
-        previousNpcsInside.Clear();
-        previousNpcsInside.UnionWith(currentNpcsInside);
-    }
-
-    private bool IsInsideTrigger(NavMeshAgent agent)
-    {
-        Bounds bounds = npcTriggerCollider.bounds;
-        float padding = Mathf.Max(0f, agent.radius + navMeshPadding);
-        Vector3 p = agent.transform.position;
-
-        return p.x >= bounds.min.x - padding
-            && p.x <= bounds.max.x + padding
-            && p.z >= bounds.min.z - padding
-            && p.z <= bounds.max.z + padding;
-    }
-
     private bool IsNpcByTag(Transform t)
     {
         if (t.CompareTag(npcTag))
@@ -150,12 +105,6 @@ public class NpcProximityDetector
 
         Transform parent = t.parent;
         return parent != null && parent.CompareTag(npcTag);
-    }
-
-    private void RefreshNpcAgentsCache()
-    {
-        npcAgentsCache = UnityEngine.Object.FindObjectsByType<NavMeshAgent>(FindObjectsSortMode.None);
-        nextNpcCacheRefreshTime = Time.time + NpcCacheRefreshInterval;
     }
 
     private Bounds ComputeMeshBoundsInSpace(Transform targetSpace)
