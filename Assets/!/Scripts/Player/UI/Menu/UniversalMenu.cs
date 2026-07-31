@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
+using System.Collections;
 
 public enum MenuType
 {
@@ -27,6 +29,7 @@ public class UniversalMenu : MonoBehaviour
     [SerializeField] private VideoSettings videoSettings;
     [SerializeField] private GameSettings gameSettings;
     [SerializeField] private ControlsSettings controlsSettings;
+    [SerializeField] private Volume ppVolume;
     
     [Header("References (Optional)")]
     [SerializeField] private BackgroundMusic backgroundMusic;
@@ -75,7 +78,10 @@ public class UniversalMenu : MonoBehaviour
     {
         // Initialize settings UI
         InitializeSettingsUI();
-        
+
+        // Force the post-processing Volume to re-register (see coroutine comment below).
+        StartCoroutine(RefreshPostProcessingVolume());
+
         // MainMenu is always visible at start, Gameplay menu starts hidden
         if (menuType == MenuType.MainMenu)
         {
@@ -90,7 +96,27 @@ public class UniversalMenu : MonoBehaviour
             HideEntireMenu();
         }
     }
-    
+
+    /// <summary>
+    /// WORKAROUND for a URP 17.4 / Unity 6.4 bug: a Volume's override effects
+    /// (most visibly Color Adjustments) are NOT applied on scene load until the
+    /// Volume re-registers itself with the VolumeManager. Without this, the whole
+    /// post-processing grade stays off until you manually disable/enable the Volume
+    /// GameObject in the Inspector. Toggling the GameObject off and on forces
+    /// Volume.OnEnable to run again, which re-registers it and makes the grade show.
+    /// The one-frame gap gives the VolumeManager time to process the unregister
+    /// before we register again.
+    /// </summary>
+    private IEnumerator RefreshPostProcessingVolume()
+    {
+        if (ppVolume == null) yield break;
+
+        GameObject volumeObject = ppVolume.gameObject;
+        volumeObject.SetActive(false);
+        yield return null; // wait one frame
+        volumeObject.SetActive(true);
+    }
+
     private void InitializeUIElements()
     {
         if (menuDocument == null)
@@ -459,6 +485,7 @@ public class UniversalMenu : MonoBehaviour
         // Initialize Video Settings
         if (videoSettings != null && videoSettingsElements != null)
         {
+            videoSettings.SetPostProcessingVolume(ppVolume);
             videoSettings.CreateAllVideoSelectors(videoSettingsElements);
             Debug.Log("Video settings UI initialized");
         }

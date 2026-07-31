@@ -12,6 +12,7 @@ public class UniversalMenuEditor : Editor
     SerializedProperty videoSettingsProperty;
     SerializedProperty gameSettingsProperty;
     SerializedProperty controlsSettingsProperty;
+    SerializedProperty ppVolumeProperty;
     SerializedProperty backgroundMusicProperty;
     SerializedProperty buttonClickSoundProperty;
 
@@ -25,6 +26,7 @@ public class UniversalMenuEditor : Editor
         videoSettingsProperty = serializedObject.FindProperty("videoSettings");
         gameSettingsProperty = serializedObject.FindProperty("gameSettings");
         controlsSettingsProperty = serializedObject.FindProperty("controlsSettings");
+        ppVolumeProperty = serializedObject.FindProperty("ppVolume");
         backgroundMusicProperty = serializedObject.FindProperty("backgroundMusic");
         buttonClickSoundProperty = serializedObject.FindProperty("buttonClickSound");
     }
@@ -63,6 +65,18 @@ public class UniversalMenuEditor : Editor
         EditorGUILayout.PropertyField(videoSettingsProperty);
         EditorGUILayout.PropertyField(gameSettingsProperty);
         EditorGUILayout.PropertyField(controlsSettingsProperty);
+
+        EditorGUILayout.Space();
+
+        // PP Volume (shown for both menu types)
+        EditorGUILayout.LabelField("Post Processing", EditorStyles.boldLabel);
+        EditorGUILayout.PropertyField(ppVolumeProperty, new GUIContent("PP Volume"));
+        if (currentMenuType == MenuType.MainMenu)
+        {
+            EditorGUILayout.HelpBox(
+                "Main Menu: PP Volume je volitelny. Nastavenia sa ulozia do PlayerPrefs a aplikuju pri starte gameplay scene.",
+                MessageType.Info);
+        }
 
         EditorGUILayout.Space();
 

@@ -14,6 +14,13 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     private const string FULLSCREEN_MODE_KEY = "FullscreenMode";
     private const string VSYNC_KEY = "VSync";
     private const string QUALITY_LEVEL_KEY = "QualityLevel";
+    private const string BLOOM_KEY = "Bloom";
+    private const string DEPTH_OF_FIELD_KEY = "DepthOfField";
+    private const string MOTION_BLUR_KEY = "MotionBlur";
+    private const string GAMMA_KEY = "Gamma";
+    private const string GAIN_KEY = "Gain";
+    private const string CONTRAST_KEY = "Contrast";
+    private const string SATURATION_KEY = "Saturation";
     
     // Game Keys
     private const string MOUSE_SENSITIVITY_KEY = "MouseSensitivity";
@@ -35,6 +42,13 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     public static readonly int DEFAULT_FULLSCREEN_MODE = 0; // FullScreenWindow
     public static readonly int DEFAULT_VSYNC = 1; // On
     public static readonly int DEFAULT_QUALITY_LEVEL = 2; // Medium (typically)
+    public static readonly bool DEFAULT_BLOOM = true;
+    public static readonly bool DEFAULT_DEPTH_OF_FIELD = true;
+    public static readonly bool DEFAULT_MOTION_BLUR = false;
+    public static readonly float DEFAULT_GAMMA = 1f;
+    public static readonly float DEFAULT_GAIN = 1f;
+    public static readonly float DEFAULT_CONTRAST = -10f;   // URP units (range -100..100)
+    public static readonly float DEFAULT_SATURATION = 25f;  // URP units (range -100..100)
     
     // Game Defaults
     public static readonly float DEFAULT_MOUSE_SENSITIVITY = 800f; // DPI (400-1600 range)
@@ -54,6 +68,13 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     public int FullscreenMode { get; private set; }
     public int VSync { get; private set; }
     public int QualityLevel { get; private set; }
+    public bool Bloom { get; private set; }
+    public bool DepthOfField { get; private set; }
+    public bool MotionBlur { get; private set; }
+    public float Gamma { get; private set; }
+    public float Gain { get; private set; }
+    public float Contrast { get; private set; }
+    public float Saturation { get; private set; }
     #endregion
     
     #region Game Settings Properties
@@ -63,13 +84,28 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     #endregion
 
     #region Unity Lifecycle
+    private bool isInitialized = false;
+
     private void Awake()
     {
-        InitializePreferences();
+        EnsureInitialized();
     }
     #endregion
 
     #region Initialization
+    /// <summary>
+    /// Guarantees preferences are loaded exactly once, even if this component's
+    /// GameObject was inactive when Awake would have run (in which case Awake never
+    /// fires and the properties would otherwise stay at their C# default of 0).
+    /// Safe to call from other scripts before reading any preference.
+    /// </summary>
+    public void EnsureInitialized()
+    {
+        if (isInitialized) return;
+        isInitialized = true;
+        InitializePreferences();
+    }
+
     /// <summary>
     /// Initializes preferences - loads existing values or sets defaults on first run
     /// </summary>
@@ -112,13 +148,21 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         SaveMasterVolume(DEFAULT_MASTER_VOLUME);
         SaveSfxVolume(DEFAULT_SFX_VOLUME);
         SaveMusicVolume(DEFAULT_MUSIC_VOLUME);
-        SaveResolution(DEFAULT_RESOLUTION_WIDTH, DEFAULT_RESOLUTION_HEIGHT);
+        Resolution nativeRes = Screen.currentResolution;
+        SaveResolution(nativeRes.width, nativeRes.height);
         SaveFullscreenMode(DEFAULT_FULLSCREEN_MODE);
         SaveVSync(DEFAULT_VSYNC);
         SaveQualityLevel(DEFAULT_QUALITY_LEVEL);
         SaveMouseSensitivity(DEFAULT_MOUSE_SENSITIVITY);
         SaveInvertX(DEFAULT_INVERT_X);
         SaveInvertY(DEFAULT_INVERT_Y);
+        SaveBloom(DEFAULT_BLOOM);
+        SaveDepthOfField(DEFAULT_DEPTH_OF_FIELD);
+        SaveMotionBlur(DEFAULT_MOTION_BLUR);
+        SaveGamma(DEFAULT_GAMMA);
+        SaveGain(DEFAULT_GAIN);
+        SaveContrast(DEFAULT_CONTRAST);
+        SaveSaturation(DEFAULT_SATURATION);
     }
     #endregion
 
@@ -207,7 +251,42 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     {
         QualityLevel = PlayerPrefs.GetInt(QUALITY_LEVEL_KEY, DEFAULT_QUALITY_LEVEL);
     }
-    
+
+    public void LoadBloom()
+    {
+        Bloom = PlayerPrefs.GetInt(BLOOM_KEY, DEFAULT_BLOOM ? 1 : 0) == 1;
+    }
+
+    public void LoadDepthOfField()
+    {
+        DepthOfField = PlayerPrefs.GetInt(DEPTH_OF_FIELD_KEY, DEFAULT_DEPTH_OF_FIELD ? 1 : 0) == 1;
+    }
+
+    public void LoadMotionBlur()
+    {
+        MotionBlur = PlayerPrefs.GetInt(MOTION_BLUR_KEY, DEFAULT_MOTION_BLUR ? 1 : 0) == 1;
+    }
+
+    public void LoadGamma()
+    {
+        Gamma = PlayerPrefs.GetFloat(GAMMA_KEY, DEFAULT_GAMMA);
+    }
+
+    public void LoadGain()
+    {
+        Gain = PlayerPrefs.GetFloat(GAIN_KEY, DEFAULT_GAIN);
+    }
+
+    public void LoadContrast()
+    {
+        Contrast = PlayerPrefs.GetFloat(CONTRAST_KEY, DEFAULT_CONTRAST);
+    }
+
+    public void LoadSaturation()
+    {
+        Saturation = PlayerPrefs.GetFloat(SATURATION_KEY, DEFAULT_SATURATION);
+    }
+
     /// <summary>
     /// Loads the Mouse Sensitivity preference
     /// </summary>
@@ -313,7 +392,56 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         PlayerPrefs.SetInt(QUALITY_LEVEL_KEY, level);
         PlayerPrefs.Save();
     }
-    
+
+    public void SaveBloom(bool enabled)
+    {
+        Bloom = enabled;
+        PlayerPrefs.SetInt(BLOOM_KEY, enabled ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    public void SaveDepthOfField(bool enabled)
+    {
+        DepthOfField = enabled;
+        PlayerPrefs.SetInt(DEPTH_OF_FIELD_KEY, enabled ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    public void SaveMotionBlur(bool enabled)
+    {
+        MotionBlur = enabled;
+        PlayerPrefs.SetInt(MOTION_BLUR_KEY, enabled ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    public void SaveGamma(float value)
+    {
+        Gamma = Mathf.Clamp(value, 0f, 2f);
+        PlayerPrefs.SetFloat(GAMMA_KEY, Gamma);
+        PlayerPrefs.Save();
+    }
+
+    public void SaveGain(float value)
+    {
+        Gain = Mathf.Clamp(value, 0f, 2f);
+        PlayerPrefs.SetFloat(GAIN_KEY, Gain);
+        PlayerPrefs.Save();
+    }
+
+    public void SaveContrast(float value)
+    {
+        Contrast = Mathf.Clamp(value, -100f, 100f);
+        PlayerPrefs.SetFloat(CONTRAST_KEY, Contrast);
+        PlayerPrefs.Save();
+    }
+
+    public void SaveSaturation(float value)
+    {
+        Saturation = Mathf.Clamp(value, -100f, 100f);
+        PlayerPrefs.SetFloat(SATURATION_KEY, Saturation);
+        PlayerPrefs.Save();
+    }
+
     /// <summary>
     /// Saves the Mouse Sensitivity preference
     /// </summary>
@@ -388,7 +516,8 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     /// </summary>
     public void ResetResolution()
     {
-        SaveResolution(DEFAULT_RESOLUTION_WIDTH, DEFAULT_RESOLUTION_HEIGHT);
+        Resolution nativeRes = Screen.currentResolution;
+        SaveResolution(nativeRes.width, nativeRes.height);
     }
     
     /// <summary>
@@ -414,7 +543,42 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     {
         SaveQualityLevel(DEFAULT_QUALITY_LEVEL);
     }
-    
+
+    public void ResetBloom()
+    {
+        SaveBloom(DEFAULT_BLOOM);
+    }
+
+    public void ResetDepthOfField()
+    {
+        SaveDepthOfField(DEFAULT_DEPTH_OF_FIELD);
+    }
+
+    public void ResetMotionBlur()
+    {
+        SaveMotionBlur(DEFAULT_MOTION_BLUR);
+    }
+
+    public void ResetGamma()
+    {
+        SaveGamma(DEFAULT_GAMMA);
+    }
+
+    public void ResetGain()
+    {
+        SaveGain(DEFAULT_GAIN);
+    }
+
+    public void ResetContrast()
+    {
+        SaveContrast(DEFAULT_CONTRAST);
+    }
+
+    public void ResetSaturation()
+    {
+        SaveSaturation(DEFAULT_SATURATION);
+    }
+
     /// <summary>
     /// Resets all video settings to default values
     /// </summary>
@@ -424,6 +588,13 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         ResetFullscreenMode();
         ResetVSync();
         ResetQualityLevel();
+        ResetBloom();
+        ResetDepthOfField();
+        ResetMotionBlur();
+        ResetGamma();
+        ResetGain();
+        ResetContrast();
+        ResetSaturation();
     }
     
     /// <summary>
@@ -481,6 +652,13 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
         LoadFullscreenMode();
         LoadVSync();
         LoadQualityLevel();
+        LoadBloom();
+        LoadDepthOfField();
+        LoadMotionBlur();
+        LoadGamma();
+        LoadGain();
+        LoadContrast();
+        LoadSaturation();
     }
     
     /// <summary>

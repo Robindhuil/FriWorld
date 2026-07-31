@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,6 +9,8 @@ public class VideoSettings : MonoBehaviour
 {
     [Header("Player Preferences")]
     [SerializeField] private PlayerPreferenceSettingsManager prefsManager;
+
+    private Volume ppVolume;
 
     #region Resolution Data
     
@@ -68,6 +72,12 @@ public class VideoSettings : MonoBehaviour
         }
 
         currentResolution = Screen.currentResolution;
+
+        // Ensure the system's native resolution is always present in the list
+        bool nativePresent = availableResolutions.Any(r =>
+            r.width == currentResolution.width && r.height == currentResolution.height);
+        if (!nativePresent)
+            availableResolutions.Insert(0, currentResolution);
 
         Debug.Log($"VideoSettings: Found {availableResolutions.Count} available resolutions");
     }
@@ -323,6 +333,8 @@ public class VideoSettings : MonoBehaviour
             return;
         }
 
+        prefsManager.EnsureInitialized();
+
         // Apply saved resolution
         SetResolution(prefsManager.ResolutionWidth, prefsManager.ResolutionHeight, 
             (FullScreenMode)prefsManager.FullscreenMode);
@@ -335,7 +347,16 @@ public class VideoSettings : MonoBehaviour
         
         // Apply saved quality level
         SetQualityLevel(prefsManager.QualityLevel);
-        
+
+        // Apply saved post processing
+        SetBloom(prefsManager.Bloom);
+        SetDepthOfField(prefsManager.DepthOfField);
+        SetMotionBlur(prefsManager.MotionBlur);
+        SetGamma(prefsManager.Gamma);
+        SetGain(prefsManager.Gain);
+        SetContrast(prefsManager.Contrast);
+        SetSaturation(prefsManager.Saturation);
+
         Debug.Log("Applied saved video settings");
     }
 
@@ -407,12 +428,12 @@ public class VideoSettings : MonoBehaviour
         }
         if (savedIndex == -1) savedIndex = currentIndex;
 
-        // Find default resolution (1920x1080)
+        // Default is the system's native resolution
         int defaultIndex = 0;
         for (int i = 0; i < availableResolutions.Count; i++)
         {
-            if (availableResolutions[i].width == PlayerPreferenceSettingsManager.DEFAULT_RESOLUTION_WIDTH &&
-                availableResolutions[i].height == PlayerPreferenceSettingsManager.DEFAULT_RESOLUTION_HEIGHT)
+            if (availableResolutions[i].width == currentResolution.width &&
+                availableResolutions[i].height == currentResolution.height)
             {
                 defaultIndex = i;
                 break;
@@ -636,6 +657,328 @@ public class VideoSettings : MonoBehaviour
         CreateFullscreenSelector(container);
         CreateVSyncSelector(container);
         CreateQualitySelector(container);
+        CreateBloomSelector(container);
+        CreateDepthOfFieldSelector(container);
+        CreateMotionBlurSelector(container);
+        CreateGammaSlider(container);
+        CreateGainSlider(container);
+        CreateContrastSlider(container);
+        CreateSaturationSlider(container);
+    }
+
+    #endregion
+
+    #region Post Processing
+
+    public void SetPostProcessingVolume(Volume volume)
+    {
+        ppVolume = volume;
+        if (prefsManager == null) return;
+        prefsManager.EnsureInitialized();
+        SetBloom(prefsManager.Bloom);
+        SetDepthOfField(prefsManager.DepthOfField);
+        SetMotionBlur(prefsManager.MotionBlur);
+        SetGamma(prefsManager.Gamma);
+        SetGain(prefsManager.Gain);
+        SetContrast(prefsManager.Contrast);
+        SetSaturation(prefsManager.Saturation);
+    }
+
+    public void SetBloom(bool enabled)
+    {
+        if (ppVolume != null && ppVolume.profile.TryGet<Bloom>(out Bloom bloom))
+            bloom.active = enabled;
+    }
+
+    public void SetDepthOfField(bool enabled)
+    {
+        if (ppVolume != null && ppVolume.profile.TryGet<DepthOfField>(out DepthOfField dof))
+            dof.active = enabled;
+    }
+
+    public void SetMotionBlur(bool enabled)
+    {
+        if (ppVolume != null && ppVolume.profile.TryGet<MotionBlur>(out MotionBlur motionBlur))
+            motionBlur.active = enabled;
+    }
+
+    // userValue range [0,2]: 1 = neutral (W=0), maps to W = userValue - 1
+    public void SetGamma(float userValue)
+    {
+        if (ppVolume != null && ppVolume.profile.TryGet<LiftGammaGain>(out LiftGammaGain lgg))
+        {
+            var v = lgg.gamma.value;
+            v.w = userValue - 1f;
+            lgg.gamma.value = v;
+        }
+    }
+
+    public void SetGain(float userValue)
+    {
+        if (ppVolume != null && ppVolume.profile.TryGet<LiftGammaGain>(out LiftGammaGain lgg))
+        {
+            var v = lgg.gain.value;
+            v.w = userValue - 1f;
+            lgg.gain.value = v;
+        }
+    }
+
+    public void SetContrast(float urpValue)
+    {
+        if (ppVolume != null && ppVolume.profile.TryGet<ColorAdjustments>(out ColorAdjustments ca))
+            ca.contrast.value = urpValue;
+    }
+
+    public void SetSaturation(float urpValue)
+    {
+        if (ppVolume != null && ppVolume.profile.TryGet<ColorAdjustments>(out ColorAdjustments ca))
+            ca.saturation.value = urpValue;
+    }
+
+    public SelectionComponent CreateBloomSelector(VisualElement container)
+    {
+        if (prefsManager == null)
+        {
+            Debug.LogError("PlayerPreferenceSettingsManager is not assigned!");
+            return null;
+        }
+
+        var selectionComponent = new SelectionComponent();
+        selectionComponent.SetNameText("Bloom");
+
+        var options = new List<SelectionComponent.SelectionOption>
+        {
+            new SelectionComponent.SelectionOption { displayName = "On", value = "1", data = true },
+            new SelectionComponent.SelectionOption { displayName = "Off", value = "0", data = false }
+        };
+
+        int savedIndex = prefsManager.Bloom ? 0 : 1;
+        int defaultIndex = PlayerPreferenceSettingsManager.DEFAULT_BLOOM ? 0 : 1;
+
+        selectionComponent.Initialize(options, savedIndex, defaultIndex);
+        selectionComponent.SetTooltipText("Enable or disable bloom effect");
+
+        selectionComponent.OnSelectionChanged += (option) =>
+        {
+            bool enabled = option.value == "1";
+            SetBloom(enabled);
+            prefsManager.SaveBloom(enabled);
+        };
+
+        selectionComponent.OnResetToDefault += () =>
+        {
+            prefsManager.ResetBloom();
+            SetBloom(PlayerPreferenceSettingsManager.DEFAULT_BLOOM);
+        };
+
+        container.Add(selectionComponent);
+        return selectionComponent;
+    }
+
+    public SelectionComponent CreateDepthOfFieldSelector(VisualElement container)
+    {
+        if (prefsManager == null)
+        {
+            Debug.LogError("PlayerPreferenceSettingsManager is not assigned!");
+            return null;
+        }
+
+        var selectionComponent = new SelectionComponent();
+        selectionComponent.SetNameText("Depth of Field");
+
+        var options = new List<SelectionComponent.SelectionOption>
+        {
+            new SelectionComponent.SelectionOption { displayName = "On", value = "1", data = true },
+            new SelectionComponent.SelectionOption { displayName = "Off", value = "0", data = false }
+        };
+
+        int savedIndex = prefsManager.DepthOfField ? 0 : 1;
+        int defaultIndex = PlayerPreferenceSettingsManager.DEFAULT_DEPTH_OF_FIELD ? 0 : 1;
+
+        selectionComponent.Initialize(options, savedIndex, defaultIndex);
+        selectionComponent.SetTooltipText("Enable or disable depth of field effect");
+
+        selectionComponent.OnSelectionChanged += (option) =>
+        {
+            bool enabled = option.value == "1";
+            SetDepthOfField(enabled);
+            prefsManager.SaveDepthOfField(enabled);
+        };
+
+        selectionComponent.OnResetToDefault += () =>
+        {
+            prefsManager.ResetDepthOfField();
+            SetDepthOfField(PlayerPreferenceSettingsManager.DEFAULT_DEPTH_OF_FIELD);
+        };
+
+        container.Add(selectionComponent);
+        return selectionComponent;
+    }
+
+    public SelectionComponent CreateMotionBlurSelector(VisualElement container)
+    {
+        if (prefsManager == null)
+        {
+            Debug.LogError("PlayerPreferenceSettingsManager is not assigned!");
+            return null;
+        }
+
+        var selectionComponent = new SelectionComponent();
+        selectionComponent.SetNameText("Motion Blur");
+
+        var options = new List<SelectionComponent.SelectionOption>
+        {
+            new SelectionComponent.SelectionOption { displayName = "On", value = "1", data = true },
+            new SelectionComponent.SelectionOption { displayName = "Off", value = "0", data = false }
+        };
+
+        int savedIndex = prefsManager.MotionBlur ? 0 : 1;
+        int defaultIndex = PlayerPreferenceSettingsManager.DEFAULT_MOTION_BLUR ? 0 : 1;
+
+        selectionComponent.Initialize(options, savedIndex, defaultIndex);
+        selectionComponent.SetTooltipText("Enable or disable motion blur effect");
+
+        selectionComponent.OnSelectionChanged += (option) =>
+        {
+            bool enabled = option.value == "1";
+            SetMotionBlur(enabled);
+            prefsManager.SaveMotionBlur(enabled);
+        };
+
+        selectionComponent.OnResetToDefault += () =>
+        {
+            prefsManager.ResetMotionBlur();
+            SetMotionBlur(PlayerPreferenceSettingsManager.DEFAULT_MOTION_BLUR);
+        };
+
+        container.Add(selectionComponent);
+        return selectionComponent;
+    }
+
+    public SliderComponent CreateGammaSlider(VisualElement container)
+    {
+        if (prefsManager == null)
+        {
+            Debug.LogError("PlayerPreferenceSettingsManager is not assigned!");
+            return null;
+        }
+
+        var slider = new SliderComponent();
+        slider.Initialize("Gamma", 0f, 200f, PlayerPreferenceSettingsManager.DEFAULT_GAMMA * 100f, true);
+        slider.TooltipText = "Adjust midtone brightness (gamma)";
+        slider.SetValueWithoutNotify(prefsManager.Gamma * 100f);
+
+        slider.OnValueChanged += (val) =>
+        {
+            float userValue = val / 100f;
+            SetGamma(userValue);
+            prefsManager.SaveGamma(userValue);
+        };
+
+        slider.OnResetToDefault += () =>
+        {
+            prefsManager.ResetGamma();
+            SetGamma(PlayerPreferenceSettingsManager.DEFAULT_GAMMA);
+        };
+
+        container.Add(slider);
+        return slider;
+    }
+
+    public SliderComponent CreateGainSlider(VisualElement container)
+    {
+        if (prefsManager == null)
+        {
+            Debug.LogError("PlayerPreferenceSettingsManager is not assigned!");
+            return null;
+        }
+
+        var slider = new SliderComponent();
+        slider.Initialize("Brightness", 0f, 200f, PlayerPreferenceSettingsManager.DEFAULT_GAIN * 100f, true);
+        slider.TooltipText = "Adjust highlight brightness (gain)";
+        slider.SetValueWithoutNotify(prefsManager.Gain * 100f);
+
+        slider.OnValueChanged += (val) =>
+        {
+            float userValue = val / 100f;
+            SetGain(userValue);
+            prefsManager.SaveGain(userValue);
+        };
+
+        slider.OnResetToDefault += () =>
+        {
+            prefsManager.ResetGain();
+            SetGain(PlayerPreferenceSettingsManager.DEFAULT_GAIN);
+        };
+
+        container.Add(slider);
+        return slider;
+    }
+
+    public SliderComponent CreateContrastSlider(VisualElement container)
+    {
+        if (prefsManager == null)
+        {
+            Debug.LogError("PlayerPreferenceSettingsManager is not assigned!");
+            return null;
+        }
+
+        float defaultPct = (PlayerPreferenceSettingsManager.DEFAULT_CONTRAST + 100f) / 2f;
+
+        var slider = new SliderComponent();
+        slider.Initialize("Contrast", 0f, 100f, defaultPct, false);
+        slider.SetLevelFormat("{0:0.#}%");
+        slider.TooltipText = "Adjust image contrast";
+        slider.SetValueWithoutNotify((prefsManager.Contrast + 100f) / 2f);
+
+        slider.OnValueChanged += (val) =>
+        {
+            float urp = val * 2f - 100f;
+            SetContrast(urp);
+            prefsManager.SaveContrast(urp);
+        };
+
+        slider.OnResetToDefault += () =>
+        {
+            prefsManager.ResetContrast();
+            SetContrast(PlayerPreferenceSettingsManager.DEFAULT_CONTRAST);
+        };
+
+        container.Add(slider);
+        return slider;
+    }
+
+    public SliderComponent CreateSaturationSlider(VisualElement container)
+    {
+        if (prefsManager == null)
+        {
+            Debug.LogError("PlayerPreferenceSettingsManager is not assigned!");
+            return null;
+        }
+
+        float defaultPct = (PlayerPreferenceSettingsManager.DEFAULT_SATURATION + 100f) / 2f;
+
+        var slider = new SliderComponent();
+        slider.Initialize("Saturation", 0f, 100f, defaultPct, false);
+        slider.SetLevelFormat("{0:0.#}%");
+        slider.TooltipText = "Adjust color saturation";
+        slider.SetValueWithoutNotify((prefsManager.Saturation + 100f) / 2f);
+
+        slider.OnValueChanged += (val) =>
+        {
+            float urp = val * 2f - 100f;
+            SetSaturation(urp);
+            prefsManager.SaveSaturation(urp);
+        };
+
+        slider.OnResetToDefault += () =>
+        {
+            prefsManager.ResetSaturation();
+            SetSaturation(PlayerPreferenceSettingsManager.DEFAULT_SATURATION);
+        };
+
+        container.Add(slider);
+        return slider;
     }
 
     #endregion

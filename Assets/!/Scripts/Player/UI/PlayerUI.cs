@@ -6,6 +6,7 @@ public class PlayerUI : BaseUi
     private Label promptText;
     private Label questName;
     private Label questInfo;
+    private Label fpsLabel;
 
     private UIDocument playerUIDocument;
     private VisualElement rootVisualElement;
@@ -30,6 +31,7 @@ public class PlayerUI : BaseUi
         promptText = rootVisualElement.Q<Label>("PromptText");
         questName = rootVisualElement.Q<Label>("QuestName");
         questInfo = rootVisualElement.Q<Label>("QuestDescription");
+        fpsLabel = rootVisualElement.Q<Label>("FpsLabel");
 
         if (questName == null || questInfo == null)
         {
@@ -47,6 +49,12 @@ public class PlayerUI : BaseUi
 
         // Start visible by default
         rootVisualElement.style.display = DisplayStyle.Flex;
+    }
+
+    public void UpdateFps(int fps)
+    {
+        if (fpsLabel != null)
+            fpsLabel.text = fps.ToString();
     }
 
     public void UpdateText(string promptMessage)

@@ -461,8 +461,17 @@ public class UIManager : MonoBehaviour
 
     private const float RoomArrivalDistance = 2f;
 
+    // FPS label: refresh only a few times per second (averaged) instead of every frame.
+    // Setting the UIElements label text every frame dirtied the panel -> repaint + ~1KB/frame GC.
+    private const float FpsUpdateInterval = 0.5f;
+    private float fpsTimer;
+    private int fpsFrameCount;
+    private float fpsDeltaSum;
+
     private void Update()
     {
+        UpdateFpsCounter();
+
         if (navigationUI.TrackedRoom == null)
             return;
 
@@ -479,5 +488,23 @@ public class UIManager : MonoBehaviour
             navigationUI.UntrackRoom();
             playerUI.DisplayRoomArrival(arrivedRoomName);
         }
+    }
+
+    private void UpdateFpsCounter()
+    {
+        fpsFrameCount++;
+        fpsDeltaSum += Time.unscaledDeltaTime;
+        fpsTimer += Time.unscaledDeltaTime;
+        if (fpsTimer < FpsUpdateInterval)
+            return;
+
+        // Average over the interval -> stable reading, and the label text changes only
+        // ~2x/sec, so the UIElements panel repaints (and allocates) only then.
+        int fps = fpsDeltaSum > 0f ? Mathf.RoundToInt(fpsFrameCount / fpsDeltaSum) : 0;
+        playerUI.UpdateFps(fps);
+
+        fpsTimer = 0f;
+        fpsFrameCount = 0;
+        fpsDeltaSum = 0f;
     }
 }
