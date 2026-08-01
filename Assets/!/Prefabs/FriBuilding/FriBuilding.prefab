@@ -25,12 +25,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 188119373445916394}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.08974, y: 2.89768, z: 24.01665}
+  m_LocalRotation: {x: -0, y: 0.6859403, z: -0, w: 0.72765785}
+  m_LocalPosition: {x: -1.4005104, y: -4.03487, z: -29.302929}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8393889146431817832}
+  m_Father: {fileID: 4926807734975469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &923139685466684002
 MonoBehaviour:
@@ -64,6 +64,52 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: ea349764ae7666946997fd3de8b601b8, type: 2}
   m_BuildHeightMesh: 0
+--- !u!1 &2442102900023847783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4926807734975469}
+  - component: {fileID: 5851054914269659747}
+  m_Layer: 0
+  m_Name: Nav
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4926807734975469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2442102900023847783}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.6859403, z: -0, w: 0.72765785}
+  m_LocalPosition: {x: -20.079592, y: 6.9325504, z: 27.142769}
+  m_LocalScale: {x: 0.9999999, y: 1, z: 0.9999999}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8925018811586244845}
+  - {fileID: 4562783344367980147}
+  m_Father: {fileID: 8393889146431817832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5851054914269659747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2442102900023847783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62adac1d089c904a97bc2045bffbc0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NavMeshRebaker
 --- !u!1 &7194104023382418067
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,12 +135,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7194104023382418067}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.08974, y: 2.89768, z: 24.01665}
+  m_LocalRotation: {x: -0, y: 0.6859403, z: -0, w: 0.72765785}
+  m_LocalPosition: {x: -1.4005104, y: -4.03487, z: -29.302929}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8393889146431817832}
+  m_Father: {fileID: 4926807734975469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5907854355697198314
 MonoBehaviour:
@@ -160,8 +206,7 @@ Transform:
   - {fileID: 8881268983742673989}
   - {fileID: 3289548088753010248}
   - {fileID: 1317633524171818778}
-  - {fileID: 8925018811586244845}
-  - {fileID: 4562783344367980147}
+  - {fileID: 4926807734975469}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &520677325164250996
