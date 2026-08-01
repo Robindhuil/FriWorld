@@ -139,6 +139,18 @@ public class RoomDisplay : MonoBehaviour
         return $"\n{string.Join("\n", formatted)}";
     }
 
+    /// <summary>
+    /// Enable/disable this sign's canvas rendering. Data stays loaded (loaded once in Start),
+    /// this only toggles the Canvas so distant/unseen signs don't render. Used by RoomSignManager.
+    /// </summary>
+    public void SetVisible(bool on)
+    {
+        if (canvas == null)
+            canvas = GetComponentInChildren<Canvas>(true);
+        if (canvas != null && canvas.enabled != on)
+            canvas.enabled = on;
+    }
+
     private void OnValidate()
     {
         if (Application.isPlaying && RoomManager.Instance != null)
