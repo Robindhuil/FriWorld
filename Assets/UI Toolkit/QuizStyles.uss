@@ -4,7 +4,7 @@
 .closeButton {
     background-color: rgb(173, 0, 0);
     color: rgb(255, 255, 255);
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     font-size: 20px;
     width: 80px;
     border-top-width: 0;
@@ -48,7 +48,7 @@
     border-bottom-width: 0;
     border-left-width: 0;
     font-size: 45px;
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     background-color: rgba(0, 0, 0, 0);
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
@@ -101,7 +101,7 @@
 .startButton {
     flex-grow: 1;
     color: rgb(255, 255, 255);
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     -unity-text-align: middle-center;
     font-size: 60px;
     border-top-width: 0;

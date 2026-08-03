@@ -11,7 +11,7 @@ using TMPro;
 
 public static class RoomSignBaker
 {
-    const string FOLDER = "Assets/!/BakedSigns";
+    const string FOLDER = "Assets/_Game/BakedSigns";
     const int BAKE_LAYER = 31;      // temporary layer used only during the offscreen render
     const int TEX_HEIGHT = 384;     // portrait; width derived from the sign's aspect
     const string QUAD_NAME = "BakedSignQuad";

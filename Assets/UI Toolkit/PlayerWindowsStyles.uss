@@ -8,7 +8,7 @@
     margin-bottom: 5px;
     margin-left: 1px;
     font-size: 35px;
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -32,7 +32,7 @@
     justify-content: center;
     align-self: center;
     align-content: center;
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     flex-grow: 1;
     border-top-width: 0;
     border-right-width: 0;
@@ -42,7 +42,7 @@
 
 .roomListButton {
     font-size: 25px;
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     background-color: rgba(0, 0, 0, 0);
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
@@ -63,7 +63,7 @@
 
 .questListButton {
     font-size: 25px;
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     background-color: rgba(0, 0, 0, 0);
     color: rgb(255, 255, 255);
     -unity-font-style: bold;
@@ -84,7 +84,7 @@
 
 .codexButton {
     font-size: 25px;
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     background-color: rgba(0, 0, 0, 0);
     color: rgb(255, 255, 255);
     -unity-font-style: bold;

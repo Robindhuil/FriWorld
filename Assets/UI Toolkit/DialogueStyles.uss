@@ -4,7 +4,7 @@
 .optionButton {
     font-size: 35px;
     color: rgb(255, 255, 255);
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     background-color: rgba(0, 0, 0, 0);
     border-top-width: 0;
     border-right-width: 0;
@@ -42,7 +42,7 @@
     border-left-width: 0;
     border-top-left-radius: 20px;
     color: rgb(255, 255, 255);
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     font-size: 18px;
     -unity-font-style: bold;
 }

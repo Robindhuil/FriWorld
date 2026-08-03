@@ -6,7 +6,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     font-size: 75px;
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
@@ -34,7 +34,7 @@
     padding-bottom: 0;
     padding-left: 0;
     font-size: 40px;
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     background-color: rgb(251, 184, 0);
     color: rgb(0, 0, 0);
 }
@@ -52,7 +52,7 @@
     color: rgb(255, 255, 255);
     font-size: 20px;
     -unity-text-align: middle-center;
-    -unity-font-definition: url("project://database/Assets/!/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
+    -unity-font-definition: url("project://database/Assets/_Game/Prefabs/UI/Fonts/bedstead.otf?fileID=12800000&guid=5c670b434ca74524386dd732ddcb8661&type=3#bedstead");
     margin-top: 0;
     margin-right: 20px;
     margin-bottom: 0;
