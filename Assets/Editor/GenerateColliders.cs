@@ -22,11 +22,12 @@ public static class GenerateColliders
         "pillar",
         //exterior
         "curb",
-        "pot_tree",
+        "tree_pot",
         "rock",
         "tree_bot",
         "sun_block",
         "nav",
+        "barrier",
     };
 
     private static readonly string[] BoxColliderKeywords =
@@ -51,9 +52,8 @@ public static class GenerateColliders
         "handicap_machine",
         //exterior
         "bycicle_shelter_rack",
-        "ventilator_frame",
-        "ventilator_floor",
-        "ventilator_ladder",
+        "plant_tree_pot",
+        "ventilator",
         "billboard",
         "drainage",
         "preform",
@@ -82,6 +82,7 @@ public static class GenerateColliders
         "drain",
         "support",
         "radiator",
+        "radiator_pipe",
         "e_box",
         //exterior
         "bush",
