@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI%20Toolkit/DialogueStyles.uss?fileID=7433441132597879392&amp;guid=919e501be3808c044bd1a21c94d8d1a8&amp;type=3#DialogueStyles"/>
-    <Style src="project://database/Assets/UI%20Toolkit/ComponentsTweaks.uss?fileID=7433441132597879392&amp;guid=2d1de6111522b504e8623c33697fa89a&amp;type=3#ComponentsTweaks"/>
+    <Style src="project://database/Assets/_Game/UI/DialogueStyles.uss?fileID=7433441132597879392&amp;guid=919e501be3808c044bd1a21c94d8d1a8&amp;type=3#DialogueStyles"/>
+    <Style src="project://database/Assets/_Game/UI/ComponentsTweaks.uss?fileID=7433441132597879392&amp;guid=2d1de6111522b504e8623c33697fa89a&amp;type=3#ComponentsTweaks"/>
     <ui:VisualElement name="" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); margin-top: 600px; margin-right: 10px; margin-bottom: 10px; margin-left: 10px; border-top-left-radius: 20px; border-top-right-radius: 20px; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px;">
         <ui:VisualElement style="flex-grow: 0; flex-direction: row;">
             <ui:VisualElement name="VisualElement" style="flex-grow: 0; flex-shrink: 0; height: 50px; background-color: rgba(0, 0, 0, 0.63); width: 500px; border-top-left-radius: 0; border-top-right-radius: 20px; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
