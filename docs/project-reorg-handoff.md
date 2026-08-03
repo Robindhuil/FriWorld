@@ -1,106 +1,116 @@
 # FriWorld — reorganizácia projektu: HANDOFF (ako pokračovať)
 
-Stav k 2026‑08‑03. Reorg je **~z polovice hotový** (tá štrukturálne najdôležitejšia časť).
-Zvyšok viazne na pred‑existujúcom probléme (missing scripts).
+Stav k 2026‑08‑03 (2. session). Reorg je **takmer hotový** — zostávajú 2 ručné kroky.
 
 ---
 
-## 1. Čo je HOTOVÉ (a overené play modom — bez errorov)
+## 1. Čo je HOTOVÉ
 
+### Session 1 (commit `c9cf423`)
 - **Third‑party izolovaný** → `Assets/ThirdParty/` (QuickOutline, `Fantasy Skybox FREE`).
-- **`Assets/!` → `Assets/_Game`** (čitateľný názov pre vlastný obsah, ~742 súborov).
-- **Hardcoded cesty opravené** po premenovaní:
-  - 14× `.uss`/`.uxml` (URL `Assets/!/…` → `Assets/_Game/…`)
-  - `RoomSignBaker.cs` (`FOLDER = "Assets/_Game/BakedSigns"`)
-  - Overené: `grep -r 'Assets/!/'` = 0 zásahov.
-- Vytvorený prázdny `Assets/_Game/Art/` (pripravený na Models).
+- **`Assets/!` → `Assets/_Game`** (~742 súborov).
+- Opravené hardcoded cesty: 14× `.uss`/`.uxml`, `RoomSignBaker.cs`.
 
-**Referencie sú zachované** (guid‑based, `AssetDatabase.MoveAsset`).
+### Session 2
+- **Blocker vyriešený** (commit `c473606`) — viď sekcia 2.
+- **Presuny dokončené** (commit `7b2daa1`):
+  - `Assets/Settings` → `_Game/Settings`
+  - `Assets/Input` → `_Game/Input`
+  - `Assets/UI Toolkit` → `_Game/UI`
+  - `Assets/Scenes` → `_Game/Scenes`
+  - `Assets/Scripts` → zlúčené do `_Game/Scripts`
+  - `Assets/Editor` → zlúčené do `_Game/Editor`
+- **Follow‑up fixy:**
+  - 8× `.uxml` prepísané URL referencie (`Assets/UI%20Toolkit/` → `Assets/_Game/UI/`,
+    `Assets/Images/` → `Assets/_Game/Art/Images/`). Tieto sa resolvujú **cez cestu, nie guid**,
+    takže `MoveAsset` ich nechá visieť.
+  - **Build Settings** znovu napojené cez guid (`MoveAsset` ich neupdatne).
+  - Zmazané vyprázdnené `Assets/Scripts`, `Assets/Editor` a leftover `_Game/Scripts/Markdig`.
 
----
-
-## 2. Git stav — DÔLEŽITÉ
-
-- **Checkpoint commit pred reorgom:** `45dcca3` „chore: remaining working-tree changes (checkpoint before folder reorg)".
-- **Reorg presuny vyššie sú NEZACOMMITOVANÉ** (working tree zmeny nad checkpointom) — tak si to želal.
-- Revert možnosti:
-  - `git -C E:/UNITY/FriWorld checkout .` — zahodí reorg presuny (späť na checkpoint, teda `!` a bez ThirdParty)
-  - `git -C E:/UNITY/FriWorld reset --hard 45dcca3` — tvrdý návrat na checkpoint
-- **ODPORÚČANIE:** keďže reorg‑doteraz je overený (play mode ide), **commitni ho** ako nový checkpoint, nech sa nestratí:
-  ```bash
-  git -C E:/UNITY/FriWorld add -A
-  git -C E:/UNITY/FriWorld commit -m "refactor(structure): isolate ThirdParty, rename ! -> _Game, fix hardcoded paths"
-  ```
+**Overené:** 19 `uxml`/`uss` force‑reimport bez jediného warningu; 0 errorov v konzole;
+obe build scény sa načítajú z nových ciest.
 
 ---
 
-## 3. BLOCKER: missing scripts
+## 2. Vyriešený blocker: missing scripts
 
-Ďalšie presuny cez skript (MCP) padajú: **každý `AssetDatabase` presun spustí reimport → prefab s mŕtvym skriptom → modálny dialóg → MCP zlyhá** („user interactions not supported").
+**Príčina:** 13 osirených `MonoBehaviour` komponentov, ktorých skripty boli **zámerne zmazané**
+v commitoch `289ea6e` („old files clean up") a `6fdcdd1` („Files structuralization").
+Každý reimport kvôli nim otvoril modálny dialóg → MCP zlyhalo („user interactions not supported"),
+čo blokovalo reorg aj buildy aj ukladanie prefabov.
 
-Mŕtve komponenty (skripty už v projekte neexistujú — žiadny compile error, genuinely osirené) sú na:
-- `Menu` — v `MainMenu.prefab` / `MainMenu 1.prefab`
-- `InputHolder`, `MarkdownRenderer`, `JavaExec` — vo `FakeIntelliJ.prefab`
-
-Toto blokuje **reorg aj buildy aj ukladanie prefabov**.
-
----
-
-## 4. Ako pokračovať — 2 cesty
-
-### Cesta A (odporúčaná): najprv vyriešiť missing scripts, potom dokončiť reorg skriptom
-1. Nájsť presne, ktoré GameObjecty majú mŕtve komponenty (editor skript / `GameObjectUtility.RemoveMonoBehavioursWithMissingScript`).
-2. Odstrániť ich (alebo doplniť správne skripty, ak nejaké majú byť).
-3. Keď reimporty prestanú hádzať dialóg, **dokončiť presuny skriptom** (Settings, Input, UI, Scripts/Editor merge, Scenes) + **veľké binárne ručne** (viď nižšie).
-
-### Cesta B: zvyšné presuny ručne v Unity Project okne
-Drag‑drop priečinkov — Unity si reimport aj dialógy odbaví interaktívne, referencie zostanú.
-
----
-
-## 5. Zostáva presunúť (mapping do `_Game/`)
-
-| Presunúť | Kam | Pozn. / gotcha |
+| Prefab | Chýbajúci skript | Počet |
 |---|---|---|
-| `Assets/3Dmodels` (217 MB) | `_Game/Art/Models` | **VEĽKÉ** — presúvaj v **Project okne** (skript = 30 min reimport → timeout). Progress bar to zvládne. |
-| `Assets/Animations` | `_Game/Animations` | ok (guid) |
-| `Assets/Images` | `_Game/Art/Images` | ok |
-| `Assets/Settings` | `_Game/Settings` | RP/volume assety — referencie guid (Project Settings), OK |
-| `Assets/Input` | `_Game/Input` | ok |
-| `Assets/UI Toolkit` | `_Game/UI` | ⚠️ `.uss`/`.uxml` sa referencujú cez URL (path). Po presune spusti fix: `sed -i 's|Assets/UI Toolkit/|Assets/_Game/UI/|g'` na všetkých `.uss`/`.uxml`, čo ich referencujú. |
-| `Assets/Scenes` | `_Game/Scenes` | ⚠️ **po presune znovu pridaj scény do Build Settings** (Menu, Demo) — cesty sa zmenia, MoveAsset ich v build settings NEupdatne. |
-| `Assets/Scripts` (`BlobShadow.cs`, `Systems/`) | `_Game/Scripts` | zlúčiť (duplicitný top‑level Scripts) |
-| `Assets/Editor` (15 súborov) | `_Game/Editor` | zlúčiť (duplicitný top‑level Editor) |
+| `_Game/Prefabs/Minigames/Minigames 1 1.prefab` | `Scripts/Minigames/MiniGame.cs` | 7 |
+| `_Game/Prefabs/UI/Canvases/FakeIntelliJ.prefab` | `MarkdownRenderer.cs`, `CodeInput.cs`, `JavaCodeExecutor.cs` | 3 |
+| `_Game/Prefabs/UI/MainMenu/MainMenu.prefab` | `Scripts/Player/UI/MainMenu.cs` | 1 |
+| `_Game/Prefabs/UI/MainMenu/MainMenu 1.prefab` | `Scripts/Player/UI/MainMenu.cs` | 1 |
+| `_Game/Prefabs/Background.prefab` | `MarkdownInputHighlight.cs` | 1 |
 
-**NECHAŤ na mieste (Unity special / package):** `Assets/Resources`, `Assets/StreamingAssets`, `Assets/TextMesh Pro`, `Assets/Plugins`, `Assets/ThirdParty`, `Assets/_Game`.
+Odstránené cez `GameObjectUtility.RemoveMonoBehavioursWithMissingScript` nad
+`PrefabUtility.LoadPrefabContents` (izolovaná preview scéna → žiadny dialóg).
+Po znovunačítaní z disku: **0 zostávajúcich**.
 
 ---
 
-## 6. Cleanup po reorgu
-- Zmazať prázdny `Assets/_Game/Scripts/Markdig/` (0 assetov, leftover).
-- Ak zostane prázdny `Assets/_Game/Art/` (po ručnom presune Models tam), je OK.
-- `Assets/_Recovery/` (32 MB, recovery záloha) — mimo Assets (do zálohy mimo projektu).
+## 3. Zostáva dokončiť (2 ručné kroky)
+
+| Presunúť | Kam | Prečo ručne |
+|---|---|---|
+| `Assets/3Dmodels` (217 MB) | `_Game/Art/Models` | Skriptom = ~30 min reimport → MCP timeout. **Drag‑drop v Project okne**, progress bar to zvládne. |
+| `Assets/_Recovery` (32 MB) | mimo projektu | Recovery záloha, nepatrí do `Assets/`. Presunúť do zálohy mimo repa. |
+
+**NECHAŤ na mieste:** `Assets/Resources`, `Assets/StreamingAssets`, `Assets/TextMesh Pro`,
+`Assets/Plugins`, `Assets/ThirdParty`, `Assets/_Game`.
 
 ---
 
-## 7. Ostatné otvorené veci (mimo reorgu, z web‑optimalizácie)
-- 🔴 **`Demo.unity` chýbajúci prefab** (guid `74679ac96915e914c9b1171f94469f21`, inštancie `entryQuiz`/`pc_on`) = **build blocker**. Nájsť/obnoviť alebo odstrániť inštancie.
-- **DPR cap 1.5** — do WebGL template / Next.js wrappera (`matchWebGLToCanvasSize:false` + canvas backing = clientSize × min(dpr,1.5)).
-- **Code Optimization = Disk Size** + Brotli + Managed Stripping High pre menší/rýchlejší web build.
+## 4. Známy šum (neriešiť)
+
+- **`Assets/TextMesh Pro/Examples & Extras`** — ~260 missing‑script referencií na TMP example
+  skripty. Package examples, v builde nie sú, reorg sa ich nedotýka.
+- **`guid 0000000000000000e000000000000000`** — Unity built‑in resources guid, nie missing script.
+- **`_Game/Input/PlayerInput.cs`** — cesta `Assets/Input/` je len v generovanom komentári,
+  prepíše sa pri regenerácii Input Actions.
+
+---
+
+## 5. Ostatné otvorené veci (mimo reorgu)
+
+- 🔴 **`Demo.unity` chýbajúci prefab** (guid `74679ac96915e914c9b1171f94469f21`, inštancie
+  `entryQuiz`/`pc_on`) = **build blocker**. Iný problém než missing scripts — chýba prefab asset,
+  nie skript. Nájsť/obnoviť alebo odstrániť inštancie.
+- **DPR cap 1.5** — do WebGL template / Next.js wrappera
+  (`matchWebGLToCanvasSize:false` + canvas backing = clientSize × min(dpr,1.5)).
+- **Code Optimization = Disk Size** + Brotli + Managed Stripping High.
 - Detailný web‑optimalizačný report: `docs/web-optimization-2026-08-03.md`.
-- Nepoužité assety (kandidáti na zmazanie): `docs/unused-not-in-build.md` (544 súborov / 288 MB mimo build scén).
+- Nepoužité assety: `docs/unused-not-in-build.md` (544 súborov / 288 MB mimo build scén).
 
 ---
 
-## 8. Cieľová štruktúra (hybrid — pripomenutie)
+## 6. Git
+
+```
+7b2daa1  refactor(structure): move Settings, Input, UI, Scenes, Scripts, Editor into _Game
+c473606  fix(prefabs): remove 13 orphaned MonoBehaviours with missing scripts
+c9cf423  refactor(structure): isolate ThirdParty, rename ! -> _Game, fix hardcoded paths
+45dcca3  chore: remaining working-tree changes (checkpoint before folder reorg)
+```
+
+Working tree čistý. Revert ktoréhokoľvek kroku = `git revert <sha>`.
+
+---
+
+## 7. Cieľová štruktúra
 ```
 Assets/
-├── _Game/          ← všetok vlastný obsah (Art, Audio, Animations, Fonts, Prefabs,
-│                      Scenes, Scripts, Settings, UI, Input, BakedSigns, Editor)
+├── _Game/          ← všetok vlastný obsah (Art, Animations, BakedSigns, Editor, Input,
+│                      Prefabs, Scenes, Scripts, Settings, UI)
 ├── ThirdParty/     ← QuickOutline, Fantasy Skybox (+ čokoľvek externé)
 ├── TextMesh Pro/   ← Unity package (nechať)
 ├── Plugins/        ← native / .jslib
 ├── Resources/      ← load podľa mena (Rooms.json) — vnútro NEmeniť
 └── StreamingAssets/← special (nechať presne tu)
 ```
-Pravidlá: vlastný obsah len v `_Game/`, third‑party len v `ThirdParty/`, PascalCase bez medzier/diakritiky, Unity special priečinky (Resources/StreamingAssets/Editor/Plugins) majú pevné mená.
+Pravidlá: vlastný obsah len v `_Game/`, third‑party len v `ThirdParty/`, PascalCase bez medzier
+a diakritiky, Unity special priečinky (Resources/StreamingAssets/Editor/Plugins) majú pevné mená.
