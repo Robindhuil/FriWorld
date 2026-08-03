@@ -45,7 +45,7 @@ public class RuntimeOcclusionCuller : MonoBehaviour
         new Vector3(-1, -1,  1), new Vector3(-1, -1, -1),
     };
 
-    private class Group { public Renderer[] renderers; public bool visible = true; }
+    private class Group { public Renderer[] renderers; public bool visible = true; public bool boundsCached; public Bounds bounds; }
 
     private Camera cam;
     private readonly List<Group> groups = new List<Group>();
@@ -130,8 +130,17 @@ public class RuntimeOcclusionCuller : MonoBehaviour
 
     private bool ComputeVisible(Group g, Vector3 camPos)
     {
-        Bounds b = g.renderers[0].bounds;
-        for (int i = 1; i < g.renderers.Length; i++) b.Encapsulate(g.renderers[i].bounds);
+        // Rooms are static, so their combined bounds never change: compute once and reuse
+        // instead of iterating every renderer each tick. If a group's geometry ever moves,
+        // call CollectGroups() to rebuild (it recreates the groups with fresh bounds).
+        if (!g.boundsCached)
+        {
+            Bounds bb = g.renderers[0].bounds;
+            for (int i = 1; i < g.renderers.Length; i++) bb.Encapsulate(g.renderers[i].bounds);
+            g.bounds = bb;
+            g.boundsCached = true;
+        }
+        Bounds b = g.bounds;
 
         if (b.Contains(camPos)) return true;                       // inside -> visible
         if (!GeometryUtility.TestPlanesAABB(frustum, b)) return false; // off-screen

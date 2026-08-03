@@ -10,6 +10,7 @@ public class PlayerInteract : MonoBehaviour
     private InputManager inputManager;
 
     private Outline currentOutlinedObject;
+    private GameObject outlinedGO;               // which object the outline is currently on
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private Color highlightColor = Color.yellow;
     [SerializeField] private float outlineWidth = 5f;
@@ -25,67 +26,59 @@ public class PlayerInteract : MonoBehaviour
     {
         playerUI.UpdateText(string.Empty);
 
-        if (currentOutlinedObject != null)
+        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
+
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, distance, mask, QueryTriggerInteraction.Ignore)
+            && hitInfo.collider != null && !hitInfo.collider.isTrigger)
         {
-            if (currentOutlinedObject != null && currentOutlinedObject.gameObject != null)
+            Collider col = hitInfo.collider;
+
+            if (col.TryGetComponent(out Interactable interactable))
             {
-                try
-                {
-                    currentOutlinedObject.enabled = false;
-                }
-                catch (MissingReferenceException) { }
+                playerUI.UpdateText(interactable.PromptMessage);
+                UpdateOutline(col.gameObject);
+
+                if (inputManager.OnFoot.Interact.triggered)
+                    interactable.BaseInteract();
+                return;
             }
 
+            if (col.TryGetComponent(out Npc npc) && npc.CanCommunicate)
+            {
+                playerUI.UpdateText(npc.NpcName);
+                UpdateOutline(col.gameObject);
+
+                if (inputManager.OnFoot.Interact.triggered)
+                    npc.StartDialogue();
+                return;
+            }
+        }
+
+        // no hit / non-interactable -> make sure nothing stays highlighted
+        UpdateOutline(null);
+    }
+
+    /// <summary>
+    /// Applies/clears the outline only when the targeted object CHANGES.
+    /// Avoids the per-frame enable/disable + ForceUpdateMaterials churn (was the GC + CPU cost),
+    /// while the visible highlight stays identical.
+    /// </summary>
+    private void UpdateOutline(GameObject obj)
+    {
+        if (obj == outlinedGO) return; // same target as last frame -> nothing to do
+
+        // clear previous
+        if (currentOutlinedObject != null)
+        {
+            try { currentOutlinedObject.enabled = false; }
+            catch (MissingReferenceException) { }
             currentOutlinedObject = null;
         }
 
+        outlinedGO = obj;
+        if (obj == null) return;
+        if (((1 << obj.layer) & interactableLayer) == 0) return;
 
-        Ray ray = new Ray(cam.transform.position, cam.transform.forward);
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(ray, out hitInfo, distance, mask, QueryTriggerInteraction.Ignore))
-        {
-            if (hitInfo.collider == null || hitInfo.collider.isTrigger)
-                return;
-
-            if (hitInfo.collider.GetComponent<Interactable>() != null)
-            {
-                Interactable interactable = hitInfo.collider.GetComponent<Interactable>();
-                playerUI.UpdateText(interactable.PromptMessage);
-
-                if (((1 << hitInfo.collider.gameObject.layer) & interactableLayer) != 0)
-                {
-                    AddOutlineToObject(hitInfo.collider.gameObject);
-                }
-
-                if (inputManager.OnFoot.Interact.triggered)
-                {
-                    interactable.BaseInteract();
-                }
-            }
-            else if (hitInfo.collider.GetComponent<Npc>() != null)
-            {
-                Npc npc = hitInfo.collider.GetComponent<Npc>();
-                if (npc.CanCommunicate)
-                {
-                    playerUI.UpdateText(npc.NpcName);
-
-                    if (((1 << hitInfo.collider.gameObject.layer) & interactableLayer) != 0)
-                    {
-                        AddOutlineToObject(hitInfo.collider.gameObject);
-                    }
-
-                    if (inputManager.OnFoot.Interact.triggered)
-                    {
-                        npc.StartDialogue();
-                    }
-                }
-            }
-        }
-    }
-
-    private void AddOutlineToObject(GameObject obj)
-    {
         MeshFilter meshFilter = obj.GetComponent<MeshFilter>();
         if (meshFilter != null && meshFilter.sharedMesh != null && !meshFilter.sharedMesh.isReadable)
         {
@@ -93,19 +86,15 @@ public class PlayerInteract : MonoBehaviour
             return;
         }
 
-        Outline outline = obj.GetComponent<Outline>();
-        if (outline == null)
-        {
+        if (!obj.TryGetComponent(out Outline outline))
             outline = obj.AddComponent<Outline>();
-        }
 
         outline.OutlineMode = Outline.Mode.OutlineVisible;
         outline.OutlineColor = highlightColor;
         outline.OutlineWidth = outlineWidth;
-        outline.ForceUpdateMaterials();
+        outline.ForceUpdateMaterials();   // now runs once per target change, not every frame
         outline.enabled = true;
 
         currentOutlinedObject = outline;
     }
-
 }

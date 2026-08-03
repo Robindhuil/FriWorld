@@ -43,7 +43,12 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     public static readonly int DEFAULT_VSYNC = 1; // On
     public static readonly int DEFAULT_QUALITY_LEVEL = 2; // Medium (typically)
     public static readonly bool DEFAULT_BLOOM = true;
-    public static readonly bool DEFAULT_DEPTH_OF_FIELD = true;
+    public static readonly bool DEFAULT_DEPTH_OF_FIELD =
+#if UNITY_WEBGL
+        false;  // web: DoF off by default — sharper + skips the DoF passes (still user-toggleable)
+#else
+        true;
+#endif
     public static readonly bool DEFAULT_MOTION_BLUR = false;
     public static readonly float DEFAULT_GAMMA = 1f;
     public static readonly float DEFAULT_GAIN = 1f;
