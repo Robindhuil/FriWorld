@@ -17,9 +17,13 @@ public class PlayerLook : MonoBehaviour
     [SerializeField, Tooltip("Maximum downward look angle.")]
     private float maxLookDownAngle = -80f;
 
-    // DPI conversion factor: DPI / DPI_DIVISOR = normalized sensitivity
-    // Use a higher divisor to dampen sensitivity (e.g., 100 makes 800 DPI = 8 sensitivity)
-    private const float DPI_DIVISOR = 100f;
+    [SerializeField, Tooltip("Largest mouse delta accepted in a single frame, in pixels. Guards against the one-frame spike browsers can emit when pointer lock is (re)acquired.")]
+    private float maxFrameDelta = 300f;
+
+    // DPI conversion factor: DPI / DPI_DIVISOR = degrees of rotation per pixel of mouse movement.
+    // (e.g., 6000 makes 800 DPI = 0.1333 deg/px, which matches how the old
+    // Time.deltaTime-scaled code felt at 60 fps)
+    private const float DPI_DIVISOR = 6000f;
 
     private float xRotation = 0f;
     private bool invertX = false;
@@ -47,8 +51,15 @@ public class PlayerLook : MonoBehaviour
 
     public void ProcessLook(Vector2 input)
     {
-        float mouseX = input.x * xSensitivity * Time.deltaTime;
-        float mouseY = input.y * ySensitivity * Time.deltaTime;
+        // input comes from <Mouse>/delta, which is already the movement accumulated over this
+        // frame - not a rate. Scaling it by Time.deltaTime would make rotation grow with dt^2,
+        // so a single long frame turns into a camera snap. Steady vsync hides that in the editor;
+        // WebGL's uneven frame pacing does not.
+        if (input.sqrMagnitude > maxFrameDelta * maxFrameDelta)
+            input = input.normalized * maxFrameDelta;
+
+        float mouseX = input.x * xSensitivity;
+        float mouseY = input.y * ySensitivity;
 
         if (invertX)
             mouseX = -mouseX;
