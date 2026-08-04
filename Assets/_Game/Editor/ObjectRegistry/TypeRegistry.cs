@@ -8,11 +8,19 @@ namespace FriWorld.ObjectRegistry
     public class TypeEntry
     {
         public string name;
+
+        // Required. null here means "not decided yet" and the object is left untouched.
         public string collider;   // none | mesh | box | sphere
         public string layer;      // interactable | obstacle | noObstacle | nav | keep
         public string occluder;   // auto | yes | no
-        public string @static;    // optional override: yes | no
-        public string tag;        // optional override, e.g. "Door"
+
+        // Optional overrides. Omitted from the file entirely when unset, so that a null in this
+        // file always means "undecided" and never "derive it" — the two were indistinguishable
+        // when every entry carried "static": null.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string @static;    // yes | no; otherwise derived from layer
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string tag;        // e.g. "Door"; otherwise derived from layer
 
         /// <summary>
         /// False while any required field is still null. An undecided entry is reported and its

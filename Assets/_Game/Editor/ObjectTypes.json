@@ -4,753 +4,565 @@
       "name": "BakedSignQuad",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "no",
-      "static": null,
-      "tag": null
+      "occluder": "no"
     },
     {
       "name": "Cedulka",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "no",
-      "static": null,
-      "tag": null
+      "occluder": "no"
     },
     {
       "name": "barrier",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "big_window",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "big_window_<int>_glass",
       "collider": "mesh",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "billboard",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "block_wall",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "block_wall_foor",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "board_white",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "box",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "bush",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "calcetto",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "ceiling",
       "collider": "mesh",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "construction",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "counter",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "curb",
       "collider": "mesh",
       "layer": "nav",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "curb_big",
       "collider": "mesh",
       "layer": "nav",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "desk",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "door",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "door_<int>_l",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "door_<int>_r",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "door_frame",
       "collider": "mesh",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "door_frame_<int>_glass",
       "collider": "mesh",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "door_l",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "door_r",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "door_slide_<int>_l",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "door_slide_<int>_r",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "doorstep",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "drain",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "drainage",
       "collider": "box",
       "layer": "nav",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "e_box",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "e_box_cover",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "e_plug_cover",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "fence",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "fence_handle",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "foor",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "foor_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "foor_<int>_l",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "foor_<int>_r",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "gazebo_curb",
       "collider": "mesh",
       "layer": "nav",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "handicap_machine",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "hydrant",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "hydrant_box",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "lamp",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "lamp_sun",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "nav",
       "collider": "mesh",
       "layer": "nav",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "outer_wall",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "outside_e_box",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "outside_sign",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "parapet",
       "collider": "mesh",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "parapet_bar",
       "collider": "mesh",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "pillar",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "plant_tree_pot",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "poster",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "preform",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "rack",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "no",
-      "static": null,
-      "tag": null
+      "occluder": "no"
     },
     {
       "name": "radiator",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "radiator_pipe",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "ramp_base",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "ramp_plank",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "ramp_pole",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "ramp_terminal",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "reception_sign",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "rock",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "roof",
       "collider": "mesh",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "roof_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "roof_fence",
       "collider": "mesh",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "roof_stair_fence",
       "collider": "mesh",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "roof_stair_wall",
       "collider": "mesh",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "roof_window",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "roof_window_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "sector_sign",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "sign",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "stair_<int>_fence",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "stair_<int>_support",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "stair_fence",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "stair_fence_handle",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "support_frame",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "teacher_desk",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "thick_door",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "thick_door_hinge",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "thick_foor",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "trash_container_base",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "trash_container_lid",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "tree_bot",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "tree_pot",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "tree_top",
       "collider": "none",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "vent",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "ventilator",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "wall",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "wall_edge",
       "collider": "mesh",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "window",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "window_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     },
     {
       "name": "window_bars",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
+      "occluder": "auto"
     }
   ]
 }
