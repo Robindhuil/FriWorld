@@ -46116,44 +46116,6 @@ MonoBehaviour:
   - NoObstacle
   - Interactable
   detailCullDistance: 60
---- !u!114 &2143997446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143997436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e37c2a6177bcd841a832a35c1a9eabc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RuntimeOcclusionCuller
-  occluderMask:
-    serializedVersion: 2
-    m_Bits: 0
-  autoFindComponentName: RoomDisplay
-  groupRoots: []
-  updateInterval: 0.15
-  positionThreshold: 0.25
-  angleThreshold: 2
-  boundsPadding: 0.1
-  logStats: 0
-  logInterval: 3
---- !u!114 &2143997451
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2143997436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a9330c0560c8654ebd02e38470d436f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OcclusionABTest
-  switchInterval: 2
-  logInterval: 12
-  disableRuntimeCullerWhileMeasuring: 1
 --- !u!1 &2147418814
 GameObject:
   m_ObjectHideFlags: 0
@@ -47913,12 +47875,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1452820584905263878, guid: b553c7d95bd09fd43a9b31a26c3e3217, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2143997441}
-    - targetCorrespondingSourceObject: {fileID: 1452820584905263878, guid: b553c7d95bd09fd43a9b31a26c3e3217, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2143997446}
-    - targetCorrespondingSourceObject: {fileID: 1452820584905263878, guid: b553c7d95bd09fd43a9b31a26c3e3217, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2143997451}
   m_SourcePrefab: {fileID: 100100000, guid: b553c7d95bd09fd43a9b31a26c3e3217, type: 3}
 --- !u!1001 &5993860936805638647
 PrefabInstance:

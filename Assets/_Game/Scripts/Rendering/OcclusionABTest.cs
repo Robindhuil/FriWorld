@@ -12,6 +12,11 @@ using UnityEditor;
 /// route instead of guessed. Alternating on a short period means both states see roughly the
 /// same mix of corridors and rooms — comparing two separate play sessions would not.
 ///
+/// Not attached to anything by default. Drop it on the player camera when you need the
+/// numbers again — e.g. after changing occluder flags or the bake's smallestOccluder — then
+/// take it off. Give it a couple of minutes of walking: the early windows are dominated by
+/// scene load and read far off.
+///
 /// Stats come from UnityEditor.UnityStats, which only exists in the editor; in a player build
 /// this component compiles to nothing and does nothing.
 /// </summary>
@@ -23,10 +28,6 @@ public class OcclusionABTest : MonoBehaviour
 
     [Tooltip("How often to log the running comparison.")]
     [SerializeField] private float logInterval = 12f;
-
-    [Tooltip("Disable RuntimeOcclusionCuller for the run. It switches renderers off by itself, " +
-             "which would otherwise be mixed into the numbers and hide what Umbra alone does.")]
-    [SerializeField] private bool disableRuntimeCullerWhileMeasuring = true;
 
 #if UNITY_EDITOR
     private struct Sample
@@ -58,17 +59,6 @@ public class OcclusionABTest : MonoBehaviour
     private void Start()
     {
         cam = GetComponent<Camera>();
-
-        if (disableRuntimeCullerWhileMeasuring)
-        {
-            var culler = GetComponent<RuntimeOcclusionCuller>();
-            if (culler != null && culler.enabled)
-            {
-                culler.enabled = false; // its OnDisable restores every renderer it had hidden
-                Debug.Log("[OcclusionAB] RuntimeOcclusionCuller disabled for this measurement run.");
-            }
-        }
-
         occlusionOn = cam.useOcclusionCulling;
         nextSwitch = Time.unscaledTime + switchInterval;
         nextLog = Time.unscaledTime + logInterval;

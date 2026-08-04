@@ -8,18 +8,24 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
-- `RuntimeOcclusionCuller` vie na požiadanie logovať, čo reálne robí — koľko skupín
-  skrýva, koľko to stojí raycastov a milisekúnd. Zapína sa `logStats` v inšpektore,
-  v shipnutom builde má zostať vypnuté.
 - `OcclusionABTest` — merací nástroj do play mode: strieda zapnuté a vypnuté
   occlusion culling a hlási draw cally, trojuholníky a čas snímku zvlášť pre oba
-  stavy. Len pre editor, v builde sa nekompiluje.
+  stavy. Len pre editor, v builde sa nekompiluje. Nie je nikde nasadený — nasadí sa
+  na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
+
+### Removed
+- `RuntimeOcclusionCuller` — raycastové culovanie za behu. Zmerané: pokrývalo 338
+  z 5867 rendererov (len cedule, nie budovu), stálo až 2,79 ms v jednom snímku
+  a štvrtinu cedúľ skrývalo aj vtedy, keď boli jasne viditeľné. Odkedy occlusion
+  culling funguje poriadne, nerobilo nič navyše. (`docs/decisions/`)
 
 ### Fixed
-- Occlusion culling konečne zakrýva to, čo má: tri štvrtiny stien pre neho doteraz
-  neexistovali ako prekážka, takže zostávali vykreslené veci, ktoré hráč nevidí.
-  Nástroj na priraďovanie vrstiev teraz rozhoduje o occlusion podľa materiálu, nie
-  len podľa mena — priehľadné plochy occludermi nikdy nebudú.
+- Occlusion culling konečne zakrýva to, čo má — **o polovicu menej draw callov
+  a trojuholníkov** (namerané 1048 → 554 a 133 632 → 70 769). Tri štvrtiny stien
+  pre neho doteraz neexistovali ako prekážka a bake navyše zahadzoval všetko menšie
+  než 5 m, takže zostávali vykreslené veci, ktoré hráč nevidí. Nástroj na
+  priraďovanie vrstiev teraz rozhoduje o occlusion podľa materiálu, nie len podľa
+  mena — priehľadné plochy occludermi nikdy nebudú.
 
 ### Performance
 - Web build výrazne odľahčený pre integrované grafiky: vypnuté MSAA (nahradené
