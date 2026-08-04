@@ -50,14 +50,25 @@ svoje vlastnosti; **neznámy kľúč sa nedotkne ničoho a nahlási sa.**
 Pre každý objekt s mesh rendererom:
 
 1. **Odstrihni najdlhší sediaci prefix** zo zoznamu prefixov (tvar `<prefix>_`).
-2. **Odstrihni koncové `_<int>`.**
-3. Čo zostane, je typový kľúč.
+2. **Odstrihni vodiace `<int>_`**, ak zostalo.
+3. **Odstrihni koncové `_<int>`.**
+4. Čo zostane, je typový kľúč.
 
 ```
 ra000_cleaners_room_ceiling_1
   – prefix "ra000_cleaners_room"   → ceiling_1
   – suffix "_1"                    → ceiling
+
+ra100_corridor_1_door_frame_2
+  – prefix "ra100_corridor"        → 1_door_frame_2
+  – vodiace "1_"                   → door_frame_2
+  – suffix "_2"                    → door_frame
 ```
+
+Krok 2 nie je kozmetika. Bez neho zostáva číslo inštancie miestnosti na začiatku a ten istý
+typ sa rozpadne na desiatky kľúčov: namerané `door_frame` ×233, ale zároveň `1_door_frame` ×21,
+`2_door_frame` ×9, … až `14_door_frame`. Rovnako `wall_edge` vs `1_wall_edge`, `2_wall_edge`,
+`3_wall_edge` a `window_1_glass` vs `1_window_1_glass`, `2_window_1_glass`.
 
 ### Stráž, bez ktorej sa to rozsype
 
@@ -127,6 +138,27 @@ prefixov sa nevyžaduje.
 **Static flagy a tag `Door` sa naďalej odvodzujú z vrstvy**, ako dnes — aby sa nemuseli
 vypĺňať štyri polia tam, kde stačí jedno. Voliteľné polia `static` a `tag` ich vedia prebiť.
 
+### Nerozhodnuté záznamy — kritické
+
+Sken dopĺňa nové typy s `null` hodnotami, **nie s prázdnymi alebo defaultnými**:
+
+```json
+{ "name": "sun_lamp", "collider": null, "layer": null, "occluder": null }
+```
+
+Rozdiel medzi *„rozhodol som, že nič"* (`"collider": "none"`) a *„ešte som nerozhodol"*
+(`null`) musí byť v dátach vidieť, a nástroj sa musí správať odlišne:
+
+| stav | správanie |
+|---|---|
+| vyplnené | priradí vlastnosti |
+| `null` | **objekt sa nedotkne a hlási sa pri každom spustení**, kým sa nevyplní |
+| chýba v registri | objekt sa nedotkne a hlási sa |
+
+Keby sa nové záznamy zakladali s defaultmi, tichá chyba by sa len presťahovala: objekt by
+v registri **bol** (takže by z hlásenia zmizol), ale nedostal by nič. To je presne tá trieda
+zlyhania, ktorú celý systém odstraňuje.
+
 ---
 
 ## 5. `occluder: auto`
@@ -151,11 +183,16 @@ Po každom spustení, na tri sekcie:
 
 1. **Neznáme typy** — kľúč, počet, a **cesty k ukážkovým objektom** v hierarchii, aby sa dal
    nájsť a premenovať. Toto je hlavný výstup: čokoľvek tu je, je chyba v pomenovaní.
-2. **Nerozlúštené objekty** — kľúč v sebe stále nesie kód miestnosti, čiže chýba prefix.
-3. **Mŕtve položky registra** — typy v JSON‑e, ktoré už nič nepoužíva.
+2. **Nevyplnené typy** — v registri sú, ale majú `null` polia.
+3. **Nerozlúštené objekty** — kľúč v sebe stále nesie kód miestnosti, čiže chýba prefix.
+4. **Mŕtve položky registra** — typy v JSON‑e, ktoré už nič nepoužíva.
 
-Neznámy typ **nedostane žiadne vlastnosti** a objekt zostane nedotknutý. Nikdy nedostane
-vlastnosti iného typu.
+Neznámy ani nevyplnený typ **nedostane žiadne vlastnosti** a objekt zostane nedotknutý.
+Nikdy nedostane vlastnosti iného typu.
+
+Hlásenie sa drží krátke a konkrétne — zoznam kľúčov s počtami a nanajvýš pár ukážkových ciest
+na kľúč, nie výpis všetkých zásahov. Celý systém funguje len dovtedy, kým sa to hlásenie číta;
+výpis na tisíc riadkov sa začne preskakovať a tým sa stráca jediná vec, kvôli ktorej vznikol.
 
 ---
 
@@ -171,7 +208,15 @@ Bez kroku 2 sa nedá odlíšiť oprava od regresie.
 
 ---
 
-## 9. Mimo rozsah
+## 9. Známe obmedzenia
+
+- **Systém chyby v pomenovaní odhalí, nezabráni im.** Keď sa typ premenuje v Blenderi, všetky
+  jeho inštancie spadnú naraz medzi neznáme. Je to správne, ale prvýkrát to vyzerá poplašne.
+- **Fragmentácia kľúčov nezmizne úplne** ani po kroku s vodiacim číslom. Zvyšok sa objaví
+  v hlásení a rieši sa buď doplnením prefixu, alebo premenovaním v zdroji.
+- **Register nevie vyjadriť výnimku pre jeden kus.** Na to slúžia `UNO`/`UYO` v mene.
+
+## 10. Mimo rozsah
 
 - Premenovanie objektov v Blenderi. Systém chyby v pomenovaní **hlási**, neopravuje.
 - Zmena toho, čo jednotlivé vrstvy a collidery znamenajú. Mení sa len zdroj rozhodnutia.
