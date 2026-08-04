@@ -12,9 +12,14 @@ public static class GenerateLayersAndStatic
     // Priority: Interactable > NoObstacle > Obstacle > Nav > default no static change to layers.
     private static readonly string[] InteractableKeywords = { "door", "door_slide" };
 
-    // Names that should be Occluder Static (big solid surfaces that actually block sight).
-    // Everything else that is static gets Occludee only — small props make poor occluders
-    // and only bloat / slow the occlusion bake.
+    // Names that PROPOSE Occluder Static — big solid surfaces that plausibly block sight.
+    // The name only proposes; ShouldBeOccluder has the final say, because a name cannot tell
+    // you whether the surface is see-through. Everything else that is static gets Occludee
+    // only: small props make poor occluders and just bloat / slow the occlusion bake.
+    //
+    // "foor" is not a typo on our side — that is how the floor meshes are actually named
+    // (19 objects named *foor*, none named *floor*). Renaming the keyword would stop it
+    // matching anything.
     private static readonly string[] OccluderKeywords =
     {
         "wall",
@@ -22,7 +27,20 @@ public static class GenerateLayersAndStatic
         "ceiling",
         "roof",
         "nav",
+        "door_frame",
+        "foor",
+        "pillar",
     };
+
+    // Materials at or past this queue are alpha-tested / transparent. Anything you can see
+    // through must never be an occluder: Umbra would then cull the geometry behind it, which
+    // the player can plainly see. This matters here because a single "window" renderer carries
+    // both an opaque frame material and a transparent glass one.
+    private const int TransparentRenderQueue = 2450;
+
+    // Summed face area of the world bounds. Below this an object cannot hide anything behind
+    // it, so making it an occluder only costs bake time and memory.
+    private const float MinOccluderArea = 2f;
 
     private static readonly StaticEditorFlags AllStaticFlags =
         StaticEditorFlags.ContributeGI
@@ -312,13 +330,12 @@ public static class GenerateLayersAndStatic
                     }
                 }
 
-                // Static flags: Occluder only on big solid surfaces (wall/outer_wall/ceiling/
-                // roof/nav); every other static object gets Occludee but NOT Occluder.
-                // Non-static objects get no static flags.
+                // Static flags: Occluder only on big, solid, opaque surfaces; every other
+                // static object gets Occludee but NOT Occluder. Non-static objects get none.
                 StaticEditorFlags desiredFlags = (StaticEditorFlags)0;
                 if (targetStatic)
                 {
-                    desiredFlags = IsOccluderName(go.name) ? AllStaticFlags : OccludeeOnlyFlags;
+                    desiredFlags = ShouldBeOccluder(go) ? AllStaticFlags : OccludeeOnlyFlags;
                 }
 
                 StaticEditorFlags currentFlags = GameObjectUtility.GetStaticEditorFlags(go);
@@ -824,6 +841,40 @@ public static class GenerateLayersAndStatic
                 "door_slide",
                 System.StringComparison.OrdinalIgnoreCase
             );
+    }
+
+    /// <summary>
+    /// Final say on Occluder Static. The name proposes, the geometry decides: a name cannot
+    /// tell you whether a surface is see-through, and in this project it frequently isn't what
+    /// it sounds like — a "window" renderer carries an opaque frame material *and* transparent
+    /// glass, and a fair number of "door_frame" objects are glazed. Baking those as occluders
+    /// makes Umbra cull whatever is behind the glass, which the player can see straight through.
+    /// </summary>
+    public static bool ShouldBeOccluder(GameObject go)
+    {
+        if (go == null || !IsOccluderName(go.name))
+        {
+            return false;
+        }
+
+        Renderer renderer = go.GetComponent<Renderer>();
+        if (renderer == null)
+        {
+            return false; // nothing to occlude with (grouping transform, collider-only object)
+        }
+
+        Material[] materials = renderer.sharedMaterials;
+        for (int i = 0; i < materials.Length; i++)
+        {
+            if (materials[i] != null && materials[i].renderQueue >= TransparentRenderQueue)
+            {
+                return false;
+            }
+        }
+
+        Vector3 size = renderer.bounds.size;
+        float area = size.x * size.y + size.y * size.z + size.x * size.z;
+        return area >= MinOccluderArea;
     }
 
     private static bool IsOccluderName(string objectName)

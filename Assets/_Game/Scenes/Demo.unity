@@ -36646,6 +36646,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RB356
       objectReference: {fileID: 0}
+    - target: {fileID: 12897282656431738, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 13829942605127196, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
@@ -36666,9 +36670,17 @@ PrefabInstance:
       propertyPath: m_text
       value: RA204
       objectReference: {fileID: 0}
+    - target: {fileID: 53607022764927730, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 53691857058606680, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 59171282941177552, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 64897822895956957, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -36681,6 +36693,10 @@ PrefabInstance:
     - target: {fileID: 87149115523029596, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 97732241579200746, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 99850751101972421, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -36698,6 +36714,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kni\u017Enica"
       objectReference: {fileID: 0}
+    - target: {fileID: 140647962339828900, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 144042693601663289, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
@@ -36705,6 +36725,26 @@ PrefabInstance:
     - target: {fileID: 153032782949579508, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB155
+      objectReference: {fileID: 0}
+    - target: {fileID: 153275627860797882, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 154690471633173469, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 155577329140595164, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 164624542741736401, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 165063920273486761, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 166699976956309429, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -36738,9 +36778,21 @@ PrefabInstance:
       propertyPath: m_text
       value: "B157 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 192258340800287781, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 192368832561818799, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 8 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 194122784784937676, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 197172420058565371, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 203286899049274283, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -36762,6 +36814,14 @@ PrefabInstance:
     - target: {fileID: 226009320135296066, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "CENTRUM INFORMA\u010CN\xDDCH TECHNOL\xD3GI\xCD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 227490268216839759, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 228410882865756088, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 241883303006235363, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -36831,13 +36891,25 @@ PrefabInstance:
       propertyPath: m_text
       value: "Semin\xE1rna u\u010Deb\u0148a"
       objectReference: {fileID: 0}
+    - target: {fileID: 345176776621834172, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 348958119100865275, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B302 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 357092634516873072, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 368815331695749743, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Serverov\u0148a FRI 'B'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 370076207892367951, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 374470803156389300, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -36862,6 +36934,10 @@ PrefabInstance:
     - target: {fileID: 400115873420096445, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 402320334031765406, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 426071219089330024, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -36899,6 +36975,18 @@ PrefabInstance:
       propertyPath: m_text
       value: "Nezadan\xE9"
       objectReference: {fileID: 0}
+    - target: {fileID: 480098715942236316, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 493787717640315084, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 495499042648449320, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 511716735212684922, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MATEMATICK\xDDCH MET\xD3D A OPERA\u010CNEJ ANAL\xDDZY"
@@ -36910,6 +36998,14 @@ PrefabInstance:
     - target: {fileID: 523629166546942252, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 524522446308746105, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 546419790602716758, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 563351755578341908, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -36931,9 +37027,25 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA MANA\u017DERSKYCH TEORI\xCD"
       objectReference: {fileID: 0}
+    - target: {fileID: 584536319499908843, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 586488741417108113, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 594419840458309243, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
+      objectReference: {fileID: 0}
+    - target: {fileID: 596308332104080408, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 599130485426692233, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 602394803457185915, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -36947,9 +37059,21 @@ PrefabInstance:
       propertyPath: m_text
       value: "Nezadan\xE9"
       objectReference: {fileID: 0}
+    - target: {fileID: 626587855744817568, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 634870333196244333, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB303
+      objectReference: {fileID: 0}
+    - target: {fileID: 635348083364718350, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 638024764671684981, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 638709254058283544, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -36987,6 +37111,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Ing. Patrik Bor\u0161o\u0161"
       objectReference: {fileID: 0}
+    - target: {fileID: 661960126116385599, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 673490664546802878, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "CENTRUM INFORMA\u010CN\xDDCH TECHNOL\xD3GI\xCD"
@@ -37002,6 +37130,10 @@ PrefabInstance:
     - target: {fileID: 693413080711425709, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B108 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 693584570583730696, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 700702657227863462, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -37019,6 +37151,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "doc. Ing. Michal Koh\xE1ni, PhD."
       objectReference: {fileID: 0}
+    - target: {fileID: 722112868177611314, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 722369274538279157, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
@@ -37031,17 +37167,33 @@ PrefabInstance:
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
       objectReference: {fileID: 0}
+    - target: {fileID: 753502863149135905, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 755248771664149285, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "DEKAN\xC1T"
+      objectReference: {fileID: 0}
+    - target: {fileID: 760520484889369921, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 763832262306418242, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 780013557268143024, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 787429264761474437, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
+      objectReference: {fileID: 0}
+    - target: {fileID: 799457390549357459, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 819382518415519915, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37066,6 +37218,14 @@ PrefabInstance:
     - target: {fileID: 844817296928031126, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B301 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 845212325707975901, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 848513248909727240, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 869328744139720857, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37099,6 +37259,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "DEKAN\xC1T"
       objectReference: {fileID: 0}
+    - target: {fileID: 933351650316781894, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 933744139778499600, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 934553901223696521, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
@@ -37127,6 +37295,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA MATEMATICK\xDDCH MET\xD3D A OPERA\u010CNEJ ANAL\xDDZY"
       objectReference: {fileID: 0}
+    - target: {fileID: 989425775640743365, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 993160987225522080, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -37151,6 +37323,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 1018827040923403029, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 1023871570155149045, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Pr\xEDru\u010Dn\xFD sklad"
@@ -37162,6 +37338,14 @@ PrefabInstance:
     - target: {fileID: 1062300159228700730, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A226 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068271908641800531, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1080332967095954874, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1089207223212776498, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37211,17 +37395,37 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1145689143441324671, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1148685103393638462, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1152773580464827687, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1155274530640777165, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 1159349409771489811, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: prof. Ing. Vitaly Levashenko, PhD.
       objectReference: {fileID: 0}
+    - target: {fileID: 1162327792094007545, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1170342561470499219, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B256 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1170403172898137000, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1173644833360225339, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -37242,9 +37446,17 @@ PrefabInstance:
         Anna \u0160ev\u010D\xEDkov\xE1 (Refer\xE1t pre projekty a vonkaj\u0161ie
         vz\u0165ahy)"
       objectReference: {fileID: 0}
+    - target: {fileID: 1202661886584414872, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 125
+      objectReference: {fileID: 0}
     - target: {fileID: 1208854254182697609, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA008
+      objectReference: {fileID: 0}
+    - target: {fileID: 1213583011932928594, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 1220618680716624158, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37254,13 +37466,37 @@ PrefabInstance:
       propertyPath: m_text
       value: RB112
       objectReference: {fileID: 0}
+    - target: {fileID: 1225032511398757145, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1225407146602545951, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1233504045317354328, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242431853282356459, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1250643345225203711, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 1251035402288017044, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "RNDr. Al\u017Ebeta Klaudinyov\xE1"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1253515503646526556, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1254264578819788962, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1256243382784285779, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37282,6 +37518,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RA323
       objectReference: {fileID: 0}
+    - target: {fileID: 1303401125828375540, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1309834659371827531, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA316
@@ -37290,9 +37530,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1316284020883425850, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319980365560577858, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1325731255682364691, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B356 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1329709189182120898, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1332549108030056488, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37306,6 +37558,18 @@ PrefabInstance:
       propertyPath: m_text
       value: "A204 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 1365372539370241826, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1365481278280580432, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 125
+      objectReference: {fileID: 0}
+    - target: {fileID: 1369408125910702687, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1375623379841602117, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -37313,6 +37577,14 @@ PrefabInstance:
     - target: {fileID: 1376268750887854666, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA INFORMATIKY
+      objectReference: {fileID: 0}
+    - target: {fileID: 1386329402174374733, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1387360256313927618, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 1388975842314352017, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37326,6 +37598,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 1400058960013447246, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 125
+      objectReference: {fileID: 0}
     - target: {fileID: 1400837888567213566, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA INFORMATIKY
@@ -37333,6 +37609,10 @@ PrefabInstance:
     - target: {fileID: 1403926288743172178, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1416386802486290730, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1427243946815397427, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37345,6 +37625,10 @@ PrefabInstance:
     - target: {fileID: 1439668873329070217, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA124
+      objectReference: {fileID: 0}
+    - target: {fileID: 1443396756145104165, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1443489699879941841, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37374,17 +37658,37 @@ PrefabInstance:
       propertyPath: m_text
       value: "Laborat\xF3rium automatick\xE9ho riadenia"
       objectReference: {fileID: 0}
+    - target: {fileID: 1492397083166331690, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1494653505592874711, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 1507660494680631282, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1510516838818367682, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1512304220741043908, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1514483780209327942, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1516905461241881341, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "DEKAN\xC1T"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1519864773375200571, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 1524405965824979086, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -37393,6 +37697,10 @@ PrefabInstance:
     - target: {fileID: 1529839211167180432, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1533467360275207979, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1535566985141807031, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37410,6 +37718,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 1578201645452758599, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1584349796684954836, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1593163516700797944, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
@@ -37417,6 +37733,18 @@ PrefabInstance:
     - target: {fileID: 1597873783068116136, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610754910526607057, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612842671587439936, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1631080155147005447, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 1637735121430609117, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37430,10 +37758,22 @@ PrefabInstance:
       propertyPath: m_text
       value: RB202
       objectReference: {fileID: 0}
+    - target: {fileID: 1698083179346531671, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 1702111998964259973, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. J\xE1n Jur\u010D\nIng. \u013Dubica \u017Didekov\xE1\nMgr. Adri\xE1n
         Hamada"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713380203692485540, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716591726989343391, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1722726941242973960, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37447,6 +37787,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Nezadan\xE9"
       objectReference: {fileID: 0}
+    - target: {fileID: 1729296390324585732, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1731859521589325503, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Informa\u010Dn\xE9 centrum"
@@ -37454,6 +37798,10 @@ PrefabInstance:
     - target: {fileID: 1739836466169725540, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742027669291721065, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1751411671716525774, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37479,6 +37827,18 @@ PrefabInstance:
       propertyPath: m_text
       value: "Ing. Luk\xE1\u0161 Fal\xE1t, PhD."
       objectReference: {fileID: 0}
+    - target: {fileID: 1782940092569500067, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784012610445546911, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1793502954910345862, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1806410988151963435, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB001
@@ -37491,6 +37851,10 @@ PrefabInstance:
     - target: {fileID: 1822782321326543916, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1824683551572103340, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 1836878277931601985, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37508,9 +37872,17 @@ PrefabInstance:
       propertyPath: m_text
       value: RB301
       objectReference: {fileID: 0}
+    - target: {fileID: 1866484244389439594, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 1870388807374759030, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. Michal Hra\u0161ka\nIng \u013Dubom\xEDr Kr\xE1lik"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1873810167009485104, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 1881365113600029038, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -37539,6 +37911,14 @@ PrefabInstance:
     - target: {fileID: 1923839989874365053, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A314 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1926381273821864149, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 1931423894813241095, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 1945973831530115854, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -37569,9 +37949,17 @@ PrefabInstance:
       propertyPath: m_text
       value: RA217
       objectReference: {fileID: 0}
+    - target: {fileID: 2008484419914935024, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 2013856018057545867, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB109
+      objectReference: {fileID: 0}
+    - target: {fileID: 2028765431204536009, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2029966091503755690, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -37580,6 +37968,10 @@ PrefabInstance:
     - target: {fileID: 2045651080449831349, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A216 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2057563710313562856, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 2060667719323884304, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -37601,6 +37993,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Predn\xE1\u0161kov\xE1 miestnos\u0165"
       objectReference: {fileID: 0}
+    - target: {fileID: 2086299999857562509, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2092449746385716874, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 1 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -37613,9 +38009,17 @@ PrefabInstance:
       propertyPath: m_text
       value: "Ing. Viliam Tava\u010D, PhD. (Ved\xFAci katedry)"
       objectReference: {fileID: 0}
+    - target: {fileID: 2112990171000640427, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2114757538167736060, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A324 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2147489542304693968, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 2148297557840306991, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37628,6 +38032,10 @@ PrefabInstance:
     - target: {fileID: 2163853365092003970, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B 51 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2172047512300893536, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2178726882558494827, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -37645,6 +38053,18 @@ PrefabInstance:
       propertyPath: m_text
       value: "Ing. Miroslava \u0158epov\xE1\nIng. Pavol Ondr\xEDk"
       objectReference: {fileID: 0}
+    - target: {fileID: 2221515593164366847, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 2227929882193775559, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2232535338199856522, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2233875079464551232, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\xC1trium"
@@ -37660,6 +38080,10 @@ PrefabInstance:
     - target: {fileID: 2256188671428876198, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A119 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2256600691107383916, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 2260682239418291355, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37677,6 +38101,18 @@ PrefabInstance:
       propertyPath: m_text
       value: "DEKAN\xC1T"
       objectReference: {fileID: 0}
+    - target: {fileID: 2301541546408394372, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306960841778457432, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2311191740864863968, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 2316890252578487628, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B112 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -37685,6 +38121,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RB359
       objectReference: {fileID: 0}
+    - target: {fileID: 2322363234687648033, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2324441419606765144, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B004 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -37692,6 +38132,10 @@ PrefabInstance:
     - target: {fileID: 2326168952168009753, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. \u013Dubica Mich\xE1lkov\xE1 (Sekretari\xE1t katedry)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2331086563466104559, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2333725123435011174, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -37705,6 +38149,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 2381951700452417121, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 2382792736044802119, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Semin\xE1rna miestnos\u0165"
@@ -37712,6 +38160,10 @@ PrefabInstance:
     - target: {fileID: 2391765092094332207, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA220
+      objectReference: {fileID: 0}
+    - target: {fileID: 2396467283647236896, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 2403697551322257212, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37724,6 +38176,14 @@ PrefabInstance:
     - target: {fileID: 2410637493943504254, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B358 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2416982843454621169, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2417024367519558543, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2423045821193918041, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37761,6 +38221,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 2500283692697377080, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2501882061014145291, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA MAKRO A MIKROEKONOMIKY
@@ -37769,13 +38233,25 @@ PrefabInstance:
       propertyPath: m_text
       value: RB111
       objectReference: {fileID: 0}
+    - target: {fileID: 2519359268806472018, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2519919974506313177, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 2520663962426173313, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 125
+      objectReference: {fileID: 0}
     - target: {fileID: 2521851558875572442, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2529302917766166432, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 2533542982198501065, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37789,6 +38265,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RA123
       objectReference: {fileID: 0}
+    - target: {fileID: 2539778904730918823, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2540350622879982330, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA INFORMA\u010CN\xDDCH SIET\xCD"
@@ -37797,17 +38277,37 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA INFORMA\u010CN\xDDCH SIET\xCD"
       objectReference: {fileID: 0}
+    - target: {fileID: 2570137715338038554, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 2576041081122411746, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2587539757628018836, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2588171131223838123, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Zasada\u010Dka"
       objectReference: {fileID: 0}
+    - target: {fileID: 2588982469664142327, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2591639939225519944, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 2597057921946041472, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. Peter Jankovi\u010D, PhD."
+      objectReference: {fileID: 0}
+    - target: {fileID: 2608565078582764804, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 2612100607151937790, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37841,13 +38341,25 @@ PrefabInstance:
       propertyPath: m_text
       value: KATEDRA MAKRO A MIKROEKONOMIKY
       objectReference: {fileID: 0}
+    - target: {fileID: 2656368974844148110, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2659319894408538252, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 2659341757084064905, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2660942442970971386, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2666403182978719208, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2668653225807200415, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37869,6 +38381,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2698883421456610402, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 2700314487303340898, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2703274291430903240, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "DEKAN\xC1T"
@@ -37889,17 +38409,49 @@ PrefabInstance:
       propertyPath: m_text
       value: RA212
       objectReference: {fileID: 0}
+    - target: {fileID: 2723674709465138420, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2726557649787902165, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2730525354186442394, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2734132697524012477, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA115
+      objectReference: {fileID: 0}
+    - target: {fileID: 2745516142408852995, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2752557727511736026, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA106
       objectReference: {fileID: 0}
+    - target: {fileID: 2754254790495299734, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2765373965119571622, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2778474060298689228, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2779369748510605558, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 2779927208793447867, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 2788414571993260698, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37913,6 +38465,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "B305 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 2817001828610737455, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2821117147701070946, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B 5 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -37920,6 +38476,14 @@ PrefabInstance:
     - target: {fileID: 2827572521343405232, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Nezadan\xE9"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2832989724933041737, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2855991191831650685, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2872963228170857652, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -37937,6 +38501,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RC001
       objectReference: {fileID: 0}
+    - target: {fileID: 2889095158727093652, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2895399022358417951, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 102 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -37949,6 +38517,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 2925902410252992992, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2926546627971186144, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. Peter Tar\xE1bek, PhD."
@@ -37960,6 +38532,14 @@ PrefabInstance:
     - target: {fileID: 2941537932328041581, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA INFORMA\u010CN\xDDCH SIET\xCD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2942302333854898595, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2944183473540901248, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2949967738342757414, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38001,6 +38581,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 3032549670982198916, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 3036169358073887470, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "prof. Ing. \u013Dubo\u0161 Buzna, PhD."
@@ -38009,9 +38593,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3042515033465590205, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3043883355923527594, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA302
+      objectReference: {fileID: 0}
+    - target: {fileID: 3047193342889739349, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3057234923493088953, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3059496536827957111, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38040,6 +38636,10 @@ PrefabInstance:
     - target: {fileID: 3095243843759871051, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "DEKAN\xC1T"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3101493599392411910, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3109203495990345390, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38078,21 +38678,65 @@ PrefabInstance:
       propertyPath: m_text
       value: "B209 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 3156680638606397646, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3161045105825083896, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 3174821971001890119, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3181004585251275855, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191292335429934680, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3191773677467873027, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199349505261725185, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3201689793700559896, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3202873182204916168, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3203693082771358777, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 3220487474676776035, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B259 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 3222248628535563831, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3226562089463651941, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Nezadan\xE9"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3238014303701014666, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3251474437119210246, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 3252885821620613705, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38146,6 +38790,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 3329151554855671061, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3342118292571397164, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3344254238766033397, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -38153,6 +38805,10 @@ PrefabInstance:
     - target: {fileID: 3348175531581508123, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "CENTRUM INFORMA\u010CN\xDDCH TECHNOL\xD3GI\xCD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3353573032005558563, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3358068065251431183, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38178,6 +38834,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 3400613987797463365, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3402986255829732771, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "doc. Ing. Gabriel Koman, PhD.\nIng. Oliver Bubel\xEDny, PhD."
@@ -38193,6 +38853,18 @@ PrefabInstance:
     - target: {fileID: 3417669496851916824, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA INFORMATIKY
+      objectReference: {fileID: 0}
+    - target: {fileID: 3418806954975521880, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3421503421965693489, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3424505152474277146, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3426305223011983116, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38213,6 +38885,14 @@ PrefabInstance:
     - target: {fileID: 3435670687877921658, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MANA\u017DERSKYCH TEORI\xCD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3441540013338061280, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3442029852645329671, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3446754908091316432, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38242,6 +38922,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RB213
       objectReference: {fileID: 0}
+    - target: {fileID: 3496800055949244744, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3499222712188806679, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B110 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -38254,9 +38938,17 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA INFORMA\u010CN\xDDCH SIET\xCD"
       objectReference: {fileID: 0}
+    - target: {fileID: 3525036222791496732, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 3535775640964404511, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3547918809722660318, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 3553832778927058121, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38265,6 +38957,14 @@ PrefabInstance:
     - target: {fileID: 3554936206497148591, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB106
+      objectReference: {fileID: 0}
+    - target: {fileID: 3559013011452176004, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3588381475146927344, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3603265897696203599, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38296,6 +38996,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA MATEMATICK\xDDCH MET\xD3D A OPERA\u010CNEJ ANAL\xDDZY"
       objectReference: {fileID: 0}
+    - target: {fileID: 3660362152269246308, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3660385997201976738, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MANA\u017DERSKYCH TEORI\xCD"
@@ -38303,6 +39007,10 @@ PrefabInstance:
     - target: {fileID: 3666997639517717700, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3673365381134592426, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 3682140069299104600, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38319,6 +39027,10 @@ PrefabInstance:
     - target: {fileID: 3690276398128804122, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B354 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698039129740201856, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3700127088485127804, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38344,6 +39056,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 3725930265815670108, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3729524322491752268, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -38355,6 +39071,22 @@ PrefabInstance:
     - target: {fileID: 3732846044333060223, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B251 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3733563117502873999, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3735591274505301532, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3738349206125569419, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3739321024825114225, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 3749457709282611727, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38378,6 +39110,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Ing. Peter Sedl\xE1\u010Dek, PhD.\nIng. Monika V\xE1clavkov\xE1, PhD."
       objectReference: {fileID: 0}
+    - target: {fileID: 3771103481836011583, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3773686971057326332, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 106 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -38389,6 +39125,10 @@ PrefabInstance:
     - target: {fileID: 3783889391431473634, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3788004538964595128, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 3791849675061971024, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38402,6 +39142,10 @@ PrefabInstance:
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
       objectReference: {fileID: 0}
+    - target: {fileID: 3834517809169729880, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3840242256482134596, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB006
@@ -38410,13 +39154,33 @@ PrefabInstance:
       propertyPath: m_text
       value: "A207 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 3860678078214678155, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3862348648383941747, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 3867375576564439112, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 3869445509585406610, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA203
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870105692467644140, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3880840230996404254, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 3892155427519503572, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3892919907347655086, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38438,13 +39202,29 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 3930346868983849900, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 3933558003047206608, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3950677979477065709, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
       objectReference: {fileID: 0}
+    - target: {fileID: 3953357425424307599, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 3960683850187565778, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA310
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982806650537627341, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 3983183027030252656, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38453,6 +39233,10 @@ PrefabInstance:
     - target: {fileID: 3999221380902719402, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006241760454672792, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4007165552278676379, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38470,9 +39254,17 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 4015096198109346078, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4019739285731134613, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4034173317436886527, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4034959949059799913, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38490,9 +39282,21 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4068524036352945958, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 4075451592598785060, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4090923215899045683, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
+      objectReference: {fileID: 0}
+    - target: {fileID: 4091229406305319097, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 4093309177802772069, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38502,17 +39306,37 @@ PrefabInstance:
       propertyPath: m_text
       value: "doc. Ing. Miroslav Kva\u0161\u0161ay, PhD. (Prodekan pre vedu a v\xFDskum)"
       objectReference: {fileID: 0}
+    - target: {fileID: 4099240560243649566, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 4101831300026877592, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4112022414793491877, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA118
+      objectReference: {fileID: 0}
+    - target: {fileID: 4116343892918442696, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 4136859739276642458, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Laborat\xF3rium technick\xFDch prostriedkov automatick\xE9ho riadenia"
       objectReference: {fileID: 0}
+    - target: {fileID: 4150859204314024725, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4155181422664320064, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB209
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160471991953991987, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4165271386985962259, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38529,6 +39353,14 @@ PrefabInstance:
     - target: {fileID: 4172666065769346758, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4173616743846765766, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 4179450181353249726, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 4184062462978120773, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -38562,9 +39394,25 @@ PrefabInstance:
       propertyPath: m_text
       value: "prof. Ing. Emil Kr\u0161\xE1k, PhD. (Dekan FRI)"
       objectReference: {fileID: 0}
+    - target: {fileID: 4234921646510277413, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 4250834865083015419, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4251935142541208225, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4253831626124555904, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 4280535591932059651, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4303749189659577784, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38574,6 +39422,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4313018524907229049, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4319131629602324636, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "DEKAN\xC1T"
@@ -38582,13 +39434,29 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4340742693138456684, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4341686290953219833, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA109
       objectReference: {fileID: 0}
+    - target: {fileID: 4343784476264744165, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 4352658833425168832, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4356649229779720350, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MATEMATICK\xDDCH MET\xD3D A OPERA\u010CNEJ ANAL\xDDZY"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4358453600862237375, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4361775276114836535, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38607,6 +39475,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "doc. Mgr. Juraj Smie\u0161ko, PhD."
       objectReference: {fileID: 0}
+    - target: {fileID: 4426031232990038570, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 4429409252259833251, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -38623,9 +39495,17 @@ PrefabInstance:
       propertyPath: m_text
       value: RB151
       objectReference: {fileID: 0}
+    - target: {fileID: 4477149945571154675, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4480002945810908706, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RNDr. Ida Stankovianska, CSc.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4487469430246532526, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4487745330281833886, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38667,6 +39547,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Nezadan\xE9"
       objectReference: {fileID: 0}
+    - target: {fileID: 4557437550967004222, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4566522326091727270, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A205 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -38683,6 +39567,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RB053
       objectReference: {fileID: 0}
+    - target: {fileID: 4594267873449421449, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 4599861310062928608, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA INFORMATIKY
@@ -38690,6 +39578,10 @@ PrefabInstance:
     - target: {fileID: 4604206006219246582, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA MAKRO A MIKROEKONOMIKY
+      objectReference: {fileID: 0}
+    - target: {fileID: 4614748120353100275, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4622914253378920334, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38715,9 +39607,25 @@ PrefabInstance:
       propertyPath: m_text
       value: "CENTRUM INFORMA\u010CN\xDDCH TECHNOL\xD3GI\xCD"
       objectReference: {fileID: 0}
+    - target: {fileID: 4680676498003125181, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 4691292106614262383, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 4692315838312358765, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 4699031978812104312, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4719377462440481788, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4727609881428443084, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38747,6 +39655,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA MATEMATICK\xDDCH MET\xD3D A OPERA\u010CNEJ ANAL\xDDZY"
       objectReference: {fileID: 0}
+    - target: {fileID: 4769192128146318784, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 4770720651833471762, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -38754,6 +39666,10 @@ PrefabInstance:
     - target: {fileID: 4773027996508958106, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779849697855599166, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 4782238903430843692, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38786,6 +39702,14 @@ PrefabInstance:
     - target: {fileID: 4833198850056677107, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 9 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4839374890728032283, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 4842864951138119761, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 4848402299692541127, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38835,6 +39759,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "A122 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 4922235719570831590, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 4924382694887576968, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Nezadan\xE9"
@@ -38847,9 +39775,17 @@ PrefabInstance:
       propertyPath: m_text
       value: "A319 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 4948856328573579117, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 4965548438038400060, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "doc. Ing. Viliam Lendel, PhD. (Prodekan pre vzdel\xE1vanie)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976230139770994949, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 4976250988555474013, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38858,6 +39794,10 @@ PrefabInstance:
     - target: {fileID: 4983352076646916218, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MATEMATICK\xDDCH MET\xD3D A OPERA\u010CNEJ ANAL\xDDZY"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4989864658020247571, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 4992307306201727571, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38870,6 +39810,14 @@ PrefabInstance:
     - target: {fileID: 5006874526660399678, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030589333019781468, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 5037669317775465456, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5056144295706249485, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -38906,6 +39854,18 @@ PrefabInstance:
     - target: {fileID: 5080945955774379546, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5088961346388644461, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 5091310367586221282, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5093191164871498345, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5094184770531922260, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38951,6 +39911,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 5173610423360805000, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175874571701216145, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 125
+      objectReference: {fileID: 0}
     - target: {fileID: 5179616724458250381, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B214 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -38967,9 +39935,21 @@ PrefabInstance:
       propertyPath: m_text
       value: "A317 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 5198912837892056913, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 5199739625275218865, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 5202901212594489562, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5209641878851364939, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5214422847125213911, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -38983,9 +39963,25 @@ PrefabInstance:
       propertyPath: m_text
       value: "B107 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 5219759451960183646, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 5226328709081204445, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A201 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5226578747895615137, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5229100757506227691, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231644521883370098, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5236310839798919284, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -38995,6 +39991,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 5238575066554043877, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 5238973160946387970, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B002 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -39002,6 +40002,14 @@ PrefabInstance:
     - target: {fileID: 5245910196003054243, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A224 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5246560846590094085, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251657287416362468, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5259145420172264941, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -39044,6 +40052,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5322079914079835702, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 5324686809367029860, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "C 2 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -39055,6 +40067,10 @@ PrefabInstance:
     - target: {fileID: 5338051582246287226, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342573330795036693, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 5344491124594985415, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39092,9 +40108,25 @@ PrefabInstance:
       propertyPath: m_text
       value: "Anna Ilovsk\xE1"
       objectReference: {fileID: 0}
+    - target: {fileID: 5414406170633613969, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 5422653920423313636, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5443854451376599312, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5449495081724270798, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454327411657641466, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 125
       objectReference: {fileID: 0}
     - target: {fileID: 5458620406368024072, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39111,6 +40143,10 @@ PrefabInstance:
     - target: {fileID: 5482004566624147861, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5492652896669381918, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 5503706207683504479, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39148,9 +40184,17 @@ PrefabInstance:
       propertyPath: m_text
       value: "\u2014"
       objectReference: {fileID: 0}
+    - target: {fileID: 5541448353178644996, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 5545788825056038043, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA111
+      objectReference: {fileID: 0}
+    - target: {fileID: 5548117381282061372, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5549861308937491862, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -39164,13 +40208,25 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5554482843375939994, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 5574588089953382986, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5574642654444886386, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 5578900743022683842, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Jozef\xEDna \u0160tarkov\xE1 (Sekretari\xE1t dekana)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597246315727640195, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 5598091978527082297, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -39228,6 +40284,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 5684332103239227644, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 5691242843203730258, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. Dana Ku\u0161n\xEDrov\xE1, PhD."
@@ -39236,6 +40296,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA INFORMA\u010CN\xDDCH SIET\xCD"
       objectReference: {fileID: 0}
+    - target: {fileID: 5718565965368608005, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 5732151402028132074, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
@@ -39243,6 +40307,10 @@ PrefabInstance:
     - target: {fileID: 5738531753308202972, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5748165021072323768, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 5751775542880983914, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -39255,6 +40323,10 @@ PrefabInstance:
     - target: {fileID: 5764570882583680682, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5773317742216748728, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 5778175586471979786, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39275,6 +40347,10 @@ PrefabInstance:
     - target: {fileID: 5810488802027598552, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB005
+      objectReference: {fileID: 0}
+    - target: {fileID: 5822880491634326516, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5824653513149873668, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -39304,13 +40380,29 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA INFORMA\u010CN\xDDCH SIET\xCD"
       objectReference: {fileID: 0}
+    - target: {fileID: 5855604731084115982, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 5857021038689932758, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "doc. Ing. Peter \u0160ev\u010D\xEDk, PhD."
       objectReference: {fileID: 0}
+    - target: {fileID: 5859042052873171812, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861220283037509979, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 5872448010654826709, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA009
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875120042689950888, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5878218898479691174, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39327,6 +40419,10 @@ PrefabInstance:
     - target: {fileID: 5895426305429757158, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5898069559607222433, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5907292208054415058, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -39348,9 +40444,25 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5919924519324308742, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 5924488812442973854, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 5941082105820519673, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 5953756216840575270, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5958223545242787248, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 5961375326186872025, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -39360,6 +40472,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "A308 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 6003204076576093644, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6016974264932013379, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB054
@@ -39368,6 +40484,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Ing. Linda Blahov\xE1\nIng. Marek \u010Eurana\nIng. Andrea Melekov\xE1\nIng.
         Miroslav Poto\u010D\xE1r\nIng. Jakub Rap\u0161\xEDk"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6027070131804585149, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 6031239222051277348, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39381,6 +40501,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RB160
       objectReference: {fileID: 0}
+    - target: {fileID: 6044561373002408174, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6048795471655201269, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA303
@@ -39392,6 +40516,10 @@ PrefabInstance:
     - target: {fileID: 6059488952428558917, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB304
+      objectReference: {fileID: 0}
+    - target: {fileID: 6063938461807542945, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 6063940532095682667, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39409,6 +40537,22 @@ PrefabInstance:
       propertyPath: m_text
       value: RA219
       objectReference: {fileID: 0}
+    - target: {fileID: 6076225616673015002, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6076495541069957627, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6076801939685094319, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6083867847709152119, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6091354856666252011, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA214
@@ -39417,6 +40561,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "doc. Ing. Miroslav Kva\u0161\u0161ay, PhD.\ndoc. Ing. J\xE1n Rab\u010Dan,
         PhD.\nIng. Michal Mrena, PhD."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6097145939529400552, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 6114190333649821670, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39446,9 +40594,25 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6143475070965222082, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6145027878567342473, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6147053269111047691, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6150750961349753706, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6162175848666653419, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 6164417519641822891, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39466,6 +40630,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6209759260469269654, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 6212535017945220581, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA223
@@ -39473,6 +40641,10 @@ PrefabInstance:
     - target: {fileID: 6216701610936855407, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 12 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6219812077304112689, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6222304589800172579, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39502,6 +40674,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6245226360118195371, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6247030483774249438, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -39522,6 +40698,18 @@ PrefabInstance:
       propertyPath: m_text
       value: KATEDRA INFORMATIKY
       objectReference: {fileID: 0}
+    - target: {fileID: 6279047943556577557, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293174036739722741, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293284898566869269, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 6296851473904611963, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA013
@@ -39529,6 +40717,10 @@ PrefabInstance:
     - target: {fileID: 6314862317431349827, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322456825089268837, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 6335852116070364930, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39542,13 +40734,33 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6346623216198799805, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6352251214063838672, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6357774477750501187, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364160764078724088, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 6366109500546897523, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 11 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6366270872616393996, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6373479215108435476, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6381351294383188490, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39562,17 +40774,33 @@ PrefabInstance:
       propertyPath: m_text
       value: "Sekretari\xE1t"
       objectReference: {fileID: 0}
+    - target: {fileID: 6398436783884499626, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6399828621605387729, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Bez \u010D\xEDsla - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6402754430932800835, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6405990800787813822, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A325 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 6413269308635836560, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6421333511941066171, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MANA\u017DERSKYCH TEORI\xCD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6427344258659956786, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6431286120985741289, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39582,6 +40810,22 @@ PrefabInstance:
       propertyPath: m_text
       value: prof. Ing. Elena Zaiseva, PhD.
       objectReference: {fileID: 0}
+    - target: {fileID: 6457196546692495894, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458912803725313750, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6461347611360864265, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466229856348254363, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6473676654973029907, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "V\xFDvojov\xE9 pracovisko KTK"
@@ -39590,9 +40834,17 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA INFORMA\u010CN\xDDCH SIET\xCD"
       objectReference: {fileID: 0}
+    - target: {fileID: 6486697889225540275, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6487649109472508818, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB108
+      objectReference: {fileID: 0}
+    - target: {fileID: 6498020103417729971, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6507059704647356553, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39609,6 +40861,10 @@ PrefabInstance:
     - target: {fileID: 6530482665805513861, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA224
+      objectReference: {fileID: 0}
+    - target: {fileID: 6544224803796549068, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6546345653829659172, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39638,6 +40894,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "C 9 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 6568277542847209792, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6569972190611394962, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6583104019825769912, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. J\xE1n Ru\u017Eb\xE1rsky, PhD.\ndoc. RNDr. Katar\xEDna Bachrat\xE1,
@@ -39646,6 +40910,10 @@ PrefabInstance:
     - target: {fileID: 6584815344673930332, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6595543412437257835, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 6595748789803552322, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39658,6 +40926,10 @@ PrefabInstance:
     - target: {fileID: 6607642002175856420, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6612006607498903412, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6621442048359994514, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39691,9 +40963,21 @@ PrefabInstance:
       propertyPath: m_text
       value: RA116
       objectReference: {fileID: 0}
+    - target: {fileID: 6693974690856525358, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 125
+      objectReference: {fileID: 0}
     - target: {fileID: 6698292647479117920, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A327 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6723840119789492868, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6724277587001155915, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6729022099242396908, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39711,6 +40995,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6762150715308361283, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6767455983150772725, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 6772665021235863197, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -39719,6 +41011,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RA222
       objectReference: {fileID: 0}
+    - target: {fileID: 6791331672504708293, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 6814943264422892255, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. Marek Morav\u010D\xEDk, PhD.\nIng. Martin Kont\u0161ek, PhD."
@@ -39726,6 +41022,22 @@ PrefabInstance:
     - target: {fileID: 6817114379037207229, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 111 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6823111670589330610, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828024081503038977, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6828382788029479325, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6832031483309089179, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6834509422306635767, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39739,6 +41051,18 @@ PrefabInstance:
       propertyPath: m_text
       value: "Ing. Nikola \u0160taffenov\xE1, PhD.\ndoc. Ing. Viliam Lendel, PhD.\nIng.
         Roman Ad\xE1mik, PhD."
+      objectReference: {fileID: 0}
+    - target: {fileID: 6858853262771803316, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875175430238816059, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6875800343160481474, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 6882217767463846352, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -39764,9 +41088,17 @@ PrefabInstance:
       propertyPath: m_text
       value: "B206 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 6902289649948849838, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 6906374183795167278, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 3 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6910233330580487544, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 6913539148642004793, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39796,6 +41128,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6951667242583700014, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6953637122671327370, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6967222990714197978, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 6977224158819429234, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -39819,6 +41163,14 @@ PrefabInstance:
     - target: {fileID: 6993431413779626703, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6993602876774906639, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 6994154025780076230, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7004755440493928451, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39852,6 +41204,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "prof. Ing. \u013Dudmila J\xE1no\u0161ikov\xE1, PhD. (Ved\xFAca katedry)"
       objectReference: {fileID: 0}
+    - target: {fileID: 7100508453105523545, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 7120004136268908695, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 7122555295457345038, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "C 7 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -39860,6 +41220,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7138075794468150383, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138356798190613833, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7152861041480414253, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B353 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -39867,6 +41235,10 @@ PrefabInstance:
     - target: {fileID: 7154644940277052005, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7176368402954525362, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 7185746094724979295, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39888,6 +41260,14 @@ PrefabInstance:
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
       objectReference: {fileID: 0}
+    - target: {fileID: 7225847385964716377, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7233455280859893890, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7249545312194446936, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "prof RNDr. Jaroslav Jan\xE1\u010Dek, CSc."
@@ -39895,6 +41275,10 @@ PrefabInstance:
     - target: {fileID: 7258134863756744801, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259648293518328309, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7271308944249976344, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39904,13 +41288,29 @@ PrefabInstance:
       propertyPath: m_text
       value: "A213 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 7284562508408363635, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7284568590316786281, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7289109429879016264, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A218 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 7289868007993722020, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7302818144337293454, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7303541029854235352, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 7303569694341316626, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39928,6 +41328,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 7325708780801260662, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7330589548651790495, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "DEKAN\xC1T"
@@ -39944,6 +41348,18 @@ PrefabInstance:
     - target: {fileID: 7344356620143582176, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7345236971399348179, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346718514979397456, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7347981068129878427, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7358551940362200464, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -39985,9 +41401,21 @@ PrefabInstance:
       propertyPath: m_text
       value: RA006
       objectReference: {fileID: 0}
+    - target: {fileID: 7428047872160265178, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 7430109424863279009, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7432936483870241827, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MANA\u017DERSKYCH TEORI\xCD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7438322858040142300, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 7444851721755252261, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40001,6 +41429,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7449003464345444097, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7457619275015643061, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
@@ -40009,6 +41441,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "Labor\xE1torium \u010D\xEDslicov\xFDch po\u010D\xEDta\u010Dov 1"
       objectReference: {fileID: 0}
+    - target: {fileID: 7474541005541044482, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7474810109339813678, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
@@ -40016,6 +41452,10 @@ PrefabInstance:
     - target: {fileID: 7474871946861743096, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA209
+      objectReference: {fileID: 0}
+    - target: {fileID: 7489541646819891087, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7491646572199855069, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40053,6 +41493,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7576432035033355456, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 7577884672449776936, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "doc. Ing. Emese Tokar\u010D\xEDkov\xE1, PhD."
@@ -40065,13 +41509,37 @@ PrefabInstance:
       propertyPath: m_text
       value: RB351
       objectReference: {fileID: 0}
+    - target: {fileID: 7583173660356999664, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598603313016798608, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7598648459782137341, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7609593148259137293, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 7614063909751336241, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA MAKRO A MIKROEKONOMIKY
       objectReference: {fileID: 0}
+    - target: {fileID: 7614689970165481314, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 7626645010091805118, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MANA\u017DERSKYCH TEORI\xCD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634462451436333241, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 7637418859934201422, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40085,9 +41553,17 @@ PrefabInstance:
       propertyPath: m_text
       value: "DEKAN\xC1T"
       objectReference: {fileID: 0}
+    - target: {fileID: 7670549830067654661, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 7671185638351447939, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7683506336753820643, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7689459534953231585, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -40109,9 +41585,17 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7717789241114329860, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7723913451280252732, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. Barbora Buja\u010Dkov\xE1 (Samostatn\xFD odborn\xFD referent)"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7724315047056193092, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7725913463745037252, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40120,6 +41604,10 @@ PrefabInstance:
     - target: {fileID: 7726177296845192996, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA313
+      objectReference: {fileID: 0}
+    - target: {fileID: 7729601621330258073, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7737612291293278155, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40141,6 +41629,10 @@ PrefabInstance:
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
       objectReference: {fileID: 0}
+    - target: {fileID: 7765089960070556843, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7769961930743735832, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
@@ -40152,6 +41644,10 @@ PrefabInstance:
     - target: {fileID: 7802680726510789876, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: KATEDRA INFORMATIKY
+      objectReference: {fileID: 0}
+    - target: {fileID: 7802912177283103189, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7820222195103201614, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40173,6 +41669,10 @@ PrefabInstance:
       propertyPath: m_text
       value: KATEDRA TECHNICKEJ KYBERNETIKY
       objectReference: {fileID: 0}
+    - target: {fileID: 7837389200680484728, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 125
+      objectReference: {fileID: 0}
     - target: {fileID: 7841997662931849261, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB101
@@ -40180,6 +41680,14 @@ PrefabInstance:
     - target: {fileID: 7857096702486159508, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858786535686758492, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859581829322727802, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7867036698860413271, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40197,6 +41705,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "KATEDRA INFORMA\u010CN\xDDCH SIET\xCD"
       objectReference: {fileID: 0}
+    - target: {fileID: 7892857120910035667, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 7895169297248426995, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7922683988962196585, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RC029
@@ -40208,6 +41724,10 @@ PrefabInstance:
     - target: {fileID: 7932410933567751560, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A 108 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7944336511454681673, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7949865597956855303, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40237,6 +41757,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "B003 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 7972581547395109533, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 7977504185020429341, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B203 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -40245,9 +41769,25 @@ PrefabInstance:
       propertyPath: m_text
       value: RA208
       objectReference: {fileID: 0}
+    - target: {fileID: 7982887672301549784, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988776057205932393, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 7990161997222546156, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 8001933423464252596, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MATEMATICK\xDDCH MET\xD3D A OPERA\u010CNEJ ANAL\xDDZY"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8008523381160620591, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 8009678632770851211, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40264,6 +41804,26 @@ PrefabInstance:
     - target: {fileID: 8017456525689450102, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B201 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8021643658886750665, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8035982927959218998, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8036492548301633384, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8041815287044477345, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063505464901740558, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8067889873069708945, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40289,13 +41849,37 @@ PrefabInstance:
       propertyPath: m_text
       value: "Telef\xF3nna \xFAstred\u0148a"
       objectReference: {fileID: 0}
+    - target: {fileID: 8111366401708061142, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8111869679650697910, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8116666567270510486, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "doc. PaedDr. Dalibor Gonda, PhD.\nIng. Michal Lek\xFDr, PhD."
       objectReference: {fileID: 0}
+    - target: {fileID: 8118749163172185151, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8121199657314714072, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8121607135717775400, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RC007
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127445022684511618, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8133617046670249312, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8140139075336381106, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -40305,13 +41889,33 @@ PrefabInstance:
       propertyPath: m_text
       value: RB353
       objectReference: {fileID: 0}
+    - target: {fileID: 8164240231465820333, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8172151078845832588, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8181079466762903822, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A120 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 8182059357876373815, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8186717374061598586, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8187136384779737311, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Ing. Michal Varga, PhD.\nIng. Patrik Rusn\xE1k, PhD."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8191842158907502662, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 8200617426094971049, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40320,6 +41924,10 @@ PrefabInstance:
     - target: {fileID: 8201280405849542390, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8204078897050076666, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 8208931550727233371, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40337,6 +41945,18 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8229464257046488692, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8230066125342475164, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8230139938032163051, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 8235186049297232610, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B 10 - p\xF4vodn\xE9 ozna\u010Denie"
@@ -40353,6 +41973,14 @@ PrefabInstance:
       propertyPath: m_text
       value: "DEKAN\xC1T"
       objectReference: {fileID: 0}
+    - target: {fileID: 8245785979033461824, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8251274030040404275, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 8259435843243704457, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -40360,6 +41988,14 @@ PrefabInstance:
     - target: {fileID: 8268644955639918241, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "\u2014"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8280551407842979480, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8289272586280822687, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 8289950748815090452, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -40369,9 +42005,21 @@ PrefabInstance:
       propertyPath: m_text
       value: RA101
       objectReference: {fileID: 0}
+    - target: {fileID: 8296192253367898015, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8302303025642283706, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8310127502011656051, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B159 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8320002123137106994, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 8324967994189859205, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40380,6 +42028,14 @@ PrefabInstance:
     - target: {fileID: 8326671907862345325, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8328790733268494362, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8336948191129048653, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8342270970696587724, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40404,6 +42060,10 @@ PrefabInstance:
     - target: {fileID: 8391064711327597494, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "B211 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8391090110494594798, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8393889146431817832, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40465,9 +42125,21 @@ PrefabInstance:
       propertyPath: m_text
       value: "Kancel\xE1ria"
       objectReference: {fileID: 0}
+    - target: {fileID: 8426237518371780277, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8437110028848551455, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8441594376821711216, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8443290284354042562, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 8445191965197859413, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40477,6 +42149,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RC006
       objectReference: {fileID: 0}
+    - target: {fileID: 8452091002889046198, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 8468091746852024941, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
@@ -40484,6 +42160,18 @@ PrefabInstance:
     - target: {fileID: 8489791672380141022, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A209 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8491966420624741135, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8504404615361112799, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8507935040970904186, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8510004928086246325, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40501,6 +42189,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "prof. Dr. Mgr. Ivan Cimr\xE1k"
       objectReference: {fileID: 0}
+    - target: {fileID: 8536569563184952908, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8539198319378403928, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
@@ -40509,6 +42201,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RA213
       objectReference: {fileID: 0}
+    - target: {fileID: 8547167850594984510, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 8563165072850553867, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Name
       value: FriBuilding
@@ -40516,6 +42212,18 @@ PrefabInstance:
     - target: {fileID: 8568612338530025532, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8574212552164895214, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8576661200836763344, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580389063249989869, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 8580552818449117531, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -40529,6 +42237,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RA117
       objectReference: {fileID: 0}
+    - target: {fileID: 8590685361006656973, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 8593518368881368404, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -40536,6 +42248,10 @@ PrefabInstance:
     - target: {fileID: 8594493773731343726, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RA218
+      objectReference: {fileID: 0}
+    - target: {fileID: 8598286153541117211, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8601645705024608390, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40545,21 +42261,41 @@ PrefabInstance:
       propertyPath: m_text
       value: RB010
       objectReference: {fileID: 0}
+    - target: {fileID: 8617950194637022846, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 8623962419123550740, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "doc. RNDr. \u0160tefan Pe\u0161ko, CSc.\nMgr. Michal Kauki\u010D, CSc."
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632903612841415655, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8638904048363999454, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A304 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 8642658772046970795, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8672766993933662271, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA MANA\u017DERSKYCH TEORI\xCD"
       objectReference: {fileID: 0}
+    - target: {fileID: 8686762443044864809, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8687189049089802039, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Kancel\xE1ria"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8689981795625364183, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8690215804451810046, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40581,9 +42317,21 @@ PrefabInstance:
       propertyPath: m_text
       value: "Ing. Zuzana Stan\xEDkov\xE1, PhD."
       objectReference: {fileID: 0}
+    - target: {fileID: 8716494756063169301, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8722449413505075693, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "A318 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8725314478173878711, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726015164326125319, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8742962095136872706, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40593,6 +42341,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "B257 - p\xF4vodn\xE9 ozna\u010Denie"
       objectReference: {fileID: 0}
+    - target: {fileID: 8744990614827562012, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 8757464865495873940, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "RNDr. Rudolf Bla\u0161ko, PhD."
@@ -40601,9 +42353,25 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8768831252960075792, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8772719839052818802, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8773653312905135292, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA INFORMA\u010CN\xDDCH SIET\xCD - oddelenie virtualiz\xE1cie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775404898685030065, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
+    - target: {fileID: 8789817364379976814, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 8794843452651503129, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
@@ -40621,6 +42389,10 @@ PrefabInstance:
       propertyPath: m_text
       value: RB308
       objectReference: {fileID: 0}
+    - target: {fileID: 8837025633478306627, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8843551903793269916, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: RB352
@@ -40632,6 +42404,10 @@ PrefabInstance:
     - target: {fileID: 8854708698529382230, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8862824330372070154, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 8870363477909859927, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40661,6 +42437,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8921378572626391214, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 8937201038652483163, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -40668,6 +42448,10 @@ PrefabInstance:
     - target: {fileID: 8938008932003408859, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "KATEDRA SOFTV\xC9ROV\xDDCH TECHNOL\xD3GI\xCD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942747938127605960, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 8948717698941545023, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40705,6 +42489,10 @@ PrefabInstance:
       propertyPath: m_text
       value: "prof. Ing. Milan Kubina, PhD. (Ved\xFAci katedry)"
       objectReference: {fileID: 0}
+    - target: {fileID: 9009171598074422552, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
+      objectReference: {fileID: 0}
     - target: {fileID: 9015522579760608202, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -40733,6 +42521,14 @@ PrefabInstance:
     - target: {fileID: 9058075722339659697, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "Zasadacia miestnos\u0165"
+      objectReference: {fileID: 0}
+    - target: {fileID: 9060759273872585640, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 9075749051465862281, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 9084122572672242058, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
@@ -40773,6 +42569,10 @@ PrefabInstance:
     - target: {fileID: 9196033752138488399, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_text
       value: "C 18 - p\xF4vodn\xE9 ozna\u010Denie"
+      objectReference: {fileID: 0}
+    - target: {fileID: 9198701623721069941, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483645
       objectReference: {fileID: 0}
     - target: {fileID: 9207357118411847095, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: m_Enabled

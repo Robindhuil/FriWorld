@@ -12,6 +12,12 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   skrýva, koľko to stojí raycastov a milisekúnd. Zapína sa `logStats` v inšpektore,
   v shipnutom builde má zostať vypnuté.
 
+### Fixed
+- Occlusion culling konečne zakrýva to, čo má: tri štvrtiny stien pre neho doteraz
+  neexistovali ako prekážka, takže zostávali vykreslené veci, ktoré hráč nevidí.
+  Nástroj na priraďovanie vrstiev teraz rozhoduje o occlusion podľa materiálu, nie
+  len podľa mena — priehľadné plochy occludermi nikdy nebudú.
+
 ### Performance
 - Web build výrazne odľahčený pre integrované grafiky: vypnuté MSAA (nahradené
   lacnejším FXAA), depth texture, LOD cross-fade a blending reflection probes;
