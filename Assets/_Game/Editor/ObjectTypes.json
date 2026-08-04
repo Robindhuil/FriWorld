@@ -2,17 +2,17 @@
   "types": [
     {
       "name": "BakedSignQuad",
-      "collider": null,
-      "layer": null,
-      "occluder": null,
+      "collider": "none",
+      "layer": "noObstacle",
+      "occluder": "no",
       "static": null,
       "tag": null
     },
     {
       "name": "Cedulka",
-      "collider": null,
-      "layer": null,
-      "occluder": null,
+      "collider": "none",
+      "layer": "noObstacle",
+      "occluder": "no",
       "static": null,
       "tag": null
     },
@@ -146,14 +146,6 @@
     },
     {
       "name": "door",
-      "collider": "box",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "door_1_r.001",
       "collider": "box",
       "layer": "interactable",
       "occluder": "auto",
@@ -377,14 +369,6 @@
       "tag": null
     },
     {
-      "name": "nav_1.001",
-      "collider": "mesh",
-      "layer": "nav",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
       "name": "outer_wall",
       "collider": "mesh",
       "layer": "obstacle",
@@ -449,22 +433,6 @@
       "tag": null
     },
     {
-      "name": "poster_1.001",
-      "collider": "none",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "poster_1.002",
-      "collider": "none",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
       "name": "preform",
       "collider": "box",
       "layer": "obstacle",
@@ -473,74 +441,10 @@
       "tag": null
     },
     {
-      "name": "ra000_outer_wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "ra000_roof",
-      "collider": "mesh",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "ra100_outer_wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "ra200_outer_wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "ra300_back_door",
-      "collider": "box",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "ra300_outer_wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "ra300_roof",
-      "collider": "mesh",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "ra300_roof_fence",
-      "collider": "mesh",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
       "name": "rack",
-      "collider": null,
-      "layer": null,
-      "occluder": null,
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "no",
       "static": null,
       "tag": null
     },
@@ -593,78 +497,6 @@
       "tag": null
     },
     {
-      "name": "rb000_outer_wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "rb000_roof",
-      "collider": "mesh",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "rb100_outer_wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "rb200_outer_wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "rb300_outer_wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "rb300_roof",
-      "collider": "mesh",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "rc000_outer_wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "rc000_outer_wall_sign",
-      "collider": "none",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "rc000_roof",
-      "collider": "mesh",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
       "name": "reception_sign",
       "collider": "none",
       "layer": "noObstacle",
@@ -691,6 +523,14 @@
     {
       "name": "roof_<int>_glass",
       "collider": "box",
+      "layer": "noObstacle",
+      "occluder": "auto",
+      "static": null,
+      "tag": null
+    },
+    {
+      "name": "roof_fence",
+      "collider": "mesh",
       "layer": "noObstacle",
       "occluder": "auto",
       "static": null,
@@ -842,9 +682,9 @@
     },
     {
       "name": "tree_pot",
-      "collider": null,
-      "layer": null,
-      "occluder": null,
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto",
       "static": null,
       "tag": null
     },
@@ -892,14 +732,6 @@
       "name": "window",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "window_7_glass,",
-      "collider": "box",
-      "layer": "noObstacle",
       "occluder": "auto",
       "static": null,
       "tag": null

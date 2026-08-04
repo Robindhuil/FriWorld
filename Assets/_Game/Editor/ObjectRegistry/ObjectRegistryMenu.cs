@@ -37,7 +37,9 @@ namespace FriWorld.ObjectRegistry
             if (!TryScanSelection(out var scan, out _)) return;
 
             var prefixes = TypeRegistry.LoadPrefixes(PrefixesPath);
-            var known = new HashSet<string>(prefixes);
+            // Case-insensitive, because matching is: keeping both "Outside" and "outside"
+            // would be two rows doing one job.
+            var known = new HashSet<string>(prefixes, System.StringComparer.OrdinalIgnoreCase);
             var added = new List<string>();
 
             foreach (var p in scan.proposedPrefixes)
