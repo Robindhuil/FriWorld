@@ -31,32 +31,46 @@ namespace FriWorld.ObjectRegistry
                     + "\nFill them in — until then their objects are left untouched.");
         }
 
-        [MenuItem("Tools/Object Registry/Propose Prefixes From Selection")]
-        static void ProposePrefixes()
+        [MenuItem("Tools/Object Registry/Add Prefixes From Selection")]
+        static void AddPrefixes()
         {
             if (!TryScanSelection(out var scan, out _)) return;
 
-            var existing = TypeRegistry.LoadPrefixes(PrefixesPath);
-            var known = new HashSet<string>(existing);
-            var fresh = new List<string>();
+            var prefixes = TypeRegistry.LoadPrefixes(PrefixesPath);
+            var known = new HashSet<string>(prefixes);
+            var added = new List<string>();
+
             foreach (var p in scan.proposedPrefixes)
-                if (!known.Contains(p) && !scan.riskyPrefixes.Contains(p)) fresh.Add(p);
+            {
+                // A prefix that is also a type key would eat part of a multi-word type
+                // ("wall" swallowing "wall_edge"), and no automatic guard catches that.
+                if (scan.riskyPrefixes.Contains(p)) continue;
+                if (!known.Add(p)) continue;
+                prefixes.Add(p);
+                added.Add(p);
+            }
+
+            TypeRegistry.SavePrefixes(PrefixesPath, prefixes);
+            AssetDatabase.Refresh();
 
             var sb = new System.Text.StringBuilder();
-            sb.AppendLine("[ObjectRegistry] " + fresh.Count
-                        + " prefix proposals (NOT written — review, then add by hand):");
-            foreach (var p in fresh) sb.AppendLine("    " + p);
+            sb.AppendLine("[ObjectRegistry] added " + added.Count + " prefixes to " + PrefixesPath
+                        + " (" + prefixes.Count + " total). Review them with git diff — nothing is"
+                        + " applied to the scene until the generators run.");
+            for (int i = 0; i < added.Count && i < 30; i++) sb.AppendLine("    + " + added[i]);
+            if (added.Count > 30) sb.AppendLine("    … and " + (added.Count - 30) + " more");
+
             if (scan.riskyPrefixes.Count > 0)
             {
-                sb.AppendLine("  withheld as risky (each is also a type key):");
-                foreach (var p in scan.riskyPrefixes) sb.AppendLine("    " + p);
+                sb.AppendLine("  WITHHELD as risky — each is also a type key, add by hand only if you are sure:");
+                foreach (var p in scan.riskyPrefixes) sb.AppendLine("    ! " + p);
             }
             Debug.Log(sb.ToString());
         }
 
         [MenuItem("Tools/Object Registry/Report On Selection", true)]
         [MenuItem("Tools/Object Registry/Seed Missing Types From Selection", true)]
-        [MenuItem("Tools/Object Registry/Propose Prefixes From Selection", true)]
+        [MenuItem("Tools/Object Registry/Add Prefixes From Selection", true)]
         static bool ValidateSelection() => Selection.gameObjects != null && Selection.gameObjects.Length > 0;
 
         internal static bool TryScanSelection(out ScanResult scan, out TypeRegistry registry)

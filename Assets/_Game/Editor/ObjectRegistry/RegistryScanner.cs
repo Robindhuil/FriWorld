@@ -14,7 +14,10 @@ namespace FriWorld.ObjectRegistry
     public class ScanResult
     {
         public readonly List<ScannedObject> objects = new List<ScannedObject>();
-        /// <summary>Container names that could serve as prefixes. Proposals only — never applied.</summary>
+        /// <summary>
+        /// Container names that would actually shorten at least one descendant's name. Container
+        /// names that prefix nothing are left out — they would only pad the file.
+        /// </summary>
         public readonly List<string> proposedPrefixes = new List<string>();
         /// <summary>Proposed prefixes that are also a derived type key. Applying one would eat a type.</summary>
         public readonly List<string> riskyPrefixes = new List<string>();
@@ -34,6 +37,7 @@ namespace FriWorld.ObjectRegistry
             if (root == null) return result;
 
             var containers = new HashSet<string>();
+            var leafNames = new List<string>();
             var keys = new HashSet<string>();
 
             void Walk(Transform t)
@@ -44,6 +48,7 @@ namespace FriWorld.ObjectRegistry
                 {
                     string key = ObjectTypeKey.Derive(t.name, approvedPrefixes);
                     keys.Add(key);
+                    leafNames.Add(t.name);
                     result.objects.Add(new ScannedObject
                     {
                         gameObject = t.gameObject,
@@ -60,12 +65,29 @@ namespace FriWorld.ObjectRegistry
             foreach (var c in containers)
             {
                 if (string.IsNullOrEmpty(c)) continue;
+                if (!PrefixesAnyLeaf(c, leafNames)) continue;   // would change nothing
+
                 result.proposedPrefixes.Add(c);
                 if (keys.Contains(c)) result.riskyPrefixes.Add(c);
             }
             result.proposedPrefixes.Sort(string.CompareOrdinal);
             result.riskyPrefixes.Sort(string.CompareOrdinal);
             return result;
+        }
+
+        /// <summary>
+        /// True when this container name would actually shorten some leaf's name. Without this
+        /// check the proposal list carries every container in the subtree, most of which prefix
+        /// nothing — on FriBuilding/Objects that is 741 names instead of the ones that matter.
+        /// </summary>
+        static bool PrefixesAnyLeaf(string container, List<string> leafNames)
+        {
+            string withSeparator = container + "_";
+            for (int i = 0; i < leafNames.Count; i++)
+                if (leafNames[i].Length > withSeparator.Length
+                    && leafNames[i].StartsWith(withSeparator, System.StringComparison.OrdinalIgnoreCase))
+                    return true;
+            return false;
         }
 
         public static string PathOf(Transform t)
