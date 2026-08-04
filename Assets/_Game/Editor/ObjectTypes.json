@@ -1,6 +1,12 @@
 {
   "types": [
     {
+      "name": "utility_box",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
       "name": "BakedSignQuad",
       "collider": "none",
       "layer": "noObstacle",
@@ -112,19 +118,22 @@
       "name": "door",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto"
+      "occluder": "auto",
+      "script": "Door"
     },
     {
       "name": "door_<int>_l",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto"
+      "occluder": "auto",
+      "script": "Door"
     },
     {
       "name": "door_<int>_r",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto"
+      "occluder": "auto",
+      "script": "Door"
     },
     {
       "name": "door_frame",
@@ -142,25 +151,29 @@
       "name": "door_l",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto"
+      "occluder": "auto",
+      "script": "Door"
     },
     {
       "name": "door_r",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto"
+      "occluder": "auto",
+      "script": "Door"
     },
     {
       "name": "door_slide_<int>_l",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto"
+      "occluder": "auto",
+      "script": "Door"
     },
     {
       "name": "door_slide_<int>_r",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto"
+      "occluder": "auto",
+      "script": "Door"
     },
     {
       "name": "doorstep",
@@ -512,7 +525,7 @@
     },
     {
       "name": "tree_pot",
-      "collider": "box",
+      "collider": "mesh",
       "layer": "obstacle",
       "occluder": "auto"
     },

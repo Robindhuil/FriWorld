@@ -22,6 +22,12 @@ namespace FriWorld.ObjectRegistry
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string tag;        // e.g. "Door"; otherwise derived from layer
 
+        // Interactable behaviour to attach, e.g. "Door". Deliberately separate from the layer:
+        // door_frame is interactable too but must not become an openable door, so the layer
+        // cannot decide this.
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string script;
+
         /// <summary>
         /// False while any required field is still null. An undecided entry is reported and its
         /// objects are left untouched — the whole point is that "present but blank" must not
