@@ -40,6 +40,9 @@ public class PlayerLook : MonoBehaviour
             }
         }
 
+        // Web swaps MSAA for FXAA; no-op on every other platform.
+        WebRenderDefaults.ApplyToCamera(Cam);
+
         float dpiValue = PlayerPrefs.GetFloat("MouseSensitivity", 800f);
         xSensitivity = ConvertDPIToSensitivity(dpiValue);
         ySensitivity = xSensitivity;

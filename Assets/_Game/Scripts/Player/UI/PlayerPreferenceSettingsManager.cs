@@ -41,15 +41,30 @@ public class PlayerPreferenceSettingsManager : MonoBehaviour
     public static readonly int DEFAULT_RESOLUTION_HEIGHT = 1080;
     public static readonly int DEFAULT_FULLSCREEN_MODE = 0; // FullScreenWindow
     public static readonly int DEFAULT_VSYNC = 1; // On
-    public static readonly int DEFAULT_QUALITY_LEVEL = 2; // Medium (typically)
-    public static readonly bool DEFAULT_BLOOM = true;
-    public static readonly bool DEFAULT_DEPTH_OF_FIELD =
-#if UNITY_WEBGL
-        false;  // web: DoF off by default — sharper + skips the DoF passes (still user-toggleable)
-#else
-        true;
-#endif
-    public static readonly bool DEFAULT_MOTION_BLUR = false;
+    // Web must default to its own quality level. The other levels reference desktop-authored
+    // pipeline assets, so defaulting to "Stredné" (index 2 -> RP_Medium) on Web would hand the
+    // renderer a pipeline with none of the Web tuning the moment video settings are applied.
+    public static int DEFAULT_QUALITY_LEVEL
+    {
+        get
+        {
+            if (PlatformFlags.IsWeb)
+            {
+                int web = WebRenderDefaults.WebQualityLevel;
+                if (web >= 0)
+                    return web;
+            }
+            return 2; // "Stredné"
+        }
+    }
+    // The three expensive full-screen effects. Properties, not readonly fields, because
+    // WebRenderDefaults reads the FeatureFlags asset from Resources — that must not run
+    // during static field initialisation. Where the flag is off (Web), these read false and
+    // VideoSettings also drops the corresponding menu entries, so the player is never offered
+    // a toggle that the platform will not honour.
+    public static bool DEFAULT_BLOOM => WebRenderDefaults.HeavyPostProcessing;
+    public static bool DEFAULT_DEPTH_OF_FIELD => WebRenderDefaults.HeavyPostProcessing;
+    public static bool DEFAULT_MOTION_BLUR => false;  // opt-in on every platform
     public static readonly float DEFAULT_GAMMA = 1f;
     public static readonly float DEFAULT_GAIN = 1f;
     public static readonly float DEFAULT_CONTRAST = -10f;   // URP units (range -100..100)

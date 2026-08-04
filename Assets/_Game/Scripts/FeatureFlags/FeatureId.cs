@@ -13,4 +13,13 @@ public enum FeatureId
     ExperimentalOcclusionCulling,
     DebugOverlay,
     WebFlatLighting,
+
+    /// <summary>
+    /// Full-screen post effects that cost real fill rate: Bloom, Depth of Field, Motion Blur.
+    /// Off on Web (integrated GPUs are bandwidth-bound and these are several full-screen
+    /// passes each). Colour grading / tonemapping are NOT covered by this flag — they fold
+    /// into the single uber post pass and are effectively free, and they are the game's look.
+    /// Queried through <see cref="WebRenderDefaults.HeavyPostProcessing"/>, never directly.
+    /// </summary>
+    HeavyPostProcessing,
 }

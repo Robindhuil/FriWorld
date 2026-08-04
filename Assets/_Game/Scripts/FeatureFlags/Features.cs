@@ -15,8 +15,13 @@ public static class Features
 
     static Dictionary<FeatureId, FeatureFlagConfig.Flag> _flags;
 
-    /// <summary>True when running on the WebGL player.</summary>
-    public static bool IsWeb => Application.platform == RuntimePlatform.WebGLPlayer;
+    /// <summary>
+    /// True when this is the Web target. Delegates to <see cref="PlatformFlags"/> so that in
+    /// the editor it follows the active build target rather than the runtime platform —
+    /// otherwise a Web-scoped flag would resolve one way in play mode and the other way in
+    /// the actual build, which is exactly the parity <see cref="PlatformGate"/> guarantees.
+    /// </summary>
+    public static bool IsWeb => PlatformFlags.IsWeb;
 
     public static bool On(FeatureId id)
     {
@@ -24,6 +29,21 @@ public static class Features
         if (!_flags.TryGetValue(id, out var flag) || !flag.enabled)
             return false;
         return ScopeMatches(flag.scope);
+    }
+
+    /// <summary>
+    /// Same as <see cref="On(FeatureId)"/>, except that a flag which is not in the config at
+    /// all (missing asset, entry not added yet) resolves to <paramref name="fallback"/>
+    /// instead of OFF. Use this for flags whose safe default is ON, so a missing config
+    /// cannot silently strip a feature from a shipping build. A flag that IS configured
+    /// always wins — the fallback only covers "nobody has said anything about this".
+    /// </summary>
+    public static bool On(FeatureId id, bool fallback)
+    {
+        EnsureLoaded();
+        if (!_flags.TryGetValue(id, out var flag))
+            return fallback;
+        return flag.enabled && ScopeMatches(flag.scope);
     }
 
     /// <summary>Drop the cached config so the next query reloads it (e.g. after edits).</summary>

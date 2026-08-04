@@ -471,6 +471,7 @@ public class UIManager : MonoBehaviour
     private void Update()
     {
         UpdateFpsCounter();
+        CheckPointerLockReleased();
 
         if (navigationUI.TrackedRoom == null)
             return;
@@ -489,6 +490,43 @@ public class UIManager : MonoBehaviour
             playerUI.DisplayRoomArrival(arrivedRoomName);
         }
     }
+
+    // Web only. While the cursor is captured, Escape belongs to the browser,
+    // not to us: it releases pointer lock and the key never reaches Unity, so
+    // opening the menu used to take two presses. Treat losing the lock as the
+    // menu request instead - one press gives back the cursor and opens the
+    // menu, which needs that cursor anyway.
+    //
+    // Deliberately not enabled for standalone: whether Escape releases the lock
+    // there is unverified, and alt-tabbing away would open the menu too, which
+    // is a change the desktop build has not asked for.
+#if UNITY_WEBGL
+    private bool cursorWasLocked;
+#endif
+
+    private void CheckPointerLockReleased()
+    {
+#if UNITY_WEBGL
+        bool locked = UnityEngine.Cursor.lockState == CursorLockMode.Locked;
+
+        // Only a genuine locked -> unlocked transition counts. Reacting to the
+        // unlocked state alone would pop the menu open on startup, when the
+        // cursor has not been captured yet: browsers grant pointer lock only
+        // after a click, however early the game asks for it.
+        //
+        // Look is enabled exactly while the player is walking around, and off
+        // for every UI that unlocks the cursor on purpose (dialogue, panels,
+        // IDE, quiz, the menu itself) - so it tells intentional releases apart
+        // from ones the browser forced on us.
+        if (cursorWasLocked && !locked && inputManager != null && inputManager.OnFoot.Look.enabled)
+        {
+            OpenMenu();
+        }
+
+        cursorWasLocked = locked;
+#endif
+    }
+
 
     private void UpdateFpsCounter()
     {

@@ -656,10 +656,24 @@ public class VideoSettings : MonoBehaviour
         CreateResolutionSelector(container);
         CreateFullscreenSelector(container);
         CreateVSyncSelector(container);
-        CreateQualitySelector(container);
-        CreateBloomSelector(container);
-        CreateDepthOfFieldSelector(container);
-        CreateMotionBlurSelector(container);
+
+        // On Web the only valid level is "Web" — every other preset points at a desktop
+        // pipeline asset and would throw away the Web render tuning. Offering a one-entry
+        // dropdown is worse than offering none, so it is omitted until there is a second
+        // web-authored tier to choose between.
+        if (!PlatformFlags.IsWeb)
+            CreateQualitySelector(container);
+
+        // Where the heavy effects are gated off (Web), the toggles are omitted entirely
+        // rather than shown as dead switches the platform would ignore.
+        if (WebRenderDefaults.HeavyPostProcessing)
+        {
+            CreateBloomSelector(container);
+            CreateDepthOfFieldSelector(container);
+            CreateMotionBlurSelector(container);
+        }
+
+        // Colour grading stays on every platform — it is the game's look and costs nothing.
         CreateGammaSlider(container);
         CreateGainSlider(container);
         CreateContrastSlider(container);
@@ -675,6 +689,8 @@ public class VideoSettings : MonoBehaviour
         ppVolume = volume;
         if (prefsManager == null) return;
         prefsManager.EnsureInitialized();
+        // Saved prefs can predate the flag (or come from a desktop profile), so the gate is
+        // applied here rather than trusting what is stored.
         SetBloom(prefsManager.Bloom);
         SetDepthOfField(prefsManager.DepthOfField);
         SetMotionBlur(prefsManager.MotionBlur);
@@ -684,22 +700,24 @@ public class VideoSettings : MonoBehaviour
         SetSaturation(prefsManager.Saturation);
     }
 
+    // Bloom / DoF / Motion Blur all funnel through these three, so gating them here covers
+    // every caller: saved prefs, the menu, and ApplySavedSettings alike.
     public void SetBloom(bool enabled)
     {
         if (ppVolume != null && ppVolume.profile.TryGet<Bloom>(out Bloom bloom))
-            bloom.active = enabled;
+            bloom.active = enabled && WebRenderDefaults.HeavyPostProcessing;
     }
 
     public void SetDepthOfField(bool enabled)
     {
         if (ppVolume != null && ppVolume.profile.TryGet<DepthOfField>(out DepthOfField dof))
-            dof.active = enabled;
+            dof.active = enabled && WebRenderDefaults.HeavyPostProcessing;
     }
 
     public void SetMotionBlur(bool enabled)
     {
         if (ppVolume != null && ppVolume.profile.TryGet<MotionBlur>(out MotionBlur motionBlur))
-            motionBlur.active = enabled;
+            motionBlur.active = enabled && WebRenderDefaults.HeavyPostProcessing;
     }
 
     // userValue range [0,2]: 1 = neutral (W=0), maps to W = userValue - 1
