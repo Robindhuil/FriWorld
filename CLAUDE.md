@@ -58,6 +58,47 @@ Vlastný kód patrí **len** do `_Game/`. PascalCase, bez medzier a diakritiky.
 
 ---
 
+## Collidery, vrstvy a static flagy — register typov
+
+Neurčujú sa kľúčovými slovami v kóde, ale registrom v `Assets/_Game/Editor/`:
+
+| súbor | obsah |
+|---|---|
+| `ObjectPrefixes.json` | prefixy na odstrihnutie (mená kontajnerov/miestností) |
+| `ObjectTypes.json` | `typ → collider / layer / occluder` |
+
+Meno objektu sa zredukuje na **typový kľúč**: odstrihne sa najdlhší sediaci prefix, vodiace
+`<int>_`, značky `UNO`/`UYO` a koncové `_<int>`. Kľúč sa vyhľadá **presnou zhodou** — nikdy nie
+podreťazcom. Neznámy alebo nevyplnený typ **objekt nedotkne a nahlási sa**; nikdy nedostane
+vlastnosti podobne pomenovaného typu.
+
+### Pridanie nového objektu
+
+1. Pomenuj ho `<kontajner>_<typ>_<číslo>` a naimportuj.
+2. Vyber koreň (napr. `FriBuilding`) → `Tools → Object Registry → Report On Selection`.
+3. Podľa hlásenia:
+   - **UNKNOWN** → `Seed Missing Types From Selection`, potom vyplň tri polia. Nový typ je
+     **prvý v súbore**, netreba ho hľadať.
+   - **UNSTRIPPED** → pribudol kontajner, spusti `Add Prefixes From Selection`.
+4. `Report On Selection` znova — chceš „every scanned object resolved to a decided type".
+5. `Tools → Colliders → Generate From Registry` a
+   `Tools → Layers → Assign Layers And Static From Registry`.
+6. Ak sa zmenili occludery, **rebake occlusion culling**.
+
+Objekt existujúceho typu (ďalšia lampa, ôsme okno) nevyžaduje nič — stačí krok 5.
+
+### Pravidlá pomenovania
+
+- **Kontajner sa nesmie volať ako typ.** `ra000_roof` obsahujúci `roof` znamená, že ten prefix
+  sa nedá schváliť. Preto sú steny `ra000_outside_wall`, nie `ra000_outer_wall`.
+- Žiadne blenderovské `.001`, žiadne čiarky, medzery ani zátvorky — každé z toho vyrobí
+  samostatný typ.
+- Číslo inštancie v strede mena je v poriadku, pokryje ho vzor `window_<int>_glass`.
+
+Podrobne aj s tým, čo neskúšať znova: `docs/decisions/2026-08-04-object-type-registry.md`.
+
+---
+
 ## Platformové vetvenie
 
 Máš na to systém v `_Game/Scripts/FeatureFlags/` — používaj ho, nie rozsypané `#if`.

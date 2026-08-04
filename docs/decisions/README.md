@@ -18,3 +18,4 @@ Súbor: `YYYY-MM-DD-kratky-nazov.md`, sekcie **Kontext → Rozhodnutie → Dôsl
 | 2026-08-04 | [Mouse delta sa nenásobí deltaTime](2026-08-04-mouse-delta-a-frame-time.md) |
 | 2026-08-04 | [Render politika web buildu](2026-08-04-web-render-politika.md) |
 | 2026-08-04 | [Occlusion culling: occluder rozhoduje materiál, nie meno](2026-08-04-occlusion-culling-occludery.md) |
+| 2026-08-04 | [Collidery a vrstvy riadi register typov](2026-08-04-object-type-registry.md) |

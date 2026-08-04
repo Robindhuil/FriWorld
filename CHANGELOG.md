@@ -47,6 +47,11 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Collidery, vrstvy a static flagy sa už neurčujú podľa kľúčových slov v kóde, ale
+  podľa registra typov v `ObjectPrefixes.json` a `ObjectTypes.json`. Neznámy alebo
+  nevyplnený typ sa nahlási a objekt zostane nedotknutý — namiesto toho, aby ticho
+  prevzal vlastnosti podobne pomenovaného typu. Postup pri pridávaní objektu je
+  v `CLAUDE.md`. (`522f44e`)
 - Assety preusporiadané: všetok vlastný obsah je v `Assets/_Game/`, externé veci
   v `Assets/ThirdParty/`. (`c9cf423`, `7b2daa1`)
 - `Features.IsWeb` sleduje aktívny build target, takže play mode v editore sedí
