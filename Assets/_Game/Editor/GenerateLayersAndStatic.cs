@@ -1,47 +1,26 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
+using FriWorld.ObjectRegistry;
 using Unity.AI.Navigation;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.AI;
 
+/// <summary>
+/// Assigns layers, static flags and the Door tag from the object type registry.
+///
+/// The layer comes from <c>ObjectTypes.json</c>, looked up by the type key derived from the
+/// object's name. Static flags and the Door tag are derived from that layer unless the entry
+/// overrides them. An object whose type is unknown or undecided is left exactly as it is and
+/// reported — it never inherits a similarly named type's behaviour.
+///
+/// UNO / UYO in an object's name still win over the registry: they are per-instance exceptions
+/// that a type-level registry cannot express.
+/// </summary>
 public static class GenerateLayersAndStatic
 {
-    // Edit these keyword sets to match your naming rules.
-    // Priority: Interactable > NoObstacle > Obstacle > Nav > default no static change to layers.
-    private static readonly string[] InteractableKeywords = { "door", "door_slide" };
-
-    // Names that PROPOSE Occluder Static — big solid surfaces that plausibly block sight.
-    // The name only proposes; ShouldBeOccluder has the final say, because a name cannot tell
-    // you whether the surface is see-through. Everything else that is static gets Occludee
-    // only: small props make poor occluders and just bloat / slow the occlusion bake.
-    //
-    // "foor" is not a typo on our side — that is how the floor meshes are actually named
-    // (19 objects named *foor*, none named *floor*). Renaming the keyword would stop it
-    // matching anything.
-    private static readonly string[] OccluderKeywords =
-    {
-        "wall",
-        "outer_wall",
-        "ceiling",
-        "roof",
-        "nav",
-        "door_frame",
-        "foor",
-        "pillar",
-    };
-
-    // Materials at or past this queue are alpha-tested / transparent. Anything you can see
-    // through must never be an occluder: Umbra would then cull the geometry behind it, which
-    // the player can plainly see. This matters here because a single "window" renderer carries
-    // both an opaque frame material and a transparent glass one.
-    private const int TransparentRenderQueue = 2450;
-
-    // Summed face area of the world bounds. Below this an object cannot hide anything behind
-    // it, so making it an occluder only costs bake time and memory.
-    private const float MinOccluderArea = 2f;
-
     private static readonly StaticEditorFlags AllStaticFlags =
         StaticEditorFlags.ContributeGI
         | StaticEditorFlags.OccluderStatic
@@ -54,79 +33,15 @@ public static class GenerateLayersAndStatic
     private static readonly StaticEditorFlags OccludeeOnlyFlags =
         AllStaticFlags & ~StaticEditorFlags.OccluderStatic;
 
-    private static readonly string[] ObstacleKeywords =
-    {
-        //interior
-        "door_frame",
-        "thick_door",
-        "foor",
-        "wall",
-        "outer_wall",
-        "big_window",
-        "fence",
-        "sofa",
-        "window",
-        "pillar",
-        "couch",
-        "counter",
-        "desk",
-        "trash_bin",
-        "barrier",
-        //exterior
-        "pot_tree",
-        "rock",
-        "tree_bot",
-        "plant_tree_pot",
-        "ventilator",
-        "billboard",
-        "preform",
-        "ramp",
-        "trash_container",
-        "sun_block",
-    };
+    // Materials at or past this queue are alpha-tested / transparent. Anything you can see
+    // through must never be an occluder: Umbra would then cull the geometry behind it, which
+    // the player can plainly see. This matters here because a single "window" renderer carries
+    // both an opaque frame material and a transparent glass one.
+    private const int TransparentRenderQueue = 2450;
 
-    private static readonly string[] NoObstacleKeywords =
-    {
-        //interior
-        "lamp",
-        "doorstep",
-        "thick_door_headlight",
-        "room_sign",
-        "sign",
-        "poster",
-        "e_plug",
-        "e_plug_cover",
-        "hydrant",
-        "construction",
-        "bell_thingy",
-        "radiator_pipe",
-        "drain",
-        "support",
-        "ceiling",
-        "roof",
-        "table",
-        "parapet",
-        "radiator",
-        "radiator_pipe",
-        "e_box",
-        "vent",
-        "box",
-        "counter_bar",
-        "chair",
-        "board",
-        "bycicle_shelter_rack",
-        "gazebo_bench",
-        "glass",
-        "handicap_machine",
-        "calcetto",
-        "plant_pot",
-        //exterior
-        "bush",
-        "shrub",
-        "tree_top",
-    };
-
-    private static readonly string[] NavKeywords = { "nav", "drainage", "curb" };
+    // Summed face area of the world bounds. Below this an object cannot hide anything behind
+    // it, so making it an occluder only costs bake time and memory.
+    private const float MinOccluderArea = 2f;
 
     private const string InteractableLayerName = "Interactable";
     private const string ObstacleLayerName = "Obstacle";
@@ -137,32 +52,7 @@ public static class GenerateLayersAndStatic
     private const string UnoOverrideKeyword = "UNO";
     private const string UyoOverrideKeyword = "UYO";
 
-    private enum LayerRule
-    {
-        None,
-        Interactable,
-        Obstacle,
-        NoObstacle,
-        Nav,
-    }
-
-    private readonly struct RuleMatch
-    {
-        public readonly LayerRule Rule;
-        public readonly string Keyword;
-        public readonly int TokenLength;
-        public readonly int CharLength;
-
-        public RuleMatch(LayerRule rule, string keyword, int tokenLength, int charLength)
-        {
-            Rule = rule;
-            Keyword = keyword;
-            TokenLength = tokenLength;
-            CharLength = charLength;
-        }
-    }
-
-    [MenuItem("Tools/Layers/Assign Layers And Static From Keywords")]
+    [MenuItem("Tools/Layers/Assign Layers And Static From Registry")]
     private static void AssignLayersAndStaticFromSelectedHierarchy()
     {
         if (!TryGetRequiredLayers(out Dictionary<string, int> layerMap))
@@ -177,165 +67,123 @@ public static class GenerateLayersAndStatic
             return;
         }
 
-        int interactableAssigned = 0;
-        int obstacleAssigned = 0;
-        int noObstacleAssigned = 0;
-        int navAssigned = 0;
-        int staticAssigned = 0;
+        var prefixes = TypeRegistry.LoadPrefixes(ObjectRegistryMenu.PrefixesPath);
+        var registry = TypeRegistry.Load(ObjectRegistryMenu.TypesPath);
+        if (registry.types.Count == 0)
+        {
+            Debug.LogError("[GenerateLayersAndStatic] " + ObjectRegistryMenu.TypesPath
+                + " is empty. Run Tools > Object Registry > Seed Missing Types From Selection "
+                + "first, otherwise every object would be skipped.");
+            return;
+        }
 
-        int layerChanged = 0;
-        int staticChanged = 0;
-        int tagChanged = 0;
-        int navMeshModifierAdded = 0;
-        int navMeshModifierConfigured = 0;
-        int unchanged = 0;
+        int layerChanged = 0, staticChanged = 0, tagChanged = 0;
+        int navMeshModifierAdded = 0, navMeshModifierConfigured = 0;
+        int overridden = 0, unchanged = 0;
+
+        List<string> unresolved = new List<string>();
+        List<string> badValues = new List<string>();
+        HashSet<Transform> visited = new HashSet<Transform>();
 
         bool canAssignDoorTag = IsTagDefined(DoorTagName);
         if (!canAssignDoorTag)
         {
             Debug.LogWarning(
-                "[GenerateLayersAndStatic] Tag 'Door' is not defined in Project Settings > Tags and Layers. Door tag assignment/removal will be skipped."
+                "[GenerateLayersAndStatic] Tag 'Door' is not defined in Project Settings > Tags "
+                + "and Layers. Door tag assignment/removal will be skipped."
             );
         }
 
-        List<string> ambiguousNames = new List<string>();
-        HashSet<Transform> visited = new HashSet<Transform>();
-
         Undo.IncrementCurrentGroup();
-        Undo.SetCurrentGroupName("Assign Layers And Static From Keywords");
+        Undo.SetCurrentGroupName("Assign Layers And Static From Registry");
         int undoGroup = Undo.GetCurrentGroup();
 
         foreach (GameObject root in selectedRoots)
         {
-            if (root == null)
-            {
-                continue;
-            }
+            if (root == null) continue;
 
-            Transform[] transforms = root.GetComponentsInChildren<Transform>(true);
-            for (int i = 0; i < transforms.Length; i++)
+            foreach (Transform t in root.GetComponentsInChildren<Transform>(true))
             {
-                Transform t = transforms[i];
-                if (t == null || visited.Contains(t))
-                {
-                    continue;
-                }
+                if (t == null || !visited.Add(t)) continue;
 
-                visited.Add(t);
                 GameObject go = t.gameObject;
 
-                RuleMatch resolved = ResolveRuleForName(go.name, out List<RuleMatch> allMatches);
-                if (allMatches.Count > 1)
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.Append(GetHierarchyPath(go.transform));
-                    sb.Append(" => resolved '");
-                    sb.Append(resolved.Rule);
-                    sb.Append("' by keyword '");
-                    sb.Append(resolved.Keyword);
-                    sb.Append("'. Matches: ");
-
-                    for (int m = 0; m < allMatches.Count; m++)
-                    {
-                        RuleMatch match = allMatches[m];
-                        sb.Append("[");
-                        sb.Append(match.Rule);
-                        sb.Append(": ");
-                        sb.Append(match.Keyword);
-                        sb.Append("]");
-                        if (m < allMatches.Count - 1)
-                        {
-                            sb.Append(", ");
-                        }
-                    }
-
-                    ambiguousNames.Add(sb.ToString());
-                }
+                // The registry is keyed on the names of objects that carry geometry. Grouping
+                // transforms are left on whatever layer they already have.
+                if (go.GetComponent<Renderer>() == null) continue;
 
                 int targetLayer;
                 bool targetStatic;
-                switch (resolved.Rule)
+                bool isInteractable;
+                TypeEntry entry = null;
+
+                if (TryGetOverrideMatch(go.name, out bool forceObstacle))
                 {
-                    case LayerRule.Interactable:
-                        targetLayer = layerMap[InteractableLayerName];
-                        targetStatic = false;
-                        interactableAssigned++;
-                        break;
+                    // UNO / UYO in the name are per-instance exceptions and win over the type.
+                    targetLayer = layerMap[forceObstacle ? ObstacleLayerName : NoObstacleLayerName];
+                    targetStatic = true;
+                    isInteractable = false;
+                    overridden++;
+                }
+                else
+                {
+                    string typeKey = ObjectTypeKey.Derive(go.name, prefixes);
+                    entry = registry.Find(typeKey);
 
-                    case LayerRule.Obstacle:
-                        targetLayer = layerMap[ObstacleLayerName];
-                        targetStatic = true;
-                        obstacleAssigned++;
-                        break;
+                    if (entry == null || !entry.IsDecided)
+                    {
+                        unresolved.Add(typeKey + "   " + GetHierarchyPath(t));
+                        continue;
+                    }
 
-                    case LayerRule.NoObstacle:
-                        targetLayer = layerMap[NoObstacleLayerName];
-                        targetStatic = true;
-                        noObstacleAssigned++;
-                        break;
+                    switch (entry.layer)
+                    {
+                        case "interactable": targetLayer = layerMap[InteractableLayerName]; targetStatic = false; break;
+                        case "obstacle":     targetLayer = layerMap[ObstacleLayerName];     targetStatic = true;  break;
+                        case "noObstacle":   targetLayer = layerMap[NoObstacleLayerName];   targetStatic = true;  break;
+                        case "nav":          targetLayer = layerMap[NavLayerName];          targetStatic = true;  break;
+                        case "keep":         targetLayer = go.layer;                        targetStatic = false; break;
+                        default:
+                            badValues.Add(typeKey + "   layer=\"" + entry.layer + "\"");
+                            continue;
+                    }
 
-                    case LayerRule.Nav:
-                        targetLayer = layerMap[NavLayerName];
-                        targetStatic = true;
-                        navAssigned++;
-                        break;
+                    isInteractable = entry.layer == "interactable";
 
-                    case LayerRule.None:
-                    default:
-                        targetLayer = go.layer;
-                        targetStatic = false;
-                        staticAssigned++;
-                        break;
+                    if (entry.@static == "yes") targetStatic = true;
+                    else if (entry.@static == "no") targetStatic = false;
                 }
 
-                bool modifierAdded = false;
-                bool modifierConfigured = false;
-                if (resolved.Rule == LayerRule.Obstacle)
+                bool modifierAdded = false, modifierConfigured = false;
+                if (targetLayer == layerMap[ObstacleLayerName])
                 {
                     EnsureObstacleNavMeshModifier(go, out modifierAdded, out modifierConfigured);
-                    if (modifierAdded)
-                    {
-                        navMeshModifierAdded++;
-                    }
-
-                    if (modifierConfigured)
-                    {
-                        navMeshModifierConfigured++;
-                    }
+                    if (modifierAdded) navMeshModifierAdded++;
+                    if (modifierConfigured) navMeshModifierConfigured++;
                 }
 
-                bool shouldHaveDoorTag = ShouldHaveDoorTag(resolved);
+                // Door tag follows the interactable layer, unless the entry names a tag itself.
+                string desiredTag = entry != null && entry.tag != null
+                    ? entry.tag
+                    : (isInteractable ? DoorTagName : UntaggedTagName);
+
                 bool requiresTagUpdate = false;
                 string nextTag = go.tag;
-                if (canAssignDoorTag)
+                if (canAssignDoorTag && !string.Equals(go.tag, desiredTag, StringComparison.Ordinal))
                 {
-                    bool hasDoorTagNow = string.Equals(
-                        go.tag,
-                        DoorTagName,
-                        System.StringComparison.Ordinal
-                    );
-
-                    if (shouldHaveDoorTag)
-                    {
-                        if (!hasDoorTagNow)
-                        {
-                            requiresTagUpdate = true;
-                            nextTag = DoorTagName;
-                        }
-                    }
-                    else if (hasDoorTagNow)
-                    {
-                        requiresTagUpdate = true;
-                        nextTag = UntaggedTagName;
-                    }
+                    requiresTagUpdate = true;
+                    nextTag = desiredTag;
                 }
 
-                // Static flags: Occluder only on big, solid, opaque surfaces; every other
-                // static object gets Occludee but NOT Occluder. Non-static objects get none.
                 StaticEditorFlags desiredFlags = (StaticEditorFlags)0;
                 if (targetStatic)
                 {
-                    desiredFlags = ShouldBeOccluder(go) ? AllStaticFlags : OccludeeOnlyFlags;
+                    bool occluder;
+                    if (entry != null && entry.occluder == "yes") occluder = true;
+                    else if (entry != null && entry.occluder == "no") occluder = false;
+                    else occluder = ShouldBeOccluder(go);   // "auto", and the path UNO/UYO takes
+
+                    desiredFlags = occluder ? AllStaticFlags : OccludeeOnlyFlags;
                 }
 
                 StaticEditorFlags currentFlags = GameObjectUtility.GetStaticEditorFlags(go);
@@ -346,6 +194,7 @@ public static class GenerateLayersAndStatic
                     || modifierAdded
                     || modifierConfigured
                     || requiresTagUpdate;
+
                 if (!hasChange)
                 {
                     unchanged++;
@@ -380,111 +229,62 @@ public static class GenerateLayersAndStatic
 
         Debug.Log(
             $"[GenerateLayersAndStatic] Completed. Processed: {visited.Count}, "
-                + $"Interactable: {interactableAssigned}, Obstacle: {obstacleAssigned}, "
-                + $"NoObstacle: {noObstacleAssigned}, Nav: {navAssigned}, DefaultStatic: {staticAssigned}, "
-                + $"ObstacleNavMeshModifierAdded: {navMeshModifierAdded}, "
-                + $"ObstacleNavMeshModifierConfigured: {navMeshModifierConfigured}, "
-                + $"LayerChanged: {layerChanged}, StaticChanged: {staticChanged}, TagChanged: {tagChanged}, Unchanged: {unchanged}, "
-                + $"Ambiguous: {ambiguousNames.Count}"
+                + $"LayerChanged: {layerChanged}, StaticChanged: {staticChanged}, TagChanged: {tagChanged}, "
+                + $"NameOverrides (UNO/UYO): {overridden}, "
+                + $"NavMeshModifierAdded: {navMeshModifierAdded}, "
+                + $"NavMeshModifierConfigured: {navMeshModifierConfigured}, "
+                + $"Unchanged: {unchanged}, LeftUntouched: {unresolved.Count}"
         );
 
-        if (ambiguousNames.Count > 0)
+        if (unresolved.Count > 0)
         {
-            Debug.LogWarning(
-                "[GenerateLayersAndStatic] Objects matched multiple keyword sets (resolved by specificity + rule priority):\n"
-                    + string.Join("\n", ambiguousNames)
-            );
+            Debug.LogWarning("[GenerateLayersAndStatic] " + unresolved.Count
+                + " objects were left untouched because their type is unknown or undecided.\n"
+                + "Run Tools > Object Registry > Report On Selection to see them grouped, or fix "
+                + "them in " + ObjectRegistryMenu.TypesPath + ":\n"
+                + string.Join("\n", unresolved.ToArray()));
+        }
+
+        if (badValues.Count > 0)
+        {
+            Debug.LogError("[GenerateLayersAndStatic] Unrecognised layer values (expected "
+                + "interactable, obstacle, noObstacle, nav or keep):\n"
+                + string.Join("\n", badValues.ToArray()));
         }
     }
 
-    [MenuItem("Tools/Layers/Assign Layers And Static From Keywords", true)]
+    [MenuItem("Tools/Layers/Assign Layers And Static From Registry", true)]
     private static bool ValidateAssignLayersAndStaticFromSelectedHierarchy()
     {
         return Selection.gameObjects != null && Selection.gameObjects.Length > 0;
     }
 
-    [MenuItem("Tools/Layers/Validate Layer Keyword Integrity")]
-    private static void ValidateKeywordIntegrity()
+    /// <summary>
+    /// Final say on Occluder Static. A name cannot tell you whether a surface is see-through,
+    /// and in this project it frequently isn't what it sounds like — a "window" renderer carries
+    /// an opaque frame material *and* transparent glass, and a fair number of "door_frame"
+    /// objects are glazed. Baking those as occluders makes Umbra cull whatever is behind the
+    /// glass, which the player can see straight through.
+    /// </summary>
+    public static bool ShouldBeOccluder(GameObject go)
     {
-        List<RuleMatch> entries = BuildKeywordEntries();
-        List<string> issues = new List<string>();
-        List<string> warnings = new List<string>();
+        if (go == null) return false;
 
-        if (entries.Count == 0)
-        {
-            Debug.LogWarning(
-                "[GenerateLayersAndStatic] Integrity check: no valid keywords configured."
-            );
-            return;
-        }
+        Renderer renderer = go.GetComponent<Renderer>();
+        if (renderer == null) return false;
 
-        for (int i = 0; i < entries.Count; i++)
+        Material[] materials = renderer.sharedMaterials;
+        for (int i = 0; i < materials.Length; i++)
         {
-            RuleMatch a = entries[i];
-            for (int j = i + 1; j < entries.Count; j++)
+            if (materials[i] != null && materials[i].renderQueue >= TransparentRenderQueue)
             {
-                RuleMatch b = entries[j];
-
-                List<string> aTokens = Tokenize(a.Keyword);
-                List<string> bTokens = Tokenize(b.Keyword);
-
-                if (AreTokensEqual(aTokens, bTokens))
-                {
-                    if (a.Rule == b.Rule)
-                    {
-                        issues.Add(
-                            $"Duplicate keyword in {a.Rule}: '{a.Keyword}' and '{b.Keyword}'"
-                        );
-                    }
-                    else
-                    {
-                        LayerRule winner = IsBetterMatch(a, b) ? a.Rule : b.Rule;
-                        issues.Add(
-                            $"Conflicting exact keywords: '{a.Keyword}' ({a.Rule}) vs '{b.Keyword}' ({b.Rule}). "
-                                + $"Objects matching this token sequence always resolve to {winner}."
-                        );
-                    }
-
-                    continue;
-                }
-
-                if (
-                    ContainsTokenSequence(aTokens, bTokens)
-                    || ContainsTokenSequence(bTokens, aTokens)
-                )
-                {
-                    warnings.Add(
-                        $"Potential overlap: '{a.Keyword}' ({a.Rule}) and '{b.Keyword}' ({b.Rule}). "
-                            + "More specific keyword wins; if equal specificity, priority is Interactable > NoObstacle > Obstacle > Nav."
-                    );
-                }
+                return false;
             }
         }
 
-        Debug.Log(
-            $"[GenerateLayersAndStatic] Integrity check done. "
-                + $"Keywords: {entries.Count}, Issues: {issues.Count}, Overlap warnings: {warnings.Count}."
-        );
-
-        if (issues.Count > 0)
-        {
-            Debug.LogError(
-                "[GenerateLayersAndStatic] Integrity issues:\n" + string.Join("\n", issues)
-            );
-        }
-
-        if (warnings.Count > 0)
-        {
-            Debug.LogWarning(
-                "[GenerateLayersAndStatic] Integrity overlap warnings:\n"
-                    + string.Join("\n", warnings)
-            );
-        }
-
-        if (issues.Count == 0 && warnings.Count == 0)
-        {
-            Debug.Log("[GenerateLayersAndStatic] Integrity check passed: no conflicts found.");
-        }
+        Vector3 size = renderer.bounds.size;
+        float area = size.x * size.y + size.y * size.z + size.x * size.z;
+        return area >= MinOccluderArea;
     }
 
     private static bool TryGetRequiredLayers(out Dictionary<string, int> layerMap)
@@ -501,15 +301,9 @@ public static class GenerateLayersAndStatic
         List<string> missing = new List<string>();
         for (int i = 0; i < required.Length; i++)
         {
-            string layer = required[i];
-            int id = LayerMask.NameToLayer(layer);
-            if (id < 0)
-            {
-                missing.Add(layer);
-                continue;
-            }
-
-            layerMap[layer] = id;
+            int id = LayerMask.NameToLayer(required[i]);
+            if (id < 0) { missing.Add(required[i]); continue; }
+            layerMap[required[i]] = id;
         }
 
         if (missing.Count > 0)
@@ -524,248 +318,41 @@ public static class GenerateLayersAndStatic
         return true;
     }
 
-    private static RuleMatch ResolveRuleForName(string objectName, out List<RuleMatch> allMatches)
+    /// <summary>
+    /// UNO / UYO markers in an object's name. Case-sensitive on purpose, so an ordinary word
+    /// containing "uno" is not mistaken for the override. UYO wins if both appear.
+    /// </summary>
+    private static bool TryGetOverrideMatch(string objectName, out bool forceObstacle)
     {
-        List<string> objectTokens = Tokenize(objectName);
-        if (TryGetOverrideMatch(objectName, out RuleMatch overrideMatch))
+        forceObstacle = false;
+
+        bool hasUno = false, hasUyo = false;
+        foreach (string token in TokenizeCaseSensitive(objectName))
         {
-            allMatches = new List<RuleMatch> { overrideMatch };
-            return overrideMatch;
+            if (token == UnoOverrideKeyword) hasUno = true;
+            else if (token == UyoOverrideKeyword) hasUyo = true;
         }
 
-        allMatches = CollectMatches(objectTokens);
-        if (allMatches.Count == 0)
-        {
-            return new RuleMatch(LayerRule.None, string.Empty, 0, 0);
-        }
-
-        RuleMatch best = allMatches[0];
-        for (int i = 1; i < allMatches.Count; i++)
-        {
-            RuleMatch candidate = allMatches[i];
-            if (IsBetterMatch(candidate, best))
-            {
-                best = candidate;
-            }
-        }
-
-        return best;
-    }
-
-    private static bool TryGetOverrideMatch(string objectName, out RuleMatch overrideMatch)
-    {
-        overrideMatch = new RuleMatch(LayerRule.None, string.Empty, 0, 0);
-        List<string> caseSensitiveTokens = TokenizeCaseSensitive(objectName);
-        if (caseSensitiveTokens.Count == 0)
-        {
-            return false;
-        }
-
-        bool hasUno = false;
-        bool hasUyo = false;
-
-        for (int i = 0; i < caseSensitiveTokens.Count; i++)
-        {
-            string token = caseSensitiveTokens[i];
-            if (token == UnoOverrideKeyword)
-            {
-                hasUno = true;
-            }
-            else if (token == UyoOverrideKeyword)
-            {
-                hasUyo = true;
-            }
-        }
-
-        if (hasUno && hasUyo)
-        {
-            // If both override tokens are present, UYO wins as an explicit obstacle force.
-            overrideMatch = new RuleMatch(
-                LayerRule.Obstacle,
-                UyoOverrideKeyword,
-                1,
-                UyoOverrideKeyword.Length
-            );
-            return true;
-        }
-
-        if (hasUyo)
-        {
-            overrideMatch = new RuleMatch(
-                LayerRule.Obstacle,
-                UyoOverrideKeyword,
-                1,
-                UyoOverrideKeyword.Length
-            );
-            return true;
-        }
-
-        if (hasUno)
-        {
-            overrideMatch = new RuleMatch(
-                LayerRule.NoObstacle,
-                UnoOverrideKeyword,
-                1,
-                UnoOverrideKeyword.Length
-            );
-            return true;
-        }
-
+        if (hasUyo) { forceObstacle = true; return true; }
+        if (hasUno) { forceObstacle = false; return true; }
         return false;
     }
 
-    private static List<string> TokenizeCaseSensitive(string objectNameForOverrideScan)
+    private static List<string> TokenizeCaseSensitive(string input)
     {
         List<string> tokens = new List<string>();
-        if (string.IsNullOrWhiteSpace(objectNameForOverrideScan))
-        {
-            return tokens;
-        }
+        if (string.IsNullOrWhiteSpace(input)) return tokens;
 
         StringBuilder tokenBuilder = new StringBuilder();
-        for (int i = 0; i < objectNameForOverrideScan.Length; i++)
+        for (int i = 0; i < input.Length; i++)
         {
-            char c = objectNameForOverrideScan[i];
-            if (char.IsLetterOrDigit(c))
-            {
-                tokenBuilder.Append(c);
-            }
-            else if (tokenBuilder.Length > 0)
-            {
-                tokens.Add(tokenBuilder.ToString());
-                tokenBuilder.Clear();
-            }
+            char c = input[i];
+            if (char.IsLetterOrDigit(c)) tokenBuilder.Append(c);
+            else if (tokenBuilder.Length > 0) { tokens.Add(tokenBuilder.ToString()); tokenBuilder.Clear(); }
         }
-
-        if (tokenBuilder.Length > 0)
-        {
-            tokens.Add(tokenBuilder.ToString());
-        }
+        if (tokenBuilder.Length > 0) tokens.Add(tokenBuilder.ToString());
 
         return tokens;
-    }
-
-    private static List<RuleMatch> BuildKeywordEntries()
-    {
-        List<RuleMatch> entries = new List<RuleMatch>();
-        AddKeywordEntries(entries, InteractableKeywords, LayerRule.Interactable);
-        AddKeywordEntries(entries, ObstacleKeywords, LayerRule.Obstacle);
-        AddKeywordEntries(entries, NoObstacleKeywords, LayerRule.NoObstacle);
-        AddKeywordEntries(entries, NavKeywords, LayerRule.Nav);
-        return entries;
-    }
-
-    private static void AddKeywordEntries(List<RuleMatch> output, string[] keywords, LayerRule rule)
-    {
-        if (keywords == null)
-        {
-            return;
-        }
-
-        for (int i = 0; i < keywords.Length; i++)
-        {
-            string keyword = keywords[i];
-            if (string.IsNullOrWhiteSpace(keyword))
-            {
-                continue;
-            }
-
-            List<string> keywordTokens = Tokenize(keyword);
-            if (keywordTokens.Count == 0)
-            {
-                continue;
-            }
-
-            output.Add(new RuleMatch(rule, keyword, keywordTokens.Count, keyword.Length));
-        }
-    }
-
-    private static List<RuleMatch> CollectMatches(List<string> objectTokens)
-    {
-        List<RuleMatch> matches = new List<RuleMatch>();
-        if (objectTokens == null || objectTokens.Count == 0)
-        {
-            return matches;
-        }
-
-        TryAddMatches(matches, objectTokens, InteractableKeywords, LayerRule.Interactable);
-        TryAddMatches(matches, objectTokens, ObstacleKeywords, LayerRule.Obstacle);
-        TryAddMatches(matches, objectTokens, NoObstacleKeywords, LayerRule.NoObstacle);
-        TryAddMatches(matches, objectTokens, NavKeywords, LayerRule.Nav);
-
-        return matches;
-    }
-
-    private static void TryAddMatches(
-        List<RuleMatch> output,
-        List<string> objectTokens,
-        string[] keywords,
-        LayerRule rule
-    )
-    {
-        if (keywords == null || keywords.Length == 0)
-        {
-            return;
-        }
-
-        for (int i = 0; i < keywords.Length; i++)
-        {
-            string keyword = keywords[i];
-            if (string.IsNullOrWhiteSpace(keyword))
-            {
-                continue;
-            }
-
-            List<string> keywordTokens = Tokenize(keyword);
-            if (keywordTokens.Count == 0)
-            {
-                continue;
-            }
-
-            if (ContainsTokenSequence(objectTokens, keywordTokens))
-            {
-                output.Add(new RuleMatch(rule, keyword, keywordTokens.Count, keyword.Length));
-            }
-        }
-    }
-
-    private static bool IsBetterMatch(RuleMatch candidate, RuleMatch current)
-    {
-        if (candidate.TokenLength != current.TokenLength)
-        {
-            return candidate.TokenLength > current.TokenLength;
-        }
-
-        if (candidate.CharLength != current.CharLength)
-        {
-            return candidate.CharLength > current.CharLength;
-        }
-
-        int candidatePriority = GetRulePriority(candidate.Rule);
-        int currentPriority = GetRulePriority(current.Rule);
-        if (candidatePriority != currentPriority)
-        {
-            return candidatePriority < currentPriority;
-        }
-
-        return false;
-    }
-
-    private static int GetRulePriority(LayerRule rule)
-    {
-        switch (rule)
-        {
-            case LayerRule.Interactable:
-                return 0;
-            case LayerRule.NoObstacle:
-                return 1;
-            case LayerRule.Obstacle:
-                return 2;
-            case LayerRule.Nav:
-                return 3;
-            default:
-                return 99;
-        }
     }
 
     private static void EnsureObstacleNavMeshModifier(
@@ -785,10 +372,7 @@ public static class GenerateLayersAndStatic
         }
 
         int notWalkableArea = NavMesh.GetAreaFromName("Not Walkable");
-        if (notWalkableArea < 0)
-        {
-            notWalkableArea = 1;
-        }
+        if (notWalkableArea < 0) notWalkableArea = 1;
 
         bool requiresPropertyUpdate = !modifier.overrideArea || modifier.area != notWalkableArea;
 
@@ -804,10 +388,7 @@ public static class GenerateLayersAndStatic
             requiresAffectedAgentsUpdate = !hasSingleAllAgent;
         }
 
-        if (!requiresPropertyUpdate && !requiresAffectedAgentsUpdate)
-        {
-            return;
-        }
+        if (!requiresPropertyUpdate && !requiresAffectedAgentsUpdate) return;
 
         Undo.RecordObject(modifier, "Configure Obstacle NavMesh Modifier");
 
@@ -828,178 +409,19 @@ public static class GenerateLayersAndStatic
         EditorUtility.SetDirty(modifier);
     }
 
-    private static bool ShouldHaveDoorTag(RuleMatch resolved)
-    {
-        if (resolved.Rule != LayerRule.Interactable)
-        {
-            return false;
-        }
-
-        return string.Equals(resolved.Keyword, "door", System.StringComparison.OrdinalIgnoreCase)
-            || string.Equals(
-                resolved.Keyword,
-                "door_slide",
-                System.StringComparison.OrdinalIgnoreCase
-            );
-    }
-
-    /// <summary>
-    /// Final say on Occluder Static. The name proposes, the geometry decides: a name cannot
-    /// tell you whether a surface is see-through, and in this project it frequently isn't what
-    /// it sounds like — a "window" renderer carries an opaque frame material *and* transparent
-    /// glass, and a fair number of "door_frame" objects are glazed. Baking those as occluders
-    /// makes Umbra cull whatever is behind the glass, which the player can see straight through.
-    /// </summary>
-    public static bool ShouldBeOccluder(GameObject go)
-    {
-        if (go == null || !IsOccluderName(go.name))
-        {
-            return false;
-        }
-
-        Renderer renderer = go.GetComponent<Renderer>();
-        if (renderer == null)
-        {
-            return false; // nothing to occlude with (grouping transform, collider-only object)
-        }
-
-        Material[] materials = renderer.sharedMaterials;
-        for (int i = 0; i < materials.Length; i++)
-        {
-            if (materials[i] != null && materials[i].renderQueue >= TransparentRenderQueue)
-            {
-                return false;
-            }
-        }
-
-        Vector3 size = renderer.bounds.size;
-        float area = size.x * size.y + size.y * size.z + size.x * size.z;
-        return area >= MinOccluderArea;
-    }
-
-    private static bool IsOccluderName(string objectName)
-    {
-        List<string> tokens = Tokenize(objectName);
-        if (tokens.Count == 0)
-        {
-            return false;
-        }
-
-        foreach (string keyword in OccluderKeywords)
-        {
-            List<string> keywordTokens = Tokenize(keyword);
-            if (keywordTokens.Count > 0 && ContainsTokenSequence(tokens, keywordTokens))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     private static bool IsTagDefined(string tag)
     {
         string[] tags = InternalEditorUtility.tags;
         for (int i = 0; i < tags.Length; i++)
         {
-            if (string.Equals(tags[i], tag, System.StringComparison.Ordinal))
-            {
-                return true;
-            }
+            if (string.Equals(tags[i], tag, StringComparison.Ordinal)) return true;
         }
-
         return false;
-    }
-
-    private static bool ContainsTokenSequence(List<string> haystack, List<string> needle)
-    {
-        if (needle.Count > haystack.Count)
-        {
-            return false;
-        }
-
-        for (int i = 0; i <= haystack.Count - needle.Count; i++)
-        {
-            bool allEqual = true;
-            for (int j = 0; j < needle.Count; j++)
-            {
-                if (
-                    !string.Equals(
-                        haystack[i + j],
-                        needle[j],
-                        System.StringComparison.OrdinalIgnoreCase
-                    )
-                )
-                {
-                    allEqual = false;
-                    break;
-                }
-            }
-
-            if (allEqual)
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private static bool AreTokensEqual(List<string> a, List<string> b)
-    {
-        if (a.Count != b.Count)
-        {
-            return false;
-        }
-
-        for (int i = 0; i < a.Count; i++)
-        {
-            if (!string.Equals(a[i], b[i], System.StringComparison.OrdinalIgnoreCase))
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    private static List<string> Tokenize(string input)
-    {
-        List<string> tokens = new List<string>();
-        if (string.IsNullOrWhiteSpace(input))
-        {
-            return tokens;
-        }
-
-        StringBuilder tokenBuilder = new StringBuilder();
-        for (int i = 0; i < input.Length; i++)
-        {
-            char c = input[i];
-            if (char.IsLetterOrDigit(c))
-            {
-                tokenBuilder.Append(char.ToLowerInvariant(c));
-            }
-            else if (tokenBuilder.Length > 0)
-            {
-                tokens.Add(tokenBuilder.ToString());
-                tokenBuilder.Clear();
-            }
-        }
-
-        if (tokenBuilder.Length > 0)
-        {
-            tokens.Add(tokenBuilder.ToString());
-        }
-
-        return tokens;
     }
 
     private static string GetHierarchyPath(Transform t)
     {
-        if (t == null)
-        {
-            return "<null>";
-        }
+        if (t == null) return "<null>";
 
         string path = t.name;
         Transform current = t.parent;
