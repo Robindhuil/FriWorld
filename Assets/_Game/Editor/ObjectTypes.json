@@ -33,7 +33,7 @@
       "tag": null
     },
     {
-      "name": "big_window_1_glass",
+      "name": "big_window_<int>_glass",
       "collider": "mesh",
       "layer": "noObstacle",
       "occluder": "auto",
@@ -153,22 +153,6 @@
       "tag": null
     },
     {
-      "name": "door_1_l",
-      "collider": "box",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "door_1_r",
-      "collider": "box",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
       "name": "door_1_r.001",
       "collider": "box",
       "layer": "interactable",
@@ -177,7 +161,7 @@
       "tag": null
     },
     {
-      "name": "door_2_l",
+      "name": "door_<int>_l",
       "collider": "box",
       "layer": "interactable",
       "occluder": "auto",
@@ -185,7 +169,7 @@
       "tag": null
     },
     {
-      "name": "door_2_r",
+      "name": "door_<int>_r",
       "collider": "box",
       "layer": "interactable",
       "occluder": "auto",
@@ -201,47 +185,7 @@
       "tag": null
     },
     {
-      "name": "door_frame_1_glass",
-      "collider": "mesh",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "door_frame_2_glass",
-      "collider": "mesh",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "door_frame_3_glass",
-      "collider": "mesh",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "door_frame_4_glass",
-      "collider": "mesh",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "door_frame_5_glass",
-      "collider": "mesh",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "door_frame_8_glass",
+      "name": "door_frame_<int>_glass",
       "collider": "mesh",
       "layer": "interactable",
       "occluder": "auto",
@@ -265,7 +209,7 @@
       "tag": null
     },
     {
-      "name": "door_slide_1_l",
+      "name": "door_slide_<int>_l",
       "collider": "box",
       "layer": "interactable",
       "occluder": "auto",
@@ -273,23 +217,7 @@
       "tag": null
     },
     {
-      "name": "door_slide_1_r",
-      "collider": "box",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "door_slide_2_l",
-      "collider": "box",
-      "layer": "interactable",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "door_slide_2_r",
+      "name": "door_slide_<int>_r",
       "collider": "box",
       "layer": "interactable",
       "occluder": "auto",
@@ -369,7 +297,7 @@
       "tag": null
     },
     {
-      "name": "foor_1_glass",
+      "name": "foor_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
       "occluder": "auto",
@@ -377,7 +305,7 @@
       "tag": null
     },
     {
-      "name": "foor_1_l",
+      "name": "foor_<int>_l",
       "collider": "box",
       "layer": "obstacle",
       "occluder": "auto",
@@ -385,17 +313,9 @@
       "tag": null
     },
     {
-      "name": "foor_1_r",
+      "name": "foor_<int>_r",
       "collider": "box",
       "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "foor_2_glass",
-      "collider": "box",
-      "layer": "noObstacle",
       "occluder": "auto",
       "static": null,
       "tag": null
@@ -769,7 +689,7 @@
       "tag": null
     },
     {
-      "name": "roof_1_glass",
+      "name": "roof_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
       "occluder": "auto",
@@ -801,7 +721,7 @@
       "tag": null
     },
     {
-      "name": "roof_window_1_glass",
+      "name": "roof_window_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
       "occluder": "auto",
@@ -825,7 +745,7 @@
       "tag": null
     },
     {
-      "name": "stair_1_fence",
+      "name": "stair_<int>_fence",
       "collider": "mesh",
       "layer": "obstacle",
       "occluder": "auto",
@@ -833,7 +753,7 @@
       "tag": null
     },
     {
-      "name": "stair_1_support",
+      "name": "stair_<int>_support",
       "collider": "none",
       "layer": "noObstacle",
       "occluder": "auto",
@@ -977,63 +897,15 @@
       "tag": null
     },
     {
-      "name": "window_1_glass",
-      "collider": "box",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "window_2_glass",
-      "collider": "box",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "window_3_glass",
-      "collider": "box",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "window_4_glass",
-      "collider": "box",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "window_5_glass",
-      "collider": "box",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "window_6_glass",
-      "collider": "box",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "window_7_glass",
-      "collider": "box",
-      "layer": "noObstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
       "name": "window_7_glass,",
+      "collider": "box",
+      "layer": "noObstacle",
+      "occluder": "auto",
+      "static": null,
+      "tag": null
+    },
+    {
+      "name": "window_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
       "occluder": "auto",

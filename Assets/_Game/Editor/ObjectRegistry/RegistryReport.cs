@@ -18,13 +18,19 @@ namespace FriWorld.ObjectRegistry
             var undecided = new Dictionary<string, List<string>>();
             var used = new HashSet<string>();
 
+            var ambiguousKeys = new Dictionary<string, List<string>>();
+
             foreach (var o in scan.objects)
             {
-                var entry = registry.Find(o.typeKey);
+                var entry = registry.Find(o.typeKey, out bool ambiguous);
+                if (ambiguous) Add(ambiguousKeys, o.typeKey, o.path);
+
                 if (entry == null) Add(unknown, o.typeKey, o.path);
                 else
                 {
-                    used.Add(o.typeKey);
+                    // Record the entry that answered, so a pattern counts as used by every key
+                    // it covers rather than looking dead.
+                    used.Add(entry.name);
                     if (!entry.IsDecided) Add(undecided, o.typeKey, o.path);
                 }
             }
@@ -47,6 +53,7 @@ namespace FriWorld.ObjectRegistry
             Section(sb, "UNKNOWN types (not in the registry — likely a naming mistake)", unknown);
             Section(sb, "UNDECIDED types (in the registry, fields still null)", undecided);
             Section(sb, "UNSTRIPPED keys (a prefix is missing from ObjectPrefixes.json)", unstripped);
+            Section(sb, "AMBIGUOUS (two equally specific patterns match — make one of them exact)", ambiguousKeys);
 
             if (scan.riskyPrefixes.Count > 0)
             {
@@ -60,7 +67,8 @@ namespace FriWorld.ObjectRegistry
                 foreach (var d in dead) sb.AppendLine("    " + d);
             }
 
-            if (unknown.Count == 0 && undecided.Count == 0 && unstripped.Count == 0)
+            if (unknown.Count == 0 && undecided.Count == 0 && unstripped.Count == 0
+                && ambiguousKeys.Count == 0)
                 sb.AppendLine("  every scanned object resolved to a decided type");
 
             return sb.ToString();

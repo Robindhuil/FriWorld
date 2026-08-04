@@ -55,17 +55,74 @@ namespace FriWorld.ObjectRegistry
                     index[t.name] = t;
         }
 
-        /// <summary>Exact lookup. Never a substring match — that is the bug this replaces.</summary>
-        public TypeEntry Find(string typeKey)
+        /// <summary>Placeholder standing for one all-digit token inside a pattern name.</summary>
+        public const string IntPlaceholder = "<int>";
+
+        /// <summary>True for entries written as a pattern, e.g. "window_&lt;int&gt;_glass".</summary>
+        public static bool IsPattern(string name)
+            => !string.IsNullOrEmpty(name) && name.Contains(IntPlaceholder);
+
+        public TypeEntry Find(string typeKey) => Find(typeKey, out _);
+
+        /// <summary>
+        /// Exact name first, then patterns. Never a substring match — that is the bug this
+        /// replaces. An exact entry always beats a pattern, so a single instance can still be
+        /// given its own behaviour later without touching the pattern that covers the rest.
+        /// </summary>
+        public TypeEntry Find(string typeKey, out bool ambiguous)
         {
+            ambiguous = false;
             if (string.IsNullOrEmpty(typeKey)) return null;
-            return index.TryGetValue(typeKey, out var entry) ? entry : null;
+            if (index.TryGetValue(typeKey, out var exact)) return exact;
+
+            TypeEntry best = null;
+            int bestLiterals = -1;
+            foreach (var t in types)
+            {
+                if (t == null || !IsPattern(t.name)) continue;
+                if (!PatternMatches(t.name, typeKey)) continue;
+
+                int literals = CountLiteralTokens(t.name);
+                if (literals > bestLiterals) { best = t; bestLiterals = literals; ambiguous = false; }
+                else if (literals == bestLiterals) ambiguous = true;   // two equally specific patterns
+            }
+            return best;
         }
 
-        /// <summary>Adds an undecided entry. Existing entries are left alone.</summary>
+        /// <summary>Token-by-token comparison; the placeholder accepts one all-digit token.</summary>
+        static bool PatternMatches(string pattern, string typeKey)
+        {
+            var p = pattern.Split('_');
+            var k = typeKey.Split('_');
+            if (p.Length != k.Length) return false;
+
+            for (int i = 0; i < p.Length; i++)
+            {
+                if (p[i] == IntPlaceholder)
+                {
+                    if (k[i].Length == 0) return false;
+                    foreach (char c in k[i]) if (!char.IsDigit(c)) return false;
+                }
+                else if (!string.Equals(p[i], k[i], System.StringComparison.Ordinal)) return false;
+            }
+            return true;
+        }
+
+        static int CountLiteralTokens(string pattern)
+        {
+            int n = 0;
+            foreach (var token in pattern.Split('_')) if (token != IntPlaceholder) n++;
+            return n;
+        }
+
+        /// <summary>
+        /// Adds an undecided entry. Does nothing when the key is already covered — including by
+        /// a pattern, so seeding never re-creates the concrete names a pattern was written to
+        /// replace.
+        /// </summary>
         public void Seed(string typeKey)
         {
-            if (string.IsNullOrEmpty(typeKey) || index.ContainsKey(typeKey)) return;
+            if (string.IsNullOrEmpty(typeKey) || Find(typeKey) != null) return;
             var entry = new TypeEntry { name = typeKey };
             types.Add(entry);
             index[typeKey] = entry;
