@@ -51,7 +51,16 @@ namespace FriWorld.ObjectRegistry
 
         public void Save(string path)
         {
-            types.Sort((a, b) => string.CompareOrdinal(a.name, b.name));
+            // Undecided entries float to the top, so a freshly seeded type is the first thing in
+            // the file rather than something to scroll for. Once its fields are filled in it
+            // settles into the alphabetical body on the next save, which keeps diffs readable —
+            // plain insertion order would leave the file permanently unsorted.
+            types.Sort((a, b) =>
+            {
+                bool aDecided = a.IsDecided, bDecided = b.IsDecided;
+                if (aDecided != bDecided) return aDecided ? 1 : -1;
+                return string.CompareOrdinal(a.name, b.name);
+            });
             File.WriteAllText(path, JsonConvert.SerializeObject(this, Formatting.Indented));
         }
 
