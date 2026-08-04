@@ -68,9 +68,111 @@ namespace FriWorld.ObjectRegistry
             Debug.Log(sb.ToString());
         }
 
+        [MenuItem("Tools/Object Registry/Seed From Legacy Keyword Rules")]
+        static void SeedFromLegacy()
+        {
+            if (!TryScanSelection(out var scan, out var registry)) return;
+
+            int seeded = 0, prefilled = 0;
+            var seen = new HashSet<string>();
+            foreach (var o in scan.objects)
+            {
+                if (!seen.Add(o.typeKey)) continue;
+                if (registry.Find(o.typeKey) != null) continue;
+
+                registry.Seed(o.typeKey);
+                seeded++;
+
+                // Apply the old rules to the type key. Where the old rules produce nothing the
+                // entry stays null, which is exactly the "you never decided this" state.
+                var entry = registry.Find(o.typeKey);
+                string collider = LegacyCollider(o.typeKey);
+                string layer = LegacyLayer(o.typeKey);
+                if (collider != null && layer != null)
+                {
+                    entry.collider = collider;
+                    entry.layer = layer;
+                    entry.occluder = "auto";
+                    prefilled++;
+                }
+            }
+
+            registry.Save(TypesPath);
+            AssetDatabase.Refresh();
+            Debug.Log("[ObjectRegistry] seeded " + seeded + " types, " + prefilled
+                    + " pre-filled from the old keyword rules, " + (seeded - prefilled)
+                    + " left null and needing a decision.");
+        }
+
+        static string LegacyCollider(string typeKey)
+        {
+            if (LegacyKeywordRules.BestMatch(typeKey, LegacyKeywordRules.ColliderIgnore) != null) return "none";
+            var mesh = LegacyKeywordRules.BestMatch(typeKey, LegacyKeywordRules.ColliderMesh);
+            var box  = LegacyKeywordRules.BestMatch(typeKey, LegacyKeywordRules.ColliderBox);
+            if (mesh == null && box == null) return null;
+            if (mesh == null) return "box";
+            if (box == null) return "mesh";
+            return mesh.Length >= box.Length ? "mesh" : "box";
+        }
+
+        static string LegacyLayer(string typeKey)
+        {
+            if (LegacyKeywordRules.BestMatch(typeKey, LegacyKeywordRules.LayerInteractable) != null) return "interactable";
+            if (LegacyKeywordRules.BestMatch(typeKey, LegacyKeywordRules.LayerNoObstacle) != null) return "noObstacle";
+            if (LegacyKeywordRules.BestMatch(typeKey, LegacyKeywordRules.LayerObstacle) != null) return "obstacle";
+            if (LegacyKeywordRules.BestMatch(typeKey, LegacyKeywordRules.LayerNav) != null) return "nav";
+            return null;
+        }
+
+        [MenuItem("Tools/Object Registry/Dry Run Diff (old rules vs registry)")]
+        static void DryRunDiff()
+        {
+            if (!TryScanSelection(out var scan, out var registry)) return;
+
+            int same = 0, changed = 0, unhandled = 0;
+            // Group by type key so the output stays readable: one line per key, not per object.
+            var byKey = new Dictionary<string, string>();
+            var counts = new Dictionary<string, int>();
+
+            foreach (var o in scan.objects)
+            {
+                // The old rules matched the RAW object name, not a derived key. That difference
+                // is the whole point, so the comparison has to use the raw name on the old side.
+                string oldCollider = LegacyCollider(o.gameObject.name) ?? "none";
+                string oldLayer    = LegacyLayer(o.gameObject.name) ?? "keep";
+
+                var entry = registry.Find(o.typeKey);
+                if (entry == null || !entry.IsDecided) { unhandled++; continue; }
+
+                if (entry.collider == oldCollider && entry.layer == oldLayer) { same++; continue; }
+
+                changed++;
+                string line = o.typeKey + "   old: " + oldCollider + "/" + oldLayer
+                            + "   new: " + entry.collider + "/" + entry.layer;
+                byKey[line] = o.path;
+                counts.TryGetValue(line, out int c);
+                counts[line] = c + 1;
+            }
+
+            var sb = new System.Text.StringBuilder();
+            sb.AppendLine("[ObjectRegistry] dry run over " + scan.objects.Count + " objects");
+            sb.AppendLine("  identical: " + same);
+            sb.AppendLine("  CHANGED:   " + changed + "  (each is either a fix or a regression — classify them)");
+            sb.AppendLine("  unhandled: " + unhandled + "  (unknown or undecided; left untouched)");
+            if (byKey.Count > 0)
+            {
+                sb.AppendLine("  changes by type (" + byKey.Count + " distinct):");
+                foreach (var kv in byKey)
+                    sb.AppendLine("    x" + counts[kv.Key] + "  " + kv.Key + "\n        e.g. " + kv.Value);
+            }
+            Debug.Log(sb.ToString());
+        }
+
         [MenuItem("Tools/Object Registry/Report On Selection", true)]
         [MenuItem("Tools/Object Registry/Seed Missing Types From Selection", true)]
         [MenuItem("Tools/Object Registry/Add Prefixes From Selection", true)]
+        [MenuItem("Tools/Object Registry/Seed From Legacy Keyword Rules", true)]
+        [MenuItem("Tools/Object Registry/Dry Run Diff (old rules vs registry)", true)]
         static bool ValidateSelection() => Selection.gameObjects != null && Selection.gameObjects.Length > 0;
 
         internal static bool TryScanSelection(out ScanResult scan, out TypeRegistry registry)
