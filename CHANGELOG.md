@@ -11,6 +11,9 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - `RuntimeOcclusionCuller` vie na požiadanie logovať, čo reálne robí — koľko skupín
   skrýva, koľko to stojí raycastov a milisekúnd. Zapína sa `logStats` v inšpektore,
   v shipnutom builde má zostať vypnuté.
+- `OcclusionABTest` — merací nástroj do play mode: strieda zapnuté a vypnuté
+  occlusion culling a hlási draw cally, trojuholníky a čas snímku zvlášť pre oba
+  stavy. Len pre editor, v builde sa nekompiluje.
 
 ### Fixed
 - Occlusion culling konečne zakrýva to, čo má: tri štvrtiny stien pre neho doteraz
