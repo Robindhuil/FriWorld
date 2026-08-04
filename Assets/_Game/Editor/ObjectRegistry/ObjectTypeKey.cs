@@ -34,6 +34,7 @@ namespace FriWorld.ObjectRegistry
 
                 string candidate = objectName.Substring(prefix.Length + 1);
                 candidate = StripLeadingInt(candidate);
+                candidate = StripOverrideTokens(candidate);
                 candidate = StripTrailingInt(candidate);
 
                 // The strip has to leave a word behind. Otherwise "lamp_2" against a prefix
@@ -45,7 +46,28 @@ namespace FriWorld.ObjectRegistry
 
             // No prefix applied: only the trailing instance number comes off. A leading number
             // is not stripped here because there is no prefix it could have belonged to.
-            return StripTrailingInt(objectName);
+            return StripTrailingInt(StripOverrideTokens(objectName));
+        }
+
+        /// <summary>
+        /// Removes the UNO / UYO markers. They are per-object exceptions handled separately by
+        /// GenerateLayersAndStatic, and they say nothing about what the object *is* — leaving
+        /// them in would split one type into "wall", "wall_3_UNO" and "outer_wall_13_UNO".
+        /// Case-sensitive, matching how the override itself is detected.
+        /// </summary>
+        static string StripOverrideTokens(string s)
+        {
+            if (s.IndexOf("UNO", StringComparison.Ordinal) < 0 &&
+                s.IndexOf("UYO", StringComparison.Ordinal) < 0)
+                return s;
+
+            var parts = s.Split('_');
+            var kept = new List<string>(parts.Length);
+            foreach (var p in parts)
+                if (p != "UNO" && p != "UYO")
+                    kept.Add(p);
+
+            return kept.Count == 0 ? s : string.Join("_", kept.ToArray());
         }
 
         static string StripLeadingInt(string s)

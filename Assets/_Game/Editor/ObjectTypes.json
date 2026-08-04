@@ -473,14 +473,6 @@
       "tag": null
     },
     {
-      "name": "outer_wall_13_UNO",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
       "name": "outside_e_box",
       "collider": "none",
       "layer": "noObstacle",
@@ -737,14 +729,6 @@
       "tag": null
     },
     {
-      "name": "rc000_outer_wall_28_UNO",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
       "name": "rc000_outer_wall_sign",
       "collider": "none",
       "layer": "noObstacle",
@@ -970,22 +954,6 @@
     },
     {
       "name": "wall",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "wall_3_UNO",
-      "collider": "mesh",
-      "layer": "obstacle",
-      "occluder": "auto",
-      "static": null,
-      "tag": null
-    },
-    {
-      "name": "wall_9_UNO",
       "collider": "mesh",
       "layer": "obstacle",
       "occluder": "auto",

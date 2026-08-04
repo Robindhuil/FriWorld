@@ -62,6 +62,36 @@ namespace FriWorld.ObjectRegistry.Tests
         }
 
         [Test]
+        public void StripsTheUnoOverrideMarker()
+        {
+            // UNO is a per-object exception, not part of what the object is.
+            var key = ObjectTypeKey.Derive("wall_3_UNO", Prefixes());
+            Assert.AreEqual("wall", key);
+        }
+
+        [Test]
+        public void StripsTheUyoOverrideMarker()
+        {
+            var key = ObjectTypeKey.Derive("outer_wall_13_UYO", Prefixes());
+            Assert.AreEqual("outer_wall", key);
+        }
+
+        [Test]
+        public void StripsTheOverrideMarkerAfterAPrefix()
+        {
+            var key = ObjectTypeKey.Derive("rc000_outer_wall_28_UNO", Prefixes("rc000"));
+            Assert.AreEqual("outer_wall", key);
+        }
+
+        [Test]
+        public void DoesNotStripLowercaseUnoWhichIsJustAWord()
+        {
+            // The override is case-sensitive; "uno" in a name is an ordinary word.
+            var key = ObjectTypeKey.Derive("uno_thing_1", Prefixes());
+            Assert.AreEqual("uno_thing", key);
+        }
+
+        [Test]
         public void HandlesNullAndEmptyNames()
         {
             Assert.AreEqual("", ObjectTypeKey.Derive(null, Prefixes("x")));
