@@ -36,6 +36,13 @@ public class RuntimeOcclusionCuller : MonoBehaviour
     [Tooltip("Shrinks the bounds sample points so wall-hugging objects aren't false-culled.")]
     [SerializeField] private float boundsPadding = 0.1f;
 
+    [Header("Diagnostics")]
+    [Tooltip("Periodically logs what the culler is actually doing: how many groups it hides, " +
+             "how many rays that costs and how much frame time it eats. A measurement tool — " +
+             "leave off in a shipped build.")]
+    [SerializeField] private bool logStats;
+    [SerializeField] private float logInterval = 3f;
+
     private static readonly Vector3[] SampleDirs =
     {
         new Vector3( 0,  0,  0),
@@ -54,6 +61,12 @@ public class RuntimeOcclusionCuller : MonoBehaviour
     private Vector3 lastPos;
     private Quaternion lastRot;
     private bool firstPass = true;
+
+    // Diagnostics. Plain counters — incrementing an int is cheaper than branching on logStats.
+    private readonly System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+    private int statTicks, statSkipped, statRays, statToggles;
+    private int statInside, statOffScreen, statOccluded, statVisible;
+    private float nextLogTime;
 
     private void Start()
     {
@@ -104,16 +117,26 @@ public class RuntimeOcclusionCuller : MonoBehaviour
     private void LateUpdate()
     {
         if (cam == null || groups.Count == 0) return;
-        if (Time.unscaledTime < nextUpdateTime) return;
-        nextUpdateTime = Time.unscaledTime + updateInterval;
 
+        if (Time.unscaledTime >= nextUpdateTime)
+        {
+            nextUpdateTime = Time.unscaledTime + updateInterval;
+            RunTick();
+        }
+
+        if (logStats) LogStats();
+    }
+
+    private void RunTick()
+    {
         Vector3 pos = cam.transform.position;
         Quaternion rot = cam.transform.rotation;
         bool moved = (pos - lastPos).sqrMagnitude > positionThreshold * positionThreshold
                      || Quaternion.Angle(rot, lastRot) > angleThreshold;
-        if (!moved && !firstPass) return;
+        if (!moved && !firstPass) { statSkipped++; return; }
         lastPos = pos; lastRot = rot; firstPass = false;
 
+        watch.Start();
         GeometryUtility.CalculateFrustumPlanes(cam, frustum);
 
         foreach (var g in groups)
@@ -124,8 +147,49 @@ public class RuntimeOcclusionCuller : MonoBehaviour
                 for (int i = 0; i < g.renderers.Length; i++)
                     if (g.renderers[i] != null) g.renderers[i].enabled = shouldShow;
                 g.visible = shouldShow;
+                statToggles++;
             }
         }
+        watch.Stop();
+        statTicks++;
+    }
+
+    /// <summary>
+    /// Periodic summary. The numbers that decide whether this culler earns its keep:
+    /// how many groups it actually hides, what that costs in rays and milliseconds, and how
+    /// the groups split between "off-screen" (the free frustum reject) and "occluded" (the
+    /// part that needed raycasts).
+    /// </summary>
+    private void LogStats()
+    {
+        if (Time.unscaledTime < nextLogTime)
+        {
+            if (nextLogTime == 0f) nextLogTime = Time.unscaledTime + logInterval;
+            return;
+        }
+        nextLogTime = Time.unscaledTime + logInterval;
+
+        int hiddenGroups = 0, hiddenRenderers = 0;
+        foreach (var g in groups)
+            if (!g.visible) { hiddenGroups++; hiddenRenderers += g.renderers.Length; }
+
+        double ms = watch.Elapsed.TotalMilliseconds;
+        int ticks = Mathf.Max(statTicks, 1);
+
+        Debug.Log(
+            "[OcclusionCuller] " + logInterval.ToString("0.#") + "s window\n" +
+            "  ticks " + statTicks + " (skipped by move-gate: " + statSkipped + ")\n" +
+            "  cost  " + ms.ToString("F2") + " ms total, " + (ms / ticks).ToString("F3") + " ms/tick" +
+            "  |  rays " + statRays + " (" + (statRays / ticks) + "/tick)\n" +
+            "  split per tick: inside " + (statInside / ticks) + ", off-screen " + (statOffScreen / ticks) +
+            ", occluded " + (statOccluded / ticks) + ", visible " + (statVisible / ticks) +
+            "  (of " + groups.Count + " groups)\n" +
+            "  hiding now: " + hiddenGroups + " groups / " + hiddenRenderers + " renderers" +
+            "  |  enable-toggles this window: " + statToggles);
+
+        watch.Reset();
+        statTicks = statSkipped = statRays = statToggles = 0;
+        statInside = statOffScreen = statOccluded = statVisible = 0;
     }
 
     private bool ComputeVisible(Group g, Vector3 camPos)
@@ -142,9 +206,12 @@ public class RuntimeOcclusionCuller : MonoBehaviour
         }
         Bounds b = g.bounds;
 
-        if (b.Contains(camPos)) return true;                       // inside -> visible
-        if (!GeometryUtility.TestPlanesAABB(frustum, b)) return false; // off-screen
-        return !IsFullyOccluded(b, camPos);
+        if (b.Contains(camPos)) { statInside++; return true; }                       // inside -> visible
+        if (!GeometryUtility.TestPlanesAABB(frustum, b)) { statOffScreen++; return false; } // off-screen
+
+        bool occluded = IsFullyOccluded(b, camPos);
+        if (occluded) statOccluded++; else statVisible++;
+        return !occluded;
     }
 
     private bool IsFullyOccluded(Bounds b, Vector3 camPos)
@@ -157,6 +224,7 @@ public class RuntimeOcclusionCuller : MonoBehaviour
             Vector3 dir = p - camPos;
             float dist = dir.magnitude;
             if (dist <= 0.01f) return false;
+            statRays++;
             if (!Physics.Raycast(camPos, dir / dist, dist - 0.01f, occluderMask, QueryTriggerInteraction.Ignore))
                 return false; // a sample is visible -> not fully occluded
         }

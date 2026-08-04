@@ -7,6 +7,11 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+### Added
+- `RuntimeOcclusionCuller` vie na požiadanie logovať, čo reálne robí — koľko skupín
+  skrýva, koľko to stojí raycastov a milisekúnd. Zapína sa `logStats` v inšpektore,
+  v shipnutom builde má zostať vypnuté.
+
 ### Performance
 - Web build výrazne odľahčený pre integrované grafiky: vypnuté MSAA (nahradené
   lacnejším FXAA), depth texture, LOD cross-fade a blending reflection probes;

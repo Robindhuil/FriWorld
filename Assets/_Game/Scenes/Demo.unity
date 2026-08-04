@@ -36111,6 +36111,7 @@ MonoBehaviour:
   ySensitivity: 15
   maxLookUpAngle: 80
   maxLookDownAngle: -80
+  maxFrameDelta: 300
 --- !u!114 &1887814980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44336,6 +44337,8 @@ MonoBehaviour:
   positionThreshold: 0.25
   angleThreshold: 2
   boundsPadding: 0.1
+  logStats: 1
+  logInterval: 3
 --- !u!1 &2147418814
 GameObject:
   m_ObjectHideFlags: 0
