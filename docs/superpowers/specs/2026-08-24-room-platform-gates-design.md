@@ -207,7 +207,7 @@ premenovať objekty alebo zahodiť ten typ, čo do tohto návrhu nepatrí.
 
 ## 5. Synchronizácia
 
-Jeden sken hierarchie, dva výstupy. `Tools > Object Registry > Add Prefixes From Selection`
+Jeden sken hierarchie, dva výstupy. `FriWorld > Registry > Add Prefixes From Selection`
 po zápise prefixov zosúladí aj `RoomPlatforms.json`:
 
 - oblasť v hierarchii, chýba v `RoomPlatforms.json` → **pribudne bez `platform`** a vyplynie
@@ -217,7 +217,7 @@ po zápise prefixov zosúladí aj `RoomPlatforms.json`:
   strata.
 - existujúce hodnoty sa **nikdy neprepíšu**
 
-To isté je dostupné samostatne ako `Tools > Object Registry > Sync Room Platforms`, aby sa dalo
+To isté je dostupné samostatne ako `FriWorld > Registry > Sync Room Platforms`, aby sa dalo
 zosúladiť bez skenovania výberu.
 
 ---
@@ -228,10 +228,10 @@ Dve vetvy, dva samostatne spustiteľné nástroje. Po reimporte `.blend` stačí
 `Objects` sa nemusí ani otvoriť.
 
 ```
-Tools > Feature Flags > Report Room Gates
-Tools > Feature Flags > Apply Object Gates
-Tools > Feature Flags > Apply Door Gates
-Tools > Feature Flags > Apply All Room Gates
+FriWorld > Feature Flags > Report Room Gates
+FriWorld > Feature Flags > Apply Object Gates
+FriWorld > Feature Flags > Apply Door Gates
+FriWorld > Feature Flags > Apply All Room Gates
 ```
 
 Obe vetvy **zosúlaďujú, nedopisujú**. Prejdú prefab asset, pre každý kontajner odstrihnú

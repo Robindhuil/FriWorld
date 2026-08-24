@@ -97,7 +97,7 @@ namespace FriWorld.FeatureFlags
                     {
                         // A gate with an empty list does nothing but add clutter, and it hides
                         // the real problem: the Door behaviour was never attached. Run
-                        // Tools > Layers > Assign Layers And Static From Registry first.
+                        // FriWorld > Generate > Layers And Static From Registry first.
                         result.doorsWithNothingToStrip.Add(RegistryScanner.PathOf(door));
                         if (existing != null)
                         {

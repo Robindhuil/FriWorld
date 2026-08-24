@@ -14,13 +14,13 @@ public class VegetationGISetup : EditorWindow
     private static readonly string[] VegKeywords =
         { "grass", "bush", "leaf", "hedge", "veget", "trava", "ker", "plant", "flower" };
 
-    [MenuItem("FriWorld/Vegetation: Disable GI Contribution")]
+    [MenuItem("FriWorld/Lighting/Vegetation: Disable GI Contribution")]
     public static void DisableVegetationGI()
     {
         Run(false);
     }
 
-    [MenuItem("FriWorld/Vegetation: Restore GI Contribution")]
+    [MenuItem("FriWorld/Lighting/Vegetation: Restore GI Contribution")]
     public static void EnableVegetationGI()
     {
         Run(true);

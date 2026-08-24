@@ -12,10 +12,10 @@ using UnityEngine;
 /// </summary>
 static class FeatureFlagPreview
 {
-    [MenuItem("Tools/Feature Flags/Preview: Web build")]
+    [MenuItem("FriWorld/Feature Flags/Preview: Web build")]
     static void PreviewWeb() => Apply(web: true);
 
-    [MenuItem("Tools/Feature Flags/Preview: Desktop (show all)")]
+    [MenuItem("FriWorld/Feature Flags/Preview: Desktop (show all)")]
     static void PreviewDesktop() => Apply(web: false);
 
     static void Apply(bool web)

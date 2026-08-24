@@ -12,7 +12,7 @@ using UnityEngine;
 /// so you don't have to put a gate on every single object.
 ///
 /// In the editor the object stays visible so you can keep working on it; use
-/// Tools > Feature Flags > Preview to simulate a platform (note: the edit-mode preview hides
+/// FriWorld > Feature Flags > Preview to simulate a platform (note: the edit-mode preview hides
 /// the whole subtree — for an accurate check of excludes, use Play mode).
 /// </summary>
 public class PlatformGate : MonoBehaviour

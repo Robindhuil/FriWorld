@@ -10,7 +10,7 @@ static class FeatureFlagConfigCreator
     const string Dir = "Assets/Resources";
     const string Path = "Assets/Resources/FeatureFlags.asset";
 
-    [MenuItem("Tools/Feature Flags/Create Config Asset")]
+    [MenuItem("FriWorld/Feature Flags/Create Config Asset")]
     static void Create()
     {
         var existing = AssetDatabase.LoadAssetAtPath<FeatureFlagConfig>(Path);

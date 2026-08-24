@@ -6,7 +6,7 @@ using UnityEngine;
 namespace FriWorld.FeatureFlags
 {
     /// <summary>
-    /// Tools > Feature Flags > Room Gates.
+    /// FriWorld > Feature Flags > Room Gates.
     ///
     /// One window for both halves of the platform gating, because they are the same decision
     /// applied to two different trees and it is easier to reason about them side by side. You
@@ -37,7 +37,7 @@ namespace FriWorld.FeatureFlags
         string status = "";
         MessageType statusKind = MessageType.Info;
 
-        [MenuItem("Tools/Feature Flags/Room Gates")]
+        [MenuItem("FriWorld/Feature Flags/Room Gates")]
         static void Open()
         {
             var window = CreateInstance<RoomGateWindow>();
@@ -132,7 +132,7 @@ namespace FriWorld.FeatureFlags
             if (platforms.rooms.Count == 0)
             {
                 Fail(ObjectRegistryMenu.RoomPlatformsPath + " is empty. Run "
-                   + "Tools > Object Registry > Sync Room Platforms first, otherwise every area "
+                   + "FriWorld > Registry > Sync Room Platforms first, otherwise every area "
                    + "would be skipped as undecided.");
                 return;
             }

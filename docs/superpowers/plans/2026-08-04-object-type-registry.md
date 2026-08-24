@@ -893,7 +893,7 @@ namespace FriWorld.ObjectRegistry
 - [ ] **Step 3: Verify end to end on a small subtree**
 
 In Unity, select `FriBuilding/Objects/lamp` in the Hierarchy (or any small subtree), then run
-`Tools → Object Registry → Report On Selection`.
+`FriWorld → Registry → Report On Selection`.
 
 Expected: a log listing `lamp` (and neighbours) under **UNKNOWN types**, each with example
 hierarchy paths, because the registry is still empty. That is the correct starting state.
@@ -1134,19 +1134,19 @@ Add `using System.Collections.Generic;` and `using UnityEngine;` at the top of t
 - [ ] **Step 2: Run the seeding on the whole building**
 
 In Unity select the `FriBuilding` root in the Hierarchy, then
-`Tools → Object Registry → Propose Prefixes From Selection`.
+`FriWorld → Registry → Propose Prefixes From Selection`.
 
 Copy the proposals you accept into `Assets/_Game/Editor/ObjectPrefixes.json`. **Do not accept
 anything listed under "withheld as risky".**
 
-Then run `Tools → Object Registry → Seed From Legacy Keyword Rules`.
+Then run `FriWorld → Registry → Seed From Legacy Keyword Rules`.
 
 Expected: `ObjectTypes.json` fills with roughly 500–600 entries, most pre-filled, the rest
 `null`. Confirm in the log that the pre-filled count is the large majority.
 
 - [ ] **Step 3: Run the dry run and read every change**
 
-`Tools → Object Registry → Dry Run Diff (old rules vs registry)`.
+`FriWorld → Registry → Dry Run Diff (old rules vs registry)`.
 
 Expected: `identical` dominates. Every entry under `CHANGED` must be classified by hand as
 either a fix (e.g. `window_1_glass` no longer treated as `window`) or a regression. Do not

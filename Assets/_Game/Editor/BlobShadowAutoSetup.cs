@@ -16,7 +16,7 @@ public class BlobShadowAutoSetup : EditorWindow
     private float strength = 0.5f;
     private string npcTag = "npc";
 
-    [MenuItem("FriWorld/BlobShadow: Auto Setup")]
+    [MenuItem("FriWorld/Lighting/BlobShadow: Auto Setup")]
     public static void Open() => GetWindow<BlobShadowAutoSetup>("BlobShadow Setup");
 
     private void OnGUI()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 /// <summary>
 /// Modal to reorder the selected objects in the Hierarchy by name, ascending or
-/// descending (per parent). Tools > Sort Selected By Name.
+/// descending (per parent). FriWorld > Utilities > Sort Selected By Name.
 /// </summary>
 public class SortSelectedByName : EditorWindow
 {
@@ -14,7 +14,7 @@ public class SortSelectedByName : EditorWindow
     private Dir dir = Dir.Ascending;
     private bool naturalSort = true;
 
-    [MenuItem("Tools/Sort Selected By Name")]
+    [MenuItem("FriWorld/Utilities/Sort Selected By Name")]
     private static void Open()
     {
         var w = GetWindow<SortSelectedByName>(true, "Sort Selected");

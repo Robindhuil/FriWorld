@@ -4,7 +4,7 @@ using UnityEngine;
 [InitializeOnLoad]
 public static class MeshColliderVisualizer
 {
-    private const string MenuPath = "Tools/Debug/Toggle Mesh Collider Visualizer";
+    private const string MenuPath = "FriWorld/Debug/Toggle Mesh Collider Visualizer";
     private const string PrefKey = "FriWorld.MeshColliderVisualizer.Enabled";
     private const GizmoType GizmoDrawMask =
         GizmoType.Active

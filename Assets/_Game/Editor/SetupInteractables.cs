@@ -22,10 +22,10 @@ public static class SetupInteractables
     // which a single door had kept. Setting it explicitly avoids reintroducing that stray value.
     private const float DoorOpenRotation = 90f;
 
-    [MenuItem("Tools/Interactables/Setup From Registry")]
+    [MenuItem("FriWorld/Generate/Interactables From Registry")]
     private static void SetupFromSelection() => Run(apply: true);
 
-    [MenuItem("Tools/Interactables/Report Only (dry run)")]
+    [MenuItem("FriWorld/Generate/Interactables - Report Only (dry run)")]
     private static void ReportOnly() => Run(apply: false);
 
     private static void Run(bool apply)
@@ -146,8 +146,8 @@ public static class SetupInteractables
         Debug.Log(sb.ToString());
     }
 
-    [MenuItem("Tools/Interactables/Setup From Registry", true)]
-    [MenuItem("Tools/Interactables/Report Only (dry run)", true)]
+    [MenuItem("FriWorld/Generate/Interactables From Registry", true)]
+    [MenuItem("FriWorld/Generate/Interactables - Report Only (dry run)", true)]
     private static bool ValidateSelection()
         => Selection.gameObjects != null && Selection.gameObjects.Length > 0;
 }

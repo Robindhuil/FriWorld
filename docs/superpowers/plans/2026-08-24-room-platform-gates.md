@@ -408,7 +408,7 @@ Expected: `[TESTS] done: 40 passed, 0 failed, 0 skipped`.
 
 - [ ] **Step 5: Confirm the sync still produces the same file**
 
-Run `Tools > Object Registry > Sync Room Platforms`.
+Run `FriWorld > Registry > Sync Room Platforms`.
 
 Expected: `[RoomPlatforms] 301 areas in Assets/_Game/Editor/RoomPlatforms.json` followed by `already in sync`. If the count moved, `AreaNames` regressed — fix it before committing.
 
@@ -538,7 +538,7 @@ namespace FriWorld.ObjectRegistry
 
 - [ ] **Step 2: Run the migration**
 
-Refresh, wait for `IsCompiling` to be false, then run `Tools > Object Registry > Migrate Platforms Draft`.
+Refresh, wait for `IsCompiling` to be false, then run `FriWorld > Registry > Migrate Platforms Draft`.
 
 Expected: `[MigrateDraft] draft rows 262 → decided 301 of 301 areas`, with no `no draft value` section.
 
@@ -795,7 +795,7 @@ namespace FriWorld.FeatureFlags
                     {
                         // A gate with an empty list does nothing but add clutter, and it hides
                         // the real problem: the Door behaviour was never attached. Run
-                        // Tools > Layers > Assign Layers And Static From Registry first.
+                        // FriWorld > Generate > Layers And Static From Registry first.
                         result.doorsWithNothingToStrip.Add(RegistryScanner.PathOf(door));
                         if (existing != null)
                         {
@@ -1038,7 +1038,7 @@ namespace FriWorld.FeatureFlags
             if (platforms.rooms.Count == 0)
             {
                 Debug.LogError("[RoomGates] " + ObjectRegistryMenu.RoomPlatformsPath
-                    + " is empty. Run Tools > Object Registry > Sync Room Platforms first, "
+                    + " is empty. Run FriWorld > Registry > Sync Room Platforms first, "
                     + "otherwise every area would be skipped as undecided.");
                 return;
             }
@@ -1085,7 +1085,7 @@ namespace FriWorld.FeatureFlags
 
 - [ ] **Step 2: Run the dry run**
 
-Refresh, wait, then run `Tools > Feature Flags > Report Room Gates`.
+Refresh, wait, then run `FriWorld > Feature Flags > Report Room Gates`.
 
 Expected shape:
 
@@ -1120,13 +1120,13 @@ git add Assets/_Game/Editor/FeatureFlags/RoomGateMenu.cs Assets/_Game/Editor/Fea
 
 - [ ] **Step 1: Apply everything**
 
-Run `Tools > Feature Flags > Apply All Room Gates`.
+Run `FriWorld > Feature Flags > Apply All Room Gates`.
 
 Expected: the same counts as the dry run, without the `DRY RUN` line.
 
 - [ ] **Step 2: Verify it converges**
 
-Run `Tools > Feature Flags > Report Room Gates` again.
+Run `FriWorld > Feature Flags > Report Room Gates` again.
 
 Expected — this is the real check that the reconcile is complete and stable:
 
@@ -1220,7 +1220,7 @@ Expected: no errors, `Tools > Setup Door Gates` gone from the menu, the four `To
 In `CHANGELOG.md` under `## [Unreleased]`, add to `### Added`:
 
 ```
-- `Tools > Feature Flags > Apply All Room Gates` — platformové gaty sa generujú z `RoomPlatforms.json` priamo do prefab assetu. Dá sa spustiť aj po vetvách: `Apply Object Gates` pre nábytok, `Apply Door Gates` po reimporte `.blend`.
+- `FriWorld > Feature Flags > Apply All Room Gates` — platformové gaty sa generujú z `RoomPlatforms.json` priamo do prefab assetu. Dá sa spustiť aj po vetvách: `Apply Object Gates` pre nábytok, `Apply Door Gates` po reimporte `.blend`.
 ```
 
 and to `### Fixed`:
@@ -1268,7 +1268,7 @@ vygenerovateľný.
 
 ## Dôsledky
 
-- Aj keby sa gaty znova stratili, `Tools > Feature Flags > Apply All Room Gates` ich vráti.
+- Aj keby sa gaty znova stratili, `FriWorld > Feature Flags > Apply All Room Gates` ich vráti.
   Strata komponentu prestala byť stratou informácie.
 - **`GenerateColliders` má ten istý problém** a zatiaľ nevystrelil: tých 2671 override
   komponentov sú prevažne `BoxCollider` a `NavMeshModifier`. Prvý reimport `.blend` ich zmetie
@@ -1286,7 +1286,7 @@ git add CHANGELOG.md docs/decisions/2026-08-24-platform-gaty-v-prefabe.md && git
 
 ## Done when
 
-- [ ] `Tools > Feature Flags > Report Room Gates` reports `0 added, 0 retargeted, 0 removed` on both branches
+- [ ] `FriWorld > Feature Flags > Report Room Gates` reports `0 added, 0 retargeted, 0 removed` on both branches
 - [ ] no `UNDECIDED` and no `BAD VALUES` section in that report
 - [ ] all EditMode tests in `FriWorld.ObjectRegistry.Tests` pass
 - [ ] `Tools > Setup Door Gates` is gone; the four `Tools > Feature Flags` items work

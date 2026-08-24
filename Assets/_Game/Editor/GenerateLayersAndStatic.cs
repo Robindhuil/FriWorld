@@ -52,7 +52,7 @@ public static class GenerateLayersAndStatic
     private const string UnoOverrideKeyword = "UNO";
     private const string UyoOverrideKeyword = "UYO";
 
-    [MenuItem("Tools/Layers/Assign Layers And Static From Registry")]
+    [MenuItem("FriWorld/Generate/Layers And Static From Registry")]
     private static void AssignLayersAndStaticFromSelectedHierarchy()
     {
         if (!TryGetRequiredLayers(out Dictionary<string, int> layerMap))
@@ -72,7 +72,7 @@ public static class GenerateLayersAndStatic
         if (registry.types.Count == 0)
         {
             Debug.LogError("[GenerateLayersAndStatic] " + ObjectRegistryMenu.TypesPath
-                + " is empty. Run Tools > Object Registry > Seed Missing Types From Selection "
+                + " is empty. Run FriWorld > Registry > Seed Missing Types From Selection "
                 + "first, otherwise every object would be skipped.");
             return;
         }
@@ -240,7 +240,7 @@ public static class GenerateLayersAndStatic
         {
             Debug.LogWarning("[GenerateLayersAndStatic] " + unresolved.Count
                 + " objects were left untouched because their type is unknown or undecided.\n"
-                + "Run Tools > Object Registry > Report On Selection to see them grouped, or fix "
+                + "Run FriWorld > Registry > Report On Selection to see them grouped, or fix "
                 + "them in " + ObjectRegistryMenu.TypesPath + ":\n"
                 + string.Join("\n", unresolved.ToArray()));
         }
@@ -253,7 +253,7 @@ public static class GenerateLayersAndStatic
         }
     }
 
-    [MenuItem("Tools/Layers/Assign Layers And Static From Registry", true)]
+    [MenuItem("FriWorld/Generate/Layers And Static From Registry", true)]
     private static bool ValidateAssignLayersAndStaticFromSelectedHierarchy()
     {
         return Selection.gameObjects != null && Selection.gameObjects.Length > 0;

@@ -41,7 +41,7 @@ namespace FriWorld.Routine
                             + "unknown types, types that are present but still blank, and names "
                             + "no prefix has stripped. Start here, and run it again after every "
                             + "other step until it says every object resolved to a decided type.",
-                menuPath = "Tools/Object Registry/Report On Selection",
+                menuPath = "FriWorld/Registry/Report On Selection",
                 needsSelection = true,
             },
             new Step
@@ -51,7 +51,7 @@ namespace FriWorld.Routine
                             + "undecided entry. Fill in collider, layer and occluder by hand "
                             + "afterwards — until you do, those objects are left untouched. New "
                             + "entries are at the top of the file.",
-                menuPath = "Tools/Object Registry/Seed Missing Types From Selection",
+                menuPath = "FriWorld/Registry/Seed Missing Types From Selection",
                 needsSelection = true,
             },
             new Step
@@ -61,7 +61,7 @@ namespace FriWorld.Routine
                             + "names can be stripped down to a type key, then reconciles "
                             + "RoomPlatforms.json with the areas that now exist. A prefix that "
                             + "would swallow a registered type is withheld and reported.",
-                menuPath = "Tools/Object Registry/Add Prefixes From Selection",
+                menuPath = "FriWorld/Registry/Add Prefixes From Selection",
                 needsSelection = true,
             },
             new Step
@@ -71,7 +71,7 @@ namespace FriWorld.Routine
                             + "FriBuilding prefab rather than a selection. Only needed when "
                             + "containers were renamed or moved without any new prefix — the "
                             + "previous step already does this.",
-                menuPath = "Tools/Object Registry/Sync Room Platforms",
+                menuPath = "FriWorld/Registry/Sync Room Platforms",
                 optional = true,
             },
             new Step
@@ -80,7 +80,7 @@ namespace FriWorld.Routine
                 description = "Gives every object the collider its type asks for: none, box, "
                             + "sphere or mesh. An unknown or undecided type is skipped and "
                             + "listed rather than guessed at.",
-                menuPath = "Tools/Colliders/Generate From Registry",
+                menuPath = "FriWorld/Generate/Colliders From Registry",
                 needsSelection = true,
             },
             new Step
@@ -89,7 +89,7 @@ namespace FriWorld.Routine
                 description = "Sets the layer, the static flags, the Door tag and the NavMesh "
                             + "modifier from the type's layer and occluder fields. UNO and UYO "
                             + "in an object's name still override the registry.",
-                menuPath = "Tools/Layers/Assign Layers And Static From Registry",
+                menuPath = "FriWorld/Generate/Layers And Static From Registry",
                 needsSelection = true,
             },
             new Step
@@ -99,7 +99,7 @@ namespace FriWorld.Routine
                             + "Door, together with its animator controller. Runs after layers "
                             + "because door_frame sits on the Interactable layer too and must "
                             + "not become an openable door.",
-                menuPath = "Tools/Interactables/Setup From Registry",
+                menuPath = "FriWorld/Generate/Interactables From Registry",
                 needsSelection = true,
             },
             new Step
@@ -109,7 +109,7 @@ namespace FriWorld.Routine
                             + "RoomPlatforms.json: a PlatformGate on each room container under "
                             + "Objects, and a ComponentGate on each door under fri_building. "
                             + "Preview first — a second preview after writing must report zero.",
-                menuPath = "Tools/Feature Flags/Room Gates",
+                menuPath = "FriWorld/Feature Flags/Room Gates",
             },
         };
 

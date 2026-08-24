@@ -12,7 +12,7 @@ using UnityEngine;
 /// all vertices, requires same source mesh). "Group under original parent" groups + renames
 /// {parent}_{prefabBase}_{index}, reusing an existing root-level group and continuing its
 /// numbering. "Diagnose" reports why geometry-align fails without changing anything.
-/// Tools > Prefab Replacer.
+/// FriWorld > Utilities > Prefab Replacer.
 /// </summary>
 public class PrefabReplacerWindow : EditorWindow
 {
@@ -26,7 +26,7 @@ public class PrefabReplacerWindow : EditorWindow
     private Vector3 rotationOffset = Vector3.zero;
     private bool groupUnderParent = true;
 
-    [MenuItem("Tools/Prefab Replacer")]
+    [MenuItem("FriWorld/Utilities/Prefab Replacer")]
     private static void Open() => GetWindow<PrefabReplacerWindow>("Prefab Replacer");
 
     private void OnGUI()

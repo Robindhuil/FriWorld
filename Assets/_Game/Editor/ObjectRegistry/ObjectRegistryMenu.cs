@@ -10,14 +10,14 @@ namespace FriWorld.ObjectRegistry
         public const string TypesPath         = "Assets/_Game/Editor/ObjectTypes.json";
         public const string RoomPlatformsPath = "Assets/_Game/Editor/RoomPlatforms.json";
 
-        [MenuItem("Tools/Object Registry/Report On Selection")]
+        [MenuItem("FriWorld/Registry/Report On Selection")]
         static void Report()
         {
             if (!TryScanSelection(out var scan, out var registry)) return;
             Debug.Log(RegistryReport.Build(scan, registry));
         }
 
-        [MenuItem("Tools/Object Registry/Seed Missing Types From Selection")]
+        [MenuItem("FriWorld/Registry/Seed Missing Types From Selection")]
         static void Seed()
         {
             if (!TryScanSelection(out var scan, out var registry)) return;
@@ -32,7 +32,7 @@ namespace FriWorld.ObjectRegistry
                     + "\nFill them in — until then their objects are left untouched.");
         }
 
-        [MenuItem("Tools/Object Registry/Add Prefixes From Selection")]
+        [MenuItem("FriWorld/Registry/Add Prefixes From Selection")]
         static void AddPrefixes()
         {
             if (!TryScanSelection(out var scan, out var registry)) return;
@@ -106,7 +106,7 @@ namespace FriWorld.ObjectRegistry
             return null;
         }
 
-        [MenuItem("Tools/Object Registry/Sync Room Platforms")]
+        [MenuItem("FriWorld/Registry/Sync Room Platforms")]
         static void SyncRoomPlatforms() => Debug.Log(SyncRoomPlatformsFile());
 
         /// <summary>
@@ -164,9 +164,9 @@ namespace FriWorld.ObjectRegistry
             return sb.ToString();
         }
 
-        [MenuItem("Tools/Object Registry/Report On Selection", true)]
-        [MenuItem("Tools/Object Registry/Seed Missing Types From Selection", true)]
-        [MenuItem("Tools/Object Registry/Add Prefixes From Selection", true)]
+        [MenuItem("FriWorld/Registry/Report On Selection", true)]
+        [MenuItem("FriWorld/Registry/Seed Missing Types From Selection", true)]
+        [MenuItem("FriWorld/Registry/Add Prefixes From Selection", true)]
         static bool ValidateSelection() => Selection.gameObjects != null && Selection.gameObjects.Length > 0;
 
         internal static bool TryScanSelection(out ScanResult scan, out TypeRegistry registry)

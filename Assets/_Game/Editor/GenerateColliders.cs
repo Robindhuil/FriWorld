@@ -14,7 +14,7 @@ using UnityEngine;
 /// </summary>
 public static class GenerateColliders
 {
-    [MenuItem("Tools/Colliders/Generate From Registry")]
+    [MenuItem("FriWorld/Generate/Colliders From Registry")]
     private static void GenerateFromSelectedHierarchy()
     {
         GameObject[] selectedRoots = Selection.gameObjects;
@@ -29,7 +29,7 @@ public static class GenerateColliders
         if (registry.types.Count == 0)
         {
             Debug.LogError("[GenerateColliders] " + ObjectRegistryMenu.TypesPath
-                + " is empty. Run Tools > Object Registry > Seed Missing Types From Selection first, "
+                + " is empty. Run FriWorld > Registry > Seed Missing Types From Selection first, "
                 + "otherwise every object would be skipped.");
             return;
         }
@@ -139,7 +139,7 @@ public static class GenerateColliders
         {
             Debug.LogWarning("[GenerateColliders] " + unresolved.Count
                 + " objects were left untouched because their type is unknown or undecided.\n"
-                + "Run Tools > Object Registry > Report On Selection to see them grouped, or fix "
+                + "Run FriWorld > Registry > Report On Selection to see them grouped, or fix "
                 + "them in " + ObjectRegistryMenu.TypesPath + ":\n"
                 + string.Join("\n", unresolved.ToArray()));
         }
@@ -151,7 +151,7 @@ public static class GenerateColliders
         }
     }
 
-    [MenuItem("Tools/Colliders/Generate From Registry", true)]
+    [MenuItem("FriWorld/Generate/Colliders From Registry", true)]
     private static bool ValidateGenerateFromSelectedHierarchy()
     {
         return Selection.gameObjects != null && Selection.gameObjects.Length > 0;

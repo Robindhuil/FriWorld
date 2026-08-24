@@ -11,7 +11,7 @@ public class WindowLightsSetup : EditorWindow
     private float lightOffset = 0.5f; // distance inside from window
     private bool previewOnly = true;
 
-    [MenuItem("FriWorld/Setup Window Lights")]
+    [MenuItem("FriWorld/Lighting/Setup Window Lights")]
     public static void ShowWindow()
     {
         GetWindow<WindowLightsSetup>("Window Lights");

@@ -75,14 +75,14 @@ vlastnosti podobne pomenovaného typu.
 ### Pridanie nového objektu
 
 1. Pomenuj ho `<kontajner>_<typ>_<číslo>` a naimportuj.
-2. Vyber koreň (napr. `FriBuilding`) → `Tools → Object Registry → Report On Selection`.
+2. Vyber koreň (napr. `FriBuilding`) → `FriWorld → Registry → Report On Selection`.
 3. Podľa hlásenia:
    - **UNKNOWN** → `Seed Missing Types From Selection`, potom vyplň tri polia. Nový typ je
      **prvý v súbore**, netreba ho hľadať.
    - **UNSTRIPPED** → pribudol kontajner, spusti `Add Prefixes From Selection`.
 4. `Report On Selection` znova — chceš „every scanned object resolved to a decided type".
-5. `Tools → Colliders → Generate From Registry` a
-   `Tools → Layers → Assign Layers And Static From Registry`.
+5. `FriWorld → Generate → Colliders From Registry` a
+   `FriWorld → Generate → Layers And Static From Registry`.
 6. Ak sa zmenili occludery, **rebake occlusion culling**.
 
 Objekt existujúceho typu (ďalšia lampa, ôsme okno) nevyžaduje nič — stačí krok 5.

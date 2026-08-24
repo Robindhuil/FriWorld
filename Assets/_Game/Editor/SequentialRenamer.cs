@@ -4,7 +4,7 @@ using UnityEngine;
 
 /// <summary>
 /// Renames all selected objects to "{baseName}_{n}" with an incrementing number.
-/// Tools > Sequential Rename.
+/// FriWorld > Utilities > Sequential Rename.
 /// </summary>
 public class SequentialRenamer : EditorWindow
 {
@@ -12,7 +12,7 @@ public class SequentialRenamer : EditorWindow
     private int start = 1;
     private bool sortByHierarchy = true;
 
-    [MenuItem("Tools/Sequential Rename")]
+    [MenuItem("FriWorld/Utilities/Sequential Rename")]
     private static void Open()
     {
         // utility window = floating, modal-ish

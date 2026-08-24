@@ -13,13 +13,13 @@ public class GlassShadowSetup : EditorWindow
     // Material name fragments that identify glass (case-insensitive)
     private static readonly string[] GlassKeywords = { "glass", "sklo" };
 
-    [MenuItem("FriWorld/Glass: Disable Shadow Casting")]
+    [MenuItem("FriWorld/Lighting/Glass: Disable Shadow Casting")]
     public static void DisableGlassShadows()
     {
         Run(ShadowCastingMode.Off);
     }
 
-    [MenuItem("FriWorld/Glass: Restore Shadow Casting (On)")]
+    [MenuItem("FriWorld/Lighting/Glass: Restore Shadow Casting")]
     public static void EnableGlassShadows()
     {
         Run(ShadowCastingMode.On);

@@ -136,8 +136,8 @@ Cieľ: podmieniť features/objekty per platforma (desktop/web) a experimentálne
 - **`FeatureFlagBuildProcessor`** (`IProcessSceneWithReport`): pri builde na **dočasnej kópii
   scény** stripne PlatformGate objekty + ComponentGate komponenty (scripty prvé kvôli
   `RequireComponent`) + aplikuje layer change + reparent exclude. Tvojej scény sa nedotkne.
-- **`FeatureFlagPreview`**: `Tools > Feature Flags > Preview Web/Desktop` (edit mode náhľad).
-- **`FeatureFlagConfigCreator`**: `Tools > Feature Flags > Create Config Asset`.
+- **`FeatureFlagPreview`**: `FriWorld > Feature Flags > Preview Web/Desktop` (edit mode náhľad).
+- **`FeatureFlagConfigCreator`**: `FriWorld > Feature Flags > Create Config Asset`.
 - **`ComponentGateEditor`** + **`LayerAttributeDrawer`**: čisté inšpektory.
 
 ### 4.3 Dôležité rozhodnutia / poznatky

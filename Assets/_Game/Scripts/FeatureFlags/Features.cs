@@ -59,7 +59,7 @@ public static class Features
         if (cfg == null)
         {
             Debug.LogWarning($"[Features] No FeatureFlagConfig at Resources/{ResourcePath}. " +
-                             "All flags default OFF. Create it via Tools > Feature Flags > Create Config Asset.");
+                             "All flags default OFF. Create it via FriWorld > Feature Flags > Create Config Asset.");
             return;
         }
 

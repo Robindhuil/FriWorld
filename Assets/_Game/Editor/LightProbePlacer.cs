@@ -18,7 +18,7 @@ public class LightProbePlacer : EditorWindow
     private bool skipInsideColliders = true;
     private float insideCheckRadius = 0.3f;
 
-    [MenuItem("FriWorld/Generate Light Probes")]
+    [MenuItem("FriWorld/Lighting/Generate Light Probes")]
     public static void Open() => GetWindow<LightProbePlacer>("Light Probes");
 
     private void OnGUI()

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// Central, designer-editable list of feature flags. One asset lives at
 /// <c>Assets/Resources/FeatureFlags.asset</c> so <see cref="Features"/> can load it
-/// at runtime. Create it via Tools > Feature Flags > Create Config Asset.
+/// at runtime. Create it via FriWorld > Feature Flags > Create Config Asset.
 /// </summary>
 [CreateAssetMenu(fileName = "FeatureFlags", menuName = "Config/Feature Flags")]
 public class FeatureFlagConfig : ScriptableObject
