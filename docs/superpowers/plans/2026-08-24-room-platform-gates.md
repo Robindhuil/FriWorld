@@ -2,52 +2,87 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Move the desktop/web decision for every room out of the Unity hierarchy and into `RoomPlatforms.json`, and generate `PlatformGate` / `ComponentGate` from it into the prefab asset.
+**Goal:** Generate `PlatformGate` and `ComponentGate` into the FriBuilding prefab asset from the per-area decisions in `RoomPlatforms.json`.
 
-**Architecture:** A new JSON file keyed on the full area container name (`ra100_corridor_2`, not the stripped prefix `ra100_corridor`) holds one of `all` / `desktopOnly` / `webOnly`, or nothing at all when undecided. `RoomGateScope` opens `FriBuilding.prefab` in an isolated preview scene and pairs area containers with their decision. Two independent appliers then reconcile the components: one for `Objects` (whole-container `PlatformGate`), one for `fri_building` (per-door `ComponentGate`). Writing into the prefab asset rather than the scene instance is the fix for the gates that vanished.
+**Architecture:** `RoomPlatforms.json` holds one of `all` / `desktopOnly` / `webOnly`, or nothing at all when undecided, keyed on the full area container name. `RoomGateScope` opens `FriBuilding.prefab` in an isolated preview scene and pairs area containers with their decision. Two independent appliers reconcile the components: one for `Objects` (whole-container `PlatformGate`), one for `fri_building` (per-door `ComponentGate`). Writing into the prefab asset rather than the scene instance is the fix for the gates that vanished.
 
-**Tech Stack:** Unity 6000.4.11f1, C#, Newtonsoft.Json (already a project dependency), Unity Test Framework (NUnit, EditMode).
+**Tech Stack:** Unity 6000.4.11f1, C#, Newtonsoft.Json, Unity Test Framework (NUnit, EditMode).
 
 **Spec:** `docs/superpowers/specs/2026-08-24-room-platform-gates-design.md`
 
 ---
 
+## Already done — commit `7aa9bbd`
+
+The data layer and the sync landed as one change, and the prefix collector was fixed at the same time. Do not redo any of this:
+
+| what | where |
+|---|---|
+| `RoomPlatforms` — load / save / `Find` / `PlatformOf` / `Reconcile`, undecided floats to top, `platform` omitted when unset | `Assets/_Game/Editor/ObjectRegistry/RoomPlatforms.cs` |
+| `RoomGateScope` — `PrefabPath`, `Open` / `Close` / `SaveAndClose`, `AreaNames` | `Assets/_Game/Editor/ObjectRegistry/RoomGateScope.cs` |
+| prefix collector no longer strips trailing `_<int>` | `Assets/_Game/Editor/ObjectRegistry/RegistryScanner.cs` |
+| second guard: withhold a prefix that starts a registered type name | `ObjectRegistryMenu.EatsARegisteredType` |
+| `Sync Room Platforms` menu item, also run at the end of `Add Prefixes From Selection` | `ObjectRegistryMenu.SyncRoomPlatformsFile` |
+| 12 unit tests | `Assets/_Game/Editor/ObjectRegistry/Tests/RoomPlatformsTests.cs` |
+
+Verified on FriBuilding: 63 prefixes added (325 total), 9 withheld, 301 areas written to `RoomPlatforms.json` all undecided, 8123 mesh objects still all resolving to a decided type, 36 EditMode tests passing.
+
+**Measured facts the remaining tasks rely on:**
+
+```
+areas in Objects            246        areas with their own MeshRenderer     0
+areas in fri_building       301        areas only in Objects                 0
+areas in the union          301        areas only in fri_building           55
+PlatformGate in the asset   144        ComponentGate in the asset            0
+Door components             283        names containing "door"             808
+```
+
+---
+
 ## Before you start
 
-### Naming and language
+### Language
 
-Code, comments and commit messages are in English. Project prose documents (`CHANGELOG.md`, `docs/decisions/`) are in Slovak — Task 13 shows the exact text.
+Code, comments and commit messages in English. `CHANGELOG.md` and `docs/decisions/` in Slovak — Task 8 gives the exact text.
 
 ### Assembly boundary — this drives the file layout
 
 `Assets/_Game/Editor/ObjectRegistry/` has its own asmdef, `FriWorld.ObjectRegistry.Editor`, with `"references": []`. It can use `UnityEngine` and `UnityEditor`, but it **cannot see** `PlatformGate`, `ComponentGate` or `Door` — those live in `Assembly-CSharp`.
 
-`Assets/_Game/Editor/` (and subfolders without their own asmdef) compiles into `Assembly-CSharp-Editor`, which auto-references both `Assembly-CSharp` and the registry asmdef. So it sees everything.
+`Assets/_Game/Editor/` and its subfolders compile into `Assembly-CSharp-Editor`, which auto-references both `Assembly-CSharp` and the registry asmdef, so it sees everything.
 
-| goes in the registry asmdef | goes in `Assets/_Game/Editor/FeatureFlags/` |
-|---|---|
-| `RoomPlatforms.cs` — pure data | `ObjectsPlatformGates.cs` — needs `PlatformGate` |
-| `RoomGateScope.cs` — only `Transform` + `PrefabUtility` | `DoorComponentGates.cs` — needs `ComponentGate`, `Door` |
-| `ObjectTypeKey.cs`, `ObjectRegistryMenu.cs` | `RoomGateReport.cs`, `RoomGateMenu.cs` |
-
-Putting `RoomGateScope` in the registry asmdef is deliberate: `ObjectRegistryMenu` needs it for the sync step and could not reference it across the boundary otherwise.
+That is why `RoomGateScope` sits in the registry asmdef despite touching Unity: `ObjectRegistryMenu` needs it for the sync and could not reach across the boundary otherwise.
 
 ### Running the tests
 
-Tests live in `Assets/_Game/Editor/ObjectRegistry/Tests/` (assembly `FriWorld.ObjectRegistry.Tests`).
-
-**In the editor:** `Window > General > Test Runner` → **EditMode** tab → select the class → **Run Selected**. Pass/fail shows in the window.
-
-**Over MCP** (for an agentic worker), two calls. First write the script to disk and refresh:
+Unity MCP tools are deferred — load them first:
 
 ```
-Unity_ManageEditor → GetState   (wait until IsCompiling is false)
+ToolSearch  select:mcp__unity-mcp__Unity_RunCommand,mcp__unity-mcp__Unity_ManageEditor,mcp__unity-mcp__Unity_ReadConsole
 ```
 
-then run the tests and read the outcome:
+After writing a script to disk, refresh and wait:
 
 ```csharp
-// Unity_RunCommand
+// Unity_RunCommand — the class MUST be named CommandScript and MUST be internal
+using UnityEditor;
+using UnityEngine;
+
+internal class CommandScript : IRunCommand
+{
+    public void Execute(ExecutionResult result)
+    {
+        AssetDatabase.Refresh();
+        result.Log("refresh requested");
+    }
+}
+```
+
+Then poll `Unity_ManageEditor` action `GetState` until `IsCompiling` is false, and check `Unity_ReadConsole` with `Types: ["Error"]` for compile errors.
+
+To run the EditMode tests:
+
+```csharp
 using UnityEngine;
 using UnityEditor.TestTools.TestRunner.Api;
 
@@ -62,7 +97,7 @@ internal class CommandScript : IRunCommand
             testMode = TestMode.EditMode,
             assemblyNames = new[] { "FriWorld.ObjectRegistry.Tests" },
         }));
-        result.Log("test run started — read the console for [TESTS] lines");
+        result.Log("test run started");
     }
 
     class Logger : ICallbacks
@@ -72,611 +107,171 @@ internal class CommandScript : IRunCommand
         public void TestFinished(ITestResultAdaptor r)
         {
             if (r.HasChildren) return;
-            Debug.Log("[TESTS] " + r.TestStatus + "  " + r.FullName
-                    + (string.IsNullOrEmpty(r.Message) ? "" : "  — " + r.Message));
+            if (r.TestStatus != TestStatus.Passed)
+                Debug.Log("[TESTS] " + r.TestStatus + "  " + r.FullName + "  — " + r.Message);
         }
         public void RunFinished(ITestResultAdaptor r)
-            => Debug.Log("[TESTS] done: " + r.PassCount + " passed, " + r.FailCount + " failed");
+            => Debug.Log("[TESTS] done: " + r.PassCount + " passed, " + r.FailCount + " failed, "
+                       + r.SkipCount + " skipped");
     }
 }
 ```
 
-The run is asynchronous, so read results with `Unity_ReadConsole` afterwards, filtering for `[TESTS]`.
+The run is asynchronous. Read the outcome afterwards with `Unity_ReadConsole`, `FilterText: "TESTS"`. Never claim tests passed without seeing that line.
 
-### After every script change
+To run a menu item from MCP, set the selection and execute it by path:
 
-Unity must recompile before a menu item exists. `Assets/Refresh`, then poll `Unity_ManageEditor → GetState` until `IsCompiling` is false.
+```csharp
+Selection.activeGameObject = GameObject.Find("FriBuilding");
+EditorApplication.ExecuteMenuItem("Tools/Object Registry/Report On Selection");
+```
 
-### Committing
+`Unity_ReadConsole` with a `FilterText` and `IncludeStacktrace: false` keeps the output readable.
 
-Conventional commits. **Never `git add -A`** — the working tree carries unrelated user changes. Stage the exact paths shown in each step.
+### Committing — read this twice
 
----
+The working tree carries a large amount of the user's unfinished work, including **247k changed lines in `Assets/_Game/Prefabs/FriBuilding/FriBuilding.prefab`** and uncommitted furniture types in `Assets/_Game/Editor/ObjectTypes.json`.
 
-## File Structure
-
-**Create**
-
-| file | responsibility |
-|---|---|
-| `Assets/_Game/Editor/ObjectRegistry/RoomPlatforms.cs` | the data file: load, save, exact lookup, reconcile |
-| `Assets/_Game/Editor/ObjectRegistry/RoomGateScope.cs` | open the prefab, find area containers, pair with decisions |
-| `Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs` | one-off draft conversion, deleted in Task 12 |
-| `Assets/_Game/Editor/ObjectRegistry/Tests/RoomPlatformsTests.cs` | unit tests for the data model |
-| `Assets/_Game/Editor/ObjectRegistry/Tests/RoomGateScopeTests.cs` | unit test for the "is this an area?" rule |
-| `Assets/_Game/Editor/FeatureFlags/ObjectsPlatformGates.cs` | `Objects` branch → `PlatformGate` |
-| `Assets/_Game/Editor/FeatureFlags/DoorComponentGates.cs` | `fri_building` branch → `ComponentGate` on doors |
-| `Assets/_Game/Editor/FeatureFlags/RoomGateReport.cs` | formats what the appliers found |
-| `Assets/_Game/Editor/FeatureFlags/RoomGateMenu.cs` | the four menu items |
-| `Assets/_Game/Editor/RoomPlatforms.json` | generated in Task 6, committed |
-
-**Modify**
-
-| file | change |
-|---|---|
-| `Assets/_Game/Editor/ObjectRegistry/ObjectTypeKey.cs` | `StripTrailingInt` → public `StripInstanceNumber` |
-| `Assets/_Game/Editor/ObjectRegistry/RegistryScanner.cs` | drop its private copy, call the shared one |
-| `Assets/_Game/Editor/ObjectRegistry/ObjectRegistryMenu.cs` | `RoomPlatformsPath`, `Sync Room Platforms`, hook into `Add Prefixes` |
-| `Assets/_Game/Editor/ObjectRegistry/Tests/ObjectTypeKeyTests.cs` | test for the extracted helper |
-
-**Delete**
-
-| file | why |
-|---|---|
-| `Assets/_Game/Editor/DoorGateSetup.cs` | replaced by `DoorComponentGates` |
-| `Assets/_Game/Editor/Platforms.json` | hand-written draft, consumed by the migration |
-| `Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs` | one-off, already run |
+- **NEVER `git add -A` or `git add .`** Stage the exact paths each step lists.
+- **Never stage `ObjectTypes.json`.** It is the user's work in progress.
+- **Task 7 writes the prefab.** Do not commit it without asking the user first — their changes are in the same file.
 
 ---
 
-## Task 1: The RoomPlatforms data model
+## Task 1: Extend RoomGateScope with area matching
+
+`RoomGateScope` can currently list area names. The appliers also need the `Transform` behind each area, its decision, and a nesting test.
 
 **Files:**
-- Create: `Assets/_Game/Editor/ObjectRegistry/RoomPlatforms.cs`
-- Test: `Assets/_Game/Editor/ObjectRegistry/Tests/RoomPlatformsTests.cs`
+- Modify: `Assets/_Game/Editor/ObjectRegistry/RoomGateScope.cs`
+- Test: `Assets/_Game/Editor/ObjectRegistry/Tests/RoomGateScopeTests.cs` (create)
 
 - [ ] **Step 1: Write the failing tests**
-
-Create `Assets/_Game/Editor/ObjectRegistry/Tests/RoomPlatformsTests.cs`:
-
-```csharp
-using NUnit.Framework;
-
-namespace FriWorld.ObjectRegistry.Tests
-{
-    public class RoomPlatformsTests
-    {
-        [Test]
-        public void AMissingPlatformMeansUndecided()
-        {
-            const string json = @"{ ""rooms"": [ { ""room"": ""ra102"" } ] }";
-
-            var entry = RoomPlatforms.FromJson(json).Find("ra102");
-
-            Assert.IsNotNull(entry);
-            Assert.IsNull(entry.platform);
-            Assert.IsFalse(entry.IsDecided);
-        }
-
-        [Test]
-        public void AllIsDecidedAndDifferentFromUndecided()
-        {
-            const string json = @"{ ""rooms"": [ { ""room"": ""ra101"", ""platform"": ""all"" } ] }";
-
-            var entry = RoomPlatforms.FromJson(json).Find("ra101");
-
-            Assert.IsTrue(entry.IsDecided, "'no gate here' is not the same as 'not decided'");
-            Assert.AreEqual(RoomPlatforms.All, entry.platform);
-        }
-
-        [Test]
-        public void LookupIsExactNotSubstring()
-        {
-            const string json = @"{ ""rooms"": [ { ""room"": ""ra100_corridor"", ""platform"": ""all"" } ] }";
-
-            var platforms = RoomPlatforms.FromJson(json);
-
-            Assert.IsNotNull(platforms.Find("ra100_corridor"));
-            Assert.IsNull(platforms.Find("ra100_corridor_1"),
-                "corridor 1 is its own area and must not inherit a prefix-shaped entry");
-        }
-
-        [Test]
-        public void PlatformOfIsNullForAnUnknownArea()
-        {
-            var platforms = RoomPlatforms.FromJson(@"{ ""rooms"": [] }");
-
-            Assert.IsNull(platforms.PlatformOf("ra102"));
-        }
-
-        [Test]
-        public void UndecidedEntriesAreWrittenWithoutAPlatformField()
-        {
-            var platforms = RoomPlatforms.FromJson(@"{ ""rooms"": [ { ""room"": ""ra102"" } ] }");
-
-            StringAssert.DoesNotContain("platform", platforms.ToJson(),
-                "a written null would be indistinguishable from a deliberate decision");
-        }
-
-        [Test]
-        public void UndecidedEntriesFloatToTheTop()
-        {
-            const string json = @"{ ""rooms"": [
-                { ""room"": ""aaa"", ""platform"": ""all"" },
-                { ""room"": ""zzz"" } ] }";
-
-            var text = RoomPlatforms.FromJson(json).ToJson();
-
-            Assert.Less(text.IndexOf("zzz"), text.IndexOf("aaa"),
-                "a freshly synced area must be the first thing in the file");
-        }
-
-        [Test]
-        public void DecidedEntriesAreOrderedAlphabetically()
-        {
-            const string json = @"{ ""rooms"": [
-                { ""room"": ""zzz"", ""platform"": ""all"" },
-                { ""room"": ""aaa"", ""platform"": ""all"" } ] }";
-
-            var text = RoomPlatforms.FromJson(json).ToJson();
-
-            Assert.Less(text.IndexOf("aaa"), text.IndexOf("zzz"));
-        }
-
-        [Test]
-        public void OnlyTheThreeKnownPlatformValuesAreValid()
-        {
-            Assert.IsTrue(RoomPlatforms.IsValidPlatform("all"));
-            Assert.IsTrue(RoomPlatforms.IsValidPlatform("desktopOnly"));
-            Assert.IsTrue(RoomPlatforms.IsValidPlatform("webOnly"));
-            Assert.IsFalse(RoomPlatforms.IsValidPlatform("desktop"));
-            Assert.IsFalse(RoomPlatforms.IsValidPlatform(null));
-        }
-    }
-}
-```
-
-- [ ] **Step 2: Run the tests to verify they fail**
-
-Run the EditMode tests for `FriWorld.ObjectRegistry.Tests` (see "Running the tests" above).
-
-Expected: compilation error — `The name 'RoomPlatforms' does not exist in the current context`.
-
-- [ ] **Step 3: Write the implementation**
-
-Create `Assets/_Game/Editor/ObjectRegistry/RoomPlatforms.cs`:
-
-```csharp
-using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json;
-
-namespace FriWorld.ObjectRegistry
-{
-    /// <summary>
-    /// One area and which build it belongs to. A missing platform means "not decided yet" — the
-    /// appliers leave such an area exactly as it is and report it.
-    /// </summary>
-    public class RoomEntry
-    {
-        /// <summary>
-        /// Full container name, e.g. "ra100_corridor_2". Deliberately NOT the stripped prefix:
-        /// corridor 1 and corridor 2 are different places and decide for themselves.
-        /// </summary>
-        public string room;
-
-        // Omitted from the file entirely when unset. A null written into the file would be
-        // indistinguishable from "all", and those two need opposite behaviour — one leaves a
-        // gate alone, the other removes it.
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string platform;   // all | desktopOnly | webOnly
-
-        [JsonIgnore]
-        public bool IsDecided => platform != null;
-    }
-
-    /// <summary>What one Reconcile call added, and which entries it could no longer place.</summary>
-    public class ReconcileResult
-    {
-        public readonly List<string> added = new List<string>();
-        public readonly List<string> orphans = new List<string>();
-    }
-
-    public class RoomPlatforms
-    {
-        public const string All = "all";
-        public const string DesktopOnly = "desktopOnly";
-        public const string WebOnly = "webOnly";
-
-        public List<RoomEntry> rooms = new List<RoomEntry>();
-
-        [JsonIgnore]
-        readonly Dictionary<string, RoomEntry> index = new Dictionary<string, RoomEntry>();
-
-        public static bool IsValidPlatform(string platform)
-            => platform == All || platform == DesktopOnly || platform == WebOnly;
-
-        public static RoomPlatforms FromJson(string json)
-        {
-            var file = JsonConvert.DeserializeObject<RoomPlatforms>(json) ?? new RoomPlatforms();
-            if (file.rooms == null) file.rooms = new List<RoomEntry>();
-            file.Reindex();
-            return file;
-        }
-
-        public static RoomPlatforms Load(string path)
-            => File.Exists(path) ? FromJson(File.ReadAllText(path)) : new RoomPlatforms();
-
-        /// <summary>
-        /// Undecided areas float to the top, so a freshly synced area is the first thing in the
-        /// file rather than something to scroll for. Once decided it settles into the
-        /// alphabetical body, which keeps diffs readable — plain insertion order would leave the
-        /// file permanently unsorted.
-        /// </summary>
-        public string ToJson()
-        {
-            rooms.Sort((a, b) =>
-            {
-                bool aDecided = a.IsDecided, bDecided = b.IsDecided;
-                if (aDecided != bDecided) return aDecided ? 1 : -1;
-                return string.CompareOrdinal(a.room, b.room);
-            });
-            return JsonConvert.SerializeObject(this, Formatting.Indented);
-        }
-
-        public void Save(string path) => File.WriteAllText(path, ToJson());
-
-        /// <summary>Exact name only — substring matching is the bug the type registry removed.</summary>
-        public RoomEntry Find(string room)
-        {
-            if (string.IsNullOrEmpty(room)) return null;
-            return index.TryGetValue(room, out var entry) ? entry : null;
-        }
-
-        /// <summary>The area's platform, or null when the area is unknown or undecided.</summary>
-        public string PlatformOf(string room)
-        {
-            var entry = Find(room);
-            return entry == null ? null : entry.platform;
-        }
-
-        void Reindex()
-        {
-            index.Clear();
-            foreach (var entry in rooms)
-                if (entry != null && !string.IsNullOrEmpty(entry.room))
-                    index[entry.room] = entry;
-        }
-    }
-}
-```
-
-- [ ] **Step 4: Run the tests to verify they pass**
-
-Run the EditMode tests for `FriWorld.ObjectRegistry.Tests`.
-
-Expected: 8 passed, 0 failed in `RoomPlatformsTests` (existing `ObjectTypeKeyTests` and `TypeRegistryTests` still pass too).
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add Assets/_Game/Editor/ObjectRegistry/RoomPlatforms.cs Assets/_Game/Editor/ObjectRegistry/RoomPlatforms.cs.meta Assets/_Game/Editor/ObjectRegistry/Tests/RoomPlatformsTests.cs Assets/_Game/Editor/ObjectRegistry/Tests/RoomPlatformsTests.cs.meta && git commit -m "feat(registry): add the room platform data model"
-```
-
----
-
-## Task 2: Reconcile against the hierarchy
-
-**Files:**
-- Modify: `Assets/_Game/Editor/ObjectRegistry/RoomPlatforms.cs`
-- Test: `Assets/_Game/Editor/ObjectRegistry/Tests/RoomPlatformsTests.cs`
-
-- [ ] **Step 1: Write the failing tests**
-
-Append these three tests inside the `RoomPlatformsTests` class, before its closing brace:
-
-```csharp
-        [Test]
-        public void ReconcileAddsUnknownAreasAsUndecided()
-        {
-            var platforms = RoomPlatforms.FromJson(@"{ ""rooms"": [] }");
-
-            var result = platforms.Reconcile(new[] { "ra102", "ra103" });
-
-            Assert.AreEqual(2, result.added.Count);
-            Assert.IsNotNull(platforms.Find("ra102"));
-            Assert.IsFalse(platforms.Find("ra102").IsDecided);
-        }
-
-        [Test]
-        public void ReconcileNeverOverwritesAnExistingDecision()
-        {
-            const string json = @"{ ""rooms"": [ { ""room"": ""ra102"", ""platform"": ""desktopOnly"" } ] }";
-            var platforms = RoomPlatforms.FromJson(json);
-
-            var result = platforms.Reconcile(new[] { "ra102", "ra103" });
-
-            Assert.AreEqual(RoomPlatforms.DesktopOnly, platforms.Find("ra102").platform);
-            CollectionAssert.AreEqual(new[] { "ra103" }, result.added);
-        }
-
-        [Test]
-        public void ReconcileKeepsAndReportsAreasThatNoLongerExist()
-        {
-            const string json = @"{ ""rooms"": [ { ""room"": ""ra999"", ""platform"": ""all"" } ] }";
-            var platforms = RoomPlatforms.FromJson(json);
-
-            var result = platforms.Reconcile(new[] { "ra102" });
-
-            CollectionAssert.AreEqual(new[] { "ra999" }, result.orphans);
-            Assert.IsNotNull(platforms.Find("ra999"),
-                "deleting a decision because a container was briefly renamed is a one-way loss");
-        }
-```
-
-- [ ] **Step 2: Run the tests to verify they fail**
-
-Run the EditMode tests for `FriWorld.ObjectRegistry.Tests`.
-
-Expected: compilation error — `'RoomPlatforms' does not contain a definition for 'Reconcile'`.
-
-- [ ] **Step 3: Write the implementation**
-
-In `Assets/_Game/Editor/ObjectRegistry/RoomPlatforms.cs`, insert this method directly above `void Reindex()`:
-
-```csharp
-        /// <summary>
-        /// Brings the file in line with the areas that actually exist. New areas get an
-        /// undecided entry; entries whose container is gone are kept and reported. Existing
-        /// decisions are never touched — re-deciding three hundred rows by hand is exactly what
-        /// this file exists to prevent.
-        /// </summary>
-        public ReconcileResult Reconcile(IReadOnlyList<string> areasInHierarchy)
-        {
-            var result = new ReconcileResult();
-            var live = new HashSet<string>();
-
-            if (areasInHierarchy != null)
-            {
-                foreach (var area in areasInHierarchy)
-                {
-                    if (string.IsNullOrEmpty(area)) continue;
-                    live.Add(area);
-                    if (index.ContainsKey(area)) continue;
-
-                    var entry = new RoomEntry { room = area };
-                    rooms.Add(entry);
-                    index[area] = entry;
-                    result.added.Add(area);
-                }
-            }
-
-            foreach (var entry in rooms)
-                if (entry != null && !string.IsNullOrEmpty(entry.room) && !live.Contains(entry.room))
-                    result.orphans.Add(entry.room);
-
-            result.added.Sort(string.CompareOrdinal);
-            result.orphans.Sort(string.CompareOrdinal);
-            return result;
-        }
-```
-
-- [ ] **Step 4: Run the tests to verify they pass**
-
-Run the EditMode tests for `FriWorld.ObjectRegistry.Tests`.
-
-Expected: 11 passed, 0 failed in `RoomPlatformsTests`.
-
-- [ ] **Step 5: Commit**
-
-```bash
-git add Assets/_Game/Editor/ObjectRegistry/RoomPlatforms.cs Assets/_Game/Editor/ObjectRegistry/Tests/RoomPlatformsTests.cs && git commit -m "feat(registry): reconcile room platforms against the hierarchy"
-```
-
----
-
-## Task 3: One shared instance-number strip
-
-`StripTrailingInt` exists twice today — privately in `ObjectTypeKey` and again in `RegistryScanner`. `RoomGateScope` needs a third caller, so extract it once.
-
-**Files:**
-- Modify: `Assets/_Game/Editor/ObjectRegistry/ObjectTypeKey.cs:88-96`
-- Modify: `Assets/_Game/Editor/ObjectRegistry/RegistryScanner.cs:104-112`
-- Test: `Assets/_Game/Editor/ObjectRegistry/Tests/ObjectTypeKeyTests.cs`
-
-- [ ] **Step 1: Write the failing test**
-
-Append inside the `ObjectTypeKeyTests` class, before its closing brace:
-
-```csharp
-        [Test]
-        public void StripInstanceNumberRemovesOnlyATrailingAllDigitToken()
-        {
-            Assert.AreEqual("ra100_corridor", ObjectTypeKey.StripInstanceNumber("ra100_corridor_2"));
-            Assert.AreEqual("rb_basement_room", ObjectTypeKey.StripInstanceNumber("rb_basement_room_14"));
-
-            // No trailing "_<digits>" — these names are already the whole key.
-            Assert.AreEqual("ra001", ObjectTypeKey.StripInstanceNumber("ra001"));
-            Assert.AreEqual("rb051", ObjectTypeKey.StripInstanceNumber("rb051"));
-            Assert.AreEqual("door_frame_1_glass", ObjectTypeKey.StripInstanceNumber("door_frame_1_glass"));
-        }
-```
-
-- [ ] **Step 2: Run the test to verify it fails**
-
-Run the EditMode tests for `FriWorld.ObjectRegistry.Tests`.
-
-Expected: compilation error — `'ObjectTypeKey' does not contain a definition for 'StripInstanceNumber'`.
-
-- [ ] **Step 3: Extract the helper**
-
-In `Assets/_Game/Editor/ObjectRegistry/ObjectTypeKey.cs`, replace the private `StripTrailingInt`:
-
-```csharp
-        static string StripTrailingInt(string s)
-        {
-            int underscore = s.LastIndexOf('_');
-            if (underscore <= 0) return s;
-            return AllDigits(s.Substring(underscore + 1)) ? s.Substring(0, underscore) : s;
-        }
-```
-
-with the public version:
-
-```csharp
-        /// <summary>
-        /// Removes a trailing "_&lt;digits&gt;" instance number. Shared with RegistryScanner and
-        /// RoomGateScope: all three have to agree on what "the same thing, numbered" means, and
-        /// three copies of this would drift.
-        /// </summary>
-        public static string StripInstanceNumber(string s)
-        {
-            if (string.IsNullOrEmpty(s)) return s;
-            int underscore = s.LastIndexOf('_');
-            if (underscore <= 0) return s;
-            return AllDigits(s.Substring(underscore + 1)) ? s.Substring(0, underscore) : s;
-        }
-```
-
-Then update the two internal call sites in the same file — inside `Derive`, change
-
-```csharp
-                candidate = StripTrailingInt(candidate);
-```
-
-to
-
-```csharp
-                candidate = StripInstanceNumber(candidate);
-```
-
-and change the fallback return
-
-```csharp
-            return StripTrailingInt(StripOverrideTokens(objectName));
-```
-
-to
-
-```csharp
-            return StripInstanceNumber(StripOverrideTokens(objectName));
-```
-
-- [ ] **Step 4: Remove the duplicate from RegistryScanner**
-
-In `Assets/_Game/Editor/ObjectRegistry/RegistryScanner.cs`, delete this method entirely:
-
-```csharp
-        static string StripTrailingInt(string s)
-        {
-            int u = s.LastIndexOf('_');
-            if (u <= 0) return s;
-            string tail = s.Substring(u + 1);
-            if (tail.Length == 0) return s;
-            foreach (char c in tail) if (!char.IsDigit(c)) return s;
-            return s.Substring(0, u);
-        }
-```
-
-and change its one call site inside `Walk` from
-
-```csharp
-                if (t.childCount > 0) containers.Add(StripTrailingInt(t.name));
-```
-
-to
-
-```csharp
-                if (t.childCount > 0) containers.Add(ObjectTypeKey.StripInstanceNumber(t.name));
-```
-
-- [ ] **Step 5: Run the tests to verify they pass**
-
-Run the EditMode tests for `FriWorld.ObjectRegistry.Tests`.
-
-Expected: all tests pass, including the seven pre-existing `ObjectTypeKeyTests` — they cover the derivation paths that just changed helper, so a regression here would show up immediately.
-
-- [ ] **Step 6: Commit**
-
-```bash
-git add Assets/_Game/Editor/ObjectRegistry/ObjectTypeKey.cs Assets/_Game/Editor/ObjectRegistry/RegistryScanner.cs Assets/_Game/Editor/ObjectRegistry/Tests/ObjectTypeKeyTests.cs && git commit -m "refactor(registry): share one instance-number strip"
-```
-
----
-
-## Task 4: RoomGateScope — find the areas
-
-**Files:**
-- Create: `Assets/_Game/Editor/ObjectRegistry/RoomGateScope.cs`
-- Test: `Assets/_Game/Editor/ObjectRegistry/Tests/RoomGateScopeTests.cs`
-
-- [ ] **Step 1: Write the failing test**
-
-Only the pure rule is unit-tested; the prefab walk is exercised for real in Task 11.
 
 Create `Assets/_Game/Editor/ObjectRegistry/Tests/RoomGateScopeTests.cs`:
 
 ```csharp
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace FriWorld.ObjectRegistry.Tests
 {
     public class RoomGateScopeTests
     {
-        static List<string> Prefixes(params string[] p) => new List<string>(p);
+        GameObject root;
 
-        [Test]
-        public void AnAreaIsAContainerWhoseStrippedNameIsAnApprovedPrefix()
+        [TearDown]
+        public void TearDown()
         {
-            var prefixes = Prefixes("ra100_corridor", "ra102", "rb_basement_room");
+            if (root != null) Object.DestroyImmediate(root);
+        }
 
-            Assert.IsTrue(RoomGateScope.IsAreaName("ra100_corridor_2", prefixes));
-            Assert.IsTrue(RoomGateScope.IsAreaName("ra102", prefixes));
-            Assert.IsTrue(RoomGateScope.IsAreaName("rb_basement_room_14", prefixes));
+        /// <summary>Builds "root/a/b/c"-style paths and returns the root.</summary>
+        static GameObject Tree(params string[] paths)
+        {
+            var made = new GameObject("root");
+            foreach (var path in paths)
+            {
+                Transform parent = made.transform;
+                foreach (var name in path.Split('/'))
+                {
+                    var existing = parent.Find(name);
+                    if (existing == null)
+                    {
+                        var go = new GameObject(name);
+                        go.transform.SetParent(parent);
+                        existing = go.transform;
+                    }
+                    parent = existing;
+                }
+            }
+            return made;
         }
 
         [Test]
-        public void FurnitureContainersAreNotAreas()
+        public void MatchFindsApprovedContainersAtAnyDepth()
         {
-            var prefixes = Prefixes("ra102", "ra000_corridor");
+            root = Tree("Objects/rc/rc000_buffet/lamp",
+                        "Objects/ra/ra0/ra001/chair");
+            var prefixes = new List<string> { "rc000_buffet", "ra001" };
 
-            Assert.IsFalse(RoomGateScope.IsAreaName("ra102_lamp", prefixes),
+            var matches = RoomGateScope.Match(root.transform.Find("Objects"), prefixes, null);
+
+            Assert.AreEqual(2, matches.Count,
+                "areas sit at different depths — rc holds rooms directly, ra has a floor between");
+            CollectionAssert.Contains(Names(matches), "rc000_buffet");
+            CollectionAssert.Contains(Names(matches), "ra001");
+        }
+
+        [Test]
+        public void MatchIgnoresContainersThatAreNotApproved()
+        {
+            root = Tree("Objects/ra001/ra001_lamp/bulb");
+            var prefixes = new List<string> { "ra001" };
+
+            var matches = RoomGateScope.Match(root.transform.Find("Objects"), prefixes, null);
+
+            CollectionAssert.AreEqual(new[] { "ra001" }, Names(matches),
                 "a lamp group inside a room is not a room");
-            Assert.IsFalse(RoomGateScope.IsAreaName("ra000_corridor_2_poster", prefixes));
-            Assert.IsFalse(RoomGateScope.IsAreaName("chair_classroom_1_yellow", prefixes));
         }
 
         [Test]
-        public void AnUnapprovedNameIsNotAnArea()
+        public void MatchCarriesThePlatformDecision()
         {
-            Assert.IsFalse(RoomGateScope.IsAreaName("ra103", Prefixes("ra102")));
-            Assert.IsFalse(RoomGateScope.IsAreaName("", Prefixes("ra102")));
-            Assert.IsFalse(RoomGateScope.IsAreaName("ra102", null));
+            root = Tree("Objects/ra001/chair", "Objects/ra002/chair");
+            var prefixes = new List<string> { "ra001", "ra002" };
+            var platforms = RoomPlatforms.FromJson(
+                @"{ ""rooms"": [ { ""room"": ""ra001"", ""platform"": ""desktopOnly"" } ] }");
+
+            var matches = RoomGateScope.Match(root.transform.Find("Objects"), prefixes, platforms);
+
+            foreach (var m in matches)
+            {
+                if (m.area == "ra001") Assert.AreEqual(RoomPlatforms.DesktopOnly, m.platform);
+                if (m.area == "ra002") Assert.IsNull(m.platform, "undecided must stay null");
+            }
         }
 
         [Test]
-        public void MatchingIgnoresCaseAndSurroundingWhitespace()
+        public void ContainsAnotherAreaSpotsAnAreaInsideAnArea()
         {
-            var prefixes = Prefixes("ra100_corridor");
+            root = Tree("rb_basement/rb_basement_room_1/wall");
+            var prefixes = new List<string> { "rb_basement", "rb_basement_room_1" };
 
-            Assert.IsTrue(RoomGateScope.IsAreaName("RA100_Corridor_2", prefixes));
-            Assert.IsTrue(RoomGateScope.IsAreaName("  ra100_corridor_2  ", prefixes),
-                "a stray space in a Blender export must not silently skip a whole room");
+            var matches = RoomGateScope.Match(root.transform, prefixes, null);
+            var outer = Find(matches, "rb_basement");
+            var inner = Find(matches, "rb_basement_room_1");
+
+            Assert.IsTrue(RoomGateScope.ContainsAnotherArea(outer, matches),
+                "gating rb_basement would strip the inner rooms and void their decisions");
+            Assert.IsFalse(RoomGateScope.ContainsAnotherArea(inner, matches));
+        }
+
+        static List<string> Names(List<AreaMatch> matches)
+        {
+            var names = new List<string>();
+            foreach (var m in matches) names.Add(m.area);
+            return names;
+        }
+
+        static AreaMatch Find(List<AreaMatch> matches, string area)
+        {
+            foreach (var m in matches) if (m.area == area) return m;
+            Assert.Fail("no area named " + area);
+            return default;
         }
     }
 }
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [ ] **Step 2: Run the tests to verify they fail**
 
-Run the EditMode tests for `FriWorld.ObjectRegistry.Tests`.
+Expected: compilation errors — `The type or namespace name 'AreaMatch' could not be found` and `'RoomGateScope' does not contain a definition for 'Match'`.
 
-Expected: compilation error — `The name 'RoomGateScope' does not exist in the current context`.
+- [ ] **Step 3: Rewrite RoomGateScope**
 
-- [ ] **Step 3: Write the implementation**
-
-Create `Assets/_Game/Editor/ObjectRegistry/RoomGateScope.cs`:
+Replace the whole of `Assets/_Game/Editor/ObjectRegistry/RoomGateScope.cs` with:
 
 ```csharp
 using System;
@@ -699,39 +294,22 @@ namespace FriWorld.ObjectRegistry
     }
 
     /// <summary>
-    /// Finds the room-sized containers inside FriBuilding.prefab and pairs them with their
-    /// platform decision.
+    /// Reads the FriBuilding prefab asset.
     ///
-    /// Deliberately knows nothing about PlatformGate, ComponentGate or Door. It lives in the
-    /// registry assembly so both the sync menu and the two appliers can use it; the appliers sit
-    /// in Assembly-CSharp-Editor because they do need those types, and that assembly can see
-    /// this one but not the other way round.
+    /// Everything the gate tooling writes goes into the PREFAB ASSET, never onto a scene
+    /// instance. Components added to the instance are prefab overrides, and one revert or one
+    /// .blend reimport wipes them — that is how the door gates were lost before this existed,
+    /// while the PlatformGates that happened to sit in the asset survived.
     ///
-    /// Everything is written into the PREFAB ASSET, never onto a scene instance. Components
-    /// added to the instance are prefab overrides and a single revert or model reimport wipes
-    /// them — that is how the door gates were lost before this system existed.
+    /// Lives in the registry assembly rather than beside the appliers because the sync menu
+    /// needs it too, and Assembly-CSharp-Editor can see this assembly but not the reverse. It
+    /// therefore knows nothing about PlatformGate, ComponentGate or Door.
     /// </summary>
     public static class RoomGateScope
     {
         public const string PrefabPath = "Assets/_Game/Prefabs/FriBuilding/FriBuilding.prefab";
         public const string ObjectsBranch = "Objects";
         public const string BuildingBranch = "fri_building";
-
-        /// <summary>
-        /// True when this container is a room-sized area: its name with the trailing instance
-        /// number removed is an approved prefix. Without that test the walk would also treat
-        /// ra102_lamp and chair_classroom_1_yellow as areas.
-        /// </summary>
-        public static bool IsAreaName(string containerName, IReadOnlyList<string> prefixes)
-        {
-            if (string.IsNullOrEmpty(containerName) || prefixes == null) return false;
-
-            string stripped = ObjectTypeKey.StripInstanceNumber(containerName.Trim());
-            for (int i = 0; i < prefixes.Count; i++)
-                if (string.Equals(prefixes[i], stripped, StringComparison.OrdinalIgnoreCase))
-                    return true;
-            return false;
-        }
 
         /// <summary>Opens the prefab in an isolated preview scene. Always pair with Close.</summary>
         public static GameObject Open() => PrefabUtility.LoadPrefabContents(PrefabPath);
@@ -747,22 +325,35 @@ namespace FriWorld.ObjectRegistry
         public static Transform Branch(GameObject prefabRoot, string branchName)
             => prefabRoot == null ? null : prefabRoot.transform.Find(branchName);
 
-        /// <summary>Every area container in a branch, paired with its decision.</summary>
-        public static List<AreaMatch> Match(Transform branchRoot, IReadOnlyList<string> prefixes,
+        /// <summary>
+        /// The area containers in a subtree, each with its decision.
+        ///
+        /// An area is a container whose name IS an approved prefix — exact match, no stripping.
+        /// The scanner proposes container names whole, so ra100_corridor_1 and ra100_corridor_2
+        /// are two prefixes and two areas that decide separately. The approved list is also what
+        /// keeps furniture out: ra102_lamp is a container, but nobody approved it as a prefix.
+        /// </summary>
+        public static List<AreaMatch> Match(Transform branchRoot, IReadOnlyList<string> approvedPrefixes,
                                             RoomPlatforms platforms)
         {
             var matches = new List<AreaMatch>();
-            if (branchRoot == null) return matches;
-            Walk(branchRoot, prefixes, platforms ?? new RoomPlatforms(), matches);
+            if (branchRoot == null || approvedPrefixes == null) return matches;
+
+            var approved = new HashSet<string>(approvedPrefixes, StringComparer.OrdinalIgnoreCase);
+            Walk(branchRoot, approved, platforms, matches);
             return matches;
         }
 
-        /// <summary>Distinct area names in a branch, sorted. This is what Reconcile consumes.</summary>
-        public static List<string> AreaNames(Transform branchRoot, IReadOnlyList<string> prefixes)
+        /// <summary>Distinct area names in the whole prefab. This is what Reconcile consumes.</summary>
+        public static List<string> AreaNames(GameObject prefabRoot, IReadOnlyList<string> approvedPrefixes)
         {
             var names = new List<string>();
-            foreach (var match in Match(branchRoot, prefixes, null))
-                if (!names.Contains(match.area)) names.Add(match.area);
+            if (prefabRoot == null) return names;
+
+            var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var match in Match(prefabRoot.transform, approvedPrefixes, null))
+                if (seen.Add(match.area)) names.Add(match.area);
+
             names.Sort(string.CompareOrdinal);
             return names;
         }
@@ -771,7 +362,7 @@ namespace FriWorld.ObjectRegistry
         /// True when another area sits inside this one. Gating such a container would strip its
         /// inner areas too and void their own decisions without saying so, which is why the
         /// appliers refuse. Today this catches rb, outside, terrace, rb_basement and
-        /// rc000_cafeteria — all of them containers of other areas.
+        /// rc000_cafeteria — every one of them a container of other areas.
         /// </summary>
         public static bool ContainsAnotherArea(AreaMatch outer, List<AreaMatch> all)
         {
@@ -783,183 +374,59 @@ namespace FriWorld.ObjectRegistry
             return false;
         }
 
-        static void Walk(Transform t, IReadOnlyList<string> prefixes, RoomPlatforms platforms,
+        static void Walk(Transform t, HashSet<string> approved, RoomPlatforms platforms,
                          List<AreaMatch> acc)
         {
             foreach (Transform child in t)
             {
-                if (child.childCount > 0 && IsAreaName(child.name, prefixes))
+                string name = child.name.Trim();
+                if (child.childCount > 0 && approved.Contains(name))
                 {
-                    string area = child.name.Trim();
                     acc.Add(new AreaMatch
                     {
                         transform = child,
-                        area = area,
-                        platform = platforms.PlatformOf(area),
+                        area = name,
+                        platform = platforms == null ? null : platforms.PlatformOf(name),
                     });
                 }
 
                 // Keep descending. Areas sit at different depths: Objects/rc holds rooms
-                // directly, Objects/ra puts a floor level in between.
-                Walk(child, prefixes, platforms, acc);
+                // directly, Objects/ra puts a floor level in between. An area inside an area is
+                // legitimate too — ContainsAnotherArea is what stops it being gated.
+                Walk(child, approved, platforms, acc);
             }
         }
     }
 }
 ```
 
+Note the behaviour change in `AreaNames`: it now dedupes after `Match` rather than during the walk, because `Match` must return every occurrence — the same name can appear in both branches and each one needs its own `Transform`.
+
 - [ ] **Step 4: Run the tests to verify they pass**
 
-Run the EditMode tests for `FriWorld.ObjectRegistry.Tests`.
+Expected: `[TESTS] done: 40 passed, 0 failed, 0 skipped`.
 
-Expected: 4 passed, 0 failed in `RoomGateScopeTests`.
+- [ ] **Step 5: Confirm the sync still produces the same file**
 
-- [ ] **Step 5: Commit**
+Run `Tools > Object Registry > Sync Room Platforms`.
+
+Expected: `[RoomPlatforms] 301 areas in Assets/_Game/Editor/RoomPlatforms.json` followed by `already in sync`. If the count moved, `AreaNames` regressed — fix it before committing.
+
+- [ ] **Step 6: Commit**
 
 ```bash
-git add Assets/_Game/Editor/ObjectRegistry/RoomGateScope.cs Assets/_Game/Editor/ObjectRegistry/RoomGateScope.cs.meta Assets/_Game/Editor/ObjectRegistry/Tests/RoomGateScopeTests.cs Assets/_Game/Editor/ObjectRegistry/Tests/RoomGateScopeTests.cs.meta && git commit -m "feat(registry): locate room areas in the FriBuilding prefab"
+git add Assets/_Game/Editor/ObjectRegistry/RoomGateScope.cs Assets/_Game/Editor/ObjectRegistry/Tests/RoomGateScopeTests.cs Assets/_Game/Editor/ObjectRegistry/Tests/RoomGateScopeTests.cs.meta && git commit -m "feat(registry): pair area containers with their platform decision"
 ```
 
 ---
 
-## Task 5: Sync Room Platforms
+## Task 2: Migrate the hand-written draft
 
-**Files:**
-- Modify: `Assets/_Game/Editor/ObjectRegistry/ObjectRegistryMenu.cs`
-
-- [ ] **Step 1: Add the path constant**
-
-In `Assets/_Game/Editor/ObjectRegistry/ObjectRegistryMenu.cs`, below the two existing constants:
-
-```csharp
-        public const string PrefixesPath = "Assets/_Game/Editor/ObjectPrefixes.json";
-        public const string TypesPath    = "Assets/_Game/Editor/ObjectTypes.json";
-```
-
-add:
-
-```csharp
-        public const string RoomPlatformsPath = "Assets/_Game/Editor/RoomPlatforms.json";
-```
-
-- [ ] **Step 2: Add the sync method and its menu item**
-
-In the same class, above `internal static bool TryScanSelection(...)`, add:
-
-```csharp
-        [MenuItem("Tools/Object Registry/Sync Room Platforms")]
-        static void SyncRoomPlatforms() => Debug.Log(SyncRoomPlatformsFile());
-
-        /// <summary>
-        /// Brings RoomPlatforms.json in line with the areas in the prefab. Scans the PREFAB, not
-        /// the selection: a partial selection would leave the file half-filled, and the file has
-        /// to describe the whole building for the appliers to be able to remove a stale gate.
-        /// </summary>
-        internal static string SyncRoomPlatformsFile()
-        {
-            var prefixes = TypeRegistry.LoadPrefixes(PrefixesPath);
-            var platforms = RoomPlatforms.Load(RoomPlatformsPath);
-
-            var contents = RoomGateScope.Open();
-            ReconcileResult result;
-            try
-            {
-                result = platforms.Reconcile(AreasInPrefab(contents, prefixes));
-            }
-            finally
-            {
-                RoomGateScope.Close(contents);
-            }
-
-            platforms.Save(RoomPlatformsPath);
-            AssetDatabase.Refresh();
-
-            var sb = new System.Text.StringBuilder();
-            sb.AppendLine("[RoomPlatforms] " + platforms.rooms.Count + " areas in " + RoomPlatformsPath);
-            if (result.added.Count > 0)
-            {
-                sb.AppendLine("  NEW, undecided — they are at the TOP of the file ("
-                            + result.added.Count + "):");
-                for (int i = 0; i < result.added.Count && i < 30; i++)
-                    sb.AppendLine("    + " + result.added[i]);
-                if (result.added.Count > 30)
-                    sb.AppendLine("    … and " + (result.added.Count - 30) + " more");
-            }
-            if (result.orphans.Count > 0)
-            {
-                sb.AppendLine("  ORPHANS — no such container any more, the decision was KEPT ("
-                            + result.orphans.Count + "):");
-                foreach (var o in result.orphans) sb.AppendLine("    ? " + o);
-            }
-            if (result.added.Count == 0 && result.orphans.Count == 0)
-                sb.AppendLine("  already in sync");
-            return sb.ToString();
-        }
-
-        /// <summary>Area names from both branches of the prefab, deduplicated.</summary>
-        internal static List<string> AreasInPrefab(GameObject prefabContents,
-                                                   List<string> prefixes)
-        {
-            var areas = new List<string>();
-            foreach (var branch in new[] { RoomGateScope.ObjectsBranch, RoomGateScope.BuildingBranch })
-                foreach (var name in RoomGateScope.AreaNames(
-                             RoomGateScope.Branch(prefabContents, branch), prefixes))
-                    if (!areas.Contains(name)) areas.Add(name);
-            areas.Sort(string.CompareOrdinal);
-            return areas;
-        }
-```
-
-- [ ] **Step 3: Hook it into Add Prefixes From Selection**
-
-In the same file, at the very end of `static void AddPrefixes()`, the last statement is currently:
-
-```csharp
-            Debug.Log(sb.ToString());
-```
-
-Replace it with:
-
-```csharp
-            Debug.Log(sb.ToString());
-
-            // One scan, two outputs. New prefixes mean new areas, and an area with no row in
-            // RoomPlatforms.json is invisible to the appliers.
-            Debug.Log(SyncRoomPlatformsFile());
-```
-
-- [ ] **Step 4: Verify it compiles and runs**
-
-`Assets/Refresh`, wait for `IsCompiling` to be false, then run the menu item `Tools > Object Registry > Sync Room Platforms`.
-
-Expected console output — the file did not exist, so every area is new:
-
-```
-[RoomPlatforms] 300 areas in Assets/_Game/Editor/RoomPlatforms.json
-  NEW, undecided — they are at the TOP of the file (300):
-    + outside
-    …
-```
-
-Expected file: `Assets/_Game/Editor/RoomPlatforms.json` exists with 300 entries, none carrying a `platform` field.
-
-- [ ] **Step 5: Commit**
-
-Commit the code only. The generated file is committed in Task 6, once it carries the decisions.
-
-```bash
-git add Assets/_Game/Editor/ObjectRegistry/ObjectRegistryMenu.cs && git commit -m "feat(registry): sync room platforms from the prefab hierarchy"
-```
-
----
-
-## Task 6: Migrate the hand-written draft
-
-`Assets/_Game/Editor/Platforms.json` holds 262 prefix-level decisions written by hand. Every area inherits the value of its stripped prefix, so `ra100_corridor: all` becomes three decided corridors and `rb_basement_room: desktopOnly` becomes fourteen.
+`Assets/_Game/Editor/Platforms.json` holds 262 prefix-level decisions written by hand: 158 `desktopOnly`, 104 `all`. `RoomPlatforms.json` holds 301 areas, all undecided. Each area takes the value of its name with the trailing instance number removed, so `ra100_corridor: all` decides three corridors and `rb_basement_room: desktopOnly` decides fourteen rooms.
 
 **Files:**
 - Create: `Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs`
-- Create: `Assets/_Game/Editor/RoomPlatforms.json` (generated by running it)
+- Modify: `Assets/_Game/Editor/RoomPlatforms.json` (written by running it)
 
 - [ ] **Step 1: Write the one-off migration**
 
@@ -976,10 +443,9 @@ using UnityEngine;
 namespace FriWorld.ObjectRegistry
 {
     /// <summary>
-    /// One-off: converts the hand-written prefix-level draft Platforms.json into the area-level
-    /// RoomPlatforms.json. Every area takes the value of its stripped prefix, so one draft row
-    /// can decide several areas — which is the point, since the draft could not express them
-    /// separately.
+    /// One-off: fills RoomPlatforms.json from the hand-written prefix-level draft. Every area
+    /// takes the value of its name with the instance number removed, so one draft row can decide
+    /// several areas — which is the point, since the draft could not express them separately.
     ///
     /// Delete this file and the draft once it has run. It is committed only so the conversion is
     /// reproducible and reviewable in the diff.
@@ -998,8 +464,8 @@ namespace FriWorld.ObjectRegistry
             }
 
             // The draft is not valid JSON: it was typed by hand to capture intent, in the shape
-            // "name", "platform": "value". One regex over a known one-time input beats writing a
-            // tolerant parser that nothing else will ever use.
+            // "name", "platform": "value", and at least one row is missing its comma. One regex
+            // over a known one-time input beats a tolerant parser nothing else will ever use.
             var draft = new Dictionary<string, string>();
             foreach (Match m in Regex.Matches(File.ReadAllText(DraftPath),
                          "\"([^\"]+)\"\\s*,?\\s*\"platform\"\\s*:\\s*\"([^\"]+)\""))
@@ -1012,7 +478,7 @@ namespace FriWorld.ObjectRegistry
             var contents = RoomGateScope.Open();
             try
             {
-                areas = ObjectRegistryMenu.AreasInPrefab(contents, prefixes);
+                areas = RoomGateScope.AreaNames(contents, prefixes);
             }
             finally
             {
@@ -1028,7 +494,7 @@ namespace FriWorld.ObjectRegistry
                 var entry = platforms.Find(area);
                 if (entry == null || entry.IsDecided) continue;
 
-                string key = ObjectTypeKey.StripInstanceNumber(area);
+                string key = StripInstanceNumber(area);
                 if (draft.TryGetValue(key, out var value) && RoomPlatforms.IsValidPlatform(value))
                 {
                     entry.platform = value;
@@ -1050,41 +516,41 @@ namespace FriWorld.ObjectRegistry
             }
             Debug.Log(sb.ToString());
         }
+
+        /// <summary>
+        /// Removes a trailing "_&lt;digits&gt;". Local to the migration on purpose: the draft is
+        /// the only thing left in the project that is keyed without the instance number, and
+        /// this helper dies with it.
+        /// </summary>
+        static string StripInstanceNumber(string s)
+        {
+            int underscore = s.LastIndexOf('_');
+            if (underscore <= 0) return s;
+
+            string tail = s.Substring(underscore + 1);
+            if (tail.Length == 0) return s;
+            foreach (char c in tail) if (!char.IsDigit(c)) return s;
+            return s.Substring(0, underscore);
+        }
     }
 }
 ```
 
 - [ ] **Step 2: Run the migration**
 
-`Assets/Refresh`, wait for `IsCompiling` to be false, then run `Tools > Object Registry > Migrate Platforms Draft`.
+Refresh, wait for `IsCompiling` to be false, then run `Tools > Object Registry > Migrate Platforms Draft`.
 
-Expected console output:
+Expected: `[MigrateDraft] draft rows 262 → decided 301 of 301 areas`, with no `no draft value` section.
 
-```
-[MigrateDraft] draft rows 262 → decided 300 of 300 areas
-```
+If areas are listed as unmatched, their stripped name is absent from the draft. Add those rows to `Platforms.json` by hand and run again — do not leave them undecided, because Task 3 and Task 4 will then skip them silently.
 
-`unmatched` must be empty. If it is not, the listed areas have a stripped prefix that the draft never mentioned — add those rows to the draft by hand and re-run, rather than leaving them undecided.
-
-- [ ] **Step 3: Sanity-check the generated file**
+- [ ] **Step 3: Check the result**
 
 ```bash
-grep -c '"room"' Assets/_Game/Editor/RoomPlatforms.json
+python -c "import json; r=json.load(open('Assets/_Game/Editor/RoomPlatforms.json',encoding='utf-8'))['rooms']; print('rooms', len(r)); print('decided', sum(1 for e in r if 'platform' in e)); print('desktopOnly', sum(1 for e in r if e.get('platform')=='desktopOnly')); print('all', sum(1 for e in r if e.get('platform')=='all'))"
 ```
 
-Expected: `300`
-
-```bash
-grep -c '"platform": "desktopOnly"' Assets/_Game/Editor/RoomPlatforms.json
-```
-
-Expected: a number in the 170–200 range. The 158 draft rows marked `desktopOnly` expand across their instances — `rb_basement_room` alone contributes 14.
-
-```bash
-grep -c '"platform"' Assets/_Game/Editor/RoomPlatforms.json
-```
-
-Expected: `300` — every area decided, none left blank.
+Expected: `rooms 301`, `decided 301`, and `desktopOnly + all == 301`. `desktopOnly` lands in the 170–200 range: the draft's 158 rows expand across their instances, `rb_basement_room` alone contributing 14.
 
 - [ ] **Step 4: Spot-check the expansion**
 
@@ -1092,17 +558,17 @@ Expected: `300` — every area decided, none left blank.
 grep -A1 '"room": "rb_basement_room_' Assets/_Game/Editor/RoomPlatforms.json | head -20
 ```
 
-Expected: fourteen separate `rb_basement_room_N` rows, each with `"platform": "desktopOnly"`.
+Expected: fourteen separate `rb_basement_room_N` rows, each `"platform": "desktopOnly"`.
 
 - [ ] **Step 5: Commit**
 
 ```bash
-git add Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs.meta Assets/_Game/Editor/RoomPlatforms.json Assets/_Game/Editor/RoomPlatforms.json.meta && git commit -m "feat(registry): migrate the platform draft to per-area decisions"
+git add Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs.meta Assets/_Game/Editor/RoomPlatforms.json && git commit -m "feat(registry): decide every area from the platform draft"
 ```
 
 ---
 
-## Task 7: The Objects branch applier
+## Task 3: The Objects branch applier
 
 **Files:**
 - Create: `Assets/_Game/Editor/FeatureFlags/ObjectsPlatformGates.cs`
@@ -1218,9 +684,9 @@ namespace FriWorld.FeatureFlags
 
 - [ ] **Step 2: Verify it compiles**
 
-`Assets/Refresh`, wait for `IsCompiling` to be false, then check the console.
+Refresh, wait for `IsCompiling` to be false, read the console with `Types: ["Error"]`.
 
-Expected: no compilation errors. There is no menu item yet, so nothing to run — Task 10 wires it up.
+Expected: no errors. There is no menu item yet — Task 6 wires it up.
 
 - [ ] **Step 3: Commit**
 
@@ -1230,7 +696,7 @@ git add Assets/_Game/Editor/FeatureFlags Assets/_Game/Editor/FeatureFlags.meta &
 
 ---
 
-## Task 8: The door branch applier
+## Task 4: The door branch applier
 
 **Files:**
 - Create: `Assets/_Game/Editor/FeatureFlags/DoorComponentGates.cs`
@@ -1260,9 +726,9 @@ namespace FriWorld.FeatureFlags
     /// "door" in the name: 808 names contain it but only 283 are doors, the rest being
     /// door_frame, door_frame_&lt;int&gt;_glass and doorstep.
     ///
-    /// Why the layer change and not a trigger collider: PlayerInteract raycasts with
+    /// Why a layer change and not a trigger collider: PlayerInteract raycasts with
     /// QueryTriggerInteraction.Ignore, so turning the door into a trigger would break interaction
-    /// everywhere rather than only on web.
+    /// on every platform rather than only on web.
     /// </summary>
     public static class DoorComponentGates
     {
@@ -1302,8 +768,8 @@ namespace FriWorld.FeatureFlags
                 if (area.platform == null) { result.undecided.Add(area.area); continue; }
 
                 // Only desktopOnly adds a door gate. Every other decided value means "no door
-                // gate belongs here" — that covers "all" and "webOnly" with the same branch
-                // rather than a special case for each.
+                // gate belongs here", which covers "all" and "webOnly" in one branch instead of
+                // a special case for each.
                 bool wantGate = area.platform == RoomPlatforms.DesktopOnly;
 
                 foreach (var door in doors)
@@ -1360,7 +826,7 @@ namespace FriWorld.FeatureFlags
         /// <summary>
         /// The doors belonging to this area. The walk stops at any nested area container, so a
         /// door is owned by exactly one area — otherwise rb_basement would claim the doors of all
-        /// fourteen rooms inside it and decide for them.
+        /// fourteen rooms inside it and decide on their behalf.
         /// </summary>
         static void CollectDoors(Transform areaRoot, HashSet<Transform> areaTransforms,
                                  IReadOnlyList<string> prefixes, TypeRegistry registry,
@@ -1403,9 +869,7 @@ namespace FriWorld.FeatureFlags
 
 - [ ] **Step 2: Verify it compiles**
 
-`Assets/Refresh`, wait for `IsCompiling` to be false, then check the console.
-
-Expected: no compilation errors.
+Refresh, wait, read the console with `Types: ["Error"]`. Expected: no errors.
 
 - [ ] **Step 3: Commit**
 
@@ -1415,7 +879,7 @@ git add Assets/_Game/Editor/FeatureFlags/DoorComponentGates.cs Assets/_Game/Edit
 
 ---
 
-## Task 9: The report
+## Task 5: The report
 
 **Files:**
 - Create: `Assets/_Game/Editor/FeatureFlags/RoomGateReport.cs`
@@ -1469,7 +933,7 @@ namespace FriWorld.FeatureFlags
         /// <summary>
         /// Areas marked desktopOnly whose decision currently does nothing, because they have no
         /// furniture container and no doors. Not an error — outside_gazebo is one today, and it
-        /// will start working by itself the moment something is put there.
+        /// starts working by itself the moment something is put there.
         /// </summary>
         static List<string> NoEffect(ObjectsPlatformGates.Result objects,
                                      DoorComponentGates.Result doors,
@@ -1511,9 +975,7 @@ namespace FriWorld.FeatureFlags
 
 - [ ] **Step 2: Verify it compiles**
 
-`Assets/Refresh`, wait for `IsCompiling` to be false, then check the console.
-
-Expected: no compilation errors.
+Refresh, wait, read the console with `Types: ["Error"]`. Expected: no errors.
 
 - [ ] **Step 3: Commit**
 
@@ -1523,7 +985,7 @@ git add Assets/_Game/Editor/FeatureFlags/RoomGateReport.cs Assets/_Game/Editor/F
 
 ---
 
-## Task 10: The menu
+## Task 6: The menu
 
 **Files:**
 - Create: `Assets/_Game/Editor/FeatureFlags/RoomGateMenu.cs`
@@ -1544,8 +1006,8 @@ namespace FriWorld.FeatureFlags
     /// separately: a .blend reimport wipes the door gates inside fri_building and leaves the
     /// Objects branch alone, so the fix should not have to touch Objects either.
     ///
-    /// Report runs both appliers and then closes the prefab WITHOUT saving, so a dry run and a
-    /// real run go down the same code path and cannot drift apart.
+    /// Report runs both appliers and then closes the prefab WITHOUT saving, so the dry run and
+    /// the real run go down the same code path and cannot drift apart.
     /// </summary>
     public static class RoomGateMenu
     {
@@ -1621,11 +1083,11 @@ namespace FriWorld.FeatureFlags
 }
 ```
 
-- [ ] **Step 2: Run the report and read it**
+- [ ] **Step 2: Run the dry run**
 
-`Assets/Refresh`, wait for `IsCompiling` to be false, then run `Tools > Feature Flags > Report Room Gates`.
+Refresh, wait, then run `Tools > Feature Flags > Report Room Gates`.
 
-Expected: a dry run showing the drift between the data and the prefab. Its shape:
+Expected shape:
 
 ```
 DRY RUN — the prefab was not written.
@@ -1635,14 +1097,14 @@ DRY RUN — the prefab was not written.
     outside_gazebo
 ```
 
-What each number must satisfy:
+What the numbers must satisfy:
 
-- **Doors `added` (`<d>`)** — every door inside a `desktopOnly` area. The prefab asset holds **zero** `ComponentGate` components today, so nothing can be "already correct" among them. `<d>` is therefore strictly between 0 and 283.
-- **Doors `already correct` (`<e>`)** — the remaining doors, which sit in `all` areas and correctly have no gate. `<d> + <e>` must equal **283** minus whatever appears under `DOORS with nothing to strip`.
-- **Doors `removed`** — must be `0`. The single existing `ComponentGate` lives on the scene instance, not in the asset, so this branch never sees it.
-- **Objects `removed` (`<b>`)** — the areas the draft switched from gated to `all`. Expect a small number; before the migration seven areas were gated while the draft said `all`.
+- **Doors `added`** — every door inside a `desktopOnly` area. The prefab asset holds **zero** `ComponentGate` components today, so none can be "already correct" among them. Strictly between 0 and 283.
+- **Doors `already correct`** — the rest, sitting in `all` areas with no gate. `added + already correct` equals **283** minus anything under `DOORS with nothing to strip`.
+- **Doors `removed`** — must be `0`. The one existing `ComponentGate` lives on the scene instance, not in the asset, so this branch never sees it.
+- **Objects `removed`** — areas the draft switched from gated to `all`. A small number; before the migration seven were gated while the draft said `all`.
 
-There must be **no** `UNDECIDED` and no `BAD VALUES` section: Task 6 decided all 300 areas. `NESTED` is expected to be absent too, since all five container-of-areas rows are `all`.
+There must be **no** `UNDECIDED` and no `BAD VALUES` section — Task 2 decided all 301 areas. `NESTED` should be absent too, since the five container-of-areas rows are all `all`.
 
 - [ ] **Step 3: Commit**
 
@@ -1652,33 +1114,30 @@ git add Assets/_Game/Editor/FeatureFlags/RoomGateMenu.cs Assets/_Game/Editor/Fea
 
 ---
 
-## Task 11: Apply and verify
+## Task 7: Apply and verify
 
-**Files:**
-- Modify: `Assets/_Game/Prefabs/FriBuilding/FriBuilding.prefab` (written by the tool)
+**This task writes `Assets/_Game/Prefabs/FriBuilding/FriBuilding.prefab`, which carries 247k lines of the user's uncommitted work. Ask the user to commit or stash their prefab changes before running Step 1, and do not commit the prefab yourself without their explicit go-ahead.**
 
 - [ ] **Step 1: Apply everything**
 
 Run `Tools > Feature Flags > Apply All Room Gates`.
 
-Expected: the same counts as the dry run in Task 10, this time without the `DRY RUN` line.
+Expected: the same counts as the dry run, without the `DRY RUN` line.
 
-- [ ] **Step 2: Verify it is idempotent**
+- [ ] **Step 2: Verify it converges**
 
 Run `Tools > Feature Flags > Report Room Gates` again.
 
 Expected — this is the real check that the reconcile is complete and stable:
 
 ```
-[RoomGates] Objects: 0 added, 0 retargeted, 0 removed, K already correct
+[RoomGates] Objects: 0 added, 0 retargeted, 0 removed, <c> already correct
 [RoomGates] Doors:   0 added, 0 reconfigured, 0 removed, 283 already correct
 ```
 
-Any non-zero `added` / `removed` / `retargeted` on a second run means an applier is not converging — fix that before continuing.
+Any non-zero `added` / `removed` / `retargeted` on a second run means an applier is not converging. Fix that before continuing.
 
-- [ ] **Step 3: Verify the gates landed in the prefab asset, not the scene**
-
-Run over MCP with `Unity_RunCommand`:
+- [ ] **Step 3: Verify the gates landed in the asset, not the scene**
 
 ```csharp
 using UnityEngine;
@@ -1707,17 +1166,15 @@ internal class CommandScript : IRunCommand
 }
 ```
 
-Expected: `Door in asset` is still `283`, and `ComponentGate in asset` is now within one or two of `283` — the difference being any door reported under `DOORS with nothing to strip`. `PlatformGate in asset` is the number of decided, non-nested areas present in `Objects`; it was `144` before and will change to match the data.
+Expected: `Door in asset` still `283`; `ComponentGate in asset` equal to the doors branch `added` count from Step 1; `PlatformGate in asset` equal to the number of decided, non-nested areas present in `Objects` — it was `144` before and will move to match the data.
 
 - [ ] **Step 4: Verify a door in play mode**
 
 Open `Assets/_Game/Scenes/Demo.unity`, switch the build target to WebGL so `PlatformFlags.IsWeb` reports true, and enter play mode. Walk up to a door in a `desktopOnly` room.
 
-Expected: the door is visible, shows no interaction prompt, and does not open. A door in an `all` room still opens.
+Expected: the door is visible, shows no interaction prompt and does not open. A door in an `all` room still opens. Switch the build target back afterwards.
 
-Switch the build target back to your usual one when done.
-
-- [ ] **Step 5: Commit**
+- [ ] **Step 5: Commit — only with the user's go-ahead**
 
 ```bash
 git add Assets/_Game/Prefabs/FriBuilding/FriBuilding.prefab && git commit -m "chore(prefab): generate room gates from RoomPlatforms.json"
@@ -1725,66 +1182,56 @@ git add Assets/_Game/Prefabs/FriBuilding/FriBuilding.prefab && git commit -m "ch
 
 ---
 
-## Task 12: Remove what this replaces
+## Task 8: Clean up and document
 
 **Files:**
-- Delete: `Assets/_Game/Editor/DoorGateSetup.cs` (+ `.meta`)
-- Delete: `Assets/_Game/Editor/Platforms.json` (+ `.meta`)
-- Delete: `Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs` (+ `.meta`)
+- Delete: `Assets/_Game/Editor/DoorGateSetup.cs`, `Assets/_Game/Editor/Platforms.json`, `Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs` (each with its `.meta`)
+- Modify: `CHANGELOG.md`
+- Create: `docs/decisions/2026-08-24-platform-gaty-v-prefabe.md`
 
-- [ ] **Step 1: Delete the three files**
+- [ ] **Step 1: Delete what this replaces**
 
 ```bash
-git rm Assets/_Game/Editor/DoorGateSetup.cs Assets/_Game/Editor/DoorGateSetup.cs.meta Assets/_Game/Editor/Platforms.json Assets/_Game/Editor/Platforms.json.meta Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs.meta
+git rm Assets/_Game/Editor/DoorGateSetup.cs Assets/_Game/Editor/DoorGateSetup.cs.meta Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs Assets/_Game/Editor/ObjectRegistry/MigratePlatformsDraft.cs.meta
+```
+
+`Platforms.json` is untracked, so remove it from disk:
+
+```bash
+rm Assets/_Game/Editor/Platforms.json Assets/_Game/Editor/Platforms.json.meta
 ```
 
 - [ ] **Step 2: Confirm nothing referenced them**
 
 ```bash
-grep -rn "DoorGateSetup\|Platforms.json\|MigratePlatformsDraft" Assets/_Game --include=*.cs
+grep -rn "DoorGateSetup\|MigratePlatformsDraft" Assets/_Game --include=*.cs
 ```
 
-Expected: no output. `RoomPlatforms.json` is referenced through the constant `ObjectRegistryMenu.RoomPlatformsPath`, so the literal string appears only in that one declaration and will not match `Platforms.json` here — if it does match, check you are not looking at the constant's own line.
+Expected: no output.
 
 - [ ] **Step 3: Verify Unity still compiles**
 
-`Assets/Refresh`, wait for `IsCompiling` to be false, then check the console.
+Refresh, wait, read the console with `Types: ["Error"]`.
 
-Expected: no compilation errors, and `Tools > Setup Door Gates` is gone from the menu while the four `Tools > Feature Flags` items remain.
+Expected: no errors, `Tools > Setup Door Gates` gone from the menu, the four `Tools > Feature Flags` items present.
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 4: Add the changelog lines**
 
-```bash
-git commit -m "chore(editor): drop DoorGateSetup and the platform draft"
-```
-
----
-
-## Task 13: Documentation
-
-**Files:**
-- Modify: `CHANGELOG.md`
-- Create: `docs/decisions/2026-08-24-platform-gaty-v-prefabe.md`
-
-- [ ] **Step 1: Add the changelog lines**
-
-In `CHANGELOG.md`, under `## [Unreleased]`, add to the `### Added` section:
+In `CHANGELOG.md` under `## [Unreleased]`, add to `### Added`:
 
 ```
-- Platformové rozhodnutie pre každú miestnosť žije v `RoomPlatforms.json` a gaty sa z neho generujú — `Tools > Feature Flags > Apply All Room Gates`.
+- `Tools > Feature Flags > Apply All Room Gates` — platformové gaty sa generujú z `RoomPlatforms.json` priamo do prefab assetu. Dá sa spustiť aj po vetvách: `Apply Object Gates` pre nábytok, `Apply Door Gates` po reimporte `.blend`.
 ```
 
-and to the `### Fixed` section:
+and to `### Fixed`:
 
 ```
-- Dverné gaty už neprežívajú len ako override v scéne, takže ich reimport `.blend` nezmetie.
+- Dverné gaty už nežijú len ako override v scéne, takže ich reimport `.blend` nezmetie. Doteraz z 283 dverí prežil jediný.
 ```
 
-If a section does not exist yet, create it in the order `Added` / `Fixed` / `Changed` / `Performance` / `Removed`.
+- [ ] **Step 5: Write the decision record**
 
-- [ ] **Step 2: Write the decision record**
-
-This one qualifies: the cause was somewhere other than where the symptom showed. Create `docs/decisions/2026-08-24-platform-gaty-v-prefabe.md`:
+This one qualifies under the CLAUDE.md rule: the cause was somewhere other than where the symptom showed. Create `docs/decisions/2026-08-24-platform-gaty-v-prefabe.md`:
 
 ```markdown
 # Platformové gaty patria do prefab assetu
@@ -1829,7 +1276,7 @@ vygenerovateľný.
 - Ručná úprava gatu priamo v hierarchii sa pri najbližšom behu prepíše. Zmena patrí do JSON‑u.
 ```
 
-- [ ] **Step 3: Commit**
+- [ ] **Step 6: Commit**
 
 ```bash
 git add CHANGELOG.md docs/decisions/2026-08-24-platform-gaty-v-prefabe.md && git commit -m "docs: record the room platform gates and why they belong in the prefab"
@@ -1843,5 +1290,5 @@ git add CHANGELOG.md docs/decisions/2026-08-24-platform-gaty-v-prefabe.md && git
 - [ ] no `UNDECIDED` and no `BAD VALUES` section in that report
 - [ ] all EditMode tests in `FriWorld.ObjectRegistry.Tests` pass
 - [ ] `Tools > Setup Door Gates` is gone; the four `Tools > Feature Flags` items work
-- [ ] `Assets/_Game/Editor/RoomPlatforms.json` holds 300 decided areas
+- [ ] `RoomPlatforms.json` holds 301 decided areas
 - [ ] a door in a `desktopOnly` room does not open in a WebGL play mode session

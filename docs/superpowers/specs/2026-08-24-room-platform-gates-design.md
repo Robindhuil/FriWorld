@@ -1,6 +1,7 @@
 # Dátovo riadené platformové gaty pre miestnosti
 
-Stav: návrh schválený 2026‑08‑24, pripravený na implementačný plán.
+Stav: schválený 2026‑08‑24. Dátová vrstva a synchronizácia hotové (`7aa9bbd`); zostáva
+migrácia náčrtu a dva appliery — viď `docs/superpowers/plans/2026-08-24-room-platform-gates.md`.
 
 ---
 
@@ -73,10 +74,10 @@ FriBuilding                        ← jeden prefab asset
 
 ### Oblasť
 
-**Oblasť** je kontajner s deťmi, ktorého meno po odstrihnutí koncového `_<int>` sedí na
-schválený prefix z `ObjectPrefixes.json`.
+**Oblasť** je kontajner s deťmi, ktorého meno **je** schválený prefix z `ObjectPrefixes.json`.
+Presná zhoda, žiadne odstrihávanie.
 
-Tá podmienka je jediné, čo oddeľuje miestnosti od nábytkového šumu. Bez nej by sa medzi
+Schválený zoznam je jediné, čo oddeľuje miestnosti od nábytkového šumu. Bez neho by sa medzi
 oblasti dostali `ra001_lamp`, `chair_classroom_1_yellow (3)` a stovky ďalších.
 
 ### Namerané
@@ -84,9 +85,9 @@ oblasti dostali `ra001_lamp`, `chair_classroom_1_yellow (3)` a stovky ďalších
 | | |
 |---|---|
 | oblastí v `Objects` | 246 |
-| oblastí vo `fri_building` | 300 |
+| oblastí vo `fri_building` | 301 |
 | oblastí len v `Objects` | **0** |
-| oblastí len vo `fri_building` | 54 |
+| oblastí len vo `fri_building` | 55 |
 | oblastí s vlastným `MeshRenderer` | **0** |
 
 Dva dôsledky:
@@ -95,7 +96,7 @@ Dva dôsledky:
   riadok dát teda obslúži obe vetvy.
 - Oblasti sú **čisté empty objekty**. `PlatformGate` na oblasti sa dotkne výhradne potomkov.
 
-Tých 54 navyše sú miesta bez nábytku: výťahy, obvodové steny, strechy, schodiská,
+Tých 55 navyše sú miesta bez nábytku: výťahy, obvodové steny, strechy, schodiská,
 `rc000_kitchen`, terasy, `rb_basement_room_1` až `_14`. Uplatní sa pri nich len dverná vetva.
 
 ### Hĺbka nie je jednotná
@@ -158,9 +159,10 @@ Rozdiel medzi `all` a chýbajúcou hodnotou je to, čo robí JSON zdrojom pravdy
 „viem, že tu gate nepatrí, zmaž ho". Chýbajúca hodnota znamená „ešte som sa nerozhodol,
 nechaj tak". Bez toho rozdielu by sa raz nasadený gate nedal cez dáta zrušiť.
 
-### Prečo plné meno oblasti a nie odstrihnutý prefix
+### Prečo prefixy prestali strihať koncové číslo
 
-`ObjectPrefixes.json` drží `ra100_corridor` — odstrihnuté. Pre jeho úlohu je to správne:
+Zberač prefixov pôvodne z mena kontajnera odstrihával koncové `_<int>`, takže
+`ra000_corridor_1` až `_4` dali jeden riadok `ra000_corridor`. Na typový kľúč to vplyv nemá:
 
 ```
 dieťa   ra000_corridor_2_lamp_1
@@ -168,19 +170,38 @@ prefix "ra000_corridor"     → 2_lamp_1 → StripLeadingInt → lamp_1 → lamp
 prefix "ra000_corridor_2"   →   lamp_1 →      (nič)      → lamp_1 → lamp
 ```
 
-Oba varianty dajú ten istý typový kľúč, takže strih nie je otázka správnosti. Je to kompakcia:
-15 riadkov namiesto 53, a nová `ra000_corridor_5` sa rozpozná bez zásahu do súboru.
+Oba varianty dajú `lamp`. Strih teda nebol otázkou správnosti, len kompakcie — 15 riadkov
+namiesto 53.
 
-Pre platformové rozhodnutie je ale tá istá kompakcia strata. `ra100_corridor_1` a
-`ra100_corridor_2` sú dve rôzne chodby. 15 prefixov pokrýva viac než jednu fyzickú oblasť,
-najviac `rb_basement_room` so štrnástimi.
-
-Preto sú to **dva súbory s dvomi kľúčovými priestormi**, každý so zrnitosťou svojej úlohy:
+Pre platformové rozhodnutie je ale tá kompakcia strata. `ra100_corridor_1` a `ra100_corridor_2`
+sú dve rôzne chodby a nedá sa jedna gatnúť a druhú nechať. Preto **zberač strih zrušil** a oba
+súbory zdieľajú jeden kľúčový priestor:
 
 | súbor | kľúč | úloha |
 |---|---|---|
-| `ObjectPrefixes.json` | `ra100_corridor` | krájať mená detí |
+| `ObjectPrefixes.json` | `ra100_corridor_1` | krájať mená detí |
 | `RoomPlatforms.json` | `ra100_corridor_1` | pomenovať fyzickú oblasť |
+
+Cena je 325 prefixov namiesto 262 a to, že nová `ra000_corridor_5` sa musí najprv nahlásiť cez
+`Add Prefixes From Selection`. To je jeden beh nástroja a hlásenie ju vypíše.
+
+### Poistka, ktorá s tým musela prísť
+
+Bez strihu zberač navrhne aj nábytkové kontajnery, a niektoré z nich by **zožrali hlavičku
+registrovaného typu**: prefix `cubboard_1` premení `cubboard_1_part_1` na `part` a záznam
+`cubboard_1_part` zostane mŕtvy.
+
+Pôvodná poistka `riskyPrefixes` porovnávala na presnú zhodu s typovým kľúčom, takže z ôsmich
+takých prípadov chytila dva. Pribudla druhá: zadrž prefix, ktorý je **tokenovým prefixom**
+mena registrovaného typu. Ani jedna nič nemaže — obe zadržia a nahlásia, rozhodnutie je človeka.
+
+Pri prvom behu zadržali `poster`, `radiator`, `chair_corridor`, `cubboard_1`, `table_cabinet_1`,
+`table_pc_1`, `table_pc_half_1`, `trash` a `outside`.
+
+Posledné meno stojí za zmienku: `outside` je schválený **už dávno** a je tokenovým prefixom typu
+`outside_e_box`. To znamená, že `outside_e_box_1` sa dnes odvodzuje na `e_box` a záznam
+`outside_e_box` je mŕtvy. Existujúca chyba, ktorú poistka len odhalila; opraviť ju znamená
+premenovať objekty alebo zahodiť ten typ, čo do tohto návrhu nepatrí.
 
 ---
 
@@ -278,9 +299,13 @@ vnútorné rozhodnutie ticho zneplatnil. Všetkých päť je dnes `all`, takže 
 `Assets/_Game/Editor/Platforms.json` je ručný náčrt so 262 riadkami na úrovni prefixu:
 158× `desktopOnly`, 104× `all`. Nie je to platný JSON a slúžil na zachytenie zámeru.
 
-Prevod: každej z 300 oblastí sa priradí hodnota, ktorú má jej **odstrihnutý** prefix v náčrte.
-`ra100_corridor: all` sa rozvinie na všetky tri chodby, `rb_basement_room: desktopOnly` na
-všetkých 14. Odtiaľ sa jednotlivé oblasti dajú doladiť, čo pri prefixovej zrnitosti nešlo.
+Prevod: každej z 301 oblastí sa priradí hodnota, ktorú má jej meno **po odstrihnutí koncového
+`_<int>`** v náčrte. `ra100_corridor: all` sa rozvinie na všetky tri chodby,
+`rb_basement_room: desktopOnly` na všetkých 14. Odtiaľ sa jednotlivé oblasti dajú doladiť, čo
+pri prefixovej zrnitosti nešlo.
+
+Ten strih žije len v migračnom skripte. Nikde inde už nie je potrebný, a skript sa po jednom
+behu zmaže spolu s náčrtom.
 
 Náčrt sa po prevode zmaže.
 
@@ -303,11 +328,11 @@ Asmdef `FriWorld.ObjectRegistry.Editor` má `references: []`, takže nevidí `Pl
 
 ```
 Assets/_Game/Editor/ObjectRegistry/        ← asmdef: UnityEngine + UnityEditor, nie herné typy
-  RoomPlatforms.cs         load / save / reconcile / Find(room)
-  RoomGateScope.cs         otvorí prefab, prejde vetvu, vráti (kontajner, oblasť, platforma)
-  ObjectTypeKey.cs         + verejný StripInstanceNumber
-  ObjectRegistryMenu.cs    + Sync Room Platforms
-  Tests/RoomPlatformsTests.cs
+  RoomPlatforms.cs         load / save / reconcile / Find(room)          ✔ hotové
+  RoomGateScope.cs         otvorí prefab, nájde oblasti                  ✔ hotové
+  RegistryScanner.cs       navrhuje prefixy bez strihu                   ✔ hotové
+  ObjectRegistryMenu.cs    Sync Room Platforms + poistka na typy         ✔ hotové
+  Tests/RoomPlatformsTests.cs                                            ✔ hotové
 
 Assets/_Game/Editor/FeatureFlags/          ← Assembly-CSharp-Editor, vidí herné typy
   ObjectsPlatformGates.cs  Objects      → PlatformGate
@@ -316,11 +341,10 @@ Assets/_Game/Editor/FeatureFlags/          ← Assembly-CSharp-Editor, vidí her
   RoomGateMenu.cs
 ```
 
-`RoomGateScope` je jediné spoločné: otvorenie prefabu, prechod stromom, redukcia mena, presná
-zhoda. Patrí do asmdef, hoci sa dotýka Unity — vystačí si s `Transform` a `PrefabUtility` a
-nepotrebuje `PlatformGate` ani `Door`. Vďaka tomu ho vie použiť aj `ObjectRegistryMenu` pri
-synchronizácii, čo by cez hranicu assembly inak nešlo. Samotné pravidlo „je toto oblasť?" je
-čisté reťazcové a testuje sa samostatne.
+`RoomGateScope` je jediné spoločné: otvorenie prefabu, prechod stromom, presná zhoda mena proti
+schváleným prefixom. Patrí do asmdef, hoci sa dotýka Unity — vystačí si s `Transform` a
+`PrefabUtility` a nepotrebuje `PlatformGate` ani `Door`. Vďaka tomu ho vie použiť aj
+`ObjectRegistryMenu` pri synchronizácii, čo by cez hranicu assembly inak nešlo.
 
 `StripTrailingInt` je dnes napísaný dvakrát — v `RegistryScanner.cs` a v `ObjectTypeKey.cs`.
 Zjednotí sa na jedno miesto, keďže sa ho návrh aj tak dotýka.
