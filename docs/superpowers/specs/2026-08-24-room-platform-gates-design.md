@@ -143,7 +143,11 @@ Konvencie kopírujú `ObjectTypes.json`, aby sa nebolo treba učiť druhý syst�
 | chýba | nedotkne sa, nahlási | nedotkne sa, nahlási |
 | `"all"` | **odstráni** `PlatformGate`, ak tam je | **odstráni** `ComponentGate`, ak tam je |
 | `"desktopOnly"` | `PlatformGate` s `target = DesktopOnly` | `ComponentGate` na dverách |
-| `"webOnly"` | `PlatformGate` s `target = WebOnly` | — |
+| `"webOnly"` | `PlatformGate` s `target = WebOnly` | **odstráni** `ComponentGate`, ak tam je |
+
+Dverná vetva teda pozná jediné pravidlo, ktoré gate pridáva — `desktopOnly`. Každá iná
+*rozhodnutá* hodnota znamená „tu dverný gate nepatrí". Nie je to zvláštny prípad pre `webOnly`,
+ale ten istý zápis: rozhodnuté a nie `desktopOnly` → zabezpeč, že tam gate nie je.
 
 Odstraňovanie je cielené. V `Objects` sa ruší `PlatformGate` na samotnom kontajneri oblasti,
 nie hlbšie v podstrome. Vo `fri_building` sa ruší `ComponentGate` len na objektoch, ktorých
@@ -298,14 +302,14 @@ Asmdef `FriWorld.ObjectRegistry.Editor` má `references: []`, takže nevidí `Pl
 `ComponentGate` ani `Door`. To určuje rez medzi čistým a Unity kódom.
 
 ```
-Assets/_Game/Editor/ObjectRegistry/        ← čisté C#, bez Unity typov, unit-testovateľné
+Assets/_Game/Editor/ObjectRegistry/        ← asmdef: UnityEngine + UnityEditor, nie herné typy
   RoomPlatforms.cs         load / save / reconcile / Find(room)
+  RoomGateScope.cs         otvorí prefab, prejde vetvu, vráti (kontajner, oblasť, platforma)
   ObjectTypeKey.cs         + verejný StripInstanceNumber
   ObjectRegistryMenu.cs    + Sync Room Platforms
   Tests/RoomPlatformsTests.cs
 
-Assets/_Game/Editor/FeatureFlags/          ← Unity strana, rozdelené podľa vetvy
-  RoomGateScope.cs         otvorí prefab, prejde vetvu, vráti (kontajner, oblasť, platforma)
+Assets/_Game/Editor/FeatureFlags/          ← Assembly-CSharp-Editor, vidí herné typy
   ObjectsPlatformGates.cs  Objects      → PlatformGate
   DoorComponentGates.cs    fri_building → ComponentGate
   RoomGateReport.cs
@@ -313,7 +317,10 @@ Assets/_Game/Editor/FeatureFlags/          ← Unity strana, rozdelené podľa v
 ```
 
 `RoomGateScope` je jediné spoločné: otvorenie prefabu, prechod stromom, redukcia mena, presná
-zhoda. Samotné pravidlo redukcie je čisté reťazcové a patrí do asmdef, kde sa dá otestovať.
+zhoda. Patrí do asmdef, hoci sa dotýka Unity — vystačí si s `Transform` a `PrefabUtility` a
+nepotrebuje `PlatformGate` ani `Door`. Vďaka tomu ho vie použiť aj `ObjectRegistryMenu` pri
+synchronizácii, čo by cez hranicu assembly inak nešlo. Samotné pravidlo „je toto oblasť?" je
+čisté reťazcové a testuje sa samostatne.
 
 `StripTrailingInt` je dnes napísaný dvakrát — v `RegistryScanner.cs` a v `ObjectTypeKey.cs`.
 Zjednotí sa na jedno miesto, keďže sa ho návrh aj tak dotýka.
