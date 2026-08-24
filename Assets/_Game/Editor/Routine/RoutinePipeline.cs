@@ -121,12 +121,12 @@ namespace FriWorld.Routine
             "If any object's occluder setting changed, rebake occlusion culling. Nothing in this "
             + "list can do that for you, and a stale bake fails quietly.";
 
-        /// <summary>Runs a step outside OnGUI. Room Gates opens a modal, and opening one from "
-        /// inside a repaint is the kind of reentrancy that wedges the editor.</summary>
-        public static void Run(Step step)
-        {
-            string path = step.menuPath;
-            EditorApplication.delayCall += () => EditorApplication.ExecuteMenuItem(path);
-        }
+        /// <summary>
+        /// Runs the tool behind a step. Straight through, not deferred: an earlier version routed
+        /// this via EditorApplication.delayCall to keep the modal Room Gates window out of a
+        /// repaint, and the callback never fired — every Routine item reported success and did
+        /// nothing at all. A silent no-op is far worse than the reentrancy it was avoiding.
+        /// </summary>
+        public static void Run(Step step) => EditorApplication.ExecuteMenuItem(step.menuPath);
     }
 }
