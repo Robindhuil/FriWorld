@@ -1,0 +1,907 @@
+{
+  "rooms": [
+    {
+      "room": "outside"
+    },
+    {
+      "room": "outside_back"
+    },
+    {
+      "room": "outside_front"
+    },
+    {
+      "room": "outside_gazebo"
+    },
+    {
+      "room": "ra000_back_stair"
+    },
+    {
+      "room": "ra000_cleaners_room_1"
+    },
+    {
+      "room": "ra000_cleaners_room_2"
+    },
+    {
+      "room": "ra000_corridor_1"
+    },
+    {
+      "room": "ra000_corridor_2"
+    },
+    {
+      "room": "ra000_corridor_3"
+    },
+    {
+      "room": "ra000_corridor_4"
+    },
+    {
+      "room": "ra000_elevator"
+    },
+    {
+      "room": "ra000_front_building"
+    },
+    {
+      "room": "ra000_main_stair"
+    },
+    {
+      "room": "ra000_men_restroom"
+    },
+    {
+      "room": "ra000_outside_wall"
+    },
+    {
+      "room": "ra000_rooftop"
+    },
+    {
+      "room": "ra000_women_restroom"
+    },
+    {
+      "room": "ra001"
+    },
+    {
+      "room": "ra002"
+    },
+    {
+      "room": "ra003"
+    },
+    {
+      "room": "ra006"
+    },
+    {
+      "room": "ra007"
+    },
+    {
+      "room": "ra008"
+    },
+    {
+      "room": "ra009"
+    },
+    {
+      "room": "ra010"
+    },
+    {
+      "room": "ra011"
+    },
+    {
+      "room": "ra012"
+    },
+    {
+      "room": "ra013"
+    },
+    {
+      "room": "ra100_back_stair"
+    },
+    {
+      "room": "ra100_cleaners_room_1"
+    },
+    {
+      "room": "ra100_corridor_1"
+    },
+    {
+      "room": "ra100_corridor_2"
+    },
+    {
+      "room": "ra100_corridor_3"
+    },
+    {
+      "room": "ra100_elevator"
+    },
+    {
+      "room": "ra100_main_stair"
+    },
+    {
+      "room": "ra100_men_restroom_1"
+    },
+    {
+      "room": "ra100_outside_wall"
+    },
+    {
+      "room": "ra100_women_restroom_1"
+    },
+    {
+      "room": "ra101"
+    },
+    {
+      "room": "ra102"
+    },
+    {
+      "room": "ra103"
+    },
+    {
+      "room": "ra104"
+    },
+    {
+      "room": "ra105"
+    },
+    {
+      "room": "ra106"
+    },
+    {
+      "room": "ra107"
+    },
+    {
+      "room": "ra108"
+    },
+    {
+      "room": "ra109"
+    },
+    {
+      "room": "ra110"
+    },
+    {
+      "room": "ra111"
+    },
+    {
+      "room": "ra113"
+    },
+    {
+      "room": "ra114"
+    },
+    {
+      "room": "ra115"
+    },
+    {
+      "room": "ra116"
+    },
+    {
+      "room": "ra117"
+    },
+    {
+      "room": "ra118"
+    },
+    {
+      "room": "ra119"
+    },
+    {
+      "room": "ra120"
+    },
+    {
+      "room": "ra122"
+    },
+    {
+      "room": "ra123"
+    },
+    {
+      "room": "ra124"
+    },
+    {
+      "room": "ra125"
+    },
+    {
+      "room": "ra200_back_stair"
+    },
+    {
+      "room": "ra200_cleaners_room_1"
+    },
+    {
+      "room": "ra200_corridor_1"
+    },
+    {
+      "room": "ra200_corridor_2"
+    },
+    {
+      "room": "ra200_corridor_3"
+    },
+    {
+      "room": "ra200_elevator"
+    },
+    {
+      "room": "ra200_main_stair"
+    },
+    {
+      "room": "ra200_men_restroom_1"
+    },
+    {
+      "room": "ra200_outside_wall"
+    },
+    {
+      "room": "ra200_women_restroom_1"
+    },
+    {
+      "room": "ra201"
+    },
+    {
+      "room": "ra202"
+    },
+    {
+      "room": "ra203"
+    },
+    {
+      "room": "ra205"
+    },
+    {
+      "room": "ra206"
+    },
+    {
+      "room": "ra207"
+    },
+    {
+      "room": "ra208"
+    },
+    {
+      "room": "ra209"
+    },
+    {
+      "room": "ra210"
+    },
+    {
+      "room": "ra211"
+    },
+    {
+      "room": "ra212"
+    },
+    {
+      "room": "ra213"
+    },
+    {
+      "room": "ra214"
+    },
+    {
+      "room": "ra215"
+    },
+    {
+      "room": "ra216"
+    },
+    {
+      "room": "ra217"
+    },
+    {
+      "room": "ra218"
+    },
+    {
+      "room": "ra219"
+    },
+    {
+      "room": "ra220"
+    },
+    {
+      "room": "ra222"
+    },
+    {
+      "room": "ra223"
+    },
+    {
+      "room": "ra224"
+    },
+    {
+      "room": "ra225"
+    },
+    {
+      "room": "ra226"
+    },
+    {
+      "room": "ra300_back_stair"
+    },
+    {
+      "room": "ra300_cleaners_room_1"
+    },
+    {
+      "room": "ra300_corridor_1"
+    },
+    {
+      "room": "ra300_corridor_2"
+    },
+    {
+      "room": "ra300_corridor_3"
+    },
+    {
+      "room": "ra300_elevator"
+    },
+    {
+      "room": "ra300_main_stair"
+    },
+    {
+      "room": "ra300_men_restroom_1"
+    },
+    {
+      "room": "ra300_outside_wall"
+    },
+    {
+      "room": "ra300_rooftop"
+    },
+    {
+      "room": "ra300_women_restroom_1"
+    },
+    {
+      "room": "ra301"
+    },
+    {
+      "room": "ra302"
+    },
+    {
+      "room": "ra303"
+    },
+    {
+      "room": "ra305"
+    },
+    {
+      "room": "ra306"
+    },
+    {
+      "room": "ra307"
+    },
+    {
+      "room": "ra308"
+    },
+    {
+      "room": "ra309"
+    },
+    {
+      "room": "ra310"
+    },
+    {
+      "room": "ra311"
+    },
+    {
+      "room": "ra312"
+    },
+    {
+      "room": "ra313"
+    },
+    {
+      "room": "ra314"
+    },
+    {
+      "room": "ra315"
+    },
+    {
+      "room": "ra316"
+    },
+    {
+      "room": "ra317"
+    },
+    {
+      "room": "ra318"
+    },
+    {
+      "room": "ra319"
+    },
+    {
+      "room": "ra320"
+    },
+    {
+      "room": "ra323"
+    },
+    {
+      "room": "ra324"
+    },
+    {
+      "room": "ra325"
+    },
+    {
+      "room": "ra326"
+    },
+    {
+      "room": "ra327"
+    },
+    {
+      "room": "rb"
+    },
+    {
+      "room": "rb000_cleaners_room"
+    },
+    {
+      "room": "rb000_corridor_1"
+    },
+    {
+      "room": "rb000_corridor_2"
+    },
+    {
+      "room": "rb000_corridor_3"
+    },
+    {
+      "room": "rb000_corridor_4"
+    },
+    {
+      "room": "rb000_corridor_5"
+    },
+    {
+      "room": "rb000_elevator"
+    },
+    {
+      "room": "rb000_main_stair"
+    },
+    {
+      "room": "rb000_men_restroom"
+    },
+    {
+      "room": "rb000_outside_wall"
+    },
+    {
+      "room": "rb000_rooftop"
+    },
+    {
+      "room": "rb000_women_restroom"
+    },
+    {
+      "room": "rb001"
+    },
+    {
+      "room": "rb002"
+    },
+    {
+      "room": "rb003"
+    },
+    {
+      "room": "rb004"
+    },
+    {
+      "room": "rb005"
+    },
+    {
+      "room": "rb006"
+    },
+    {
+      "room": "rb007"
+    },
+    {
+      "room": "rb008"
+    },
+    {
+      "room": "rb009"
+    },
+    {
+      "room": "rb010"
+    },
+    {
+      "room": "rb011"
+    },
+    {
+      "room": "rb051"
+    },
+    {
+      "room": "rb052"
+    },
+    {
+      "room": "rb053"
+    },
+    {
+      "room": "rb054"
+    },
+    {
+      "room": "rb100_cleaners_room"
+    },
+    {
+      "room": "rb100_corridor_1"
+    },
+    {
+      "room": "rb100_corridor_2"
+    },
+    {
+      "room": "rb100_corridor_3"
+    },
+    {
+      "room": "rb100_elevator"
+    },
+    {
+      "room": "rb100_main_stair"
+    },
+    {
+      "room": "rb100_men_restroom"
+    },
+    {
+      "room": "rb100_outside_wall"
+    },
+    {
+      "room": "rb100_women_restroom"
+    },
+    {
+      "room": "rb101"
+    },
+    {
+      "room": "rb102"
+    },
+    {
+      "room": "rb103"
+    },
+    {
+      "room": "rb106"
+    },
+    {
+      "room": "rb107"
+    },
+    {
+      "room": "rb108"
+    },
+    {
+      "room": "rb109"
+    },
+    {
+      "room": "rb110"
+    },
+    {
+      "room": "rb111"
+    },
+    {
+      "room": "rb112"
+    },
+    {
+      "room": "rb113"
+    },
+    {
+      "room": "rb151"
+    },
+    {
+      "room": "rb152"
+    },
+    {
+      "room": "rb153"
+    },
+    {
+      "room": "rb154"
+    },
+    {
+      "room": "rb155"
+    },
+    {
+      "room": "rb156"
+    },
+    {
+      "room": "rb157"
+    },
+    {
+      "room": "rb158"
+    },
+    {
+      "room": "rb159"
+    },
+    {
+      "room": "rb160"
+    },
+    {
+      "room": "rb200_cleaners_room"
+    },
+    {
+      "room": "rb200_corridor_1"
+    },
+    {
+      "room": "rb200_corridor_2"
+    },
+    {
+      "room": "rb200_corridor_3"
+    },
+    {
+      "room": "rb200_elevator"
+    },
+    {
+      "room": "rb200_main_stair"
+    },
+    {
+      "room": "rb200_men_restroom"
+    },
+    {
+      "room": "rb200_outside_wall"
+    },
+    {
+      "room": "rb200_terrace"
+    },
+    {
+      "room": "rb200_women_restroom"
+    },
+    {
+      "room": "rb201"
+    },
+    {
+      "room": "rb202"
+    },
+    {
+      "room": "rb203"
+    },
+    {
+      "room": "rb204"
+    },
+    {
+      "room": "rb205"
+    },
+    {
+      "room": "rb206"
+    },
+    {
+      "room": "rb207"
+    },
+    {
+      "room": "rb208"
+    },
+    {
+      "room": "rb209"
+    },
+    {
+      "room": "rb210"
+    },
+    {
+      "room": "rb211"
+    },
+    {
+      "room": "rb212"
+    },
+    {
+      "room": "rb213"
+    },
+    {
+      "room": "rb214"
+    },
+    {
+      "room": "rb251"
+    },
+    {
+      "room": "rb252"
+    },
+    {
+      "room": "rb253"
+    },
+    {
+      "room": "rb254"
+    },
+    {
+      "room": "rb255"
+    },
+    {
+      "room": "rb256"
+    },
+    {
+      "room": "rb257"
+    },
+    {
+      "room": "rb258"
+    },
+    {
+      "room": "rb259"
+    },
+    {
+      "room": "rb300_cleaners_room"
+    },
+    {
+      "room": "rb300_corridor_1"
+    },
+    {
+      "room": "rb300_corridor_2"
+    },
+    {
+      "room": "rb300_elevator"
+    },
+    {
+      "room": "rb300_main_stair"
+    },
+    {
+      "room": "rb300_men_restroom"
+    },
+    {
+      "room": "rb300_outside_wall"
+    },
+    {
+      "room": "rb300_rooftop"
+    },
+    {
+      "room": "rb300_terrace"
+    },
+    {
+      "room": "rb300_women_restroom"
+    },
+    {
+      "room": "rb301"
+    },
+    {
+      "room": "rb302"
+    },
+    {
+      "room": "rb303"
+    },
+    {
+      "room": "rb304"
+    },
+    {
+      "room": "rb305"
+    },
+    {
+      "room": "rb306"
+    },
+    {
+      "room": "rb307"
+    },
+    {
+      "room": "rb308"
+    },
+    {
+      "room": "rb351"
+    },
+    {
+      "room": "rb352"
+    },
+    {
+      "room": "rb353"
+    },
+    {
+      "room": "rb354"
+    },
+    {
+      "room": "rb355"
+    },
+    {
+      "room": "rb356"
+    },
+    {
+      "room": "rb357"
+    },
+    {
+      "room": "rb358"
+    },
+    {
+      "room": "rb359"
+    },
+    {
+      "room": "rb360"
+    },
+    {
+      "room": "rb_basement"
+    },
+    {
+      "room": "rb_basement_corridor_1"
+    },
+    {
+      "room": "rb_basement_corridor_2"
+    },
+    {
+      "room": "rb_basement_corridor_3"
+    },
+    {
+      "room": "rb_basement_outside_wall"
+    },
+    {
+      "room": "rb_basement_room_1"
+    },
+    {
+      "room": "rb_basement_room_10"
+    },
+    {
+      "room": "rb_basement_room_11"
+    },
+    {
+      "room": "rb_basement_room_12"
+    },
+    {
+      "room": "rb_basement_room_13"
+    },
+    {
+      "room": "rb_basement_room_14"
+    },
+    {
+      "room": "rb_basement_room_2"
+    },
+    {
+      "room": "rb_basement_room_3"
+    },
+    {
+      "room": "rb_basement_room_4"
+    },
+    {
+      "room": "rb_basement_room_5"
+    },
+    {
+      "room": "rb_basement_room_6"
+    },
+    {
+      "room": "rb_basement_room_7"
+    },
+    {
+      "room": "rb_basement_room_8"
+    },
+    {
+      "room": "rb_basement_room_9"
+    },
+    {
+      "room": "rb_terrace"
+    },
+    {
+      "room": "rc000_break_room"
+    },
+    {
+      "room": "rc000_buffet"
+    },
+    {
+      "room": "rc000_cafeteria"
+    },
+    {
+      "room": "rc000_cafeteria_corridor"
+    },
+    {
+      "room": "rc000_corridor_1"
+    },
+    {
+      "room": "rc000_corridor_2"
+    },
+    {
+      "room": "rc000_elevator"
+    },
+    {
+      "room": "rc000_kitchen"
+    },
+    {
+      "room": "rc000_lecture_room"
+    },
+    {
+      "room": "rc000_main_stair"
+    },
+    {
+      "room": "rc000_men_restoom_1"
+    },
+    {
+      "room": "rc000_men_restoom_2"
+    },
+    {
+      "room": "rc000_outside_wall"
+    },
+    {
+      "room": "rc000_rooftop"
+    },
+    {
+      "room": "rc000_side_stair"
+    },
+    {
+      "room": "rc000_utility_room_1"
+    },
+    {
+      "room": "rc000_utility_room_2"
+    },
+    {
+      "room": "rc000_women_restoom_1"
+    },
+    {
+      "room": "rc000_women_restoom_2"
+    },
+    {
+      "room": "rc001"
+    },
+    {
+      "room": "rc002"
+    },
+    {
+      "room": "rc006"
+    },
+    {
+      "room": "rc007"
+    },
+    {
+      "room": "rc009"
+    },
+    {
+      "room": "rc019"
+    },
+    {
+      "room": "rc029"
+    },
+    {
+      "room": "terrace"
+    },
+    {
+      "room": "terrace_bycicle_shelter"
+    },
+    {
+      "room": "terrace_lower"
+    },
+    {
+      "room": "terrace_upper"
+    },
+    {
+      "room": "terrace_ventilator"
+    }
+  ]
+}

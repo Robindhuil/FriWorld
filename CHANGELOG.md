@@ -8,6 +8,13 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- `RoomPlatforms.json` — platformové rozhodnutie pre každú miestnosť žije v repozitári,
+  nie ako komponent v hierarchii. `Add Prefixes From Selection` ho drží v súlade
+  s budovou: nová miestnosť pribudne nerozhodnutá navrch súboru, hotové rozhodnutia
+  sa nikdy neprepíšu.
+- `Add Prefixes From Selection` zadrží aj prefix, ktorý by zožral hlavičku
+  registrovaného typu — `cubboard_1` by z `cubboard_1_part_1` spravil `part`. Doteraz
+  chytal len prefix, ktorý bol typom presne.
 - `OcclusionABTest` — merací nástroj do play mode: strieda zapnuté a vypnuté
   occlusion culling a hlási draw cally, trojuholníky a čas snímku zvlášť pre oba
   stavy. Len pre editor, v builde sa nekompiluje. Nie je nikde nasadený — nasadí sa
@@ -18,6 +25,11 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   z 5867 rendererov (len cedule, nie budovu), stálo až 2,79 ms v jednom snímku
   a štvrtinu cedúľ skrývalo aj vtedy, keď boli jasne viditeľné. Odkedy occlusion
   culling funguje poriadne, nerobilo nič navyše. (`docs/decisions/`)
+
+### Changed
+- Zberač prefixov už neodstrihuje koncové `_<číslo>` z mien kontajnerov, takže
+  `ra100_corridor_1` a `ra100_corridor_2` sú dva riadky. Sú to dve rôzne chodby a každá
+  si rozhoduje sama; typový kľúč sa tým nemení. (325 prefixov namiesto 262.)
 
 ### Fixed
 - Occlusion culling konečne zakrýva to, čo má — **o polovicu menej draw callov

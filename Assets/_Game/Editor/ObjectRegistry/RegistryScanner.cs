@@ -17,6 +17,11 @@ namespace FriWorld.ObjectRegistry
         /// <summary>
         /// Container names that would actually shorten at least one descendant's name. Container
         /// names that prefix nothing are left out — they would only pad the file.
+        ///
+        /// Names are proposed WHOLE, instance number included: ra100_corridor_1 and
+        /// ra100_corridor_2 are separate rows. They are separate places, and collapsing them into
+        /// one ra100_corridor row would force one decision on both. The type key is unaffected
+        /// either way, because ObjectTypeKey removes whichever instance number is left over.
         /// </summary>
         public readonly List<string> proposedPrefixes = new List<string>();
         /// <summary>Proposed prefixes that are also a derived type key. Applying one would eat a type.</summary>
@@ -29,7 +34,11 @@ namespace FriWorld.ObjectRegistry
         /// Walks the subtree and derives a type key for every mesh object, using the approved
         /// prefix list only. Container names are collected separately as proposals for the
         /// human to review — a prefix equal to a type word ("wall") would silently eat part of
-        /// a multi-word type ("wall_edge"), which no automatic guard can catch.
+        /// a multi-word type ("wall_edge").
+        ///
+        /// Two guards catch that. This one flags a proposal that IS a derived key; the second,
+        /// in ObjectRegistryMenu, flags one that merely STARTS a registered type name. Neither
+        /// removes anything — both withhold and report, because the call is the human's.
         /// </summary>
         public static ScanResult Scan(GameObject root, IReadOnlyList<string> approvedPrefixes)
         {
@@ -42,7 +51,7 @@ namespace FriWorld.ObjectRegistry
 
             void Walk(Transform t)
             {
-                if (t.childCount > 0) containers.Add(StripTrailingInt(t.name));
+                if (t.childCount > 0) containers.Add(t.name.Trim());
 
                 if (t.GetComponent<MeshRenderer>() != null)
                 {
@@ -95,16 +104,6 @@ namespace FriWorld.ObjectRegistry
             var parts = new List<string>();
             for (var c = t; c != null; c = c.parent) parts.Insert(0, c.name);
             return string.Join("/", parts.ToArray());
-        }
-
-        static string StripTrailingInt(string s)
-        {
-            int u = s.LastIndexOf('_');
-            if (u <= 0) return s;
-            string tail = s.Substring(u + 1);
-            if (tail.Length == 0) return s;
-            foreach (char c in tail) if (!char.IsDigit(c)) return s;
-            return s.Substring(0, u);
         }
     }
 }
