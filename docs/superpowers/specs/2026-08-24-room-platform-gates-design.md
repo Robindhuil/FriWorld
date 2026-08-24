@@ -1,7 +1,15 @@
 # Dátovo riadené platformové gaty pre miestnosti
 
-Stav: schválený 2026‑08‑24. Dátová vrstva a synchronizácia hotové (`7aa9bbd`); zostáva
-migrácia náčrtu a dva appliery — viď `docs/superpowers/plans/2026-08-24-room-platform-gates.md`.
+Stav: **hotové 2026‑08‑24.** Celý návrh je nasadený a overený — konvergenciu potvrdil druhý beh
+Preview s nulami na oboch vetvách.
+
+Implementácia sa od návrhu odchýlila na dvoch miestach a tento dokument ich už popisuje takto:
+
+- Zberač prefixov prestal strihať koncové `_<int>`, takže `ObjectPrefixes.json`
+  a `RoomPlatforms.json` zdieľajú jeden kľúčový priestor namiesto dvoch (§4).
+- Štyri menu položky nahradilo jedno okno `Room Gates` s prepínačom vetvy (§6).
+
+Čísla v tabuľkách sú namerané v čase návrhu a slúžia ako dôkaz, nie ako aktuálny stav.
 
 ---
 
@@ -182,7 +190,7 @@ súbory zdieľajú jeden kľúčový priestor:
 | `ObjectPrefixes.json` | `ra100_corridor_1` | krájať mená detí |
 | `RoomPlatforms.json` | `ra100_corridor_1` | pomenovať fyzickú oblasť |
 
-Cena je 325 prefixov namiesto 262 a to, že nová `ra000_corridor_5` sa musí najprv nahlásiť cez
+Cena je zhruba o šesťdesiat prefixov viac a to, že nová `ra000_corridor_5` sa musí najprv nahlásiť cez
 `Add Prefixes From Selection`. To je jeden beh nástroja a hlásenie ju vypíše.
 
 ### Poistka, ktorá s tým musela prísť
@@ -299,7 +307,7 @@ vnútorné rozhodnutie ticho zneplatnil. Všetkých päť je dnes `all`, takže 
 `Assets/_Game/Editor/Platforms.json` je ručný náčrt so 262 riadkami na úrovni prefixu:
 158× `desktopOnly`, 104× `all`. Nie je to platný JSON a slúžil na zachytenie zámeru.
 
-Prevod: každej z 301 oblastí sa priradí hodnota, ktorú má jej meno **po odstrihnutí koncového
+Prevod: každej oblasti sa priradí hodnota, ktorú má jej meno **po odstrihnutí koncového
 `_<int>`** v náčrte. `ra100_corridor: all` sa rozvinie na všetky tri chodby,
 `rb_basement_room: desktopOnly` na všetkých 14. Odtiaľ sa jednotlivé oblasti dajú doladiť, čo
 pri prefixovej zrnitosti nešlo.

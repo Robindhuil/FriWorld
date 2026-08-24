@@ -33,7 +33,8 @@ pretiahnutie na `Sfx` by mu to rozhodnutie zrušilo bez slova.
 
 ## Dôsledky
 
-- Existujúcich 277 dverí sa opraví behom kroku 7 v `Routine`.
+- Existujúcich 277 dverí sa opravilo behom kroku 7 v `Routine`; v prefabe je teraz
+  napojených všetkých 291 zdrojov.
 - Editor-only riešenie stačí: každý `AudioSource` v budove je naautorovaný, nie spawnutý za
   behu. Keby raz pribudol zdroj vytvorený skriptom v hre, potreboval by vlastnú cestu k skupine
   — `AssetDatabase` v builde neexistuje.

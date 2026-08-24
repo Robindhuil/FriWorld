@@ -64,28 +64,43 @@ Neurčujú sa kľúčovými slovami v kóde, ale registrom v `Assets/_Game/Edito
 
 | súbor | obsah |
 |---|---|
-| `ObjectPrefixes.json` | prefixy na odstrihnutie (mená kontajnerov/miestností) |
-| `ObjectTypes.json` | `typ → collider / layer / occluder` |
+| `ObjectPrefixes.json` | prefixy na odstrihnutie — **plné mená kontajnerov**, `ra100_corridor_1` |
+| `ObjectTypes.json` | `typ → collider / layer / occluder / script` |
+| `RoomPlatforms.json` | `oblasť → all / desktopOnly / webOnly` |
 
 Meno objektu sa zredukuje na **typový kľúč**: odstrihne sa najdlhší sediaci prefix, vodiace
 `<int>_`, značky `UNO`/`UYO` a koncové `_<int>`. Kľúč sa vyhľadá **presnou zhodou** — nikdy nie
 podreťazcom. Neznámy alebo nevyplnený typ **objekt nedotkne a nahlási sa**; nikdy nedostane
 vlastnosti podobne pomenovaného typu.
 
+Prefixy sa berú **celé, aj s číslom inštancie**. `ra100_corridor_1` a `ra100_corridor_2` sú dve
+chodby a v `RoomPlatforms.json` rozhodujú samostatne. Na typový kľúč to vplyv nemá — čo z čísla
+zostane, odstrihne `ObjectTypeKey`.
+
 ### Pridanie nového objektu
 
-1. Pomenuj ho `<kontajner>_<typ>_<číslo>` a naimportuj.
-2. Vyber koreň (napr. `FriBuilding`) → `FriWorld → Registry → Report On Selection`.
-3. Podľa hlásenia:
-   - **UNKNOWN** → `Seed Missing Types From Selection`, potom vyplň tri polia. Nový typ je
-     **prvý v súbore**, netreba ho hľadať.
-   - **UNSTRIPPED** → pribudol kontajner, spusti `Add Prefixes From Selection`.
-4. `Report On Selection` znova — chceš „every scanned object resolved to a decided type".
-5. `FriWorld → Generate → Colliders From Registry` a
-   `FriWorld → Generate → Layers And Static From Registry`.
-6. Ak sa zmenili occludery, **rebake occlusion culling**.
+Menu **`Routine`** drží celý postup v poradí, v akom sa spúšťa; `Routine → Object Pipeline…`
+je to isté v okne, s popisom ku každému kroku. Ručne to vyzerá takto:
 
-Objekt existujúceho typu (ďalšia lampa, ôsme okno) nevyžaduje nič — stačí krok 5.
+1. Pomenuj ho `<kontajner>_<typ>_<číslo>` a naimportuj.
+2. Vyber koreň (napr. `FriBuilding`) → `Routine → 1 — Report On Selection`.
+3. Podľa hlásenia:
+   - **UNKNOWN** → krok 2 `Seed Missing Types`, potom vyplň tri polia. Nový typ je
+     **prvý v súbore**, netreba ho hľadať.
+   - **UNSTRIPPED** → pribudol kontajner, krok 3 `Add Prefixes`. Ten zároveň doplní nové
+     oblasti do `RoomPlatforms.json` — vyplň im `platform`, sú tiež navrchu súboru.
+   - **WITHHELD** → prefix by zožral hlavičku registrovaného typu. Buď objekt premenuj, alebo
+     prefix schváľ ručne, ale vedz, čo tým rozbiješ.
+4. Krok 1 znova — chceš „every scanned object resolved to a decided type".
+5. Kroky **5 až 8**: `Generate Colliders`, `Layers And Static`, `Setup Interactables`,
+   `Room Gates`. Poradie nie je ľubovoľné — vrstvy pred interaktáblami, interaktábly pred gatmi.
+6. Ak sa zmenili occludery, **rebake occlusion culling**. To zo zoznamu nespraví nič.
+
+Kroky 1–3 čítajú výber v hierarchii. **Kroky 4–8 výber ignorujú a vždy zapisujú do
+`FriBuilding.prefab`** — do prefab assetu, nie na inštanciu v scéne, inak by to bol override
+a prvý reimport `.blend` by to zmietol.
+
+Objekt existujúceho typu (ďalšia lampa, ôsme okno) nevyžaduje nič — stačia kroky 5 až 8.
 
 ### Pravidlá pomenovania
 
@@ -105,11 +120,17 @@ Máš na to systém v `_Game/Scripts/FeatureFlags/` — používaj ho, nie rozsy
 
 | Potreba | Nástroj |
 |---|---|
-| celý GameObject/miestnosť len pre jednu platformu | `PlatformGate` (strip pri builde) |
+| **miestnosť v budove len pre jednu platformu** | `RoomPlatforms.json` + `Routine → 8 — Room Gates` |
+| celý GameObject len pre jednu platformu, mimo budovy | `PlatformGate` (strip pri builde) |
 | konkrétne komponenty na spoločnom objekte | `ComponentGate` |
 | zapínateľná/experimentálna vec v kóde | `Features.On(FeatureId.X)` |
 | render politika webu | `WebRenderDefaults` |
 
+- **Gaty na miestnostiach nepridávaj ručne.** Sú generovaný výstup: rozhodnutie patrí do
+  `RoomPlatforms.json`, ručná úprava v hierarchii sa pri najbližšom behu prepíše. Vetva
+  `Objects` dostane `PlatformGate` na celý kontajner, vetva `fri_building` len `ComponentGate`
+  na dvere — steny a okná sa nestrihajú nikdy.
+  Podrobne: `docs/decisions/2026-08-24-platform-gaty-v-prefabe.md`.
 - Flagy sa konfigurujú v `Assets/Resources/FeatureFlags.asset`.
 - Na „je toto web?" použi **`PlatformFlags.IsWeb`**, nie `Application.platform` —
   v editore sleduje aktívny build target, takže play mode sedí s buildom.

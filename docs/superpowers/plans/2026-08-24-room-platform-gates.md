@@ -1,6 +1,20 @@
 # Room Platform Gates Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+> **DONE — 2026-08-24. Do not execute this plan.** Everything in it shipped; the unticked
+> checkboxes below are the plan as written, not work outstanding. Kept because the reasoning and
+> the measured numbers are the record of how the gates were built.
+>
+> Where the work diverged from the plan:
+>
+> | plan | shipped |
+> |---|---|
+> | four menu items under Tools > Feature Flags | one `Room Gates` window with a branch switch, under `FriWorld` |
+> | Task 1 tests via a plan-supplied file | `RoomGateScopeTests`, 11 tests, written against the real API |
+> | generators keep reading `Selection` | all three write the prefab asset through `PrefabTarget` |
+> | Task 8 cleanup only | also the `Routine` menu, the menu reorganisation and the Sfx routing fix |
+>
+> Current state: 47 EditMode tests pass, `Report Room Gates` converges to zero on both branches.
+> Commits `7aa9bbd` through `43e7971`.
 
 **Goal:** Generate `PlatformGate` and `ComponentGate` into the FriBuilding prefab asset from the per-area decisions in `RoomPlatforms.json`.
 
