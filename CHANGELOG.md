@@ -44,6 +44,11 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   si rozhoduje sama; typový kľúč sa tým nemení. (325 prefixov namiesto 262.)
 
 ### Fixed
+- Posuvníky hlasitosti v nastaveniach konečne ovplyvňujú zvuk dverí. Z 291 `AudioSource`
+  v budove ich bolo do mixéra napojených 14 — zvyšok hral priamo do AudioListenera, kam
+  žiadny parameter mixéra nedosiahne. Napojenie žilo len v inšpektore `Interactable`, takže
+  zabralo pri ručnom kliknutí a nikdy pri objektoch z generátora.
+  (`docs/decisions/2026-08-24-sfx-mimo-mixera.md`)
 - Dverné gaty už nežijú ako override na inštancii v scéne, takže ich reimport `.blend`
   nezmetie. Z 283 dverí predtým prežil jediný.
   (`docs/decisions/2026-08-24-platform-gaty-v-prefabe.md`)

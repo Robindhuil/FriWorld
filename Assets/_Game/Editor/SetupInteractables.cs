@@ -66,6 +66,7 @@ public static class SetupInteractables
 
         int scriptAdded = 0, scriptAlready = 0;
         int animatorAdded = 0, controllerAssigned = 0;
+        int audioRouted = 0, audioAlreadyRouted = 0;
         var unknownScripts = new Dictionary<string, int>();
         var byType = new Dictionary<string, int>();
         var visited = new HashSet<Transform>();
@@ -126,6 +127,16 @@ public static class SetupInteractables
                     animator.runtimeAnimatorController = doorController;
                 }
 
+                // Without an output group the sound bypasses the mixer, so no volume slider in
+                // the settings menu can touch it. Adding Door above ran OnValidate, which has
+                // already created the AudioSource by now.
+                var source = go.GetComponent<AudioSource>();
+                if (source != null)
+                {
+                    if (SfxMixerGroup.Route(source)) audioRouted++;
+                    else audioAlreadyRouted++;
+                }
+
                 EditorUtility.SetDirty(go);
             }
         }
@@ -136,6 +147,9 @@ public static class SetupInteractables
         sb.AppendLine("  Door script:  " + scriptAdded + " to add, " + scriptAlready + " already present");
         sb.AppendLine("  Animator:     " + animatorAdded + " to add, " + controllerAssigned
                     + " needing the controller assigned");
+        if (apply)
+            sb.AppendLine("  Sfx routing:  " + audioRouted + " sent to the mixer, "
+                        + audioAlreadyRouted + " already had a group");
         sb.AppendLine("  by type:");
         foreach (var kv in byType) sb.AppendLine("      " + kv.Key + "   x" + kv.Value);
 

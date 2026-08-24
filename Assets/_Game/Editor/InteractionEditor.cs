@@ -106,26 +106,8 @@ public class InteractableEditor : Editor
         }
     }
 
-    private static void TryAssignSFXMixerGroup(AudioSource source)
-    {
-        if (source == null || source.outputAudioMixerGroup != null)
-            return;
-
-        foreach (string guid in AssetDatabase.FindAssets("t:AudioMixer"))
-        {
-            string path = AssetDatabase.GUIDToAssetPath(guid);
-            var mixer = AssetDatabase.LoadAssetAtPath<AudioMixer>(path);
-            if (mixer == null)
-                continue;
-
-            // FindMatchingGroups does a substring match on the full group path (e.g. "Master/Sfx")
-            var groups = mixer.FindMatchingGroups("Sfx");
-            if (groups.Length == 0)
-                continue;
-
-            source.outputAudioMixerGroup = groups[0];
-            EditorUtility.SetDirty(source);
-            break;
-        }
-    }
+    // Ticking the sound toggle by hand is only one of the ways an interactable gets an
+    // AudioSource; SetupInteractables makes far more of them. Both go through SfxMixerGroup so
+    // they cannot disagree about where the sound ends up.
+    private static void TryAssignSFXMixerGroup(AudioSource source) => SfxMixerGroup.Route(source);
 }
