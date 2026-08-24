@@ -12,7 +12,8 @@ namespace FriWorld.FeatureFlags
     /// ceiling and windows, so removing it would leave a hole in the building. It strips only
     /// the door's behaviour — the Door script, its Animator and its AudioSource — and moves the
     /// object to Obstacle so the interaction raycast stops seeing it. The door stays visible and
-    /// stops opening. That is exactly what the old Tools > Setup Door Gates did by hand.
+    /// stops opening — the same configuration the hand-run DoorGateSetup used to produce, now
+    /// derived from data instead of from the current Hierarchy selection.
     ///
     /// Doors come from the object type registry (script == "Door"), never from looking for
     /// "door" in the name. 808 object names contain it, but only the 283 that resolve to a Door
