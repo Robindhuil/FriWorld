@@ -1,12 +1,6 @@
 {
   "types": [
     {
-      "name": "utility_box",
-      "collider": "box",
-      "layer": "obstacle",
-      "occluder": "auto"
-    },
-    {
       "name": "BakedSignQuad",
       "collider": "none",
       "layer": "noObstacle",
@@ -85,13 +79,73 @@
       "occluder": "auto"
     },
     {
+      "name": "chair_break_room",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "chair_cafeteria",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "chair_classroom",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "chair_corridor_1_base",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "chair_corridor_1_seat",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "chair_turning",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
       "name": "construction",
       "collider": "none",
       "layer": "noObstacle",
       "occluder": "auto"
     },
     {
+      "name": "couch_beanbag",
+      "collider": "mesh",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "couch_pallete",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "couch_reception",
+      "collider": "mesh",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
       "name": "counter",
+      "collider": "mesh",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "cubboard_1_part",
       "collider": "box",
       "layer": "obstacle",
       "occluder": "auto"
@@ -194,6 +248,18 @@
       "occluder": "auto"
     },
     {
+      "name": "drawer",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "drawer_cabinet",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
       "name": "e_box",
       "collider": "none",
       "layer": "noObstacle",
@@ -284,6 +350,18 @@
       "occluder": "auto"
     },
     {
+      "name": "misc_coat_hook",
+      "collider": "none",
+      "layer": "noObstacle",
+      "occluder": "no"
+    },
+    {
+      "name": "misc_projector",
+      "collider": "none",
+      "layer": "noObstacle",
+      "occluder": "no"
+    },
+    {
       "name": "nav",
       "collider": "mesh",
       "layer": "nav",
@@ -318,6 +396,30 @@
       "collider": "mesh",
       "layer": "noObstacle",
       "occluder": "auto"
+    },
+    {
+      "name": "pc_desktop",
+      "collider": "none",
+      "layer": "noObstacle",
+      "occluder": "no"
+    },
+    {
+      "name": "pc_keyboard",
+      "collider": "none",
+      "layer": "noObstacle",
+      "occluder": "no"
+    },
+    {
+      "name": "pc_monitor",
+      "collider": "box",
+      "layer": "noObstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "pc_mouse",
+      "collider": "none",
+      "layer": "noObstacle",
+      "occluder": "no"
     },
     {
       "name": "pillar",
@@ -482,6 +584,60 @@
       "occluder": "auto"
     },
     {
+      "name": "table_break_room",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "table_cabinet_1_part",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "table_cafeteria",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "table_classroom",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "table_hall",
+      "collider": "mesh",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "table_noble",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "table_pc_1_part",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "table_pc_half_1_part",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "table_reception",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
       "name": "teacher_desk",
       "collider": "box",
       "layer": "obstacle",
@@ -501,6 +657,12 @@
     },
     {
       "name": "thick_foor",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "trash_bin_grand",
       "collider": "box",
       "layer": "obstacle",
       "occluder": "auto"
@@ -533,6 +695,18 @@
       "name": "tree_top",
       "collider": "none",
       "layer": "noObstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "tv_cieling",
+      "collider": "none",
+      "layer": "noObstacle",
+      "occluder": "auto"
+    },
+    {
+      "name": "utility_box",
+      "collider": "box",
+      "layer": "obstacle",
       "occluder": "auto"
     },
     {

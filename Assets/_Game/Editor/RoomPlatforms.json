@@ -1,6 +1,10 @@
 {
   "rooms": [
     {
+      "room": "terrace_ventilator",
+      "platform": "all"
+    },
+    {
       "room": "outside_back",
       "platform": "all"
     },
@@ -226,11 +230,11 @@
     },
     {
       "room": "ra120",
-      "platform": "all"
+      "platform": "desktopOnly"
     },
     {
       "room": "ra122",
-      "platform": "desktopOnly"
+      "platform": "all"
     },
     {
       "room": "ra123",
@@ -606,7 +610,7 @@
     },
     {
       "room": "rb009",
-      "platform": "all"
+      "platform": "desktopOnly"
     },
     {
       "room": "rb010",
@@ -698,11 +702,11 @@
     },
     {
       "room": "rb110",
-      "platform": "all"
+      "platform": "desktopOnly"
     },
     {
       "room": "rb111",
-      "platform": "all"
+      "platform": "desktopOnly"
     },
     {
       "room": "rb112",
@@ -710,7 +714,7 @@
     },
     {
       "room": "rb113",
-      "platform": "all"
+      "platform": "desktopOnly"
     },
     {
       "room": "rb151",
@@ -854,7 +858,7 @@
     },
     {
       "room": "rb252",
-      "platform": "all"
+      "platform": "desktopOnly"
     },
     {
       "room": "rb253",
@@ -962,7 +966,7 @@
     },
     {
       "room": "rb352",
-      "platform": "all"
+      "platform": "desktopOnly"
     },
     {
       "room": "rb353",
@@ -1106,7 +1110,7 @@
     },
     {
       "room": "rc000_kitchen",
-      "platform": "all"
+      "platform": "desktopOnly"
     },
     {
       "room": "rc000_lecture_room",

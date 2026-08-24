@@ -300,6 +300,7 @@
     "terrace",
     "terrace_bycicle_shelter",
     "terrace_lower",
-    "terrace_upper"
+    "terrace_upper",
+    "terrace_ventilator"
   ]
 }
