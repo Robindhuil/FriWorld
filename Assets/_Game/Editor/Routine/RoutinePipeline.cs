@@ -79,18 +79,18 @@ namespace FriWorld.Routine
                 title = "Generate colliders",
                 description = "Gives every object the collider its type asks for: none, box, "
                             + "sphere or mesh. An unknown or undecided type is skipped and "
-                            + "listed rather than guessed at.",
+                            + "listed rather than guessed at. Writes the FriBuilding prefab, so "
+                            + "the selection does not matter.",
                 menuPath = "FriWorld/Generate/Colliders From Registry",
-                needsSelection = true,
             },
             new Step
             {
                 title = "Assign layers and static flags",
                 description = "Sets the layer, the static flags, the Door tag and the NavMesh "
                             + "modifier from the type's layer and occluder fields. UNO and UYO "
-                            + "in an object's name still override the registry.",
+                            + "in an object's name still override the registry. Writes the "
+                            + "FriBuilding prefab, so the selection does not matter.",
                 menuPath = "FriWorld/Generate/Layers And Static From Registry",
-                needsSelection = true,
             },
             new Step
             {
@@ -98,9 +98,9 @@ namespace FriWorld.Routine
                 description = "Attaches the behaviour named in the type's script field, such as "
                             + "Door, together with its animator controller. Runs after layers "
                             + "because door_frame sits on the Interactable layer too and must "
-                            + "not become an openable door.",
+                            + "not become an openable door. Writes the FriBuilding prefab, so "
+                            + "the selection does not matter.",
                 menuPath = "FriWorld/Generate/Interactables From Registry",
-                needsSelection = true,
             },
             new Step
             {

@@ -25,9 +25,11 @@ namespace FriWorld.Routine
         void OnGUI()
         {
             EditorGUILayout.HelpBox(
-                "Run these top to bottom. Select the objects you imported in the Hierarchy first "
-                + "— most steps work on the selection. Adding another instance of a type that "
-                + "already exists needs only steps 5 to 8.",
+                "Run these top to bottom. The scanning steps read the Hierarchy selection — "
+                + "select what you imported, or FriBuilding for the whole building. The steps "
+                + "that write always target the FriBuilding prefab asset and ignore the "
+                + "selection. Adding another instance of a type that already exists needs only "
+                + "steps 5 to 8.",
                 MessageType.Info);
 
             bool hasSelection = Selection.gameObjects != null && Selection.gameObjects.Length > 0;

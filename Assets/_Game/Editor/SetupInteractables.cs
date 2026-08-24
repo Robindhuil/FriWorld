@@ -23,17 +23,27 @@ public static class SetupInteractables
     private const float DoorOpenRotation = 90f;
 
     [MenuItem("FriWorld/Generate/Interactables From Registry")]
-    private static void SetupFromSelection() => Run(apply: true);
+    private static void SetupOnPrefab()
+        => PrefabTarget.Run("SetupInteractables", root => Run(new[] { root }, apply: true));
 
     [MenuItem("FriWorld/Generate/Interactables - Report Only (dry run)")]
-    private static void ReportOnly() => Run(apply: false);
-
-    private static void Run(bool apply)
+    private static void ReportOnly()
     {
-        GameObject[] roots = Selection.gameObjects;
+        // Opened and closed WITHOUT saving. A dry run that writes the prefab is not a dry run.
+        GameObject contents = RoomGateScope.Open();
+        try { Run(new[] { contents }, apply: false); }
+        finally { RoomGateScope.Close(contents); }
+    }
+
+    /// <summary>
+    /// Walks the subtrees and attaches the behaviour each type's script field names. Public so
+    /// the same pass can be pointed at a prefab root or, in a test, at a hand-built hierarchy.
+    /// </summary>
+    public static void Run(GameObject[] roots, bool apply)
+    {
         if (roots == null || roots.Length == 0)
         {
-            Debug.LogWarning("[SetupInteractables] No objects selected in Hierarchy.");
+            Debug.LogWarning("[SetupInteractables] Nothing to walk.");
             return;
         }
 
@@ -60,13 +70,8 @@ public static class SetupInteractables
         var byType = new Dictionary<string, int>();
         var visited = new HashSet<Transform>();
 
-        if (apply)
-        {
-            Undo.IncrementCurrentGroup();
-            Undo.SetCurrentGroupName("Setup Interactables From Registry");
-        }
-        int undoGroup = Undo.GetCurrentGroup();
-
+        // No Undo group: this edits a prefab asset in a preview scene, where Undo does not
+        // apply. Git is the undo.
         foreach (GameObject root in roots)
         {
             if (root == null) continue;
@@ -105,7 +110,7 @@ public static class SetupInteractables
                 {
                     // AddComponent runs Reset(), which sets the prompt, sound and range, and
                     // OnValidate then adds and configures the AudioSource by itself.
-                    Door door = Undo.AddComponent<Door>(go);
+                    Door door = go.AddComponent<Door>();
                     var so = new SerializedObject(door);
                     var rotation = so.FindProperty("openRotationAmount");
                     if (rotation != null)
@@ -115,18 +120,15 @@ public static class SetupInteractables
                     }
                 }
 
-                if (animator == null) animator = Undo.AddComponent<Animator>(go);
+                if (animator == null) animator = go.AddComponent<Animator>();
                 if (animator.runtimeAnimatorController != doorController)
                 {
-                    Undo.RecordObject(animator, "Assign Door Animator Controller");
                     animator.runtimeAnimatorController = doorController;
                 }
 
                 EditorUtility.SetDirty(go);
             }
         }
-
-        if (apply) Undo.CollapseUndoOperations(undoGroup);
 
         var sb = new System.Text.StringBuilder();
         sb.AppendLine("[SetupInteractables] " + (apply ? "applied" : "DRY RUN — nothing changed")
@@ -146,8 +148,4 @@ public static class SetupInteractables
         Debug.Log(sb.ToString());
     }
 
-    [MenuItem("FriWorld/Generate/Interactables From Registry", true)]
-    [MenuItem("FriWorld/Generate/Interactables - Report Only (dry run)", true)]
-    private static bool ValidateSelection()
-        => Selection.gameObjects != null && Selection.gameObjects.Length > 0;
 }

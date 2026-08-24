@@ -11,16 +11,25 @@ using UnityEngine;
 /// filled in, is left exactly as it is and listed in the summary — it never inherits the
 /// behaviour of a similarly named type. See
 /// <c>docs/decisions/2026-08-04-object-type-registry.md</c>.
+///
+/// Writes into the FriBuilding prefab asset, not into whatever happens to be selected — see
+/// <see cref="PrefabTarget"/> for why.
 /// </summary>
 public static class GenerateColliders
 {
     [MenuItem("FriWorld/Generate/Colliders From Registry")]
-    private static void GenerateFromSelectedHierarchy()
+    private static void GenerateOnPrefab()
+        => PrefabTarget.Run("GenerateColliders", root => Generate(new[] { root }));
+
+    /// <summary>
+    /// Walks the subtrees and gives every mesh object the collider its type asks for. Public so
+    /// the same pass can be pointed at a prefab root or, in a test, at a hand-built hierarchy.
+    /// </summary>
+    public static void Generate(GameObject[] roots)
     {
-        GameObject[] selectedRoots = Selection.gameObjects;
-        if (selectedRoots == null || selectedRoots.Length == 0)
+        if (roots == null || roots.Length == 0)
         {
-            Debug.LogWarning("[GenerateColliders] No objects selected in Hierarchy.");
+            Debug.LogWarning("[GenerateColliders] Nothing to walk.");
             return;
         }
 
@@ -41,11 +50,9 @@ public static class GenerateColliders
         List<string> badValues = new List<string>();
         HashSet<Transform> visited = new HashSet<Transform>();
 
-        Undo.IncrementCurrentGroup();
-        Undo.SetCurrentGroupName("Generate Colliders From Registry");
-        int undoGroup = Undo.GetCurrentGroup();
-
-        foreach (GameObject root in selectedRoots)
+        // No Undo group: this edits a prefab asset in a preview scene, where Undo does not
+        // apply. Git is the undo.
+        foreach (GameObject root in roots)
         {
             if (root == null) continue;
 
@@ -79,7 +86,7 @@ public static class GenerateColliders
                         outdatedRemoved += RemoveManagedColliders(go, false, true, true);
                         if (go.GetComponent<MeshCollider>() == null)
                         {
-                            Undo.AddComponent<MeshCollider>(go);
+                            go.AddComponent<MeshCollider>();
                             meshAdded++;
                         }
                         else alreadyHad++;
@@ -90,7 +97,7 @@ public static class GenerateColliders
                         BoxCollider box = go.GetComponent<BoxCollider>();
                         if (box == null)
                         {
-                            box = Undo.AddComponent<BoxCollider>(go);
+                            box = go.AddComponent<BoxCollider>();
                             boxAdded++;
                         }
                         else alreadyHad++;
@@ -107,7 +114,7 @@ public static class GenerateColliders
                         SphereCollider sphere = go.GetComponent<SphereCollider>();
                         if (sphere == null)
                         {
-                            sphere = Undo.AddComponent<SphereCollider>(go);
+                            sphere = go.AddComponent<SphereCollider>();
                             sphereAdded++;
                         }
                         else alreadyHad++;
@@ -125,8 +132,6 @@ public static class GenerateColliders
                 }
             }
         }
-
-        Undo.CollapseUndoOperations(undoGroup);
 
         Debug.Log(
             $"[GenerateColliders] Completed. Processed: {visited.Count}, "
@@ -151,12 +156,6 @@ public static class GenerateColliders
         }
     }
 
-    [MenuItem("FriWorld/Generate/Colliders From Registry", true)]
-    private static bool ValidateGenerateFromSelectedHierarchy()
-    {
-        return Selection.gameObjects != null && Selection.gameObjects.Length > 0;
-    }
-
     private static int RemoveManagedColliders(
         GameObject go,
         bool removeMesh,
@@ -171,7 +170,7 @@ public static class GenerateColliders
             MeshCollider mesh = go.GetComponent<MeshCollider>();
             if (mesh != null)
             {
-                Undo.DestroyObjectImmediate(mesh);
+                Object.DestroyImmediate(mesh);
                 removedCount++;
             }
         }
@@ -181,7 +180,7 @@ public static class GenerateColliders
             BoxCollider box = go.GetComponent<BoxCollider>();
             if (box != null)
             {
-                Undo.DestroyObjectImmediate(box);
+                Object.DestroyImmediate(box);
                 removedCount++;
             }
         }
@@ -191,7 +190,7 @@ public static class GenerateColliders
             SphereCollider sphere = go.GetComponent<SphereCollider>();
             if (sphere != null)
             {
-                Undo.DestroyObjectImmediate(sphere);
+                Object.DestroyImmediate(sphere);
                 removedCount++;
             }
         }

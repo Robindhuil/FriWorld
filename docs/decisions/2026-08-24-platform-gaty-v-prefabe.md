@@ -36,17 +36,15 @@ vygenerovateľný z `FriWorld > Feature Flags > Room Gates`.
 - Aj keby sa gaty znova stratili, dajú sa vrátiť jedným behom nástroja. Strata komponentu
   prestala byť stratou informácie.
 - Ručná úprava gatu priamo v hierarchii sa pri najbližšom behu prepíše. Zmena patrí do JSON‑u.
-- **`GenerateColliders`, `GenerateLayersAndStatic` a `SetupInteractables` majú ten istý problém
-  a zatiaľ nevystrelil.** Čítajú `Selection` a píšu tam, kde je výber — pri označení v scéne
-  teda na inštanciu. Tých 2671 override komponentov sú prevažne `BoxCollider`
-  a `NavMeshModifier` od nich. Prvý reimport `.blend` ich zmetie rovnako ako dverné gaty.
+- **To isté platí pre `GenerateColliders`, `GenerateLayersAndStatic` a `SetupInteractables`.**
+  Mali presne tú istú chybu, len ešte nevystrelila: čítali `Selection` a písali tam, kde bol
+  výber, čiže pri označení v scéne na inštanciu. Tých 2671 override komponentov bolo od nich.
+  Teraz idú všetky tri cez `PrefabTarget`, ktorý otvorí prefab, spustí prechod a uloží.
 
-  Kým sa to nespraví poriadne, obchádzka je označiť koreň v **Prefab Mode**, nie v scéne —
-  výber potom ukazuje na obsah prefabu a komponenty pristanú v assete.
-
-  Poriadne riešenie znamená dať tým trom nástrojom koreň parametrom namiesto `Selection`,
-  aby ich vedel obslúžiť rovnaký kód, čo otvára prefab pre Room Gates. Neurobilo sa to teraz,
-  lebo to je refaktor troch veľkých súborov a nesúvisí s tým, prečo zmizli dvere.
+  Výber už neriešia vôbec, takže ich menu položky nemajú validátor a sú dostupné vždy.
+- **Undo v týchto nástrojoch skončilo.** Preview scéna prefabu ho nepodporuje, takže volania
+  `Undo.AddComponent` a `Undo.RecordObject` boli nahradené priamymi. Vrátiť beh znamená
+  `git checkout` prefabu — čo je aj tak spoľahlivejšie než undo cez 15 586 objektov.
 
 ## Čo neskúšať znova
 

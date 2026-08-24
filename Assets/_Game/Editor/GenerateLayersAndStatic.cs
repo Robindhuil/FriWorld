@@ -53,17 +53,23 @@ public static class GenerateLayersAndStatic
     private const string UyoOverrideKeyword = "UYO";
 
     [MenuItem("FriWorld/Generate/Layers And Static From Registry")]
-    private static void AssignLayersAndStaticFromSelectedHierarchy()
+    private static void AssignOnPrefab()
+        => PrefabTarget.Run("GenerateLayersAndStatic", root => Assign(new[] { root }));
+
+    /// <summary>
+    /// Walks the subtrees and applies layer, static flags, tag and NavMesh modifier. Public so
+    /// the same pass can be pointed at a prefab root or, in a test, at a hand-built hierarchy.
+    /// </summary>
+    public static void Assign(GameObject[] roots)
     {
         if (!TryGetRequiredLayers(out Dictionary<string, int> layerMap))
         {
             return;
         }
 
-        GameObject[] selectedRoots = Selection.gameObjects;
-        if (selectedRoots == null || selectedRoots.Length == 0)
+        if (roots == null || roots.Length == 0)
         {
-            Debug.LogWarning("[GenerateLayersAndStatic] No objects selected in Hierarchy.");
+            Debug.LogWarning("[GenerateLayersAndStatic] Nothing to walk.");
             return;
         }
 
@@ -94,11 +100,9 @@ public static class GenerateLayersAndStatic
             );
         }
 
-        Undo.IncrementCurrentGroup();
-        Undo.SetCurrentGroupName("Assign Layers And Static From Registry");
-        int undoGroup = Undo.GetCurrentGroup();
-
-        foreach (GameObject root in selectedRoots)
+        // No Undo group: this edits a prefab asset in a preview scene, where Undo does not
+        // apply. Git is the undo.
+        foreach (GameObject root in roots)
         {
             if (root == null) continue;
 
@@ -201,7 +205,6 @@ public static class GenerateLayersAndStatic
                     continue;
                 }
 
-                Undo.RecordObject(go, "Assign Layer/Static");
 
                 if (go.layer != targetLayer)
                 {
@@ -224,8 +227,6 @@ public static class GenerateLayersAndStatic
                 EditorUtility.SetDirty(go);
             }
         }
-
-        Undo.CollapseUndoOperations(undoGroup);
 
         Debug.Log(
             $"[GenerateLayersAndStatic] Completed. Processed: {visited.Count}, "
@@ -251,12 +252,6 @@ public static class GenerateLayersAndStatic
                 + "interactable, obstacle, noObstacle, nav or keep):\n"
                 + string.Join("\n", badValues.ToArray()));
         }
-    }
-
-    [MenuItem("FriWorld/Generate/Layers And Static From Registry", true)]
-    private static bool ValidateAssignLayersAndStaticFromSelectedHierarchy()
-    {
-        return Selection.gameObjects != null && Selection.gameObjects.Length > 0;
     }
 
     /// <summary>
@@ -367,7 +362,7 @@ public static class GenerateLayersAndStatic
         NavMeshModifier modifier = go.GetComponent<NavMeshModifier>();
         if (modifier == null)
         {
-            modifier = Undo.AddComponent<NavMeshModifier>(go);
+            modifier = go.AddComponent<NavMeshModifier>();
             modifierAdded = true;
         }
 
@@ -390,7 +385,6 @@ public static class GenerateLayersAndStatic
 
         if (!requiresPropertyUpdate && !requiresAffectedAgentsUpdate) return;
 
-        Undo.RecordObject(modifier, "Configure Obstacle NavMesh Modifier");
 
         if (requiresPropertyUpdate)
         {

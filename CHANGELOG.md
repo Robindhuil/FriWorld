@@ -47,6 +47,9 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Dverné gaty už nežijú ako override na inštancii v scéne, takže ich reimport `.blend`
   nezmetie. Z 283 dverí predtým prežil jediný.
   (`docs/decisions/2026-08-24-platform-gaty-v-prefabe.md`)
+- Collidery, vrstvy aj interaktabilita sa generujú priamo do `FriBuilding.prefab`, nie na
+  inštanciu v scéne. Doteraz to boli prefab overrides — 2671 komponentov, ktoré by prvý
+  reimport `.blend` zmietol rovnako ako dverné gaty. Tie tri nástroje už výber neriešia.
 
 ### Fixed
 - Occlusion culling konečne zakrýva to, čo má — **o polovicu menej draw callov
