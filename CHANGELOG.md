@@ -8,6 +8,12 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- Menu `Routine` — pipeline na pridanie objektu v poradí, v akom sa spúšťa, plus okno
+  `Object Pipeline` s krátkym popisom ku každému kroku a tlačidlom Run. Označíš
+  `FriBuilding` raz a klikáš zhora dole; výber sa medzi krokmi nemení.
+- `FriWorld > Feature Flags > Room Gates` — okno, ktoré generuje platformové gaty
+  z `RoomPlatforms.json` priamo do prefab assetu. Vetvy `Objects` a `fri_building` sa
+  dajú zapísať zvlášť, Preview najprv ukáže, čo by sa zmenilo.
 - `RoomPlatforms.json` — platformové rozhodnutie pre každú miestnosť žije v repozitári,
   nie ako komponent v hierarchii. `Add Prefixes From Selection` ho drží v súlade
   s budovou: nová miestnosť pribudne nerozhodnutá navrch súboru, hotové rozhodnutia
@@ -21,15 +27,26 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Removed
+- `Tools > Setup Door Gates` — hľadal dvere cez `Contains("door")`, čím chytal aj 302
+  zárubní a 221 prahov, a vrstvu mal natvrdo na `7`. Nahradilo ho okno Room Gates,
+  ktoré berie dvere z registra typov.
 - `RuntimeOcclusionCuller` — raycastové culovanie za behu. Zmerané: pokrývalo 338
   z 5867 rendererov (len cedule, nie budovu), stálo až 2,79 ms v jednom snímku
   a štvrtinu cedúľ skrývalo aj vtedy, keď boli jasne viditeľné. Odkedy occlusion
   culling funguje poriadne, nerobilo nič navyše. (`docs/decisions/`)
 
 ### Changed
+- Všetky projektové nástroje sú pod jedným menu `FriWorld`, roztriedené do skupín
+  `Registry`, `Generate`, `Feature Flags`, `Lighting`, `Room Signs`, `Utilities`
+  a `Debug`. `Tools` je Unity vlastné menu a naše skripty tam už nie sú.
 - Zberač prefixov už neodstrihuje koncové `_<číslo>` z mien kontajnerov, takže
   `ra100_corridor_1` a `ra100_corridor_2` sú dva riadky. Sú to dve rôzne chodby a každá
   si rozhoduje sama; typový kľúč sa tým nemení. (325 prefixov namiesto 262.)
+
+### Fixed
+- Dverné gaty už nežijú ako override na inštancii v scéne, takže ich reimport `.blend`
+  nezmetie. Z 283 dverí predtým prežil jediný.
+  (`docs/decisions/2026-08-24-platform-gaty-v-prefabe.md`)
 
 ### Fixed
 - Occlusion culling konečne zakrýva to, čo má — **o polovicu menej draw callov
