@@ -9,12 +9,18 @@ using UnityEngine;
 using UnityEngine.AI;
 
 /// <summary>
-/// Assigns layers, static flags and the Door tag from the object type registry.
+/// Assigns layers, static flags, shadow casting and the Door tag from the object type registry.
 ///
 /// The layer comes from <c>ObjectTypes.json</c>, looked up by the type key derived from the
 /// object's name. Static flags and the Door tag are derived from that layer unless the entry
 /// overrides them. An object whose type is unknown or undecided is left exactly as it is and
 /// reported — it never inherits a similarly named type's behaviour.
+///
+/// Shadow casting is not in the registry, for the same reason Occluder Static is not: a name
+/// cannot tell you whether a surface is see-through, so both are decided from the materials.
+/// It belongs in this pass rather than a tool of its own because this pass writes into
+/// <c>FriBuilding.prefab</c>; anything that writes shadow casting onto the scene instance is a
+/// prefab override and the next run of this pipeline throws it away.
 ///
 /// UNO / UYO in an object's name still win over the registry: they are per-instance exceptions
 /// that a type-level registry cannot express.
@@ -42,6 +48,12 @@ public static class GenerateLayersAndStatic
     // Summed face area of the world bounds. Below this an object cannot hide anything behind
     // it, so making it an occluder only costs bake time and memory.
     private const float MinOccluderArea = 2f;
+
+    // The Progressive lightmapper treats every shadow caster as fully opaque, whatever the
+    // material says. A window pane left casting shadows therefore blocks all baked sunlight,
+    // which is why the interiors had no daylight in them at all.
+    private const UnityEngine.Rendering.ShadowCastingMode SeeThroughShadowCasting =
+        UnityEngine.Rendering.ShadowCastingMode.Off;
 
     private const string InteractableLayerName = "Interactable";
     private const string ObstacleLayerName = "Obstacle";
@@ -83,7 +95,7 @@ public static class GenerateLayersAndStatic
             return;
         }
 
-        int layerChanged = 0, staticChanged = 0, tagChanged = 0;
+        int layerChanged = 0, staticChanged = 0, tagChanged = 0, shadowCastingChanged = 0;
         int navMeshModifierAdded = 0, navMeshModifierConfigured = 0;
         int overridden = 0, unchanged = 0;
 
@@ -114,7 +126,8 @@ public static class GenerateLayersAndStatic
 
                 // The registry is keyed on the names of objects that carry geometry. Grouping
                 // transforms are left on whatever layer they already have.
-                if (go.GetComponent<Renderer>() == null) continue;
+                Renderer renderer = go.GetComponent<Renderer>();
+                if (renderer == null) continue;
 
                 int targetLayer;
                 bool targetStatic;
@@ -192,9 +205,16 @@ public static class GenerateLayersAndStatic
 
                 StaticEditorFlags currentFlags = GameObjectUtility.GetStaticEditorFlags(go);
 
+                // Same see-through test as the occluder decision, for the same reason: what the
+                // player looks through, the lightmapper must be able to shoot through too.
+                var desiredShadowCasting = IsSeeThrough(renderer)
+                    ? SeeThroughShadowCasting
+                    : UnityEngine.Rendering.ShadowCastingMode.On;
+
                 bool hasChange =
                     go.layer != targetLayer
                     || currentFlags != desiredFlags
+                    || renderer.shadowCastingMode != desiredShadowCasting
                     || modifierAdded
                     || modifierConfigured
                     || requiresTagUpdate;
@@ -224,6 +244,13 @@ public static class GenerateLayersAndStatic
                     tagChanged++;
                 }
 
+                if (renderer.shadowCastingMode != desiredShadowCasting)
+                {
+                    renderer.shadowCastingMode = desiredShadowCasting;
+                    EditorUtility.SetDirty(renderer);
+                    shadowCastingChanged++;
+                }
+
                 EditorUtility.SetDirty(go);
             }
         }
@@ -231,6 +258,7 @@ public static class GenerateLayersAndStatic
         Debug.Log(
             $"[GenerateLayersAndStatic] Completed. Processed: {visited.Count}, "
                 + $"LayerChanged: {layerChanged}, StaticChanged: {staticChanged}, TagChanged: {tagChanged}, "
+                + $"ShadowCastingChanged: {shadowCastingChanged}, "
                 + $"NameOverrides (UNO/UYO): {overridden}, "
                 + $"NavMeshModifierAdded: {navMeshModifierAdded}, "
                 + $"NavMeshModifierConfigured: {navMeshModifierConfigured}, "
@@ -280,6 +308,29 @@ public static class GenerateLayersAndStatic
         Vector3 size = renderer.bounds.size;
         float area = size.x * size.y + size.y * size.z + size.x * size.z;
         return area >= MinOccluderArea;
+    }
+
+    /// <summary>
+    /// True when every material on the renderer is see-through, i.e. nothing on this mesh is
+    /// meant to stop light. A window pane whose frame shares the same renderer does not qualify
+    /// — the frame is opaque and has to keep casting its shadow.
+    /// </summary>
+    public static bool IsSeeThrough(Renderer renderer)
+    {
+        if (renderer == null) return false;
+
+        Material[] materials = renderer.sharedMaterials;
+        if (materials.Length == 0) return false;
+
+        for (int i = 0; i < materials.Length; i++)
+        {
+            if (materials[i] == null || materials[i].renderQueue < TransparentRenderQueue)
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private static bool TryGetRequiredLayers(out Dictionary<string, int> layerMap)
