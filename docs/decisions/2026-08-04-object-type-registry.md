@@ -1,5 +1,7 @@
 # Collidery a vrstvy riadi register typov, nie kľúčové slová v kóde
 
+**Verzia:** 0.1.0-alpha · **Dátum:** 2026-08-04
+
 ## Kontext
 
 `GenerateColliders` a `GenerateLayersAndStatic` rozhodovali podľa ručne udržiavaných polí

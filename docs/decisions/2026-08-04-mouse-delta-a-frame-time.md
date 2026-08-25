@@ -1,5 +1,7 @@
 # Mouse delta sa nenásobí `Time.deltaTime`
 
+**Verzia:** 0.1.0-alpha · **Dátum:** 2026-08-04
+
 ## Kontext
 
 Vo web builde sa občas stalo, že sa pohľad hráča sám švihol do strany. FPS pritom

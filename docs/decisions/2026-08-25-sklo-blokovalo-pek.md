@@ -1,5 +1,7 @@
 # Čo púšťa svetlo do budovy, rozhoduje materiál — nie typ
 
+**Verzia:** 0.1.1-alpha · **Dátum:** 2026-08-25
+
 ## Kontext
 
 Interiér bol tmavý a hľadalo sa, kde pridať bounce. Materiály za to nemohli: albedo statickej

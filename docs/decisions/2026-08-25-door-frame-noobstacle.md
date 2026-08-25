@@ -1,5 +1,7 @@
 # Zárubne patria na `obstacle`, lebo navmesh zbiera len tú vrstvu
 
+**Verzia:** 0.1.1-alpha · **Dátum:** 2026-08-25
+
 ## Kontext
 
 `door_frame` a `door_frame_<int>_glass` mali v `ObjectTypes.json` od seedu vrstvu

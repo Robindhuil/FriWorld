@@ -4,8 +4,14 @@ Jeden riadok na zmenu, písaný z pohľadu hráča alebo vývojára — nie zozn
 Podrobnosti sú v commite; netriviálne rozhodnutia v `docs/decisions/`.
 
 Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+Verzia je `bundleVersion` z `ProjectSettings` — dvíha sa pri builde do produkcie a vtedy
+sa `[Unreleased]` premenuje na to číslo. Rozhodnutia k jednotlivým verziám sú
+v [`docs/decisions/`](docs/decisions/), zmerané a nespravené návrhy
+v [`docs/findings/`](docs/findings/).
 
 ## [Unreleased]
+
+_Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.1-alpha**._
 
 ### Added
 - `tools/blender/rebuild_uv_channels.py` — po ňom má mesh presne dva UV kanály, 0 textúrový
@@ -86,6 +92,11 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Materiály dostali smoothness podľa látky — podlaha 0.25, oceľ a plast 0.30, drevo 0.22,
+  maľovka 0.15, betón 0.08, koberec 0.03. Doteraz malo 76 zo 79 materiálov nulu, čo je dôvod,
+  prečo celá budova čítala ako matný papier. Na pek to nemá vplyv, lightmapper smoothness
+  nečíta. Hodnoty sú zámerne nízke: 77 % statickej plochy leží mimo oboch reflection probov
+  a spadne na skybox, takže čokoľvek lesklejšie by v interiéri zrkadlilo oblohu.
 - Dvere dostali Light Probe Proxy Volume, takže ich nesvieti jedna vzorka v ťažisku. Prob sa
   vnútri objemu dverí mení priemerne 2.10x a najhoršie 15.86x — dvere v prahu majú na jednej
   strane denné svetlo a na druhej tmavú chodbu, a jedna vzorka to spriemerovala. Mriežka je

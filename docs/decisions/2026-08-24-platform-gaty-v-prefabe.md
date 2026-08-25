@@ -1,5 +1,7 @@
 # Platformové gaty patria do prefab assetu
 
+**Verzia:** 0.1.1-alpha · **Dátum:** 2026-08-24
+
 ## Kontext
 
 Dverné `ComponentGate`y z budovy zmizli. Podozrenie padlo na samotný FF systém — že si gate

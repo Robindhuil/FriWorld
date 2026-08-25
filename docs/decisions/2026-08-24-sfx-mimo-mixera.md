@@ -1,5 +1,7 @@
 # Nastavovanie komponentov nepatrí do custom inšpektora
 
+**Verzia:** 0.1.1-alpha · **Dátum:** 2026-08-24
+
 ## Kontext
 
 Posuvníky hlasitosti v nastaveniach nemali na zvuk dverí žiadny vplyv. Podozrenie padlo na

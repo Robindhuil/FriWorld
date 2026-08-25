@@ -1,5 +1,7 @@
 # Render politika web buildu
 
+**Verzia:** 0.1.0-alpha · **Dátum:** 2026-08-04
+
 ## Kontext
 
 Web build dával na Lenovo Legion Y720 (i7-7700HQ, **GTX 1060**, 1080p) len 30–40 fps.

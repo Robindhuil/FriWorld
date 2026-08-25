@@ -1,5 +1,7 @@
 # Occlusion culling: occluder rozhoduje materiál, nie meno
 
+**Verzia:** 0.1.0-alpha · **Dátum:** 2026-08-04
+
 ## Kontext
 
 Pri pohľade na budovu zostávali vykreslené objekty, ktoré hráč reálne nevidel. Na to

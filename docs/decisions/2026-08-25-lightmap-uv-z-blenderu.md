@@ -1,5 +1,7 @@
 # Lightmap UV autoruje Blender, nie Unity
 
+**Verzia:** 0.1.1-alpha · **Dátum:** 2026-08-25
+
 ## Kontext
 
 Oba modelové importery majú `generateSecondaryUV = False`:

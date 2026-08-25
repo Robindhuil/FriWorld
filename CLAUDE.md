@@ -8,28 +8,46 @@ Sprievodná web aplikácia (Next.js wrapper okolo buildu) žije v samostatnom re
 
 ## Dokumentácia zmien — POVINNÉ, rob to bez vyzvania
 
-Po každej dokončenej zmene (feature, fix, perf, chore, refactor) urob **oboje**:
+Verzia je `bundleVersion` z `ProjectSettings/ProjectSettings.asset`. Používateľ ju dvíha
+pri builde do produkcie, takže **je to jediný deliaci bod** — prečítaj ju predtým, než
+niečo zapíšeš, a nehádaj ju.
 
 ### 1. Riadok do `CHANGELOG.md`
-Vždy. Jeden riadok pod `## [Unreleased]`, do sekcie podľa typu
-(`Added` / `Fixed` / `Changed` / `Performance` / `Removed`).
-Píš, čo to znamená **pre hráča alebo pre vývojára**, nie ktoré súbory sa dotkli.
+Vždy, po každej dokončenej zmene. Jeden riadok pod `## [Unreleased]`, do sekcie podľa
+typu (`Added` / `Fixed` / `Changed` / `Performance` / `Removed`). Píš, čo to znamená
+**pre hráča alebo pre vývojára**, nie ktoré súbory sa dotkli.
 
 ```
 - Pohľad myšou už nešvihne pri zaseknutom snímku vo web builde. (`7d51874`)
 ```
 
-### 2. Zápis do `docs/decisions/` — ale len keď platí aspoň jedno
+`[Unreleased]` je to, čo sa nazbieralo od poslednej produkčnej verzie. Keď sa
+`bundleVersion` zdvihne, premenuj `[Unreleased]` na `## [nová verzia] - RRRR-MM-DD`
+a otvor nad ňou prázdnu `[Unreleased]`. Staré verzie sa **neprepisujú**.
+
+### 2. Zápis do `docs/decisions/` — len keď platí aspoň jedno
 - rozhodlo sa medzi viacerými možnosťami a *prečo* nie je zrejmé z kódu,
 - narazilo sa na pascu, na ktorú by niekto nabehol znova,
 - príčina bugu bola inde, než kde sa prejavoval,
 - zmena má dosah len na jednu platformu a dôvod je netriviálny.
 
-Formát: `docs/decisions/YYYY-MM-DD-kratky-nazov.md`, sekcie **Kontext → Rozhodnutie →
-Dôsledky**. Krátko, 20–40 riadkov stačí. Bežný feature ani chore sem **nepatrí** —
-commit message a changelog to pokryjú.
+Formát: `docs/decisions/YYYY-MM-DD-kratky-nazov.md`, hlavička
+`**Verzia:** … · **Dátum:** …`, sekcie **Kontext → Rozhodnutie → Dôsledky**.
+Krátko, 20–40 riadkov stačí.
 
-**Nepíš dokument len preto, že si niečo urobil.** Duplikovaný obsah zhnije a potom
+### 3. Zápis do `docs/findings/` — pre zmerané veci, ktoré sa NEspravili
+Návrh s číslami, na ktorý sa nedošlo, alebo overená slepá ulička. Zmysel je, aby sa to
+o mesiac nemeralo znova a aby sa neskúšalo, čo už neprešlo. Hlavička nesie okrem verzie
+aj `**Stav:**`. Keď sa to spraví, `Stav` sa prepíše na `spravené v <verzia>`.
+
+### 4. Index
+`docs/decisions/README.md` aj `docs/findings/README.md` majú tabuľku **zoskupenú podľa
+verzie, najnovšia hore**. Nový zápis = nový riadok, v tom istom kroku. Index, ktorý sa
+dopĺňa „neskôr", je do týždňa zastaraný — už sa to raz stalo, chýbalo v ňom šesť
+z jedenástich zápisov.
+
+**Nepíš dokument len preto, že si niečo urobil.** Bežný feature, chore ani rename sem
+**nepatrí** — commit message a changelog to pokryjú. Duplikovaný obsah zhnije a potom
 mätie viac, než keby nebol.
 
 ---

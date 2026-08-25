@@ -1,5 +1,7 @@
 # Slnko svietilo cez steny: `shadowStrength` nie je „sila tieňa"
 
+**Verzia:** 0.1.1-alpha · **Dátum:** 2026-08-25
+
 ## Kontext
 
 V interiéri bola vždy presne **jedna svetová strana stien** citeľne svetlejšia než ostatné tri —
