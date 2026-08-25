@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: aed0ad8b53a34774bb381f8287acdda2, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 120d2429d9f7faf43b754557146dfcbe, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -419,7 +419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510000000000000003, guid: abe32c5323914b088b498034cf60e648, type: 3}
       propertyPath: m_Intensity
-      value: 0.08
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -949,7 +949,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510000000000000003, guid: abe32c5323914b088b498034cf60e648, type: 3}
       propertyPath: m_Intensity
-      value: 0.08
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2489,7 +2489,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &420339154
 Transform:
   m_ObjectHideFlags: 0
@@ -2899,7 +2899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510000000000000003, guid: abe32c5323914b088b498034cf60e648, type: 3}
       propertyPath: m_Intensity
-      value: 0.08
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5003,7 +5003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510000000000000003, guid: abe32c5323914b088b498034cf60e648, type: 3}
       propertyPath: m_Intensity
-      value: 0.08
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18562,7 +18562,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1364101016
 Transform:
   m_ObjectHideFlags: 0
@@ -18571,13 +18571,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1364101015}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.21757947, y: -0.087409005, z: 0.1136128, w: 0.965459}
   m_LocalPosition: {x: 0.92, y: 0, z: 0.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 419444718}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 26.103, y: -7.637, z: 11.65}
 --- !u!108 &1364101018
 Light:
   m_ObjectHideFlags: 0
@@ -18598,7 +18598,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 0.7
+    m_Strength: 1
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -19118,7 +19118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510000000000000003, guid: abe32c5323914b088b498034cf60e648, type: 3}
       propertyPath: m_Intensity
-      value: 0.05
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21345,6 +21345,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 563196726}
     m_Modifications:
+    - target: {fileID: 923139685466684002, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 67db506dfada04c4898a4261c0a19e99, type: 2}
     - target: {fileID: 1077104186241891041, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: uiManager
       value: 
@@ -21365,6 +21369,10 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1887814971}
+    - target: {fileID: 5907854355697198314, guid: d85570437049e244bae679e0307a337f, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: ab3df7c8acc9c1f4c8ed9ec58941216e, type: 2}
     - target: {fileID: 6236547421678763055, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: uiManager
       value: 
@@ -21373,10 +21381,6 @@ PrefabInstance:
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 1887814971}
-    - target: {fileID: 6855328246809263059, guid: d85570437049e244bae679e0307a337f, type: 3}
-      propertyPath: OutputAudioMixerGroup
-      value: 
-      objectReference: {fileID: 1752580199495326187, guid: f6e323ef5143e7c41b32fdbe76a5cfb9, type: 2}
     - target: {fileID: 7290587427038013427, guid: d85570437049e244bae679e0307a337f, type: 3}
       propertyPath: uiManager
       value: 
@@ -21541,7 +21545,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6510000000000000003, guid: abe32c5323914b088b498034cf60e648, type: 3}
       propertyPath: m_Intensity
-      value: 0.08
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

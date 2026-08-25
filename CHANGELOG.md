@@ -27,6 +27,13 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- Slnko už nepresvitá stenami do interiéru. Smerové svetlo malo `shadowStrength 0.7`, čo
+  púšťalo 30 % priameho slnka cez každý tieň v scéne — vrátane celej obvodovej steny budovy.
+  Osvetlená bola vždy presne tá svetová strana stien, ktorá mieri na slnko, aj v miestnosti
+  bez okna. V uzavretej miestnosti klesol pomer jasu stien z 3.14× na 1.02×.
+  (`docs/decisions/2026-08-25-shadow-strength-a-shadowmask.md`)
+- Kvalita „Nízke" má na desktope tiene. `RP_Low` mal `shadowDistance 0` prevzatú z webového
+  ladenia, takže hráč na najnižšom presete videl slnko cez steny bez ohľadu na opravu vyššie.
 - Posuvníky hlasitosti v nastaveniach konečne ovplyvňujú zvuk dverí. Z 291 `AudioSource`
   v budove ich bolo do mixéra napojených 14 — zvyšok hral priamo do AudioListenera, kam
   žiadny parameter mixéra nedosiahne. Napojenie žilo len v inšpektore `Interactable`, takže
