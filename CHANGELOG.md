@@ -40,6 +40,7 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   Zárubne šli z `interactable` na `noObstacle`, čím sa zároveň stali statickými a začnú sa
   pri najbližšom peku zapekať do lightmapy. `thick_door` dostal `script: Door`, takže sa
   konečne otvára; jeho pánt išiel medzi hardware k zárubniam.
+  (`docs/decisions/2026-08-25-door-frame-noobstacle.md`)
 - Oknami svieti do interiéru slnko. 206 tabúľ bolo pre lightmapper plný múr, takže cez ne
   neprešiel ani fotón, a 180 z nich bolo navyše označených ako occluder — Umbra cullovala
   všetko za nimi. Tabule vyzerajú nepriehľadne aj naďalej, to je zámer; svetlo cez ne púšťa
