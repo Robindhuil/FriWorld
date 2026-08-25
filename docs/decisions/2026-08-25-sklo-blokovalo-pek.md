@@ -42,8 +42,18 @@ priesvitná, materiál áno. A patrí to sem preto, že tento krok píše do pre
 
 `GlassShadowSetup.cs` zmazaný — duplikát, ktorý navyše nefungoval trvalo.
 
-`mt_glass_2` a `mt_glass_3` prehodené na Transparent (alfa 0.35 a 0.25). Tým padnú na queue
-3000 a krok 6 im sám odoberie `OccluderStatic` aj vrhanie tieňov.
+Materiálový test ale nestačí. `mt_glass_2` a `mt_glass_3` **majú vyzerať nepriehľadne** — je to
+štýlové rozhodnutie, nie chyba. „Nepriehľadné pre oko" a „nepriehľadné pre lightmapper" sú
+však dve rôzne veci: tabuľa má čítať ako plné sklo, ale miestnosť za tabuľou, ktorá zožerie
+každý fotón, je jednoducho čierna.
+
+Preto má `ObjectTypes.json` voliteľné pole **`shadows: yes | no`**, tvarom presne ako
+`occluder`. Keď chýba, rozhodujú materiály. Nastavené na `no` pre `window_<int>_glass`,
+`big_window_<int>_glass`, `roof_window_<int>_glass` a `roof_<int>_glass`.
+
+`OccluderStatic` zostáva na `auto`, teda tie tabule occludujú — a je to správne. Cez
+nepriehľadné sklo naozaj nevidno, takže Umbra smie cullovať, čo je za ním. Nefyzikálne je len
+to, že cez ne prejde svetlo peku; to je zámerný podvod, aby miestnosti mali denné svetlo.
 
 Pekové páky, keď už svetlo môže dnu: `albedoBoost` 1 → 1.6, `indirectScale` 1.5 → 2,
 `maxBounces` 4 → 6, pečený AO vypnutý (SSAO beží v `PC_Renderer` na 0.5, tmaviť rohy dvakrát
@@ -51,9 +61,14 @@ nemá zmysel), `sun.bounceIntensity` 1 → 2.
 
 ## Dôsledky
 
-- Krok 6 nahlásil `ShadowCastingChanged: 505`, `StaticChanged: 187`. Z 202 tabúľ `mt_glass_2/_3`
-  ich 172 prestalo vrhať tieň; zvyšných 30 zdieľa mesh s nepriehľadným rámom, a tam je vrhanie
-  tieňa správne. `OccluderStatic` na nich klesol z 190 na 0.
+- Tieň nevrhá 530 rendererov: 333 preto, že ich materiál je priehľadný, 197 preto, že to hovorí
+  register. V tej druhej skupine je 26 kusov navyše — 25 `mt_plastic_1` a jeden
+  `mt_interior_wall_1`, ktoré zdieľajú typový kľúč s tabuľami. Sú to okenné kovania na okenných
+  objektoch, takže je v poriadku, že tieň nehádžu.
+- `shadows` je zámerne na úrovni **typu**, nie materiálu, hoci `occluder` sa rozhoduje podľa
+  materiálu. Materiál tu odpoveď nepozná: `mt_glass_2` je nepriehľadný naschvál a nič v ňom
+  nepovie, že cez neho má napriek tomu prejsť svetlo. To je rozhodnutie o objekte, a tie žijú
+  v registri.
 - **Pek je od tejto zmeny neaktuálny.** Kým nebeží `Generate Lighting`, statická geometria drží
   staré lightmapy aj starú shadowmask, takže v realtime sa jas takmer nezmení (namerané x1.00
   až x1.01). Všetok výnos je v prepečení.

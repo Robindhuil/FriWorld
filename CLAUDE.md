@@ -65,7 +65,7 @@ Neurčujú sa kľúčovými slovami v kóde, ale registrom v `Assets/_Game/Edito
 | súbor | obsah |
 |---|---|
 | `ObjectPrefixes.json` | prefixy na odstrihnutie — **plné mená kontajnerov**, `ra100_corridor_1` |
-| `ObjectTypes.json` | `typ → collider / layer / occluder / script` |
+| `ObjectTypes.json` | `typ → collider / layer / occluder / script`, voliteľne `shadows` |
 | `RoomPlatforms.json` | `oblasť → all / desktopOnly / webOnly` |
 
 Meno objektu sa zredukuje na **typový kľúč**: odstrihne sa najdlhší sediaci prefix, vodiace

@@ -28,7 +28,8 @@
       "name": "big_window_<int>_glass",
       "collider": "mesh",
       "layer": "noObstacle",
-      "occluder": "auto"
+      "occluder": "auto",
+      "shadows": "no"
     },
     {
       "name": "billboard",
@@ -350,6 +351,12 @@
       "occluder": "auto"
     },
     {
+      "name": "misc_calcetto",
+      "collider": "box",
+      "layer": "obstacle",
+      "occluder": "auto"
+    },
+    {
       "name": "misc_coat_hook",
       "collider": "none",
       "layer": "noObstacle",
@@ -509,7 +516,8 @@
       "name": "roof_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto"
+      "occluder": "auto",
+      "shadows": "no"
     },
     {
       "name": "roof_fence",
@@ -539,7 +547,8 @@
       "name": "roof_window_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto"
+      "occluder": "auto",
+      "shadows": "no"
     },
     {
       "name": "sector_sign",
@@ -743,7 +752,8 @@
       "name": "window_<int>_glass",
       "collider": "box",
       "layer": "noObstacle",
-      "occluder": "auto"
+      "occluder": "auto",
+      "shadows": "no"
     },
     {
       "name": "window_bars",

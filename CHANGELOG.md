@@ -33,9 +33,10 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
-- Cez okná je vidieť von a svieti nimi slnko. 206 tabúľ malo nepriehľadný materiál
-  (`URP/Lit` Opaque, plná modrá), takže boli pre lightmapper plný múr a 180 z nich bolo
-  navyše označených ako occluder — Umbra cullovala všetko za nimi.
+- Oknami svieti do interiéru slnko. 206 tabúľ bolo pre lightmapper plný múr, takže cez ne
+  neprešiel ani fotón, a 180 z nich bolo navyše označených ako occluder — Umbra cullovala
+  všetko za nimi. Tabule vyzerajú nepriehľadne aj naďalej, to je zámer; svetlo cez ne púšťa
+  nové voliteľné pole `shadows` v `ObjectTypes.json`.
   (`docs/decisions/2026-08-25-sklo-blokovalo-pek.md`)
 - Slnko už nepresvitá stenami do interiéru. Smerové svetlo malo `shadowStrength 0.7`, čo
   púšťalo 30 % priameho slnka cez každý tieň v scéne — vrátane celej obvodovej steny budovy.
@@ -77,7 +78,7 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   testom priehľadnosti ako `OccluderStatic` — čo vidíš skrz, tým musí prejsť aj svetlo peku.
   Zapisuje sa do `FriBuilding.prefab`, takže to prežije ďalší beh pipeline. Nahlásilo
   `ShadowCastingChanged: 505`.
-- Pek dostal viac odrazeného svetla: `albedoBoost` 1 → 1.6, `indirectScale` 1.5 → 2,
+- Pek dostal viac odrazeného svetla: `albedoBoost` 1 → 1.6, `indirectScale` 1.5 → 2.5,
   `maxBounces` 4 → 6, `sun.bounceIntensity` 1 → 2, pečený AO vypnutý (SSAO už beží
   v `PC_Renderer`). **Prejaví sa až po `Generate Lighting`.**
 - Všetky projektové nástroje sú pod jedným menu `FriWorld`, roztriedené do skupín

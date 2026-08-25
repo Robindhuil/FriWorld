@@ -52,8 +52,6 @@ public static class GenerateLayersAndStatic
     // The Progressive lightmapper treats every shadow caster as fully opaque, whatever the
     // material says. A window pane left casting shadows therefore blocks all baked sunlight,
     // which is why the interiors had no daylight in them at all.
-    private const UnityEngine.Rendering.ShadowCastingMode SeeThroughShadowCasting =
-        UnityEngine.Rendering.ShadowCastingMode.Off;
 
     private const string InteractableLayerName = "Interactable";
     private const string ObstacleLayerName = "Obstacle";
@@ -206,10 +204,17 @@ public static class GenerateLayersAndStatic
                 StaticEditorFlags currentFlags = GameObjectUtility.GetStaticEditorFlags(go);
 
                 // Same see-through test as the occluder decision, for the same reason: what the
-                // player looks through, the lightmapper must be able to shoot through too.
-                var desiredShadowCasting = IsSeeThrough(renderer)
-                    ? SeeThroughShadowCasting
-                    : UnityEngine.Rendering.ShadowCastingMode.On;
+                // player looks through, the lightmapper must be able to shoot through too. The
+                // registry can override it, because a pane can be opaque on purpose and still
+                // have to let daylight into the room behind it.
+                bool castsShadows;
+                if (entry != null && entry.shadows == "no") castsShadows = false;
+                else if (entry != null && entry.shadows == "yes") castsShadows = true;
+                else castsShadows = !IsSeeThrough(renderer);
+
+                var desiredShadowCasting = castsShadows
+                    ? UnityEngine.Rendering.ShadowCastingMode.On
+                    : UnityEngine.Rendering.ShadowCastingMode.Off;
 
                 bool hasChange =
                     go.layer != targetLayer
