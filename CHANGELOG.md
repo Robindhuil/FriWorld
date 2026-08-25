@@ -86,6 +86,11 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Dvere dostali Light Probe Proxy Volume, takže ich nesvieti jedna vzorka v ťažisku. Prob sa
+  vnútri objemu dverí mení priemerne 2.10x a najhoršie 15.86x — dvere v prahu majú na jednej
+  strane denné svetlo a na druhej tmavú chodbu, a jedna vzorka to spriemerovala. Mriežka je
+  2 x 1 x 4 v lokálnych osiach meshu, teda štyri vzorky po výške. Na zariadení bez podpory
+  3D textúr `LightProbeProxyFallback` spadne späť na blendované proby.
 - Dvere, NPC a ostatné dynamické objekty už nesvietia inak než statická geometria vedľa nich.
   Light proby sa kladú na NavMesh, nie do mriežky odvodenej od bounding boxu budovy — tá mala
   dvanásť pevných výšok pre celú budovu, ktoré s podlažiami nemali nič spoločné, takže dvere

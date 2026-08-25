@@ -22,6 +22,18 @@ public static class SetupInteractables
     // which a single door had kept. Setting it explicitly avoids reintroducing that stray value.
     private const float DoorOpenRotation = 90f;
 
+    // The proxy volume's grid, in the mesh's own local axes. Every one of the 284 door meshes
+    // measures about 0.92 x 0.13 x 2.14 with the height on local Z, so the cells go where the
+    // light actually changes: four up the door, two across its width, one through its thickness.
+    //
+    // Explicit rather than Automatic because Automatic's probeDensity cannot be raised — writing
+    // 2 to it, property or serialized field, reads back as 1 immediately, before any save. That
+    // left every door at a single 2x2x2 cell, which is barely more than the one sample this is
+    // meant to replace.
+    private const int DoorGridWidth = 2;
+    private const int DoorGridThickness = 1;
+    private const int DoorGridHeight = 4;
+
     [MenuItem("FriWorld/Generate/Interactables From Registry")]
     private static void SetupOnPrefab()
         => PrefabTarget.Run("SetupInteractables", root => Run(new[] { root }, apply: true));
@@ -67,6 +79,7 @@ public static class SetupInteractables
         int scriptAdded = 0, scriptAlready = 0;
         int animatorAdded = 0, controllerAssigned = 0;
         int audioRouted = 0, audioAlreadyRouted = 0;
+        int proxyVolumeAdded = 0;
         var unknownScripts = new Dictionary<string, int>();
         var byType = new Dictionary<string, int>();
         var visited = new HashSet<Transform>();
@@ -137,6 +150,8 @@ public static class SetupInteractables
                     else audioAlreadyRouted++;
                 }
 
+                if (EnsureProbeProxyVolume(go)) proxyVolumeAdded++;
+
                 EditorUtility.SetDirty(go);
             }
         }
@@ -150,6 +165,8 @@ public static class SetupInteractables
         if (apply)
             sb.AppendLine("  Sfx routing:  " + audioRouted + " sent to the mixer, "
                         + audioAlreadyRouted + " already had a group");
+        if (apply)
+            sb.AppendLine("  Probe volume: " + proxyVolumeAdded + " added");
         sb.AppendLine("  by type:");
         foreach (var kv in byType) sb.AppendLine("      " + kv.Key + "   x" + kv.Value);
 
@@ -162,4 +179,44 @@ public static class SetupInteractables
         Debug.Log(sb.ToString());
     }
 
+
+    /// <summary>
+    /// Gives the door its own Light Probe Proxy Volume.
+    ///
+    /// A door is lit from probes, and plain blending is a single sample at the renderer's bounds
+    /// centre. Measured over the 284 doors, the interpolated probe varies 2.10x on average inside
+    /// a door's own volume and 15.86x on the worst — a door in a threshold has daylight on one
+    /// side and a dark corridor on the other, and one sample averages the two away. That is why
+    /// some doors read washed out and some read black.
+    ///
+    /// LightProbeProxyFallback drops these back to blending on a device without 3D texture
+    /// support, because whether a proxy volume can run is a property of the device rather than
+    /// of the build target.
+    /// </summary>
+    private static bool EnsureProbeProxyVolume(GameObject go)
+    {
+        var renderer = go.GetComponent<Renderer>();
+        if (renderer == null) return false;
+
+        var volume = go.GetComponent<LightProbeProxyVolume>();
+        bool added = volume == null;
+        if (added) volume = go.AddComponent<LightProbeProxyVolume>();
+
+        volume.boundingBoxMode = LightProbeProxyVolume.BoundingBoxMode.AutomaticLocal;
+        volume.resolutionMode = LightProbeProxyVolume.ResolutionMode.Custom;
+        volume.gridResolutionX = DoorGridWidth;
+        volume.gridResolutionY = DoorGridThickness;
+        volume.gridResolutionZ = DoorGridHeight;
+        volume.probePositionMode = LightProbeProxyVolume.ProbePositionMode.CellCorner;
+        volume.refreshMode = LightProbeProxyVolume.RefreshMode.Automatic;
+
+        renderer.lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.UseProxyVolume;
+        renderer.lightProbeProxyVolumeOverride = go;
+
+        // Both have to be flagged: marking only the renderer saved the prefab with the volume's
+        // default density instead of the one set above.
+        EditorUtility.SetDirty(volume);
+        EditorUtility.SetDirty(renderer);
+        return added;
+    }
 }
