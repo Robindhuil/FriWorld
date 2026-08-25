@@ -18,6 +18,8 @@ using UnityEngine.AI;
 ///
 /// Shadow casting is not in the registry, for the same reason Occluder Static is not: a name
 /// cannot tell you whether a surface is see-through, so both are decided from the materials.
+/// A type key cannot express it either — <c>window_&lt;int&gt;_glass</c> covers both the glazing
+/// and the solid parapet under it, which are separate renderers of the same type.
 /// It belongs in this pass rather than a tool of its own because this pass writes into
 /// <c>FriBuilding.prefab</c>; anything that writes shadow casting onto the scene instance is a
 /// prefab override and the next run of this pipeline throws it away.
@@ -48,10 +50,6 @@ public static class GenerateLayersAndStatic
     // Summed face area of the world bounds. Below this an object cannot hide anything behind
     // it, so making it an occluder only costs bake time and memory.
     private const float MinOccluderArea = 2f;
-
-    // The Progressive lightmapper treats every shadow caster as fully opaque, whatever the
-    // material says. A window pane left casting shadows therefore blocks all baked sunlight,
-    // which is why the interiors had no daylight in them at all.
 
     private const string InteractableLayerName = "Interactable";
     private const string ObstacleLayerName = "Obstacle";
@@ -209,17 +207,12 @@ public static class GenerateLayersAndStatic
                 StaticEditorFlags currentFlags = GameObjectUtility.GetStaticEditorFlags(go);
 
                 // Same see-through test as the occluder decision, for the same reason: what the
-                // player looks through, the lightmapper must be able to shoot through too. The
-                // registry can override it, because a pane can be opaque on purpose and still
-                // have to let daylight into the room behind it.
-                bool castsShadows;
-                if (entry != null && entry.shadows == "no") castsShadows = false;
-                else if (entry != null && entry.shadows == "yes") castsShadows = true;
-                else castsShadows = !IsSeeThrough(renderer);
-
-                var desiredShadowCasting = castsShadows
-                    ? UnityEngine.Rendering.ShadowCastingMode.On
-                    : UnityEngine.Rendering.ShadowCastingMode.Off;
+                // player looks through, the lightmapper must be able to shoot through too. It has
+                // to stay a material test — a "window" object is an assembly, and the glazing and
+                // the solid parapet under it are separate renderers sharing one type key.
+                var desiredShadowCasting = IsSeeThrough(renderer)
+                    ? UnityEngine.Rendering.ShadowCastingMode.Off
+                    : UnityEngine.Rendering.ShadowCastingMode.On;
 
                 bool hasChange =
                     go.layer != targetLayer
@@ -324,6 +317,12 @@ public static class GenerateLayersAndStatic
     /// True when every material on the renderer is see-through, i.e. nothing on this mesh is
     /// meant to stop light. A window pane whose frame shares the same renderer does not qualify
     /// — the frame is opaque and has to keep casting its shadow.
+    ///
+    /// The Progressive lightmapper treats every shadow caster as fully opaque whatever the
+    /// material says, so this is what decides where daylight can enter the building. It has to
+    /// stay per-renderer: <c>ra006_window_1</c> is three renderers — an opaque frame, the glazing
+    /// on the see-through <c>glass</c> material, and a <c>mt_glass_2</c> slab that is the solid
+    /// parapet under the sill plus the head above it. Only the middle one may let light through.
     /// </summary>
     public static bool IsSeeThrough(Renderer renderer)
     {

@@ -22,13 +22,6 @@ namespace FriWorld.ObjectRegistry
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string tag;        // e.g. "Door"; otherwise derived from layer
 
-        // yes | no; otherwise decided from the materials, like occluder. The override exists
-        // because "opaque to the eye" and "opaque to the lightmapper" are not the same wish:
-        // the window panes are meant to read as solid glass, but a room behind a pane that
-        // blocks every photon is simply black.
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string shadows;
-
         // Interactable behaviour to attach, e.g. "Door". Deliberately separate from the layer:
         // door_frame is interactable too but must not become an openable door, so the layer
         // cannot decide this.

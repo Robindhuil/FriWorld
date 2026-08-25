@@ -42,11 +42,14 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   konečne otvára; jeho pánt išiel medzi hardware k zárubniam. Zárubne skončili na `obstacle`,
   lebo navmesh zbiera výhradne vrstvy `Obstacle` a `Nav`.
   (`docs/decisions/2026-08-25-door-frame-noobstacle.md`)
-- Oknami svieti do interiéru slnko. 206 tabúľ bolo pre lightmapper plný múr, takže cez ne
-  neprešiel ani fotón, a 180 z nich bolo navyše označených ako occluder — Umbra cullovala
-  všetko za nimi. Tabule vyzerajú nepriehľadne aj naďalej, to je zámer; svetlo cez ne púšťa
-  nové voliteľné pole `shadows` v `ObjectTypes.json`.
+- Oknami svieti do interiéru slnko. Zasklenie vrhalo tieň, a progresívny lightmapper berie
+  každý shadow caster ako plný múr bez ohľadu na materiál, takže miestnosti boli zamurované.
+  Rozhoduje o tom materiál renderera: jedno okno sú tri renderery — rám, zasklenie a plný
+  parapet s nadpražím — a púšťať má len ten prostredný.
   (`docs/decisions/2026-08-25-sklo-blokovalo-pek.md`)
+- Slnko už nesvieti cez plnú stenu pod oknom. `mt_glass_2` nie je zasklenie ale parapet
+  a nadpražie, takže keď sa tieň vypol na celom type `window_<int>_glass`, otvorila sa aj tá
+  stena — radiátory na nej potom hádzali tieň do chodby.
 - Slnko už nepresvitá stenami do interiéru. Smerové svetlo malo `shadowStrength 0.7`, čo
   púšťalo 30 % priameho slnka cez každý tieň v scéne — vrátane celej obvodovej steny budovy.
   Osvetlená bola vždy presne tá svetová strana stien, ktorá mieri na slnko, aj v miestnosti
@@ -100,8 +103,8 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `postExposure`; nikto ho nenastavuje a len rušil expozíciu scény.
 - Vrhanie tieňov rozhoduje krok 6 pipeline (`Layers And Static`) podľa materiálov, rovnakým
   testom priehľadnosti ako `OccluderStatic` — čo vidíš skrz, tým musí prejsť aj svetlo peku.
-  Zapisuje sa do `FriBuilding.prefab`, takže to prežije ďalší beh pipeline. Nahlásilo
-  `ShadowCastingChanged: 505`.
+  Zapisuje sa do `FriBuilding.prefab`, takže to prežije ďalší beh pipeline. Typ o tom
+  rozhodovať nemôže: `window_<int>_glass` pokrýva celú zostavu vrátane parapetu.
 - Pek dostal viac odrazeného svetla: `albedoBoost` 1 → 1.6, `indirectScale` 1.5 → 2.5,
   `maxBounces` 4 → 6, `sun.bounceIntensity` 1 → 2, pečený AO vypnutý (SSAO už beží
   v `PC_Renderer`). **Prejaví sa až po `Generate Lighting`.**

@@ -1,76 +1,62 @@
-# Do interiéru sa nedostávalo svetlo, lebo okná neboli sklo
+# Čo púšťa svetlo do budovy, rozhoduje materiál — nie typ
 
 ## Kontext
 
-Interiér bol tmavý a hľadalo sa, kde pridať bounce. Prvé podozrenie padlo na materiály —
-že sú príliš tmavé na to, aby čokoľvek odrazili. Zmerané albedo statickej geometrie budovy,
-vážené plochou:
+Interiér bol tmavý a hľadalo sa, kde pridať bounce. Materiály za to nemohli: albedo statickej
+geometrie vážené plochou je 0.595, `mt_interior_wall_1` má 0.794, `mt_ceiling_1` 0.728. Svetlo
+sa jednoducho dovnútra nedostávalo.
 
-| materiál | plocha | albedo luma |
-|---|---|---|
-| `mt_interior_wall_1` | 48 516 | 0.794 |
-| `mt_fri_paint_1` | 44 417 | 0.792 |
-| `mt_ceiling_1` | 23 406 | 0.728 |
-| `mt_floor_1` | 13 170 | 0.617 |
-| **vážený priemer** | | **0.595** |
-
-Materiály sú v poriadku. Problém je, že sa svetlo dovnútra vôbec nedostane:
-
-- **196 okenných tabúľ s `mt_glass_2`** (+ 10 s `mt_glass_3`) boli `URP/Lit` so `_Surface = 0`,
-  teda **Opaque**, render queue 2000, plná modrá bez textúry. Sedeli na objektoch pomenovaných
-  `ra006_window_1_glass_2`. Pre progresívny lightmapper je nepriehľadný tieňovač plný múr bez
-  ohľadu na to, čo hovorí materiál — cez tie okná neprešiel ani fotón.
-- Rovnaký queue 2000 znamenal, že `ShouldBeOccluder` (test `renderQueue >= 2450`) ich vyhodnotil
-  ako occludery. **180 z 196** malo `OccluderStatic`, takže Umbra cullovala aj to, čo je za nimi.
-- `Custom/URPGlass` (385 tabúľ) má jediný pass, `UniversalForward`. Žiadny `SHADOWCASTER`,
-  žiadny `META`. Tieň teda nehádže — overené meraním, vypnutie `shadowCastingMode` na nich
-  zmenilo jas presne o 0.0000 — ale ani do GI neprispieva.
-
-`GlassShadowSetup.cs` na to existoval a bol napísaný správne, aj s komentárom o tom, že
-lightmapper berie každý shadow caster ako nepriehľadný. Len robil `FindObjectsByType` po
-**scéne**, takže vyrábal prefab overrides na inštancii — a kroky 4–8 pipeline zapisujú do
-`FriBuilding.prefab`, takže to prvý beh zmietol. Preto mali v deň merania všetky renderery
-`castShadows = On`. Tá istá pasca ako pri dverných gatoch.
+Progresívny lightmapper berie **každý shadow caster ako úplne nepriehľadný**, bez ohľadu na to,
+čo hovorí materiál. Zasklenie, ktoré vrhá tieň, teda zamuruje miestnosť. `GlassShadowSetup.cs`
+na to existoval a bol napísaný správne, aj s tým komentárom — len robil `FindObjectsByType` po
+**scéne**, takže vyrábal prefab overrides, a kroky 4–8 zapisujú do `FriBuilding.prefab`. Prvý
+beh pipeline ich zmietol. Tá istá pasca ako pri dverných gatoch. Preto mala v deň merania celá
+budova `castShadows = On`.
 
 ## Rozhodnutie
 
 Vrhanie tieňov rozhoduje **`GenerateLayersAndStatic`** (krok 6), rovnakým testom priehľadnosti
 ako `OccluderStatic`: renderer, ktorého **všetky** materiály sú na queue ≥ 2450, tieň nehádže.
-Nie je to v `ObjectTypes.json` z rovnakého dôvodu ako occluder — meno nepovie, či je plocha
-priesvitná, materiál áno. A patrí to sem preto, že tento krok píše do prefab assetu; čokoľvek,
-čo zapíše vrhanie tieňov na inštanciu v scéne, je override a ďalší beh ho zahodí.
+Patrí to sem preto, že tento krok píše do prefab assetu.
 
-`GlassShadowSetup.cs` zmazaný — duplikát, ktorý navyše nefungoval trvalo.
+**Musí to zostať test na materiáli, nie na type.** Jedno okno sú tri renderery s tým istým
+typovým kľúčom `window_<int>_glass`:
 
-Materiálový test ale nestačí. `mt_glass_2` a `mt_glass_3` **majú vyzerať nepriehľadne** — je to
-štýlové rozhodnutie, nie chyba. „Nepriehľadné pre oko" a „nepriehľadné pre lightmapper" sú
-však dve rôzne veci: tabuľa má čítať ako plné sklo, ale miestnosť za tabuľou, ktorá zožerie
-každý fotón, je jednoducho čierna.
+```
+ra006_window_1          mt_plastic_1   queue 2000   rám, tieni
+ra006_window_1_glass_1  glass          queue 3000   zasklenie, púšťa
+ra006_window_1_glass_2  mt_glass_2     queue 2000   parapet + nadpražie, tieni
+```
 
-Preto má `ObjectTypes.json` voliteľné pole **`shadows: yes | no`**, tvarom presne ako
-`occluder`. Keď chýba, rozhodujú materiály. Nastavené na `no` pre `window_<int>_glass`,
-`big_window_<int>_glass`, `roof_window_<int>_glass` a `roof_<int>_glass`.
+`mt_glass_2` nie je zasklenie. Rozloženie plochy trojuholníkov v jednej takej doske:
 
-`OccluderStatic` zostáva na `auto`, teda tie tabule occludujú — a je to správne. Cez
-nepriehľadné sklo naozaj nevidno, takže Umbra smie cullovať, čo je za ním. Nefyzikálne je len
-to, že cez ne prejde svetlo peku; to je zámerný podvod, aby miestnosti mali denné svetlo.
+```
+ra000_corridor_3_window_1_glass_2   19.44 x 3.85 x 1.49 m
+   +0.25 m  31.7 %   parapet pod oknom
+   +0.75 m  31.7 %
+   +3.25 m  18.3 %   nadpražie
+   +3.50 m  18.3 %
+   medzi tým nič — tam je otvor
+```
 
-Pekové páky, keď už svetlo môže dnu: `albedoBoost` 1 → 1.6, `indirectScale` 1.5 → 2,
-`maxBounces` 4 → 6, pečený AO vypnutý (SSAO beží v `PC_Renderer` na 0.5, tmaviť rohy dvakrát
-nemá zmysel), `sun.bounceIntensity` 1 → 2.
+Je to plná stena pod parapetom a nad nadpražím, ktorá má tieniť.
+
+## Čo sa cestou ukázalo ako nepravda
+
+Do registra pribudlo na chvíľu voliteľné pole `shadows: yes | no` s tým, že tabule majú
+vyzerať nepriehľadne a napriek tomu púšťať svetlo. Postavené to bolo na zámene: `mt_glass_2`
+sa považoval za zasklenie. `shadows: no` na type `window_<int>_glass` teda otvorilo **celú
+zostavu vrátane parapetu**, takže slnko svietilo cez plnú stenu pod oknom a radiátory na nej
+hádzali tieň do chodby.
+
+Pole je zmazané. Skutočné zasklenie je materiál `glass` na queue 3000 a materiálový test ho
+pustí sám.
 
 ## Dôsledky
 
-- Tieň nevrhá 530 rendererov: 333 preto, že ich materiál je priehľadný, 197 preto, že to hovorí
-  register. V tej druhej skupine je 26 kusov navyše — 25 `mt_plastic_1` a jeden
-  `mt_interior_wall_1`, ktoré zdieľajú typový kľúč s tabuľami. Sú to okenné kovania na okenných
-  objektoch, takže je v poriadku, že tieň nehádžu.
-- `shadows` je zámerne na úrovni **typu**, nie materiálu, hoci `occluder` sa rozhoduje podľa
-  materiálu. Materiál tu odpoveď nepozná: `mt_glass_2` je nepriehľadný naschvál a nič v ňom
-  nepovie, že cez neho má napriek tomu prejsť svetlo. To je rozhodnutie o objekte, a tie žijú
-  v registri.
-- **Pek je od tejto zmeny neaktuálny.** Kým nebeží `Generate Lighting`, statická geometria drží
-  staré lightmapy aj starú shadowmask, takže v realtime sa jas takmer nezmení (namerané x1.00
-  až x1.01). Všetok výnos je v prepečení.
-- `albedoBoost 1.6` je materiálová páka aplikovaná globálne v peku, nie prepisovaním 200
-  materiálov. Pri albede 0.595 a 6 odrazoch stúpne celková energia odrazu zhruba z 1.3 na 2.4.
+- Tieň nevrhá 333 rendererov, všetky rozhodnuté materiálom. Register do toho nehovorí.
+- 202 parapetov `mt_glass_2` / `mt_glass_3` tieni, 318 zasklení `glass` púšťa.
+- `GlassShadowSetup.cs` zmazaný — duplikát, ktorý navyše nefungoval trvalo.
+- Ak by niekedy bolo treba, aby konkrétna plocha vyzerala plne a napriek tomu púšťala svetlo,
+  nie je to práca pre register. Buď sa rozdelí mesh v Blenderi, alebo dostane vlastný
+  priehľadný materiál — typový kľúč to vyjadriť nevie, lebo pokrýva celú zostavu.
