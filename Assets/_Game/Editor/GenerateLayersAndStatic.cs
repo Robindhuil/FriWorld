@@ -58,6 +58,13 @@ public static class GenerateLayersAndStatic
     private const string NoObstacleLayerName = "NoObstacle";
     private const string NavLayerName = "Nav";
     private const string DoorTagName = "Door";
+
+    // The registry's script field, not the layer, says whether something is a door. door_frame,
+    // door_frame_<int>_glass and thick_door_hinge sit on the Interactable layer too — they are
+    // trim around a door, not a door — so a tag derived from the layer put "Door" on 304 objects
+    // that carry no Door behaviour at all. SetupInteractables and DoorComponentGates already key
+    // off script for exactly this reason.
+    private const string DoorScriptName = "Door";
     private const string UntaggedTagName = "Untagged";
     private const string UnoOverrideKeyword = "UNO";
     private const string UyoOverrideKeyword = "UYO";
@@ -129,7 +136,6 @@ public static class GenerateLayersAndStatic
 
                 int targetLayer;
                 bool targetStatic;
-                bool isInteractable;
                 TypeEntry entry = null;
 
                 if (TryGetOverrideMatch(go.name, out bool forceObstacle))
@@ -137,7 +143,6 @@ public static class GenerateLayersAndStatic
                     // UNO / UYO in the name are per-instance exceptions and win over the type.
                     targetLayer = layerMap[forceObstacle ? ObstacleLayerName : NoObstacleLayerName];
                     targetStatic = true;
-                    isInteractable = false;
                     overridden++;
                 }
                 else
@@ -163,8 +168,6 @@ public static class GenerateLayersAndStatic
                             continue;
                     }
 
-                    isInteractable = entry.layer == "interactable";
-
                     if (entry.@static == "yes") targetStatic = true;
                     else if (entry.@static == "no") targetStatic = false;
                 }
@@ -177,10 +180,12 @@ public static class GenerateLayersAndStatic
                     if (modifierConfigured) navMeshModifierConfigured++;
                 }
 
-                // Door tag follows the interactable layer, unless the entry names a tag itself.
+                // Door tag follows the script the type asks for, unless the entry names a tag
+                // itself. Deriving it from the Interactable layer tagged every door_frame too.
+                bool isDoor = entry != null && entry.script == DoorScriptName;
                 string desiredTag = entry != null && entry.tag != null
                     ? entry.tag
-                    : (isInteractable ? DoorTagName : UntaggedTagName);
+                    : (isDoor ? DoorTagName : UntaggedTagName);
 
                 bool requiresTagUpdate = false;
                 string nextTag = go.tag;

@@ -193,13 +193,13 @@
     {
       "name": "door_frame",
       "collider": "mesh",
-      "layer": "interactable",
+      "layer": "noObstacle",
       "occluder": "auto"
     },
     {
       "name": "door_frame_<int>_glass",
       "collider": "mesh",
-      "layer": "interactable",
+      "layer": "noObstacle",
       "occluder": "auto"
     },
     {
