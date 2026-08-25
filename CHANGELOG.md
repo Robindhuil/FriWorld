@@ -38,7 +38,8 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   dverí nenesú — spolu 304 objektov s tagom a bez komponentu `Door`. Rozhoduje o tom pole
   `script` v registri, rovnako ako v `SetupInteractables` a `DoorComponentGates`.
   Zárubne šli z `interactable` na `noObstacle`, čím sa zároveň stali statickými a začnú sa
-  pri najbližšom peku zapekať do lightmapy.
+  pri najbližšom peku zapekať do lightmapy. `thick_door` dostal `script: Door`, takže sa
+  konečne otvára; jeho pánt išiel medzi hardware k zárubniam.
 - Oknami svieti do interiéru slnko. 206 tabúľ bolo pre lightmapper plný múr, takže cez ne
   neprešiel ani fotón, a 180 z nich bolo navyše označených ako occluder — Umbra cullovala
   všetko za nimi. Tabule vyzerajú nepriehľadne aj naďalej, to je zámer; svetlo cez ne púšťa
@@ -80,6 +81,12 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Dvere, NPC a ostatné dynamické objekty už nesvietia inak než statická geometria vedľa nich.
+  Light proby sa kladú na NavMesh, nie do mriežky odvodenej od bounding boxu budovy — tá mala
+  dvanásť pevných výšok pre celú budovu, ktoré s podlažiami nemali nič spoločné, takže dvere
+  na jednom poschodí brali svetlo spod nôh a na inom zo vzduchu meter a pol nad podlahou.
+  Namerané na dverách: najbližší prob zo 4.62 m na 1.02 m, najhorší prípad zo 4.86 m na
+  1.96 m, a to pri 3698 proboch namiesto 11194, teda aj kratší pek.
 - Vrhanie tieňov rozhoduje krok 6 pipeline (`Layers And Static`) podľa materiálov, rovnakým
   testom priehľadnosti ako `OccluderStatic` — čo vidíš skrz, tým musí prejsť aj svetlo peku.
   Zapisuje sa do `FriBuilding.prefab`, takže to prežije ďalší beh pipeline. Nahlásilo

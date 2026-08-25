@@ -656,12 +656,13 @@
       "name": "thick_door",
       "collider": "box",
       "layer": "interactable",
-      "occluder": "auto"
+      "occluder": "auto",
+      "script": "Door"
     },
     {
       "name": "thick_door_hinge",
       "collider": "box",
-      "layer": "interactable",
+      "layer": "noObstacle",
       "occluder": "auto"
     },
     {
