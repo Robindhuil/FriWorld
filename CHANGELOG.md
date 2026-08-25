@@ -39,7 +39,8 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   `script` v registri, rovnako ako v `SetupInteractables` a `DoorComponentGates`.
   Zárubne šli z `interactable` na `noObstacle`, čím sa zároveň stali statickými a začnú sa
   pri najbližšom peku zapekať do lightmapy. `thick_door` dostal `script: Door`, takže sa
-  konečne otvára; jeho pánt išiel medzi hardware k zárubniam.
+  konečne otvára; jeho pánt išiel medzi hardware k zárubniam. Zárubne skončili na `obstacle`,
+  lebo navmesh zbiera výhradne vrstvy `Obstacle` a `Nav`.
   (`docs/decisions/2026-08-25-door-frame-noobstacle.md`)
 - Oknami svieti do interiéru slnko. 206 tabúľ bolo pre lightmapper plný múr, takže cez ne
   neprešiel ani fotón, a 180 z nich bolo navyše označených ako occluder — Umbra cullovala
@@ -88,6 +89,15 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   na jednom poschodí brali svetlo spod nôh a na inom zo vzduchu meter a pol nad podlahou.
   Namerané na dverách: najbližší prob zo 4.62 m na 1.02 m, najhorší prípad zo 4.86 m na
   1.96 m, a to pri 3698 proboch namiesto 11194, teda aj kratší pek.
+- Exteriér stlmený bez toho, aby na tom stratil interiér: ambient `Trilight` z 0.93 na 0.65.
+  Vonku vidí geometria celú pologuľu oblohy a berie skoro celý ten člen, vnútri ho pek
+  zatieni, takže je to jediná páka, čo reže len vonku. Priame slnko na tom podiel nemá —
+  s úplne vypnutým slnkom klesol jas zeme len z 0.575 na 0.519, teda ~10 %.
+  **Prejaví sa až po `Generate Lighting`.**
+- Volume `Post Processing` s profilom `PlayerPP` je globálny s prioritou 1. Visel na hráčovi
+  v 0.75 m sfére a sedel na rovnakej priorite ako `Global Volume`, takže ktorý z nich vyhrá,
+  nebolo definované — a líšili sa v expozícii aj v bloome. `PlayerPP` prestal prepisovať
+  `postExposure`; nikto ho nenastavuje a len rušil expozíciu scény.
 - Vrhanie tieňov rozhoduje krok 6 pipeline (`Layers And Static`) podľa materiálov, rovnakým
   testom priehľadnosti ako `OccluderStatic` — čo vidíš skrz, tým musí prejsť aj svetlo peku.
   Zapisuje sa do `FriBuilding.prefab`, takže to prežije ďalší beh pipeline. Nahlásilo
