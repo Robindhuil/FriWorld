@@ -8,6 +8,12 @@ Formát podľa [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [Unreleased]
 
 ### Added
+- `tools/blender/rebuild_uv_channels.py` — po ňom má mesh presne dva UV kanály, 0 textúrový
+  a 1 lightmapa. Staršie skripty kanál len dopĺňali podľa mena, takže na meshi so štyrmi
+  kanálmi skončila lightmapa na indexe 3 a Unity pieklo do toho, čo bolo na indexe 1.
+  Unity poradie kanálov čítať musí, mená ignoruje. `DRY_RUN` najprv vypíše, čo na objektoch
+  je, a beh na konci overí, že lightmap kanál leží v 0..1.
+  (`docs/decisions/2026-08-25-lightmap-uv-z-blenderu.md`)
 - Menu `Routine` — pipeline na pridanie objektu v poradí, v akom sa spúšťa, plus okno
   `Object Pipeline` s krátkym popisom ku každému kroku a tlačidlom Run. Označíš
   `FriBuilding` raz a klikáš zhora dole; výber sa medzi krokmi nemení.
