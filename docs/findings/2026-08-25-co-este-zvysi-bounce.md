@@ -60,9 +60,17 @@ zapiekla čierny strop.
 
 ## Čo sa overilo ako slepá ulička
 
-- **Smoothness** — do peku nevstupuje. Meranie s lightmapou bez zmeny: miestnosť 0.4117 →
-  0.4317, chodba 0.4520 → 0.4628. Tie percentá sú runtime odraz prostredia z reflection
-  probov, nie GI.
+- **Smoothness podľa látky — skúšané a vrátené.** Do peku nevstupuje vôbec; meranie
+  s nezmenenou lightmapou dalo miestnosť 0.4117 → 0.4317 a chodbu 0.4520 → 0.4628, a tie
+  percentá sú runtime odraz prostredia z reflection probov, nie GI.
+
+  Vizuálne to bolo horšie. Materiály sú **plné farby bez textúr a bez normálových máp**, takže
+  jednoliata plocha dostane rovnomerný lesk po celej ploche — drevo pri 0.22 nevyzerá lakované,
+  vyzerá ako plast. V realite tú variáciu dodá textúra; tu ju nemá čo dodať. Hodnoty sú späť
+  na nule (listy 0.007).
+
+  **Kým sú materiály plné farby, smoothness nedvíhaj.** Má zmysel až s textúrami alebo aspoň
+  s normálovou mapou.
 - **Intenzita slnka** — v exteriéri robí ~10 % jasu. Úplné vypnutie slnka zhodilo zem len
   z 0.575 na 0.519.
 - **Bloom** — po ACES tonemappingu nie je prepálený ani jeden pixel.
