@@ -8,4 +8,5 @@
   <Project Path="FriWorld.Character.csproj" />
   <Project Path="FriWorld.Crowd.csproj" />
   <Project Path="FriWorld.ObjectRegistry.Editor.csproj" />
+  <Project Path="FriWorld.Crowd.Tests.csproj" />
 </Solution>
