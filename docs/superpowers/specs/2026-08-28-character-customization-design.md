@@ -176,17 +176,23 @@ to isté číslo. `shadeValue: null` znamená, že trieda tmavší odtieň nemá
 ```jsonc
 {
   "colorways": [
-    { "colorClass": "torso", "id": "navy", "displayName": "Tmavomodrá",
-      "colors": ["#243B6B", "#C8CEDA"] },
-    { "colorClass": "torso", "id": "rust", "displayName": "Hrdzavá",
-      "colors": ["#A6482B", "#E8D9C0"] },
-    { "colorClass": "skin",  "id": "light", "displayName": "Svetlá",
-      "colors": ["#F2CDB4"] }
+    { "colorClass": "torso", "slot": 1, "id": "navy", "displayName": "Tmavomodrá",
+      "color": "#243B6B" },
+    { "colorClass": "torso", "slot": 2, "id": "red",  "displayName": "Červená",
+      "color": "#B5332F" },
+    { "colorClass": "skin",  "slot": 1, "id": "light", "displayName": "Svetlá",
+      "color": "#F2CDB4" }
   ]
 }
 ```
 
-Dĺžka `colors` sa musí rovnať `mainColors` tej triedy. Kontroluje Report.
+**Paleta patrí slotu, nie triede.** Colorway je jedna farba pre dvojicu `(trieda, kľúč)`.
+`torso 1` a `torso 2` majú preto samostatné palety a losujú sa nezávisle — sekundárna farba
+oblečenia je voľná od hlavnej, či sú to pruhy, potlač alebo kravata. `slot` sa dá vynechať,
+default je 1.
+
+Trieda hovorí len to, **koľko** farieb oblečenie má (`mainColors`); čím tie farby môžu byť,
+hovorí paleta každého slotu zvlášť.
 
 ### `CharacterPresets.json`
 

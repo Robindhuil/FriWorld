@@ -14,6 +14,11 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Postavy majú farebnú paletu: desať farieb trika, päť sekundárnych (pruhy, potlač,
+  kravata), štyri nohavíc, štyri topánok, tri vlasov a desať odtieňov pleti. **Paleta patrí
+  slotu, nie triede**, takže sekundárna farba oblečenia sa losuje nezávisle od hlavnej —
+  desať košieľ krát päť sekundárnych je 50 kombinácií tam, kde by pevný pár dal desať.
+  Spolu 2 880 000 rôznych podôb pred výškou.
 - Postavy majú rôznu výšku. Losuje sa normálnym rozdelením okolo priemeru z
   `CharacterClasses.json` a mení sa na **uniformný scale** koreňa — nikdy nie scale do jednej
   osi, ten kosť skosí namiesto natiahnutia a hlava skončí ako vajce. Muži teraz stoja
