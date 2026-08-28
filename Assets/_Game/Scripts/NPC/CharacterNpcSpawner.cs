@@ -32,6 +32,9 @@ public class CharacterNpcSpawner : MonoBehaviour
     [SerializeField] private float minSpawnDelay = 1f;
     [SerializeField] private float maxSpawnDelay = 4f;
 
+    [Tooltip("Seconds to give an NPC to walk back before it despawns where it stands.")]
+    [SerializeField] private float walkHomeTimeout = 30f;
+
     [Header("Wandering")]
     [Tooltip("Waypoints the spawned NPCs walk between.")]
     [SerializeField] private PathWay wanderPath;
@@ -130,22 +133,32 @@ public class CharacterNpcSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(lifetime);
 
-        if (npc == null) yield break;
-
-        // Send them home first, so nobody blinks out of existence in front of the player.
-        var agent = npc.GetComponent<NavMeshAgent>();
-        if (agent != null && agent.isOnNavMesh)
+        if (npc != null)
         {
-            var wander = npc.GetComponent<NpcWander>();
-            if (wander != null) wander.enabled = false;
+            // Send them home first, so nobody blinks out of existence in front of the player.
+            var agent = npc.GetComponent<NavMeshAgent>();
+            if (agent != null && agent.isOnNavMesh)
+            {
+                var wander = npc.GetComponent<NpcWander>();
+                if (wander != null) wander.enabled = false;
 
-            agent.SetDestination(transform.position);
+                agent.SetDestination(transform.position);
 
-            while (npc != null && Vector3.Distance(npc.transform.position, transform.position) > 1.5f)
-                yield return null;
+                // Bounded. An NPC that cannot get back — blocked, or the spawner moved off the
+                // navmesh — would otherwise hold this coroutine and its slot in activeNpcs for
+                // the rest of the session, and the crowd would thin out with nothing in the log.
+                float deadline = Time.time + walkHomeTimeout;
+                while (npc != null
+                       && Time.time < deadline
+                       && Vector3.Distance(npc.transform.position, transform.position) > 1.5f)
+                    yield return null;
+            }
+
+            if (npc != null) Destroy(npc);
         }
 
-        if (npc != null) Destroy(npc);
+        // Unconditional: an NPC destroyed by anything else still has to give its slot back, or
+        // the spawner quietly spawns fewer and fewer until it stops.
         activeNpcs--;
 
         if (activeNpcs < maxActiveNPCs)

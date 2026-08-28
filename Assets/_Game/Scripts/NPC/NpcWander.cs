@@ -83,7 +83,15 @@ public class NpcWander : MonoBehaviour
     void Cycle()
     {
         if (agent.pathPending) return;
-        if (agent.remainingDistance >= agent.stoppingDistance + arriveDistance) return;
+
+        // A waypoint it cannot reach counts as arrived. Without this the NPC stands still for
+        // good: an incomplete path leaves remainingDistance at Infinity, the distance check
+        // never passes, and nothing ever picks a different waypoint.
+        bool arrived = !agent.hasPath
+                       || agent.pathStatus != NavMeshPathStatus.PathComplete
+                       || agent.remainingDistance < agent.stoppingDistance + arriveDistance;
+
+        if (!arrived) return;
 
         waitTimer += Time.deltaTime;
         if (waitTimer <= waitOnArrival) return;
