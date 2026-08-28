@@ -14,6 +14,12 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Postavy majú rôznu výšku. Losuje sa normálnym rozdelením okolo priemeru z
+  `CharacterClasses.json` a mení sa na **uniformný scale** koreňa — nikdy nie scale do jednej
+  osi, ten kosť skosí namiesto natiahnutia a hlava skončí ako vajce. Muži teraz stoja
+  1.70–1.90 m so stredom na 1.80 m. Model má 1.803 m, takže scale sa drží v 0.943–1.054
+  a hlava nikde nečíta detsky.
+  (`docs/decisions/2026-08-29-vyska-postavy-uniformnym-scale.md`)
 - NPC sa skladajú z presetov a farieb namiesto tridsiatich samostatných modelov. Telo,
   oblečenie a vlasy vyberá `CharacterRandomizer` zo seedu, takže NPC s rovnakou identitou
   vyzerá po respawne rovnako a neukladá sa nič. Pravidlá — čo s čím nejde, čo je len pre

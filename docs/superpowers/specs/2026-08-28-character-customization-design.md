@@ -151,9 +151,21 @@ spraviť skutočný `Material`.
     { "name": "lips",  "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
     { "name": "beard", "mainColors": 1, "shadeValue": 0.70, "shadeSaturation": 1.05 }
   ],
-  "slotClasses": ["head", "hair", "beard", "torso", "legs", "feet"]
+  "slotClasses": ["head", "hair", "beard", "torso", "legs", "feet"],
+
+  "bodies": [
+    { "gender": "male", "modelHeight": 1.803,
+      "heightMean": 1.80, "heightDeviation": 0.07,
+      "heightMin": 1.70, "heightMax": 1.90 }
+  ]
 }
 ```
+
+`bodies` nesie postavu: `modelHeight` je fakt o meshi, zvyšok je fakt o populácii. Výška sa
+losuje normálnym rozdelením a stane sa z nej **uniformný scale koreňa** — nikdy scale do
+jednej osi, ten kosť skosí namiesto natiahnutia. Preto má model stáť blízko priemeru,
+inak sa scale vzdiali od 1 a hlava začne čítať zle.
+Podrobne: [`docs/decisions/2026-08-29-vyska-postavy-uniformnym-scale.md`](../../decisions/2026-08-29-vyska-postavy-uniformnym-scale.md).
 
 `mainColors: 2` znamená, že nástroj čaká kľúče `1, 2` a vygeneruje `11, 21`.
 Faktor odtieňa je **per trieda** — tmavší záhyb látky a tmavší prameň vlasov nie sú
@@ -351,10 +363,13 @@ struct CharacterAppearance {
     Gender gender;
     byte[] preset;    // index podľa slot triedy
     byte[] colorway;  // index podľa farebnej triedy
+    byte   height;    // postava naprieč pásmom [heightMin, heightMax]
 }
 ```
 
-Toto je jediné, čo sa ukladá: v savote hráča aj ako seed pre NPC.
+Toto je jediné, čo sa ukladá: v savote hráča aj ako seed pre NPC. Výška je byte, nie float,
+aby zostal celý vzhľad poľom indexov — 20 cm na 255 krokov je pod milimeter a v creator UI
+to sadne priamo na slider.
 
 ### `CharacterRandomizer.Roll(seed, catalog, gender)`
 
@@ -367,10 +382,11 @@ Seed sa odvodí z identity NPC.
 
 ### `CharacterBuilder.Apply(instance, appearance, catalog)`
 
-1. `Destroy` nevybraných preset objektov
-2. zjednotenie `hides` všetkých vybraných → `Destroy` tých sekcií tela
-3. prepis `sharedMaterials` podľa mapy slotov z katalógu
-4. koniec
+1. uniformný scale koreňa podľa `height`
+2. `Destroy` nevybraných preset objektov
+3. zjednotenie `hides` všetkých vybraných → `Destroy` tých sekcií tela
+4. prepis `sharedMaterials` podľa mapy slotov z katalógu
+5. koniec
 
 Žiadna alokácia okrem poľa materiálov. Strip pri spawne bol zvolený nad `SetActive(false)`
 práve preto, že 20 NPC × všetky presety je zbytočne veľa `Transform`ov na webe;

@@ -16,6 +16,12 @@ sekcie **Kontext → Rozhodnutie → Dôsledky**, 20–40 riadkov.
 
 Verzia je `bundleVersion` z `ProjectSettings` v čase zápisu.
 
+## 0.1.2-alpha
+
+| Dátum | Téma |
+|---|---|
+| 2026-08-29 | [Výšku postavy nesie uniformný scale, nie scale do jednej osi](2026-08-29-vyska-postavy-uniformnym-scale.md) |
+
 ## 0.1.1-alpha
 
 | Dátum | Téma |
