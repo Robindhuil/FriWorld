@@ -38,12 +38,23 @@ namespace FriWorld.Character.Editor
         public List<BodyDef> bodies = new List<BodyDef>();
     }
 
+    /// <summary>
+    /// One colour available to one colour slot.
+    ///
+    /// The slot is the class plus the key from the material name: torso 1 is a garment's main
+    /// colour, torso 2 its secondary. They have separate palettes and roll separately, so the
+    /// secondary is free of the main whether it is a stripe, a print or a tie.
+    /// </summary>
     public sealed class ColorwayDef
     {
         public string colorClass;
+
+        /// <summary>Which key of the class this colour is for. Defaults to the main colour.</summary>
+        public int slot = 1;
+
         public string id;
         public string displayName;
-        public List<string> colors = new List<string>();
+        public string color;
     }
 
     public sealed class ColorwayRegistry

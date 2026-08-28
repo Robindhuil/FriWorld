@@ -13,13 +13,18 @@ namespace FriWorld.Character.Tests
             catalog.colorClasses = new[] { "torso", "legs" };
             catalog.tags = new[] { "casual" };
 
+            // torso carries two colours, legs one: three colour slots in all.
+            catalog.colorSlotClass = new[] { 0, 0, 1 };
+            catalog.colorSlotKey = new[] { 1, 2, 1 };
+
             catalog.colorways = new[]
             {
-                new ColorwayEntry { colorClass = 0, id = "navy" },
-                new ColorwayEntry { colorClass = 0, id = "rust" },
-                new ColorwayEntry { colorClass = 1, id = "denim" },
+                new ColorwayEntry { colorSlot = 0, id = "navy" },
+                new ColorwayEntry { colorSlot = 0, id = "rust" },
+                new ColorwayEntry { colorSlot = 1, id = "cream" },
+                new ColorwayEntry { colorSlot = 2, id = "denim" },
             };
-            catalog.colorwayStart = new[] { 0, 2, 3 };
+            catalog.colorwayStart = new[] { 0, 2, 3, 4 };
 
             catalog.male = new GenderBundle
             {
@@ -57,12 +62,40 @@ namespace FriWorld.Character.Tests
         }
 
         [Test]
-        public void CountsAndIndexesColorwaysPerColourClass()
+        public void CountsAndIndexesColorwaysPerColourSlot()
         {
             var catalog = Build();
             Assert.AreEqual(2, catalog.ColorwayCount(0));
             Assert.AreEqual(1, catalog.ColorwayCount(1));
-            Assert.AreEqual("denim", catalog.Colorway(1, 0).id);
+            Assert.AreEqual(1, catalog.ColorwayCount(2));
+            Assert.AreEqual("denim", catalog.Colorway(2, 0).id);
+        }
+
+        [Test]
+        public void TheTwoTorsoSlotsHaveSeparatePalettes()
+        {
+            // The whole point of slots over classes: a garment's secondary colour is not the
+            // main one, and does not have to come from the same list.
+            var catalog = Build();
+
+            int main = catalog.ColorSlotIndex(0, 1);
+            int secondary = catalog.ColorSlotIndex(0, 2);
+
+            Assert.AreNotEqual(main, secondary);
+            Assert.AreEqual("navy", catalog.Colorway(main, 0).id);
+            Assert.AreEqual("cream", catalog.Colorway(secondary, 0).id);
+        }
+
+        [Test]
+        public void AnUndeclaredColourSlotIsMinusOne()
+        {
+            Assert.AreEqual(-1, Build().ColorSlotIndex(1, 2));
+        }
+
+        [Test]
+        public void NamesAColourSlotForReports()
+        {
+            Assert.AreEqual("torso 2", Build().ColorSlotName(1));
         }
 
         [Test]

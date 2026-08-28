@@ -22,8 +22,10 @@ namespace FriWorld.Character.Tests
         {
             colorways = new List<ColorwayDef>
             {
-                new ColorwayDef { colorClass = "torso", id = "navy", displayName = "Tmavomodrá",
-                                  colors = new List<string> { "#243B6B", "#C8CEDA" } },
+                new ColorwayDef { colorClass = "torso", slot = 1, id = "navy",
+                                  displayName = "Tmavomodrá", color = "#243B6B" },
+                new ColorwayDef { colorClass = "torso", slot = 2, id = "cream",
+                                  displayName = "Krémová", color = "#C8CEDA" },
             },
         };
 
@@ -144,15 +146,28 @@ namespace FriWorld.Character.Tests
         }
 
         [Test]
-        public void AColorwayWithTheWrongNumberOfColoursIsAnError()
+        public void AColourSlotWithNoColorwayIsAnError()
         {
+            // torso declares two colours, so both slots need a palette of their own.
             var colorways = Colorways();
-            colorways.colorways[0].colors = new List<string> { "#243B6B" };
+            colorways.colorways.RemoveAll(c => c.slot == 2);
 
             var issues = CharacterValidation.Check(
                 Classes(), colorways, Presets(), new[] { Body(Gender.Male) });
 
-            Assert.IsTrue(HasError(issues, "COUNT"));
+            Assert.IsTrue(HasError(issues, "EMPTY colour slot"));
+        }
+
+        [Test]
+        public void AColorwayForASlotTheClassDoesNotHaveIsAnError()
+        {
+            var colorways = Colorways();
+            colorways.colorways[0].slot = 3;
+
+            var issues = CharacterValidation.Check(
+                Classes(), colorways, Presets(), new[] { Body(Gender.Male) });
+
+            Assert.IsTrue(HasError(issues, "SLOT"));
         }
 
         [Test]

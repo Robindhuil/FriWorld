@@ -15,10 +15,13 @@ namespace FriWorld.Character.Tests
             catalog.colorClasses = new[] { "torso" };
             catalog.tags = new[] { "bulky_torso" };
 
+            catalog.colorSlotClass = new[] { 0 };
+            catalog.colorSlotKey = new[] { 1 };
+
             catalog.colorways = new[]
             {
-                new ColorwayEntry { colorClass = 0, id = "navy" },
-                new ColorwayEntry { colorClass = 0, id = "rust" },
+                new ColorwayEntry { colorSlot = 0, id = "navy" },
+                new ColorwayEntry { colorSlot = 0, id = "rust" },
             };
             catalog.colorwayStart = new[] { 0, 2 };
 
@@ -102,7 +105,7 @@ namespace FriWorld.Character.Tests
         }
 
         [Test]
-        public void EveryColourClassGetsAColorway()
+        public void EveryColourSlotGetsAColorway()
         {
             var catalog = Build();
             var look = CharacterRandomizer.Roll(7, catalog, Gender.Male);

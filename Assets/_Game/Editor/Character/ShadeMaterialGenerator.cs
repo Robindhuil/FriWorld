@@ -8,10 +8,10 @@ namespace FriWorld.Character.Editor
     /// <summary>
     /// Character > 2 — Generate Shades.
     ///
-    /// Turns every colorway into real .mat assets, one per slot key. Doing it here rather than at
-    /// runtime is what keeps the swap free: applying a look is then a reference assignment, the
-    /// materials stay shared across every NPC wearing that colorway, and the SRP Batcher keeps
-    /// batching them.
+    /// Turns every colorway into real .mat assets: one for the colour, one for its derived shade
+    /// where the class declares one. Doing it here rather than at runtime is what keeps the swap
+    /// free: applying a look is then a reference assignment, the materials stay shared across
+    /// every NPC wearing that colour, and the SRP Batcher keeps batching them.
     ///
     /// The look of a material — shader, normal map, smoothness — comes from the source template
     /// extracted from the model. Only _BaseColor is overwritten, so re-running this never undoes
@@ -46,31 +46,29 @@ namespace FriWorld.Character.Editor
                         continue;
                     }
 
+                    if (way.slot < 1 || way.slot > def.mainColors)
+                    {
+                        problems.Add($"colorway '{way.colorClass} {way.slot}/{way.id}' is for slot "
+                                     + $"{way.slot}, the class declares {def.mainColors}");
+                        continue;
+                    }
+
+                    if (!ColorUtility.TryParseHtmlString(way.color, out var color))
+                    {
+                        problems.Add($"colorway '{way.colorClass} {way.slot}/{way.id}' has an "
+                                     + $"unreadable colour '{way.color}'");
+                        continue;
+                    }
+
                     Directory.CreateDirectory(Path.Combine(OutputRoot, way.colorClass));
 
-                    for (int baseKey = 1; baseKey <= def.mainColors; baseKey++)
+                    if (Write(way, def, 0, color, problems)) written++;
+
+                    if (def.shadeValue.HasValue && def.shadeSaturation.HasValue)
                     {
-                        if (way.colors == null || way.colors.Count < baseKey)
-                        {
-                            problems.Add($"colorway '{way.colorClass}/{way.id}' has no colour {baseKey}");
-                            continue;
-                        }
-
-                        if (!ColorUtility.TryParseHtmlString(way.colors[baseKey - 1], out var color))
-                        {
-                            problems.Add($"colorway '{way.colorClass}/{way.id}' colour {baseKey} "
-                                         + $"'{way.colors[baseKey - 1]}' is unreadable");
-                            continue;
-                        }
-
-                        if (Write(way, def, baseKey, 0, color, problems)) written++;
-
-                        if (def.shadeValue.HasValue && def.shadeSaturation.HasValue)
-                        {
-                            var shade = ShadeColor.Derive(color, def.shadeValue.Value,
-                                                          def.shadeSaturation.Value);
-                            if (Write(way, def, baseKey, 1, shade, problems)) written++;
-                        }
+                        var shade = ShadeColor.Derive(color, def.shadeValue.Value,
+                                                      def.shadeSaturation.Value);
+                        if (Write(way, def, 1, shade, problems)) written++;
                     }
                 }
             }
@@ -87,15 +85,15 @@ namespace FriWorld.Character.Editor
         }
 
         /// <summary>Creates or updates one material. Returns false when the template is missing.</summary>
-        static bool Write(ColorwayDef way, ColorClassDef def, int baseKey, int shadeLevel,
-                          Color color, List<string> problems)
+        static bool Write(ColorwayDef way, ColorClassDef def, int shadeLevel, Color color,
+                          List<string> problems)
         {
-            string key = shadeLevel == 0 ? baseKey.ToString() : $"{baseKey}{shadeLevel}";
+            string key = shadeLevel == 0 ? way.slot.ToString() : $"{way.slot}{shadeLevel}";
 
             // Prefer a template authored for the shade slot itself; fall back to the base slot,
             // which is the common case — the shade usually only differs in colour.
             var template = LoadTemplate($"char_{def.name}_{key}")
-                           ?? LoadTemplate($"char_{def.name}_{baseKey}");
+                           ?? LoadTemplate($"char_{def.name}_{way.slot}");
 
             if (template == null)
             {

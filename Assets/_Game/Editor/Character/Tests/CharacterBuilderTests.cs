@@ -24,13 +24,12 @@ namespace FriWorld.Character.Tests
             catalog.colorClasses = new[] { "torso" };
             catalog.tags = new string[0];
 
+            catalog.colorSlotClass = new[] { 0 };
+            catalog.colorSlotKey = new[] { 1 };
+
             catalog.colorways = new[]
             {
-                new ColorwayEntry
-                {
-                    colorClass = 0, id = "navy",
-                    materials = new[] { navy, navyShade },
-                },
+                new ColorwayEntry { colorSlot = 0, id = "navy", material = navy, shade = navyShade },
             };
             catalog.colorwayStart = new[] { 0, 1 };
 
@@ -55,8 +54,8 @@ namespace FriWorld.Character.Tests
                     new RendererSlotMap
                     {
                         objectName = "shirt_1",
-                        colorClass = new[] { 0, 0, -1 },
-                        materialIndex = new[] { 0, 1, -1 },
+                        colorSlot = new[] { 0, 0, -1 },
+                        shadeLevel = new[] { 0, 1, 0 },
                     },
                 },
             };

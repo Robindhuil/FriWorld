@@ -18,7 +18,8 @@ namespace FriWorld.Character
         /// <summary>Index within the slot class, parallel to CharacterCatalog.slotClasses.</summary>
         public byte[] preset;
 
-        /// <summary>Index within the colour class, parallel to CharacterCatalog.colorClasses.</summary>
+        /// <summary>Index within the colour slot's own palette, one entry per colour slot. A slot
+        /// is a class and a key — torso 1, torso 2 — and each rolls independently.</summary>
         public byte[] colorway;
 
         /// <summary>Stature across the body's [min, max] band. Decode with BodySize.Metres.</summary>

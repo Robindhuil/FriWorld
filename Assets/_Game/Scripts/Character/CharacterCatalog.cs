@@ -27,24 +27,26 @@ namespace FriWorld.Character
         public int weight = 1;
     }
 
+    /// <summary>
+    /// One colour a colour slot can take.
+    ///
+    /// A colorway is a single colour, not a package of them. Each colour slot — torso 1, torso 2,
+    /// legs 1 — has its own palette and draws from it independently, so the secondary colour of a
+    /// garment is free of its main colour whether that secondary is a stripe, a print or a tie.
+    /// </summary>
     [Serializable]
     public sealed class ColorwayEntry
     {
-        public int colorClass;
+        public int colorSlot;
         public string id;
         public string displayName;
 
-        /// <summary>Dense, index = (baseKey - 1) * 2 + shadeLevel. Entries the class does not
-        /// declare are null and are never asked for.</summary>
-        public Material[] materials = Array.Empty<Material>();
+        public Material material;
 
-        /// <summary>Not called "Material" — a method whose name equals its return type makes
-        /// every later use of that type inside this class ambiguous.</summary>
-        public Material MaterialFor(int baseKey, int shadeLevel)
-        {
-            int index = (baseKey - 1) * 2 + shadeLevel;
-            return index >= 0 && index < materials.Length ? materials[index] : null;
-        }
+        /// <summary>The derived darker material, null when the class declares no shade.</summary>
+        public Material shade;
+
+        public Material For(int shadeLevel) => shadeLevel == 0 ? material : shade;
     }
 
     /// <summary>What to do with each material slot of one renderer, baked from its names.</summary>
@@ -53,12 +55,12 @@ namespace FriWorld.Character
     {
         public string objectName;
 
-        /// <summary>Per material slot: index into colorClasses, or -1 to leave it as authored.
-        /// That -1 is how char_leather_1 survives untouched.</summary>
-        public int[] colorClass = Array.Empty<int>();
+        /// <summary>Per material slot: index into the catalog's colour slots, or -1 to leave the
+        /// slot as authored. That -1 is how char_leather_1 survives untouched.</summary>
+        public int[] colorSlot = Array.Empty<int>();
 
-        /// <summary>Per material slot: (baseKey - 1) * 2 + shadeLevel.</summary>
-        public int[] materialIndex = Array.Empty<int>();
+        /// <summary>Per material slot: 0 for the base colour, 1 for the derived shade.</summary>
+        public int[] shadeLevel = Array.Empty<int>();
     }
 
     /// <summary>
@@ -144,6 +146,11 @@ namespace FriWorld.Character
     ///
     /// Everything is an index, not a string, because Apply runs once per NPC spawn and string
     /// work there is pure waste. The names are kept only so a report can be read by a human.
+    ///
+    /// Colour is organised by **slot**, not by class. A colour class says how many colours a
+    /// garment has; each of those slots then has its own palette and rolls independently. That is
+    /// what keeps a shirt's secondary colour free of its main one without the code having to know
+    /// whether that secondary is a stripe, a print or a tie.
     /// </summary>
     [CreateAssetMenu(menuName = "FriWorld/Character Catalog", fileName = "CharacterCatalog")]
     public sealed class CharacterCatalog : ScriptableObject
@@ -152,10 +159,14 @@ namespace FriWorld.Character
         public string[] colorClasses = Array.Empty<string>();
         public string[] tags = Array.Empty<string>();
 
-        /// <summary>Sorted by colorClass so colorwayStart can index into it.</summary>
+        /// <summary>Colour slots, flattened. Parallel arrays: which class, and which key in it.</summary>
+        public int[] colorSlotClass = Array.Empty<int>();
+        public int[] colorSlotKey = Array.Empty<int>();
+
+        /// <summary>Sorted by colorSlot so colorwayStart can index into it.</summary>
         public ColorwayEntry[] colorways = Array.Empty<ColorwayEntry>();
 
-        /// <summary>CSR offsets, length colorClasses.Length + 1.</summary>
+        /// <summary>CSR offsets, length colorSlotClass.Length + 1.</summary>
         public int[] colorwayStart = Array.Empty<int>();
 
         public GenderBundle male = new GenderBundle();
@@ -164,6 +175,8 @@ namespace FriWorld.Character
         Dictionary<string, RendererSlotMap> maleMaps;
         Dictionary<string, RendererSlotMap> femaleMaps;
 
+        public int ColorSlotCount => colorSlotClass.Length;
+
         public GenderBundle Bundle(Gender gender) => gender == Gender.Male ? male : female;
 
         public BodySize Size(Gender gender)
@@ -171,6 +184,21 @@ namespace FriWorld.Character
             var bundle = Bundle(gender);
             return bundle != null ? bundle.size : null;
         }
+
+        /// <summary>Flat index of one colour slot, or -1 when the catalog does not declare it.</summary>
+        public int ColorSlotIndex(int colorClass, int baseKey)
+        {
+            for (int i = 0; i < colorSlotClass.Length; i++)
+                if (colorSlotClass[i] == colorClass && colorSlotKey[i] == baseKey)
+                    return i;
+            return -1;
+        }
+
+        /// <summary>"torso 2" — for reports.</summary>
+        public string ColorSlotName(int colorSlot) =>
+            colorSlot >= 0 && colorSlot < colorSlotClass.Length
+                ? colorClasses[colorSlotClass[colorSlot]] + " " + colorSlotKey[colorSlot]
+                : "?";
 
         public int PresetCount(Gender gender, int slotClass)
         {
@@ -186,15 +214,15 @@ namespace FriWorld.Character
             return bundle.presets[bundle.presetStart[slotClass] + index];
         }
 
-        public int ColorwayCount(int colorClass)
+        public int ColorwayCount(int colorSlot)
         {
             if (colorwayStart == null) return 0;
-            if (colorClass < 0 || colorClass + 1 >= colorwayStart.Length) return 0;
-            return colorwayStart[colorClass + 1] - colorwayStart[colorClass];
+            if (colorSlot < 0 || colorSlot + 1 >= colorwayStart.Length) return 0;
+            return colorwayStart[colorSlot + 1] - colorwayStart[colorSlot];
         }
 
-        public ColorwayEntry Colorway(int colorClass, int index) =>
-            colorways[colorwayStart[colorClass] + index];
+        public ColorwayEntry Colorway(int colorSlot, int index) =>
+            colorways[colorwayStart[colorSlot] + index];
 
         public RendererSlotMap SlotMap(Gender gender, string objectName)
         {

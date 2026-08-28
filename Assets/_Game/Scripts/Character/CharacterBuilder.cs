@@ -90,23 +90,18 @@ namespace FriWorld.Character
                 var materials = renderer.sharedMaterials;
                 bool changed = false;
 
-                int slots = Mathf.Min(materials.Length, map.colorClass.Length);
+                int slots = Mathf.Min(materials.Length, map.colorSlot.Length);
                 for (int i = 0; i < slots; i++)
                 {
-                    int colorClass = map.colorClass[i];
-                    if (colorClass < 0) continue;                       // left as authored
-                    if (colorClass >= look.colorway.Length) continue;
+                    int colorSlot = map.colorSlot[i];
+                    if (colorSlot < 0) continue;                        // left as authored
+                    if (colorSlot >= look.colorway.Length) continue;
 
-                    byte colorwayIndex = look.colorway[colorClass];
+                    byte colorwayIndex = look.colorway[colorSlot];
                     if (colorwayIndex == CharacterAppearance.None) continue;
-                    if (colorwayIndex >= catalog.ColorwayCount(colorClass)) continue;
+                    if (colorwayIndex >= catalog.ColorwayCount(colorSlot)) continue;
 
-                    var colorway = catalog.Colorway(colorClass, colorwayIndex);
-                    int materialIndex = map.materialIndex[i];
-                    var material = materialIndex >= 0 && materialIndex < colorway.materials.Length
-                        ? colorway.materials[materialIndex]
-                        : null;
-
+                    var material = catalog.Colorway(colorSlot, colorwayIndex).For(map.shadeLevel[i]);
                     if (material == null) continue;
 
                     materials[i] = material;

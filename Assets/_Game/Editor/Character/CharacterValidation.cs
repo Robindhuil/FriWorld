@@ -75,6 +75,8 @@ namespace FriWorld.Character.Editor
                     Error($"DUPLICATE slot class '{name}' appears twice in CharacterClasses.json");
 
             // ---- colorways -----------------------------------------------------------
+            // Counted per colour slot, not per class: torso 1 and torso 2 have separate palettes
+            // and each has to be filled on its own.
             var colorwayCount = new Dictionary<string, int>(StringComparer.Ordinal);
             foreach (var way in colorways.colorways)
             {
@@ -85,27 +87,35 @@ namespace FriWorld.Character.Editor
                     continue;
                 }
 
-                int given = way.colors == null ? 0 : way.colors.Count;
-                if (given != def.mainColors)
-                    Error($"COUNT colorway '{way.colorClass}/{way.id}' lists {given} colours, "
-                          + $"the class declares mainColors {def.mainColors}");
+                if (way.slot < 1 || way.slot > def.mainColors)
+                {
+                    Error($"SLOT colorway '{way.colorClass} {way.slot}/{way.id}' is for slot "
+                          + $"{way.slot}, the class declares mainColors {def.mainColors}");
+                    continue;
+                }
 
-                if (way.colors != null)
-                    foreach (string hex in way.colors)
-                        if (!ColorUtility.TryParseHtmlString(hex, out _))
-                            Error($"COLOUR colorway '{way.colorClass}/{way.id}' has an unreadable colour '{hex}'");
+                if (!ColorUtility.TryParseHtmlString(way.color, out _))
+                    Error($"COLOUR colorway '{way.colorClass} {way.slot}/{way.id}' has an "
+                          + $"unreadable colour '{way.color}'");
 
-                colorwayCount.TryGetValue(way.colorClass, out int seen);
-                colorwayCount[way.colorClass] = seen + 1;
+                string slotKey = way.colorClass + " " + way.slot;
+                colorwayCount.TryGetValue(slotKey, out int seen);
+                colorwayCount[slotKey] = seen + 1;
             }
 
             foreach (var pair in colorClassByName)
             {
-                colorwayCount.TryGetValue(pair.Key, out int count);
-                if (count == 0)
-                    Error($"EMPTY colour class '{pair.Key}' has no colorway");
-                else if (count > 254)
-                    Error($"OVERFLOW colour class '{pair.Key}' has {count} colorways, the index holds 254");
+                for (int slot = 1; slot <= pair.Value.mainColors; slot++)
+                {
+                    string slotKey = pair.Key + " " + slot;
+                    colorwayCount.TryGetValue(slotKey, out int count);
+
+                    if (count == 0)
+                        Error($"EMPTY colour slot '{slotKey}' has no colorway");
+                    else if (count > 254)
+                        Error($"OVERFLOW colour slot '{slotKey}' has {count} colorways, "
+                              + "the index holds 254");
+                }
             }
 
             // ---- tags ----------------------------------------------------------------

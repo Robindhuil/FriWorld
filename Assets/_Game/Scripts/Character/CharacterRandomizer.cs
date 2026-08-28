@@ -19,7 +19,7 @@ namespace FriWorld.Character
             {
                 gender = gender,
                 preset = new byte[catalog.slotClasses.Length],
-                colorway = new byte[catalog.colorClasses.Length],
+                colorway = new byte[catalog.ColorSlotCount],
             };
 
             int takenTags = 0;
@@ -60,10 +60,12 @@ namespace FriWorld.Character
                 forbiddenTags |= chosen.conflictMask;
             }
 
-            for (int colorClass = 0; colorClass < catalog.colorClasses.Length; colorClass++)
+            // Per colour slot, not per colour class: the secondary colour of a garment draws from
+            // its own palette and is free of the main one.
+            for (int colorSlot = 0; colorSlot < catalog.ColorSlotCount; colorSlot++)
             {
-                int count = catalog.ColorwayCount(colorClass);
-                look.colorway[colorClass] = count == 0
+                int count = catalog.ColorwayCount(colorSlot);
+                look.colorway[colorSlot] = count == 0
                     ? CharacterAppearance.None
                     : (byte)rng.Next(count);
             }

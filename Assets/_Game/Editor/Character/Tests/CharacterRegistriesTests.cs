@@ -54,13 +54,14 @@ namespace FriWorld.Character.Tests
         public void ReadsAColorway()
         {
             Write(@"{ ""colorways"": [
-                { ""colorClass"": ""torso"", ""id"": ""navy"", ""displayName"": ""Tmavomodrá"",
-                  ""colors"": [ ""#243B6B"", ""#C8CEDA"" ] } ] }");
+                { ""colorClass"": ""torso"", ""slot"": 2, ""id"": ""navy"",
+                  ""displayName"": ""Tmavomodrá"", ""color"": ""#243B6B"" } ] }");
 
             var registry = CharacterRegistries.LoadFrom<ColorwayRegistry>(temp);
 
             Assert.AreEqual("navy", registry.colorways[0].id);
-            Assert.AreEqual(2, registry.colorways[0].colors.Count);
+            Assert.AreEqual(2, registry.colorways[0].slot);
+            Assert.AreEqual("#243B6B", registry.colorways[0].color);
         }
 
         [Test]
@@ -88,6 +89,15 @@ namespace FriWorld.Character.Tests
 
             Assert.IsNotNull(registry);
             Assert.AreEqual(0, registry.presets.Count);
+        }
+
+        [Test]
+        public void AnAbsentSlotIsTheMainColour()
+        {
+            Write(@"{ ""colorways"": [
+                { ""colorClass"": ""legs"", ""id"": ""denim"", ""color"": ""#3A4A63"" } ] }");
+
+            Assert.AreEqual(1, CharacterRegistries.LoadFrom<ColorwayRegistry>(temp).colorways[0].slot);
         }
 
         [Test]

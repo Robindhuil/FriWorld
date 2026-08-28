@@ -167,42 +167,59 @@ namespace FriWorld.Character.Editor
             return mask;
         }
 
+        /// <summary>
+        /// Colour slots first — one per (class, key) the classes declare — then the colorways
+        /// sorted into them. A colorway belongs to a slot, not to a class, which is what lets a
+        /// garment's secondary colour have its own palette.
+        /// </summary>
         static void BakeColorways(CharacterCatalog catalog, ClassRegistry classes,
                                   ColorwayRegistry registry)
         {
-            var entries = new List<ColorwayEntry>();
-            var start = new int[catalog.colorClasses.Length + 1];
+            var slotClass = new List<int>();
+            var slotKey = new List<int>();
 
             for (int c = 0; c < catalog.colorClasses.Length; c++)
             {
-                start[c] = entries.Count;
-                string className = catalog.colorClasses[c];
+                var def = classes.colorClasses.Find(d => d.name == catalog.colorClasses[c]);
+                for (int key = 1; key <= def.mainColors; key++)
+                {
+                    slotClass.Add(c);
+                    slotKey.Add(key);
+                }
+            }
+
+            catalog.colorSlotClass = slotClass.ToArray();
+            catalog.colorSlotKey = slotKey.ToArray();
+
+            var entries = new List<ColorwayEntry>();
+            var start = new int[slotClass.Count + 1];
+
+            for (int slot = 0; slot < slotClass.Count; slot++)
+            {
+                start[slot] = entries.Count;
+
+                string className = catalog.colorClasses[slotClass[slot]];
+                int key = slotKey[slot];
                 var def = classes.colorClasses.Find(d => d.name == className);
 
                 foreach (var way in registry.colorways)
                 {
-                    if (way.colorClass != className) continue;
-
-                    var materials = new Material[def.mainColors * 2];
-                    for (int baseKey = 1; baseKey <= def.mainColors; baseKey++)
-                    {
-                        materials[(baseKey - 1) * 2] = LoadMaterial(className, way.id, baseKey.ToString());
-                        if (def.shadeValue.HasValue)
-                            materials[(baseKey - 1) * 2 + 1] =
-                                LoadMaterial(className, way.id, $"{baseKey}1");
-                    }
+                    if (way.colorClass != className || way.slot != key) continue;
 
                     entries.Add(new ColorwayEntry
                     {
-                        colorClass = c,
+                        colorSlot = slot,
                         id = way.id,
                         displayName = way.displayName,
-                        materials = materials,
+                        material = LoadMaterial(className, way.id, key.ToString()),
+                        shade = def.shadeValue.HasValue
+                            ? LoadMaterial(className, way.id, key + "1")
+                            : null,
                     });
                 }
             }
 
-            start[catalog.colorClasses.Length] = entries.Count;
+            start[slotClass.Count] = entries.Count;
             catalog.colorways = entries.ToArray();
             catalog.colorwayStart = start;
         }
@@ -261,22 +278,25 @@ namespace FriWorld.Character.Editor
             foreach (var scanned in body.objects)
             {
                 int count = scanned.materialNames.Length;
-                var colorClass = new int[count];
-                var materialIndex = new int[count];
+                var colorSlot = new int[count];
+                var shadeLevel = new int[count];
                 bool anythingToDo = false;
 
                 for (int i = 0; i < count; i++)
                 {
-                    colorClass[i] = -1;
-                    materialIndex[i] = -1;
+                    colorSlot[i] = -1;
+                    shadeLevel[i] = 0;
 
-                    if (!MaterialSlotKey.TryParse(scanned.materialNames[i], out var slot)) continue;
+                    if (!MaterialSlotKey.TryParse(scanned.materialNames[i], out var parsed)) continue;
 
-                    int index = Array.IndexOf(catalog.colorClasses, slot.ColorClass);
-                    if (index < 0) continue;   // char_leather_1 and friends: left as authored
+                    int colorClass = Array.IndexOf(catalog.colorClasses, parsed.ColorClass);
+                    if (colorClass < 0) continue;   // char_leather_1 and friends: left as authored
 
-                    colorClass[i] = index;
-                    materialIndex[i] = (slot.BaseKey - 1) * 2 + slot.ShadeLevel;
+                    int slot = catalog.ColorSlotIndex(colorClass, parsed.BaseKey);
+                    if (slot < 0) continue;
+
+                    colorSlot[i] = slot;
+                    shadeLevel[i] = parsed.ShadeLevel;
                     anythingToDo = true;
                 }
 
@@ -287,8 +307,8 @@ namespace FriWorld.Character.Editor
                 maps.Add(new RendererSlotMap
                 {
                     objectName = scanned.name,
-                    colorClass = colorClass,
-                    materialIndex = materialIndex,
+                    colorSlot = colorSlot,
+                    shadeLevel = shadeLevel,
                 });
             }
 
