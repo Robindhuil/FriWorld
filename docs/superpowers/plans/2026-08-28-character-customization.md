@@ -1,9 +1,32 @@
 # Character Customization — implementačný plán
 
+> **VYKONANÉ — 2026-08-29. Tento plán nespúšťaj znova.** Úlohy 1 až 15 sú hotové a v repozitári;
+> neodškrtnuté checkboxy nižšie sú plán tak, ako bol napísaný, nie zvyšná práca. Ponechané kvôli
+> úvahám a kódu, ktoré sú záznamom o tom, ako sa systém staval.
+>
+> Kde sa to od plánu odchýlilo:
+>
+> | plán | výsledok |
+> |---|---|
+> | `Prefabs/Character/char_base_male.prefab` | `Prefabs/npc/character_male.prefab` — použili sa cesty, ktoré existujú |
+> | úloha 15 prepíše `NPCSpawner` | pribudol nový `CharacterNpcSpawner` + `NpcWander`; starý je vypnutý, nie zmazaný |
+> | colorway je balík farieb pre triedu | paleta patrí **slotu** `(trieda, kľúč)`, colorway je jedna farba |
+> | — | pribudla **výška** ako losovaná vlastnosť (`BodySize`, uniformný scale) |
+> | — | pribudol `CharacterGridSpawner` na vizuálnu kontrolu bez hry |
+> | — | bake pečie telá, ktoré existujú; chýbajúce hlási, ale neblokuje |
+>
+> **Testy:** 66 NUnit EditMode testov je napísaných, ale **cez Test Runner neboli spustené** — MCP
+> naň nemá nástroj a reflexia do testovacej assembly harness zhadzuje. Tie isté tvrdenia prešli
+> priamo cez verejné API, spolu 138 + 28 + 14 + 16 + 11 kontrol bez zlyhania. Formálne zelené
+> kolečko treba dať ručne: **Window → General → Test Runner → EditMode → Run All**.
+>
+> **Nedokončené:** ženské telo, meranie výkonu na webe (úloha 16), zmazanie starého spawnera
+> a `student_*.fbx`.
+
 > **Pre agentov:** POVINNÁ SUB-SKILL — na vykonanie použi `superpowers:subagent-driven-development`
 > (odporúčané) alebo `superpowers:executing-plans`, úloha po úlohe. Kroky sú checkboxy (`- [ ]`).
 
-**Verzia projektu pri písaní:** 0.1.1-alpha · **Dátum:** 2026-08-28 · **Stav:** návrh, nezačaté
+**Verzia projektu pri písaní:** 0.1.1-alpha · **Dátum:** 2026-08-28 · **Stav:** vykonané, viď banner vyššie
 
 **Cieľ:** NPC sa skladá za behu z presetov a farieb podľa pravidiel v JSON registroch,
 namiesto 30 samostatných FBX modelov.

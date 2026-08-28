@@ -1,12 +1,18 @@
 # Character customization — návrh
 
-**Verzia:** 0.1.1-alpha · **Dátum:** 2026-08-28 · **Stav:** schválený návrh, nezačaté
+**Verzia:** 0.1.1-alpha · **Dátum:** 2026-08-28 · **Stav:** implementované v 0.1.2-alpha
 
 Jedna postava skladaná z presetov a farieb namiesto samostatného modelu na každé NPC.
 Ten istý systém neskôr obslúži aj tvorbu postavy hráča.
 
 Dokument je písaný tak, aby sa podľa neho dalo ísť v inej session bez tohto kontextu.
 Implementačný plán je v [`docs/superpowers/plans/`](../plans/).
+
+**Čo z toho beží a čo je zatiaľ len návrh.** Postavené a overené: slot triedy `hair`, `torso`,
+`legs`, `feet`, farebné triedy `torso` (dve farby), `legs`, `feet`, `hair`, `skin`, mužské telo,
+výška, generátor materiálov, bake a spawner. **Triedy `head`, `beard`, `eye` a `lips` v príkladoch
+nižšie sú zámer, nie stav** — v registroch nie sú, lebo trieda bez presetu alebo bez colorwayu je
+v Reporte chyba, a má byť. Ženské telo tiež ešte neexistuje.
 
 ---
 
