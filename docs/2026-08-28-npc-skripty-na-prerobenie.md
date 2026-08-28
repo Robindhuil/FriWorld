@@ -1,6 +1,6 @@
 # NPC skripty — čo sa bude prerábať
 
-**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-08-28 · **Stav:** návrh, nezačaté
+**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-08-28 · **Stav:** čiastočne spravené 2026-08-29 — viď tabuľku nižšie
 
 Poznámka, aby sa nezabudlo, čo je dočasné a prečo. **Teraz sa na tom nepracuje.**
 
@@ -15,7 +15,8 @@ z nich je slepá.
 
 | | |
 |---|---|
-| `CharacterNpcSpawner` + `NpcWander` | **nové**, generujú postavu z katalógu a nechajú ju chodiť |
+| `AmbientNpcSpawner` + `NpcActor` + `WaypointDirector` | **nové**, v `FriWorld.Crowd`. Telo je pasívne, riadič mu hovorí kam |
+| `CharacterNpcSpawner` + `NpcWander` | **vypnuté**, nahradilo ich to vyššie |
 | `NPCSpawner` | **vypnutý** v `Demo.unity`, ostáva do overenia nového |
 | `Npc`, `StateMachine`, `BaseState`, `IdleState`, `WonderState`, `DialogueState` | **nepoužité** generovanými NPC, stále ich používajú ručné prefaby menovaných učiteľov |
 

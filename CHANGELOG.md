@@ -126,6 +126,12 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- NPC telo je pasívne. `NpcActor` vie `GoTo` a `Stop` a **nerozhoduje, kam ide** — to mu povie
+  `WaypointDirector`. Správanie je navonok rovnaké ako predtým, ale agentová simulácia neskôr
+  vymení riadiča namiesto toho, aby telo prepisovala. Pribudol aj `NpcActivity`, seam medzi
+  správaním a animátorom, ktorý zatiaľ nikto nečíta — vďaka nemu AI nikdy nesiaha na `Animator`
+  a postava bez neho beží ďalej.
+  (`docs/superpowers/specs/2026-08-29-npc-vrstva-design.md`)
 - NPC v Demo scéne spawnuje `CharacterNpcSpawner` z katalógu postáv namiesto zoznamu
   tridsiatich prefabov. Polomer, životnosť aj odchod domov pred zmiznutím zostali rovnaké.
   Starý `NPCSpawner` je zatiaľ len vypnutý, nie zmazaný.
