@@ -11,7 +11,7 @@ v [`docs/findings/`](docs/findings/).
 
 ## [Unreleased]
 
-_Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.1-alpha**._
+_Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
 - `tools/blender/replace_material.py` — vymení jeden materiál za druhý na označených
