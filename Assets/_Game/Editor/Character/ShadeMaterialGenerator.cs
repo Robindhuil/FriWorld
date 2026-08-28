@@ -24,6 +24,11 @@ namespace FriWorld.Character.Editor
 
         static readonly int BaseColor = Shader.PropertyToID("_BaseColor");
 
+        // URP Lit renders from _BaseColor and keeps _Color only as the legacy alias. Leaving the
+        // alias on the template's colour makes the inspector disagree with what is on screen,
+        // which is a confusing half hour for whoever opens the material next.
+        static readonly int LegacyColor = Shader.PropertyToID("_Color");
+
         public static void Run()
         {
             var classes = CharacterRegistries.LoadClasses();
@@ -107,7 +112,7 @@ namespace FriWorld.Character.Editor
             if (existing == null)
             {
                 var created = new Material(template) { name = Path.GetFileNameWithoutExtension(path) };
-                created.SetColor(BaseColor, color);
+                Tint(created, color);
                 AssetDatabase.CreateAsset(created, path);
             }
             else
@@ -116,11 +121,17 @@ namespace FriWorld.Character.Editor
                 // that happens to reference it. Only the colour is re-derived.
                 existing.shader = template.shader;
                 existing.CopyPropertiesFromMaterial(template);
-                existing.SetColor(BaseColor, color);
+                Tint(existing, color);
                 EditorUtility.SetDirty(existing);
             }
 
             return true;
+        }
+
+        static void Tint(Material material, Color color)
+        {
+            material.SetColor(BaseColor, color);
+            if (material.HasProperty(LegacyColor)) material.SetColor(LegacyColor, color);
         }
 
         static Material LoadTemplate(string materialName) =>

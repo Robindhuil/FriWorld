@@ -46,7 +46,7 @@ namespace FriWorld.Character
         /// <summary>The derived darker material, null when the class declares no shade.</summary>
         public Material shade;
 
-        public Material For(int shadeLevel) => shadeLevel == 0 ? material : shade;
+        public Material For(int shadeLevel) => shadeLevel <= 0 ? material : shade;
     }
 
     /// <summary>What to do with each material slot of one renderer, baked from its names.</summary>
