@@ -1,0 +1,296 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48595bb3be2fa649b94cd5ca3424067, type: 3}
+  m_Name: CharacterCatalog
+  m_EditorClassIdentifier: FriWorld.Character::FriWorld.Character.CharacterCatalog
+  slotClasses:
+  - hair
+  - torso
+  - legs
+  - feet
+  colorClasses:
+  - torso
+  - legs
+  - feet
+  - hair
+  - skin
+  tags:
+  - casual
+  - formal
+  colorways:
+  - colorClass: 0
+    id: navy
+    displayName: "Tmavomodr\xE1"
+    materials:
+    - {fileID: 2100000, guid: 93c5ec83af6ad474c887cef823495e9c, type: 2}
+    - {fileID: 2100000, guid: 0211e94727234cc4d8e81181a1a7e477, type: 2}
+    - {fileID: 2100000, guid: da440415fdff64b44bc239f054a5d4f0, type: 2}
+    - {fileID: 2100000, guid: 32f95f86db2a61f4a846a78c5b2781ff, type: 2}
+  - colorClass: 0
+    id: rust
+    displayName: "Hrdzav\xE1"
+    materials:
+    - {fileID: 2100000, guid: 1116c5aeec8f86e429fc0f74e71c5993, type: 2}
+    - {fileID: 2100000, guid: 2999549c7c7c71f40993741b66ce7660, type: 2}
+    - {fileID: 2100000, guid: d6293f7494da37a4d84ece1f7dd72cc9, type: 2}
+    - {fileID: 2100000, guid: 24c82a06a233b834082e28c6369cbd9b, type: 2}
+  - colorClass: 1
+    id: denim
+    displayName: "D\u017E\xEDnsov\xE1"
+    materials:
+    - {fileID: 2100000, guid: 0ab08ec5b08d8cd42a7180e91e2be867, type: 2}
+    - {fileID: 2100000, guid: 04a2b0ffe9becbf4d9c18aec389296d3, type: 2}
+  - colorClass: 2
+    id: black
+    displayName: "\u010Cierna"
+    materials:
+    - {fileID: 2100000, guid: 3516d746656c6614d8d926e783142d20, type: 2}
+    - {fileID: 2100000, guid: 7687d79173e309d449e1f8c3fd53127c, type: 2}
+  - colorClass: 3
+    id: brown
+    displayName: "Hned\xE1"
+    materials:
+    - {fileID: 2100000, guid: 2287d4d51fd97d940baf610235cc4608, type: 2}
+    - {fileID: 2100000, guid: e30cdb42ea044324790a30377e02df29, type: 2}
+  - colorClass: 4
+    id: light
+    displayName: "Svetl\xE1"
+    materials:
+    - {fileID: 2100000, guid: fb4dcb768559d0f458582f75166f676c, type: 2}
+    - {fileID: 2100000, guid: fda910fa5f9ed8245a88f1dfb8eef56e, type: 2}
+  colorwayStart: 000000000200000003000000040000000500000006000000
+  male:
+    basePrefab: {fileID: 7598612325014325811, guid: 3c6a9ab9b6244704eb95b85faa2ec410, type: 3}
+    presets:
+    - slotClass: 0
+      objectName: hair_1
+      displayName: "Kr\xE1tke"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 1
+    - slotClass: 0
+      objectName: hair_2
+      displayName: "Rozstrapaten\xE9"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 1
+    - slotClass: 1
+      objectName: shirt_1
+      displayName: "Ko\u0161e\u013Ea kr\xE1tka"
+      gender: 0
+      hides: 54
+      tagMask: 2
+      conflictMask: 0
+      weight: 1
+    - slotClass: 1
+      objectName: shirt_2
+      displayName: "Ko\u0161e\u013Ea dlh\xE1"
+      gender: 0
+      hides: 246
+      tagMask: 2
+      conflictMask: 0
+      weight: 1
+    - slotClass: 1
+      objectName: shirt_3
+      displayName: "Ko\u0161e\u013Ea kr\xE1tka s kravatou"
+      gender: 0
+      hides: 54
+      tagMask: 2
+      conflictMask: 0
+      weight: 1
+    - slotClass: 1
+      objectName: shirt_4
+      displayName: "Ko\u0161e\u013Ea dlh\xE1 s kravatou"
+      gender: 0
+      hides: 246
+      tagMask: 2
+      conflictMask: 0
+      weight: 1
+    - slotClass: 1
+      objectName: t-shirt_1
+      displayName: "Tri\u010Dko U strih"
+      gender: 0
+      hides: 54
+      tagMask: 1
+      conflictMask: 0
+      weight: 2
+    - slotClass: 1
+      objectName: t-shirt_2
+      displayName: "Tri\u010Dko bez strihu"
+      gender: 0
+      hides: 54
+      tagMask: 1
+      conflictMask: 0
+      weight: 2
+    - slotClass: 2
+      objectName: pants_1
+      displayName: Nohavice slim
+      gender: 0
+      hides: 15360
+      tagMask: 2
+      conflictMask: 0
+      weight: 1
+    - slotClass: 2
+      objectName: pants_2
+      displayName: Nohavice straight
+      gender: 0
+      hides: 15360
+      tagMask: 1
+      conflictMask: 0
+      weight: 1
+    - slotClass: 2
+      objectName: pants_3
+      displayName: "Nohavice form\xE1lne"
+      gender: 0
+      hides: 15360
+      tagMask: 1
+      conflictMask: 0
+      weight: 1
+    - slotClass: 2
+      objectName: shorts_1
+      displayName: "Kra\u0165asy slim"
+      gender: 0
+      hides: 3072
+      tagMask: 1
+      conflictMask: 0
+      weight: 1
+    - slotClass: 2
+      objectName: shorts_2
+      displayName: "Kra\u0165asy straight"
+      gender: 0
+      hides: 3072
+      tagMask: 1
+      conflictMask: 0
+      weight: 1
+    - slotClass: 3
+      objectName: boots_1
+      displayName: "Top\xE1nky vysok\xE9"
+      gender: 0
+      hides: 49152
+      tagMask: 0
+      conflictMask: 0
+      weight: 1
+    - slotClass: 3
+      objectName: boots_2
+      displayName: "Tenisky n\xEDzke"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 1
+    presetStart: 0000000002000000080000000d0000000f000000
+    slotMaps:
+    - objectName: boots_1
+      colorClass: 02000000
+      materialIndex: 00000000
+    - objectName: boots_2
+      colorClass: 02000000
+      materialIndex: 00000000
+    - objectName: hair_1
+      colorClass: 03000000
+      materialIndex: 00000000
+    - objectName: hair_2
+      colorClass: 03000000
+      materialIndex: 00000000
+    - objectName: male_body_abdomen
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_calf_L
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_calf_R
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_chest
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_foot_L
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_foot_R
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_forearm_L
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_forearm_R
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_hand_L
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_hand_R
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_head
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_hips
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_neck
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_thigh_L
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_thigh_R
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_upperarm_L
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: male_body_upperarm_R
+      colorClass: 04000000
+      materialIndex: 00000000
+    - objectName: pants_1
+      colorClass: 01000000
+      materialIndex: 00000000
+    - objectName: pants_2
+      colorClass: 01000000
+      materialIndex: 00000000
+    - objectName: pants_3
+      colorClass: 01000000ffffffffffffffff
+      materialIndex: 00000000ffffffffffffffff
+    - objectName: shirt_1
+      colorClass: 0000000000000000
+      materialIndex: 0000000001000000
+    - objectName: shirt_2
+      colorClass: 0000000000000000
+      materialIndex: 0000000001000000
+    - objectName: shirt_3
+      colorClass: 0000000000000000
+      materialIndex: 0000000002000000
+    - objectName: shirt_4
+      colorClass: 0000000000000000
+      materialIndex: 0000000002000000
+    - objectName: shorts_1
+      colorClass: 01000000
+      materialIndex: 00000000
+    - objectName: shorts_2
+      colorClass: 01000000
+      materialIndex: 00000000
+    - objectName: t-shirt_1
+      colorClass: 00000000
+      materialIndex: 00000000
+    - objectName: t-shirt_2
+      colorClass: 00000000
+      materialIndex: 00000000
+  female:
+    basePrefab: {fileID: 0}
+    presets: []
+    presetStart: 0000000000000000000000000000000000000000
+    slotMaps: []
