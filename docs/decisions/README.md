@@ -20,6 +20,7 @@ Verzia je `bundleVersion` z `ProjectSettings` v čase zápisu.
 
 | Dátum | Téma |
 |---|---|
+| 2026-08-28 | [Materiál sa volá podľa substancie, nie podľa objektu](2026-08-28-materialy-podla-substancie.md) |
 | 2026-08-25 | [Zárubne patria na `obstacle`, lebo navmesh zbiera len tú vrstvu](2026-08-25-door-frame-noobstacle.md) |
 | 2026-08-25 | [Čo púšťa svetlo do budovy, rozhoduje materiál — nie typ](2026-08-25-sklo-blokovalo-pek.md) |
 | 2026-08-25 | [Lightmap UV autoruje Blender, nie Unity](2026-08-25-lightmap-uv-z-blenderu.md) |

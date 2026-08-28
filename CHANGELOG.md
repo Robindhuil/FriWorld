@@ -14,6 +14,13 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.1-alpha**._
 
 ### Added
+- `tools/blender/replace_material.py` — vymení jeden materiál za druhý na označených
+  objektoch. Cieľový materiál nikdy nevytvára: preklep v mene by inak ticho vyrobil
+  prázdny sivý materiál namiesto toho, aby povedal, že meno nesedí. Sloty naviazané na
+  zdieľané mesh DATA hlási zvlášť, lebo tie zmenia aj objekty, ktoré si neoznačil.
+  (`18986b1`)
+- Scéna `Assets/_Game/Scenes/Character/NpcCharacterGenerator.unity` — pracovný stôl pre
+  skladanie postáv, mimo Demo scény. Zatiaľ nie je v Build Settings. (`97f6e16`)
 - `tools/blender/rebuild_uv_channels.py` — po ňom má mesh presne dva UV kanály, 0 textúrový
   a 1 lightmapa. Staršie skripty kanál len dopĺňali podľa mena, takže na meshi so štyrmi
   kanálmi skončila lightmapa na indexe 3 a Unity pieklo do toho, čo bolo na indexe 1.
@@ -92,6 +99,16 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.1
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Materiály sa volajú podľa toho, **čím povrch je**, nie podľa toho, na akom objekte sedí.
+  `mt_lamp_1`, `mt_sign_2`, `mt_trash_container_4` a ďalších osemdesiat nahradili
+  `mt_plastic_1..7`, `mt_wood_5..6`, `mt_fri_paint_1..5`, `mt_steel_8`, `mt_dirt_1`,
+  `mt_floor_8` a `mt_fabric_1..2`. Zo **140 materiálov je 79**, každý povrch je jedna
+  SRP Batcher dávka namiesto desiatich a preladenie svetla je jedna zmena, nie osemdesiat.
+  71 prefabov je prepojených v tom istom commite. (`e6f8685`,
+  `docs/decisions/2026-08-28-materialy-podla-substancie.md`)
+- Bloom je striedmejší a farebné ladenie kontrastnejšie: prah bloomu 0.8 → 1, intenzita
+  1.2 → 1 a scatter 0.7 → 0.325, takže žiara je tesnejšia a nerozlieva sa cez celý obraz;
+  kontrast −16.5 → −24.4, sýtosť 25 → 53.8. (`c8d5f44`)
 - Dvere dostali Light Probe Proxy Volume, takže ich nesvieti jedna vzorka v ťažisku. Prob sa
   vnútri objemu dverí mení priemerne 2.10x a najhoršie 15.86x — dvere v prahu majú na jednej
   strane denné svetlo a na druhej tmavú chodbu, a jedna vzorka to spriemerovala. Mriežka je
@@ -137,6 +154,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.1
   s reálnym buildom. (`c461b76`)
 
 ### Performance
+- Dynamic batching je vypnutý aj na desktope. Prehadzuje malé meshe na CPU každý snímok,
+  aby ich zlial do jedného draw callu — lenže pod URP to isté rieši SRP Batcher bez toho,
+  aby sa vrcholov dotkol, takže tá CPU práca bola zbytočná. Web ho mal vypnutý už predtým.
+  (`aacb912`)
 - Web build výrazne odľahčený pre integrované grafiky: vypnuté MSAA (nahradené
   lacnejším FXAA), depth texture, LOD cross-fade a blending reflection probes;
   anizotropné filtrovanie už nie je vynútené na všetky textúry a LOD sa neprepína
@@ -146,6 +167,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.1
   a tvoria vzhľad hry. (`c461b76`)
 
 ### Removed
+- Prefaby `GameObject 7`, `GameObject 8` a `GameObject 9` z priečinka `cubboard` — uložili
+  sa omylom a niesli Unity default meno. Nič ich nereferencovalo a medzera v mene znamená,
+  že by sa aj tak nikdy nezhodli s typovým kľúčom v registri. (`7d2f5a8`)
 - `FriWorld > Lighting > Glass: Disable Shadow Casting` — robilo správnu vec na nesprávnom
   mieste. Písalo vrhanie tieňov na inštanciu v scéne, takže to bol override a prvý beh
   pipeline ho zmietol. Rozhodnutie prevzal krok 6.
