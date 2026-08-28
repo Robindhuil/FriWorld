@@ -1,10 +1,39 @@
 {
   "colorways": [
-    { "colorClass": "torso", "id": "navy",  "displayName": "Tmavomodrá", "colors": ["#243B6B", "#C8CEDA"] },
-    { "colorClass": "torso", "id": "rust",  "displayName": "Hrdzavá",    "colors": ["#A6482B", "#E8D9C0"] },
-    { "colorClass": "legs",  "id": "denim", "displayName": "Džínsová",   "colors": ["#3A4A63"] },
-    { "colorClass": "feet",  "id": "black", "displayName": "Čierna",     "colors": ["#2A2A2E"] },
-    { "colorClass": "hair",  "id": "brown", "displayName": "Hnedá",      "colors": ["#4A3227"] },
-    { "colorClass": "skin",  "id": "light", "displayName": "Svetlá",     "colors": ["#F2CDB4"] }
+    { "colorClass": "torso", "id": "white",  "displayName": "Biela",       "colors": ["#E8E6E1", "#C4C1BB"] },
+    { "colorClass": "torso", "id": "black",  "displayName": "Čierna",      "colors": ["#2B2C30", "#D8D9DD"] },
+    { "colorClass": "torso", "id": "grey",   "displayName": "Sivá",        "colors": ["#6E7278", "#D5D7DA"] },
+    { "colorClass": "torso", "id": "navy",   "displayName": "Tmavomodrá",  "colors": ["#243B6B", "#C8CEDA"] },
+    { "colorClass": "torso", "id": "blue",   "displayName": "Modrá",       "colors": ["#2F5C9E", "#DCE6F2"] },
+    { "colorClass": "torso", "id": "green",  "displayName": "Zelená",      "colors": ["#3E7A4E", "#E6EDDF"] },
+    { "colorClass": "torso", "id": "yellow", "displayName": "Žltá",        "colors": ["#D9B23F", "#FBF3DC"] },
+    { "colorClass": "torso", "id": "orange", "displayName": "Oranžová",    "colors": ["#D2762F", "#F7E7D4"] },
+    { "colorClass": "torso", "id": "red",    "displayName": "Červená",     "colors": ["#B5332F", "#EFE0D6"] },
+    { "colorClass": "torso", "id": "rust",   "displayName": "Hrdzavá",     "colors": ["#A6482B", "#E8D9C0"] },
+
+    { "colorClass": "legs",  "id": "denim",     "displayName": "Džínsová",     "colors": ["#3A4A63"] },
+    { "colorClass": "legs",  "id": "lightblue", "displayName": "Svetlomodrá",  "colors": ["#7189A8"] },
+    { "colorClass": "legs",  "id": "black",     "displayName": "Čierna",       "colors": ["#2A2B2F"] },
+    { "colorClass": "legs",  "id": "khaki",     "displayName": "Khaki hnedá",  "colors": ["#8A7551"] },
+
+    { "colorClass": "feet",  "id": "black", "displayName": "Čierna", "colors": ["#2A2A2E"] },
+    { "colorClass": "feet",  "id": "white", "displayName": "Biela",  "colors": ["#E9E7E2"] },
+    { "colorClass": "feet",  "id": "brown", "displayName": "Hnedá",  "colors": ["#6B4A32"] },
+    { "colorClass": "feet",  "id": "blue",  "displayName": "Modrá",  "colors": ["#35507E"] },
+
+    { "colorClass": "hair",  "id": "black",  "displayName": "Čierne", "colors": ["#1E1B1A"] },
+    { "colorClass": "hair",  "id": "brown",  "displayName": "Brunet", "colors": ["#4A3227"] },
+    { "colorClass": "hair",  "id": "blond",  "displayName": "Blond",  "colors": ["#C9A25C"] },
+
+    { "colorClass": "skin",  "id": "pale",      "displayName": "Veľmi svetlá",  "colors": ["#F5DDCB"] },
+    { "colorClass": "skin",  "id": "light",     "displayName": "Svetlá",        "colors": ["#F2CDB4"] },
+    { "colorClass": "skin",  "id": "fair",      "displayName": "Svetlá teplá",  "colors": ["#EAC4A6"] },
+    { "colorClass": "skin",  "id": "beige",     "displayName": "Béžová",        "colors": ["#E3B694"] },
+    { "colorClass": "skin",  "id": "medium1",   "displayName": "Stredná svetlá","colors": ["#D9A886"] },
+    { "colorClass": "skin",  "id": "medium2",   "displayName": "Stredná",       "colors": ["#CD9973"] },
+    { "colorClass": "skin",  "id": "medium3",   "displayName": "Stredná teplá", "colors": ["#C08A63"] },
+    { "colorClass": "skin",  "id": "olive",     "displayName": "Olivová",       "colors": ["#B07C55"] },
+    { "colorClass": "skin",  "id": "tan",       "displayName": "Opálená",       "colors": ["#9E6D49"] },
+    { "colorClass": "skin",  "id": "deeptan",   "displayName": "Tmavšia",       "colors": ["#8A5D3E"] }
   ]
 }
