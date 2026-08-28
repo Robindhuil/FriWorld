@@ -1414,6 +1414,7 @@ GameObject:
   - component: {fileID: 172036670}
   - component: {fileID: 172036669}
   - component: {fileID: 172036671}
+  - component: {fileID: 172036672}
   m_Layer: 0
   m_Name: NpcSpawner (1)
   m_TagString: Untagged
@@ -1463,7 +1464,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172036668}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1c7d07ed93452d4e9db1813305634e6, type: 3}
   m_Name: 
@@ -1476,6 +1477,35 @@ MonoBehaviour:
   maxLifetime: 600
   minSpawnDelay: 1
   maxSpawnDelay: 10
+  walkHomeTimeout: 30
+  wanderPath: {fileID: 8099188209016476868}
+  agentTypeId: -334000983
+  agentRadius: 0.1
+  agentHeight: 2
+  agentSpeed: 1.5
+  agentAngularSpeed: 120
+  agentAcceleration: 8
+--- !u!114 &172036672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172036668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3be8362ca80b646863c31e5676a446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FriWorld.Crowd::FriWorld.Crowd.AmbientNpcSpawner
+  catalog: {fileID: 0}
+  femaleShare: 0
+  maxActiveNPCs: 20
+  spawnRadius: 2
+  minLifetime: 300
+  maxLifetime: 600
+  minSpawnDelay: 1
+  maxSpawnDelay: 10
+  walkHomeTimeout: 30
   wanderPath: {fileID: 8099188209016476868}
   agentTypeId: -334000983
   agentRadius: 0.1
@@ -8656,6 +8686,7 @@ GameObject:
   - component: {fileID: 964627380}
   - component: {fileID: 964627381}
   - component: {fileID: 964627382}
+  - component: {fileID: 964627383}
   m_Layer: 0
   m_Name: NpcSpawner
   m_TagString: Untagged
@@ -8705,7 +8736,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 964627379}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e1c7d07ed93452d4e9db1813305634e6, type: 3}
   m_Name: 
@@ -8718,6 +8749,35 @@ MonoBehaviour:
   maxLifetime: 600
   minSpawnDelay: 1
   maxSpawnDelay: 10
+  walkHomeTimeout: 30
+  wanderPath: {fileID: 8099188209016476868}
+  agentTypeId: -334000983
+  agentRadius: 0.1
+  agentHeight: 2
+  agentSpeed: 1.5
+  agentAngularSpeed: 120
+  agentAcceleration: 8
+--- !u!114 &964627383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964627379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3be8362ca80b646863c31e5676a446, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FriWorld.Crowd::FriWorld.Crowd.AmbientNpcSpawner
+  catalog: {fileID: 0}
+  femaleShare: 0
+  maxActiveNPCs: 20
+  spawnRadius: 2
+  minLifetime: 300
+  maxLifetime: 600
+  minSpawnDelay: 1
+  maxSpawnDelay: 10
+  walkHomeTimeout: 30
   wanderPath: {fileID: 8099188209016476868}
   agentTypeId: -334000983
   agentRadius: 0.1
