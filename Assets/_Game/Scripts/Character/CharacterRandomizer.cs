@@ -68,6 +68,11 @@ namespace FriWorld.Character
                     : (byte)rng.Next(count);
             }
 
+            // Drawn last so that adding stature to the system did not shift every existing seed's
+            // clothing. A body with no declared size rolls to the middle of nothing and scales 1.
+            var size = catalog.Size(gender);
+            look.height = size != null ? size.Roll(rng) : (byte)0;
+
             return look;
         }
     }

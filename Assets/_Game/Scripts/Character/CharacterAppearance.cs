@@ -20,5 +20,8 @@ namespace FriWorld.Character
 
         /// <summary>Index within the colour class, parallel to CharacterCatalog.colorClasses.</summary>
         public byte[] colorway;
+
+        /// <summary>Stature across the body's [min, max] band. Decode with BodySize.Metres.</summary>
+        public byte height;
     }
 }

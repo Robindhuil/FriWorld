@@ -24,6 +24,15 @@ namespace FriWorld.Character
             if (instance == null || catalog == null) return;
             if (look.preset == null || look.colorway == null) return;
 
+            // Stature, as a uniform scale on the root. Uniform and not one axis: a bone carries
+            // its own rotation, so a non-uniform scale becomes a shear rather than a stretch —
+            // legs would lengthen but the head would go egg-shaped and a T-posed arm would only
+            // get thicker. What uniform scale costs instead is a head that is off by whatever the
+            // scale strays from 1, which is why the model should stand near the population mean.
+            var size = catalog.Size(look.gender);
+            if (size != null)
+                instance.transform.localScale = Vector3.one * size.ScaleFor(look.height);
+
             // 1. Which preset object survives in each slot class, and what it covers.
             var keep = new HashSet<string>(StringComparer.Ordinal);
             int hidden = 0;

@@ -61,10 +61,74 @@ namespace FriWorld.Character
         public int[] materialIndex = Array.Empty<int>();
     }
 
+    /// <summary>
+    /// How tall this body stands and how much that varies across the population.
+    ///
+    /// Height is carried as a byte across [min, max] rather than as a float, so the whole look
+    /// stays a row of indices: 20 cm over 255 steps is under a millimetre, and a creator slider
+    /// maps onto it directly.
+    ///
+    /// It becomes a uniform scale on the character root, never a scale on one axis. A bone has
+    /// its own rotation, and a non-uniform scale composed with a rotation is a shear, not a
+    /// stretch — a Y-only scale leaves the legs longer but the head egg-shaped and a T-posed arm
+    /// vertically fatter. Uniform scale costs a slightly-off head size instead, and that only
+    /// shows once the scale strays far from 1, which is why modelHeight should sit near the mean.
+    /// </summary>
+    [Serializable]
+    public sealed class BodySize
+    {
+        /// <summary>What the mesh actually measures, floor to crown.</summary>
+        public float modelHeight = 1f;
+
+        public float mean = 1f;
+        public float deviation;
+        public float min = 1f;
+        public float max = 1f;
+
+        public float Metres(byte height) =>
+            max <= min ? mean : Mathf.Lerp(min, max, height / 255f);
+
+        public float ScaleFor(byte height) =>
+            modelHeight <= 0f ? 1f : Metres(height) / modelHeight;
+
+        public byte Quantise(float metres) => max <= min
+            ? (byte)0
+            : (byte)Mathf.Clamp(Mathf.RoundToInt(Mathf.InverseLerp(min, max, metres) * 255f), 0, 255);
+
+        /// <summary>
+        /// Box-Muller, because adult stature is very close to normally distributed.
+        ///
+        /// A draw outside the band is redrawn rather than clamped. Clamping looks harmless and is
+        /// not: with a band of about one and a half deviations, roughly 15% of a crowd lands on
+        /// exactly the shortest and exactly the tallest value, which is a pile nobody has in real
+        /// life. Redrawing gives the truncated bell the band actually describes.
+        /// </summary>
+        public byte Roll(System.Random rng)
+        {
+            if (deviation <= 0f) return Quantise(mean);
+
+            // Bounded so a nonsensical band — a mean far outside [min, max] — cannot spin here.
+            for (int attempt = 0; attempt < 16; attempt++)
+            {
+                double u1 = 1.0 - rng.NextDouble();   // (0, 1], so Log never sees zero
+                double u2 = rng.NextDouble();
+                double normal = System.Math.Sqrt(-2.0 * System.Math.Log(u1))
+                                * System.Math.Sin(2.0 * System.Math.PI * u2);
+
+                float metres = (float)(mean + deviation * normal);
+                if (metres >= min && metres <= max) return Quantise(metres);
+            }
+
+            return Quantise(Mathf.Clamp(mean, min, max));
+        }
+    }
+
     [Serializable]
     public sealed class GenderBundle
     {
         public GameObject basePrefab;
+
+        public BodySize size = new BodySize();
 
         /// <summary>Sorted by slotClass so presetStart can index into it.</summary>
         public PresetEntry[] presets = Array.Empty<PresetEntry>();
@@ -101,6 +165,12 @@ namespace FriWorld.Character
         Dictionary<string, RendererSlotMap> femaleMaps;
 
         public GenderBundle Bundle(Gender gender) => gender == Gender.Male ? male : female;
+
+        public BodySize Size(Gender gender)
+        {
+            var bundle = Bundle(gender);
+            return bundle != null ? bundle.size : null;
+        }
 
         public int PresetCount(Gender gender, int slotClass)
         {

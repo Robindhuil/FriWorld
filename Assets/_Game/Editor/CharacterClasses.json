@@ -6,5 +6,11 @@
     { "name": "hair",  "mainColors": 1, "shadeValue": 0.70, "shadeSaturation": 1.05 },
     { "name": "skin",  "mainColors": 1, "shadeValue": 0.80, "shadeSaturation": 1.08 }
   ],
-  "slotClasses": ["hair", "torso", "legs", "feet"]
+  "slotClasses": ["hair", "torso", "legs", "feet"],
+
+  "bodies": [
+    { "gender": "male", "modelHeight": 1.803,
+      "heightMean": 1.80, "heightDeviation": 0.07,
+      "heightMin": 1.70, "heightMax": 1.90 }
+  ]
 }

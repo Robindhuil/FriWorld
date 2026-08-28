@@ -147,9 +147,59 @@ namespace FriWorld.Character.Editor
                             Error($"DEAD preset '{who}' conflicts with tag '{tag}', which no preset provides");
             }
 
+            // ---- body sizes ----------------------------------------------------------
+            var bodyByGender = new Dictionary<string, BodyDef>(StringComparer.Ordinal);
+            foreach (var def in classes.bodies)
+            {
+                if (def.gender != "male" && def.gender != "female")
+                {
+                    Error($"GENDER body entry has gender '{def.gender}', expected male / female");
+                    continue;
+                }
+
+                if (bodyByGender.ContainsKey(def.gender))
+                    Error($"DUPLICATE body entry for '{def.gender}' appears twice");
+                else
+                    bodyByGender[def.gender] = def;
+
+                if (def.modelHeight <= 0f)
+                    Error($"HEIGHT body '{def.gender}' has modelHeight {def.modelHeight}, must be above zero");
+
+                if (def.heightMin >= def.heightMax)
+                    Error($"HEIGHT body '{def.gender}' has heightMin {def.heightMin} "
+                          + $"not below heightMax {def.heightMax}");
+
+                if (def.heightMean < def.heightMin || def.heightMean > def.heightMax)
+                    Error($"HEIGHT body '{def.gender}' has heightMean {def.heightMean} "
+                          + $"outside [{def.heightMin}, {def.heightMax}]");
+
+                if (def.heightDeviation < 0f)
+                    Error($"HEIGHT body '{def.gender}' has a negative heightDeviation");
+
+                // The thing that actually goes wrong with uniform scale: heads. A head is close to
+                // a fixed 23 cm whatever the stature, so the further the scale strays from 1 the
+                // more wrong it reads — small enough and the character starts looking like a child.
+                if (def.modelHeight > 0f && def.heightMin < def.heightMax)
+                {
+                    float low = def.heightMin / def.modelHeight;
+                    float high = def.heightMax / def.modelHeight;
+                    float worst = Mathf.Max(Mathf.Abs(1f - low), Mathf.Abs(1f - high));
+
+                    if (worst > 0.10f)
+                        Note($"SCALE body '{def.gender}' scales between {low:0.000} and {high:0.000}, "
+                             + $"up to {worst * 100f:0.0}% off the model. Past about 10% the head "
+                             + "reads wrong — consider moving modelHeight nearer heightMean.");
+                }
+            }
+
             // ---- per body ------------------------------------------------------------
             foreach (var body in bodies)
             {
+                string genderKey = body.gender == Gender.Male ? "male" : "female";
+                if (!bodyByGender.ContainsKey(genderKey))
+                    Error($"MISSING {body.gender}: no entry in \"bodies\" of CharacterClasses.json, "
+                          + "so this body has no height to scale to");
+
                 var names = new HashSet<string>(StringComparer.Ordinal);
                 foreach (var scanned in body.objects)
                     if (!names.Add(scanned.name))

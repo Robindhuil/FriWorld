@@ -70,6 +70,12 @@ MonoBehaviour:
   colorwayStart: 000000000200000003000000040000000500000006000000
   male:
     basePrefab: {fileID: 7598612325014325811, guid: 3c6a9ab9b6244704eb95b85faa2ec410, type: 3}
+    size:
+      modelHeight: 1.803
+      mean: 1.8
+      deviation: 0.07
+      min: 1.7
+      max: 1.9
     presets:
     - slotClass: 0
       objectName: hair_1
@@ -199,6 +205,39 @@ MonoBehaviour:
     - objectName: boots_2
       colorClass: 02000000
       materialIndex: 00000000
+    - objectName: pants_1
+      colorClass: 01000000
+      materialIndex: 00000000
+    - objectName: pants_2
+      colorClass: 01000000
+      materialIndex: 00000000
+    - objectName: pants_3
+      colorClass: 01000000ffffffffffffffff
+      materialIndex: 00000000ffffffffffffffff
+    - objectName: shorts_1
+      colorClass: 01000000
+      materialIndex: 00000000
+    - objectName: shorts_2
+      colorClass: 01000000
+      materialIndex: 00000000
+    - objectName: shirt_1
+      colorClass: 0000000000000000
+      materialIndex: 0000000001000000
+    - objectName: shirt_2
+      colorClass: 0000000000000000
+      materialIndex: 0000000001000000
+    - objectName: shirt_3
+      colorClass: 0000000000000000
+      materialIndex: 0000000002000000
+    - objectName: shirt_4
+      colorClass: 0000000000000000
+      materialIndex: 0000000002000000
+    - objectName: t-shirt_1
+      colorClass: 00000000
+      materialIndex: 00000000
+    - objectName: t-shirt_2
+      colorClass: 00000000
+      materialIndex: 00000000
     - objectName: hair_1
       colorClass: 03000000
       materialIndex: 00000000
@@ -256,41 +295,14 @@ MonoBehaviour:
     - objectName: male_body_upperarm_R
       colorClass: 04000000
       materialIndex: 00000000
-    - objectName: pants_1
-      colorClass: 01000000
-      materialIndex: 00000000
-    - objectName: pants_2
-      colorClass: 01000000
-      materialIndex: 00000000
-    - objectName: pants_3
-      colorClass: 01000000ffffffffffffffff
-      materialIndex: 00000000ffffffffffffffff
-    - objectName: shirt_1
-      colorClass: 0000000000000000
-      materialIndex: 0000000001000000
-    - objectName: shirt_2
-      colorClass: 0000000000000000
-      materialIndex: 0000000001000000
-    - objectName: shirt_3
-      colorClass: 0000000000000000
-      materialIndex: 0000000002000000
-    - objectName: shirt_4
-      colorClass: 0000000000000000
-      materialIndex: 0000000002000000
-    - objectName: shorts_1
-      colorClass: 01000000
-      materialIndex: 00000000
-    - objectName: shorts_2
-      colorClass: 01000000
-      materialIndex: 00000000
-    - objectName: t-shirt_1
-      colorClass: 00000000
-      materialIndex: 00000000
-    - objectName: t-shirt_2
-      colorClass: 00000000
-      materialIndex: 00000000
   female:
     basePrefab: {fileID: 0}
+    size:
+      modelHeight: 1
+      mean: 1
+      deviation: 0
+      min: 1
+      max: 1
     presets: []
     presetStart: 0000000000000000000000000000000000000000
     slotMaps: []

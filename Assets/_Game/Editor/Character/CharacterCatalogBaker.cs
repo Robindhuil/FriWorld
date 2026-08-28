@@ -86,6 +86,7 @@ namespace FriWorld.Character.Editor
             {
                 var bundle = body.gender == Gender.Male ? catalog.male : catalog.female;
                 bundle.basePrefab = AssetDatabase.LoadAssetAtPath<GameObject>(body.prefabPath);
+                bundle.size = BakeSize(classes, body.gender);
                 BakePresets(catalog, bundle, presetRegistry, body.gender);
                 BakeSlotMaps(catalog, bundle, body);
             }
@@ -110,6 +111,31 @@ namespace FriWorld.Character.Editor
             catalog = ScriptableObject.CreateInstance<CharacterCatalog>();
             AssetDatabase.CreateAsset(catalog, CatalogPath);
             return catalog;
+        }
+
+        /// <summary>A body with no entry in "bodies" scales 1, which is the model's own height.</summary>
+        static BodySize BakeSize(ClassRegistry classes, Gender gender)
+        {
+            string wanted = gender == Gender.Male ? "male" : "female";
+
+            foreach (var def in classes.bodies)
+            {
+                if (def.gender != wanted) continue;
+
+                return new BodySize
+                {
+                    modelHeight = def.modelHeight,
+                    mean = def.heightMean,
+                    deviation = def.heightDeviation,
+                    min = def.heightMin,
+                    max = def.heightMax,
+                };
+            }
+
+            return new BodySize
+            {
+                modelHeight = 1f, mean = 1f, deviation = 0f, min = 1f, max = 1f,
+            };
         }
 
         static string[] CollectTags(PresetRegistry presets)

@@ -14,10 +14,28 @@ namespace FriWorld.Character.Editor
         public float? shadeSaturation;
     }
 
+    /// <summary>
+    /// How tall one body stands and how much that varies.
+    ///
+    /// modelHeight is what the mesh actually measures, so the scale a character ends up with is
+    /// height / modelHeight. Keeping the two apart is the point: when the model is resized in
+    /// Blender only modelHeight changes, and the population stays where it was.
+    /// </summary>
+    public sealed class BodyDef
+    {
+        public string gender;
+        public float modelHeight;
+        public float heightMean;
+        public float heightDeviation;
+        public float heightMin;
+        public float heightMax;
+    }
+
     public sealed class ClassRegistry
     {
         public List<ColorClassDef> colorClasses = new List<ColorClassDef>();
         public List<string> slotClasses = new List<string>();
+        public List<BodyDef> bodies = new List<BodyDef>();
     }
 
     public sealed class ColorwayDef
