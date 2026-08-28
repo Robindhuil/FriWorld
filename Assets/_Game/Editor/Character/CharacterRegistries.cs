@@ -1,0 +1,80 @@
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
+
+namespace FriWorld.Character.Editor
+{
+    public sealed class ColorClassDef
+    {
+        public string name;
+        public int mainColors = 1;
+
+        /// <summary>Null means the class has no darker shade. Zero would mean black.</summary>
+        public float? shadeValue;
+        public float? shadeSaturation;
+    }
+
+    public sealed class ClassRegistry
+    {
+        public List<ColorClassDef> colorClasses = new List<ColorClassDef>();
+        public List<string> slotClasses = new List<string>();
+    }
+
+    public sealed class ColorwayDef
+    {
+        public string colorClass;
+        public string id;
+        public string displayName;
+        public List<string> colors = new List<string>();
+    }
+
+    public sealed class ColorwayRegistry
+    {
+        public List<ColorwayDef> colorways = new List<ColorwayDef>();
+    }
+
+    public sealed class PresetDef
+    {
+        public string slotClass;
+
+        /// <summary>The GameObject name in the base prefab. "object" is a C# keyword.</summary>
+        [JsonProperty("object")] public string objectName;
+
+        public string displayName;
+        public string gender = "any";
+        public List<string> hides = new List<string>();
+        public List<string> tags = new List<string>();
+        public List<string> conflicts = new List<string>();
+        public int weight = 1;
+    }
+
+    public sealed class PresetRegistry
+    {
+        public List<PresetDef> presets = new List<PresetDef>();
+    }
+
+    /// <summary>
+    /// The three hand-edited registers, next to ObjectTypes.json and RoomPlatforms.json.
+    ///
+    /// They are the source of truth and nothing but the editor reads them: turning "navy" into
+    /// an actual Material is what Bake Catalog is for.
+    /// </summary>
+    public static class CharacterRegistries
+    {
+        public const string ClassesPath   = "Assets/_Game/Editor/CharacterClasses.json";
+        public const string ColorwaysPath = "Assets/_Game/Editor/CharacterColorways.json";
+        public const string PresetsPath   = "Assets/_Game/Editor/CharacterPresets.json";
+
+        /// <summary>A missing file reads as an empty register, so a fresh clone can still run
+        /// Report and be told what to fill in.</summary>
+        public static T LoadFrom<T>(string path) where T : new()
+        {
+            if (!File.Exists(path)) return new T();
+            return JsonConvert.DeserializeObject<T>(File.ReadAllText(path)) ?? new T();
+        }
+
+        public static ClassRegistry LoadClasses() => LoadFrom<ClassRegistry>(ClassesPath);
+        public static ColorwayRegistry LoadColorways() => LoadFrom<ColorwayRegistry>(ColorwaysPath);
+        public static PresetRegistry LoadPresets() => LoadFrom<PresetRegistry>(PresetsPath);
+    }
+}

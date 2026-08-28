@@ -1,0 +1,10 @@
+{
+  "colorways": [
+    { "colorClass": "torso", "id": "navy",  "displayName": "Tmavomodrá", "colors": ["#243B6B", "#C8CEDA"] },
+    { "colorClass": "torso", "id": "rust",  "displayName": "Hrdzavá",    "colors": ["#A6482B", "#E8D9C0"] },
+    { "colorClass": "legs",  "id": "denim", "displayName": "Džínsová",   "colors": ["#3A4A63"] },
+    { "colorClass": "feet",  "id": "black", "displayName": "Čierna",     "colors": ["#2A2A2E"] },
+    { "colorClass": "hair",  "id": "brown", "displayName": "Hnedá",      "colors": ["#4A3227"] },
+    { "colorClass": "skin",  "id": "light", "displayName": "Svetlá",     "colors": ["#F2CDB4"] }
+  ]
+}
