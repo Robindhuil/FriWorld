@@ -47,7 +47,7 @@ Preto nemôžu byť v jednom zozname so slot triedami.
 
 ### Sekcie tela
 
-Šestnásť pevných sekcií nahého tela:
+Šestnásť pevných sekcií nahého tela. Kľúč sekcie:
 
 ```
 neck   chest   abdomen   hips
@@ -55,12 +55,28 @@ upperarm_L  upperarm_R   forearm_L  forearm_R   hand_L  hand_R
 thigh_L     thigh_R      calf_L     calf_R      foot_L  foot_R
 ```
 
-Každá sekcia je vlastný objekt so `SkinnedMeshRenderer` v základnom prefabe, pomenovaný
-presne takto. Vojdú sa do jedného `int` ako bitmask.
+Každá sekcia je vlastný objekt so `SkinnedMeshRenderer`. V Blenderi aj v Unity sa volá
+**`<pohlavie>_body_<kľúč>`** — `male_body_upperarm_L`, `female_body_upperarm_L`. Meno je
+na oboch stranách to isté; kľúč je len to, čo z neho zostane po odstrihnutí prefixu.
 
-**`head` medzi nimi nie je.** Tvar hlavy je slot trieda, takže hlava prichádza z presetu
-a nesie sloty `char_skin_1`, `char_eye_1`, `char_lips_1`. Z toho plynie, že `hides`
-nikdy neobsahuje `head`.
+Prefix v Blenderi treba, aby sa obe telá dali držať v jednom súbore bez kolízie mien.
+Kľúč ho mať nesmie, aby maska `hides` platila pre obe telá bez toho, aby sa
+`CharacterPresets.json` písal dvakrát. Je to ten istý postup, akým `ObjectTypeKey` robí
+typový kľúč z mena objektu v budove: **meno je to, čo vidí autor, kľúč je to, čo hľadá
+register.**
+
+Strana je veľkým písmenom, `_L` a `_R`, a porovnáva sa ordinálne. `_l` sa nezhoduje —
+dva objekty by inak mohli sadnúť na tú istú sekciu a druhý by ticho vyhral.
+
+Šestnásť kľúčov sa vojde do jedného `int` ako bitmask.
+
+**`head` medzi sekciami nie je**, hoci dnes v prefabe `male_body_head` existuje. Tvar
+hlavy je slot trieda, takže hlava má prísť z presetu a niesť sloty `char_skin_1`,
+`char_eye_1`, `char_lips_1`; `hides` ju preto nikdy neobsahuje. Kým presety na hlavu
+nie sú, `male_body_head` je dočasná pevná hlava. **Keď pribudnú, presunie sa z
+`male_skeleton` pod `Face/Head` a premenuje na `head_<názov>_<číslo>`** — inak by
+existovala pevná hlava aj hlava z presetu naraz. Je to jediná štrukturálna zmena, ktorú
+si pridanie tejto triedy vyžiada; všetko ostatné je riadok v JSON.
 
 ---
 
@@ -118,7 +134,7 @@ Ručne editované, priamo v `Assets/_Game/Editor/` vedľa `ObjectTypes.json`,
 hľadania správneho zanorenia. Parsuje sa cez Newtonsoft.Json, ktorý už v projekte je
 (`com.unity.nuget.newtonsoft-json` 3.2.2).
 
-Runtime ich **nečíta** — číta bake (kapitola 6), lebo z reťazca `"navy"` musí niekto
+Runtime ich **nečíta** — číta bake (kapitola 7), lebo z reťazca `"navy"` musí niekto
 spraviť skutočný `Material`.
 
 ### `CharacterClasses.json`
@@ -206,7 +222,7 @@ ktoré nikto neudržiava, a pridanie 41. presetu znamená prejsť všetkých 40.
 konštantná práca na preset bez ohľadu na to, koľko ich je.
 
 Konflikty sú **symetrické**. Dopredné `requires` v prvej verzii nie sú — vďaka tomu
-je výber jeden priechod bez backtrackingu (kapitola 7).
+je výber jeden priechod bez backtrackingu (kapitola 8).
 
 ### 5.3 Gate na pohlavie
 
@@ -230,7 +246,37 @@ Pri viacerých vybraných presetoch sa masky zjednotia (`OR`).
 
 ---
 
-## 6. Assety a editor kroky
+## 6. Čo sa dá pridať bez zásahu do kódu
+
+Toto je hlavná vlastnosť, ktorú návrh musí uniesť: dnes nie sú hotové hlavy, brady, ani
+ženské telo, a systém sa kvôli žiadnemu z nich nemá prepisovať.
+
+| pridať | čo to stojí |
+|---|---|
+| ďalšiu mikinu, vlasy, topánky | objekt v Blenderi + riadok v `CharacterPresets.json` |
+| ďalšiu farbu triedy | riadok v `CharacterColorways.json` + `2 — Generate Shades` |
+| druhú farbu existujúcej triedy (`char_torso_2`) | zdvihnúť `mainColors` v `CharacterClasses.json` |
+| **novú slot triedu** (`head`, `beard`, `glasses`) | riadok v `slotClasses` + kontajner v Blenderi + presety v JSON |
+| **novú farebnú triedu** (`eye`, `lips`) | riadok v `colorClasses` + materiály `char_eye_1` na meshi |
+| nové pravidlo medzi presetmi | `tags` a `conflicts` v JSON |
+| ženské telo | druhý prefab; kľúče sekcií a celý `CharacterPresets.json` platia bez zmeny |
+
+**Žiadny z týchto riadkov nie je v C#.** Slot triedy aj farebné triedy sú dáta v
+`CharacterClasses.json`; kód nikde nevymenúva „torso, legs, feet" a nikde nemá `switch`
+na názov triedy. Pridanie triedy `head` je preto jeden riadok v poli `slotClasses`,
+jeden kontajner v Blenderi a toľko riadkov v `CharacterPresets.json`, koľko je tvarov
+hlavy — plus tá jedna štrukturálna zmena z kapitoly 2, presun `male_body_head`.
+
+Dve veci naopak **rozšíriteľné nie sú** a treba o nich vedieť dopredu:
+
+- **16 sekcií tela.** Zmeniť delenie tela znamená prerezať mesh v Blenderi, prepísať
+  `BodySection` a prebakovať. Nie je to katastrofa, ale nie je to riadok v JSON.
+- **Limity bitmasiek:** 9 základných farieb na triedu, 32 tagov, 254 presetov na triedu
+  a 254 colorwayov na triedu. Report na každý z nich upozorní skôr, než sa prekročí.
+
+---
+
+## 7. Assety a editor kroky
 
 ### Rozloženie
 
@@ -258,7 +304,12 @@ Assets/Resources/
 Dve telá sú dva prefaby, nie jeden ťažký. Spawner vyberie prefab podľa pohlavia
 a mesh nesie len to, čo môže potrebovať.
 
-Presety sú pomenované `<slot trieda>_<názov>_<číslo>` a ležia pod kontajnerom podľa triedy.
+Presety ležia pod kontajnerom podľa triedy — `Clothes/Torso`, `Clothes/Legs`,
+`Clothes/Foot`, `Face/Hair`. **Meno objektu presetu je voľné** (`shirt_1`, `t-shirt_2`,
+`boots_1`): triedu určuje pole `slotClass` v `CharacterPresets.json`, nie prefix mena.
+Kontajner je pre človeka, register pre systém, a nemusia sa volať rovnako — trieda `feet`
+býva v kontajneri `Foot`.
+
 **Mená objektov musia byť v rámci jedného base prefabu jedinečné** — bake podľa nich
 kľúčuje mapu slotov. Kontroluje Report.
 
@@ -291,7 +342,7 @@ Bake zapíše okrem referencií aj **mapu slotov**: `renderer → index materiá
 
 ---
 
-## 7. Runtime
+## 8. Runtime
 
 ### `CharacterAppearance` — celý vzhľad na ~16 bajtoch
 
@@ -332,7 +383,7 @@ Pole `npcPrefabs` odchádza.
 
 ---
 
-## 8. Výkon
+## 9. Výkon
 
 Materiály sú **zdieľané assety**, nie inštancie — 20 NPC ťahajúcich z tej istej palety
 zdieľa tie isté `.mat` súbory, takže SRP Batcher ich batchuje naprieč všetkými postavami.
@@ -348,7 +399,7 @@ prejde. **Nerobiť to dopredu.** Ak sa to zmeria a nespraví, patrí to do `docs
 
 ---
 
-## 9. Čo bolo zvážené a zamietnuté
+## 10. Čo bolo zvážené a zamietnuté
 
 | možnosť | prečo nie |
 |---|---|
@@ -362,7 +413,7 @@ prejde. **Nerobiť to dopredu.** Ak sa to zmeria a nespraví, patrí to do `docs
 
 ---
 
-## 10. Otvorené otázky
+## 11. Otvorené otázky
 
 - **Koľko colorwayov na triedu.** Rozhodne autor pri plnení palety; systém na počte
   nezávisí, len na limite 9 základných farieb.
@@ -370,4 +421,4 @@ prejde. **Nerobiť to dopredu.** Ak sa to zmeria a nespraví, patrí to do `docs
   aby ju uniesli bez zmeny formátu — `conflicts: ["backpack"]` v príklade ju už predpokladá.
 - **Dopredné `requires`.** Ak sa ukáže potrebné, doplní sa s retry limitom. Zatiaľ by to
   bola zložitosť bez použitia.
-- **Zlúčenie sekcií pri spawne** — až po meraní, viď kapitola 8.
+- **Zlúčenie sekcií pri spawne** — až po meraní, viď kapitola 9.

@@ -45,21 +45,30 @@ Po každej zmene skriptu na disku daj `Assets/Refresh` a počkaj na dokompilovan
 
 Úlohy **1–9** sú čistý C# a dajú sa spraviť **bez akéhokoľvek modelu**. Netreba čakať na Blender.
 
-Úlohy **10–16** potrebujú aspoň hrubé `char_base_male.prefab` a `char_base_female.prefab`.
-Na odblokovanie stačia **placeholder kocky** so správnymi menami objektov a správne
-pomenovanými materiálmi — finálne meshe môžu prísť neskôr, systém ich nerozozná.
+Úlohy **10–16** potrebujú mužské aj ženské telo. Mužské už existuje ako
+`Assets/_Game/Prefabs/npc/character_male.prefab` — tenká obálka nad `Assets/3Dmodels/Npc/npc.blend`,
+z ktorej ide celý obsah. Na ženské zatiaľ stačia **placeholder kocky** so správnymi menami
+objektov a správne pomenovanými materiálmi; finálne meshe môžu prísť neskôr, systém
+ich nerozozná.
+
+Prefab nechaj obálkou nad `.blend`, neunpackuj ho. Nič v pipeline doňho nezapisuje — bake
+len číta mená a builder pracuje až za behu na inštancii — takže reimport modelu nemá čo
+zmiesť a nové oblečenie z Blenderu sa objaví samo.
 
 ### Prerekvizita z Blenderu (úloha 0)
 
-Toto nie je kód, ale bez toho úlohy 9+ nemajú na čom bežať.
+Toto nie je kód, ale bez toho úlohy 10+ nemajú na čom bežať.
 
-- [ ] `char_base_male.prefab` a `char_base_female.prefab` v `Assets/_Game/Prefabs/Character/`,
+- [ ] `character_male` **hotové**. Ženský náprotivok v tej istej štruktúre,
       spoločný rig.
-- [ ] V každom z nich **presne týchto 16 objektov** so `SkinnedMeshRenderer`, pomenovaných
-      **presne takto, veľké písmená v `_L`/`_R` sa kontrolujú**:
+- [ ] V každom z nich **presne týchto 16 sekcií tela** so `SkinnedMeshRenderer`, pomenovaných
+      `<pohlavie>_body_<kľúč>` — `male_body_upperarm_L`, `female_body_upperarm_L`.
+      Kľúče, **veľké `_L`/`_R` sa kontrolujú ordinálne**:
       `neck chest abdomen hips upperarm_L upperarm_R forearm_L forearm_R hand_L hand_R
       thigh_L thigh_R calf_L calf_R foot_L foot_R`
-- [ ] Presety pomenované `<slot trieda>_<názov>_<číslo>`, napr. `torso_hoodie_1`, `head_round_1`.
+- [ ] Presety ležia pod kontajnerom podľa triedy (`Clothes/Torso`, `Clothes/Legs`,
+      `Clothes/Foot`, `Face/Hair`). **Meno objektu je voľné** — `shirt_1`, `t-shirt_2`,
+      `boots_1`; triedu určí `slotClass` v JSON, nie prefix mena.
       **Mená objektov musia byť v rámci jedného prefabu jedinečné.**
 - [ ] Materiály na presetoch pomenované `char_<farebná trieda>_<kľúč>`. Materiál, ktorý sa
       meniť nemá, dostane keyword mimo farebných tried — `char_leather_1`.
@@ -68,6 +77,16 @@ Toto nie je kód, ale bez toho úlohy 9+ nemajú na čom bežať.
       a smoothness, generátor im mení len `_BaseColor`.
 - [ ] Oblečenie, ktoré v `hides` nič neskrýva (tielko), musí byť **odsadené od kože**,
       inak z-fighting.
+- [ ] **Exportovať len deform kosti.** Zmerané na `character_male`: 599 transformov
+      v prefabe, 404 kostí naviazaných na každom z 32 rendererov, z toho `DEF-` 71,
+      `MCH-` 138, `ORG-` 65 a 130 Rigify ovládačov bez prefixu. Reálnu váhu nesie
+      najviac 36 kostí (dlaň), väčšina meshov pod 20. Pri 20 NPC je to **~12 000
+      transformov**, drvivá väčšina na kosti, ktoré nikdy nič nepohnú — na webe to váži
+      viac než počet rendererov, ktorý meria úloha 16.
+      Po odstránení ovládačov treba prepnúť `rootBone`: dnes je to `MCH-torso.parent`,
+      teda mechanická kosť, ktorá tam po strihu nebude.
+      **Urobiť teraz je nastavenie exportu; urobiť neskôr znamená pretargetovať všetky
+      animácie.**
 
 ---
 
@@ -189,9 +208,9 @@ namespace FriWorld.Character.Tests
     public class BodySectionNamesTests
     {
         [Test]
-        public void ParsesEverySectionName()
+        public void ParsesEverySectionKey()
         {
-            string[] names =
+            string[] keys =
             {
                 "neck", "chest", "abdomen", "hips",
                 "upperarm_L", "upperarm_R", "forearm_L", "forearm_R",
@@ -199,19 +218,55 @@ namespace FriWorld.Character.Tests
                 "calf_L", "calf_R", "foot_L", "foot_R",
             };
 
-            foreach (string name in names)
+            foreach (string key in keys)
             {
-                Assert.IsTrue(BodySectionNames.TryParse(name, out var section), name);
-                Assert.AreNotEqual(BodySection.None, section, name);
+                Assert.IsTrue(BodySectionNames.TryParseKey(key, out var section), key);
+                Assert.AreNotEqual(BodySection.None, section, key);
             }
         }
 
         [Test]
-        public void RejectsAnUnknownName()
+        public void StripsTheBodyPrefixOffAnObjectName()
         {
-            Assert.IsFalse(BodySectionNames.TryParse("torso", out _));
-            Assert.IsFalse(BodySectionNames.TryParse("", out _));
-            Assert.IsFalse(BodySectionNames.TryParse(null, out _));
+            Assert.IsTrue(BodySectionNames.TryParseObject("male_body_upperarm_L", out var male));
+            Assert.IsTrue(BodySectionNames.TryParseObject("female_body_upperarm_L", out var female));
+
+            // Both bodies land on the same section, which is the whole point: hides masks in
+            // CharacterPresets.json are written once and apply to either body.
+            Assert.AreEqual(BodySection.UpperArmL, male);
+            Assert.AreEqual(male, female);
+        }
+
+        [Test]
+        public void AnObjectNameWithoutTheBodyPrefixIsReadAsAKey()
+        {
+            Assert.IsTrue(BodySectionNames.TryParseObject("chest", out var section));
+            Assert.AreEqual(BodySection.Chest, section);
+        }
+
+        [Test]
+        public void OnlyTheLastBodyMarkerCounts()
+        {
+            // A container could conceivably be called "body" too; the key is whatever follows
+            // the final _body_, never the first one.
+            Assert.IsTrue(BodySectionNames.TryParseObject("body_male_body_chest", out var section));
+            Assert.AreEqual(BodySection.Chest, section);
+        }
+
+        [Test]
+        public void TheHeadIsNotASection()
+        {
+            // male_body_head exists in the prefab today as a stand-in until head presets are
+            // modelled. It is a slot class, so it must never resolve to a hideable section.
+            Assert.IsFalse(BodySectionNames.TryParseObject("male_body_head", out _));
+        }
+
+        [Test]
+        public void RejectsAnUnknownKey()
+        {
+            Assert.IsFalse(BodySectionNames.TryParseKey("torso", out _));
+            Assert.IsFalse(BodySectionNames.TryParseKey("", out _));
+            Assert.IsFalse(BodySectionNames.TryParseKey(null, out _));
         }
 
         [Test]
@@ -219,7 +274,8 @@ namespace FriWorld.Character.Tests
         {
             // Blender writes _L and _R. Accepting _l would let two objects claim one section
             // and the second would silently win.
-            Assert.IsFalse(BodySectionNames.TryParse("upperarm_l", out _));
+            Assert.IsFalse(BodySectionNames.TryParseKey("upperarm_l", out _));
+            Assert.IsFalse(BodySectionNames.TryParseObject("male_body_upperarm_l", out _));
         }
 
         [Test]
@@ -229,17 +285,17 @@ namespace FriWorld.Character.Tests
             int count = 0;
             foreach (var entry in BodySectionNames.All)
             {
-                Assert.IsTrue(seen.Add(entry.section), entry.name);
+                Assert.IsTrue(seen.Add(entry.section), entry.key);
                 count++;
             }
             Assert.AreEqual(16, count);
         }
 
         [Test]
-        public void NameOfRoundTrips()
+        public void KeyOfRoundTrips()
         {
             foreach (var entry in BodySectionNames.All)
-                Assert.AreEqual(entry.name, BodySectionNames.NameOf(entry.section));
+                Assert.AreEqual(entry.key, BodySectionNames.KeyOf(entry.section));
         }
     }
 }
@@ -297,7 +353,13 @@ using System.Collections.Generic;
 namespace FriWorld.Character
 {
     /// <summary>
-    /// Maps between a body section and the GameObject name that carries it in the base prefab.
+    /// Maps between a body section and the GameObject that carries it in the base prefab.
+    ///
+    /// The object is called &lt;gender&gt;_body_&lt;key&gt; — male_body_upperarm_L — and the
+    /// key is whatever follows the final "_body_". The prefix exists so both bodies can live in
+    /// one blend file without a name clash; the key must not carry it, so a hides mask written
+    /// once in CharacterPresets.json applies to either body. Same split as ObjectTypeKey: the
+    /// name is what the author sees, the key is what the register looks up.
     ///
     /// Matching is ordinal and case-sensitive on purpose. Blender writes the side as _L and _R;
     /// accepting _l as well would let two objects claim the same section and the loser would
@@ -305,7 +367,9 @@ namespace FriWorld.Character
     /// </summary>
     public static class BodySectionNames
     {
-        static readonly (string name, BodySection section)[] Table =
+        const string Marker = "_body_";
+
+        static readonly (string key, BodySection section)[] Table =
         {
             ("neck",       BodySection.Neck),
             ("chest",      BodySection.Chest),
@@ -325,15 +389,17 @@ namespace FriWorld.Character
             ("foot_R",     BodySection.FootR),
         };
 
-        public static IReadOnlyList<(string name, BodySection section)> All => Table;
+        public static IReadOnlyList<(string key, BodySection section)> All => Table;
 
-        public static bool TryParse(string objectName, out BodySection section)
+        /// <summary>Exact key lookup — "upperarm_L". This is what CharacterPresets.json writes
+        /// in its hides array.</summary>
+        public static bool TryParseKey(string key, out BodySection section)
         {
-            if (!string.IsNullOrEmpty(objectName))
+            if (!string.IsNullOrEmpty(key))
             {
                 foreach (var entry in Table)
                 {
-                    if (string.Equals(entry.name, objectName, StringComparison.Ordinal))
+                    if (string.Equals(entry.key, key, StringComparison.Ordinal))
                     {
                         section = entry.section;
                         return true;
@@ -345,11 +411,32 @@ namespace FriWorld.Character
             return false;
         }
 
-        public static string NameOf(BodySection section)
+        /// <summary>Key lookup from a GameObject name — "male_body_upperarm_L". A name with no
+        /// "_body_" in it is taken as a bare key, so a body that drops the prefix later still
+        /// works.</summary>
+        public static bool TryParseObject(string objectName, out BodySection section)
+        {
+            if (string.IsNullOrEmpty(objectName))
+            {
+                section = BodySection.None;
+                return false;
+            }
+
+            // Last occurrence, not first: a container could itself be called "body".
+            int marker = objectName.LastIndexOf(Marker, StringComparison.Ordinal);
+            string key = marker < 0
+                ? objectName
+                : objectName.Substring(marker + Marker.Length);
+
+            return TryParseKey(key, out section);
+        }
+
+        /// <summary>The key, without any body prefix. For reports.</summary>
+        public static string KeyOf(BodySection section)
         {
             foreach (var entry in Table)
                 if (entry.section == section)
-                    return entry.name;
+                    return entry.key;
             return null;
         }
     }
@@ -791,16 +878,19 @@ Očakávané: 6 testov PASS.
   "colorClasses": [
     { "name": "torso", "mainColors": 2, "shadeValue": 0.62, "shadeSaturation": 1.12 },
     { "name": "legs",  "mainColors": 1, "shadeValue": 0.62, "shadeSaturation": 1.12 },
-    { "name": "feet",  "mainColors": 2, "shadeValue": 0.55, "shadeSaturation": 1.10 },
+    { "name": "feet",  "mainColors": 1, "shadeValue": 0.55, "shadeSaturation": 1.10 },
     { "name": "hair",  "mainColors": 1, "shadeValue": 0.70, "shadeSaturation": 1.05 },
-    { "name": "skin",  "mainColors": 1, "shadeValue": 0.80, "shadeSaturation": 1.08 },
-    { "name": "eye",   "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
-    { "name": "lips",  "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
-    { "name": "beard", "mainColors": 1, "shadeValue": 0.70, "shadeSaturation": 1.05 }
+    { "name": "skin",  "mainColors": 1, "shadeValue": 0.80, "shadeSaturation": 1.08 }
   ],
-  "slotClasses": ["head", "hair", "beard", "torso", "legs", "feet"]
+  "slotClasses": ["hair", "torso", "legs", "feet"]
 }
 ```
+
+**Deklaruj len to, čo v prefabe naozaj je.** Trieda bez jediného presetu alebo bez jediného
+colorwayu je v Reporte chyba, a je to tak správne — inak by NPC prišlo o časť tela a nikto
+by sa to nedozvedel. `head`, `beard`, `eye` a `lips` sa doplnia, keď pribudnú meshe;
+každé z nich je jeden riadok. `feet` má `mainColors: 1`, lebo `boots_*` nesú len
+`char_feet_1`.
 
 `Assets/_Game/Editor/CharacterColorways.json` — začni jedným colorwayom na triedu, doplní sa:
 
@@ -808,44 +898,82 @@ Očakávané: 6 testov PASS.
 {
   "colorways": [
     { "colorClass": "torso", "id": "navy",  "displayName": "Tmavomodrá", "colors": ["#243B6B", "#C8CEDA"] },
+    { "colorClass": "torso", "id": "rust",  "displayName": "Hrdzavá",    "colors": ["#A6482B", "#E8D9C0"] },
     { "colorClass": "legs",  "id": "denim", "displayName": "Džínsová",   "colors": ["#3A4A63"] },
-    { "colorClass": "feet",  "id": "black", "displayName": "Čierna",     "colors": ["#2A2A2E", "#E4E4E4"] },
+    { "colorClass": "feet",  "id": "black", "displayName": "Čierna",     "colors": ["#2A2A2E"] },
     { "colorClass": "hair",  "id": "brown", "displayName": "Hnedá",      "colors": ["#4A3227"] },
-    { "colorClass": "skin",  "id": "light", "displayName": "Svetlá",     "colors": ["#F2CDB4"] },
-    { "colorClass": "eye",   "id": "brown", "displayName": "Hnedá",      "colors": ["#5B3A22"] },
-    { "colorClass": "lips",  "id": "natural", "displayName": "Prirodzená", "colors": ["#C98A80"] },
-    { "colorClass": "beard", "id": "brown", "displayName": "Hnedá",      "colors": ["#4A3227"] }
+    { "colorClass": "skin",  "id": "light", "displayName": "Svetlá",     "colors": ["#F2CDB4"] }
   ]
 }
 ```
 
-`Assets/_Game/Editor/CharacterPresets.json` — mená objektov musia sedieť s prefabmi z úlohy 0:
+`Assets/_Game/Editor/CharacterPresets.json` — mená objektov sedia s `character_male.prefab`:
 
 ```json
 {
   "presets": [
-    { "slotClass": "head", "object": "head_round_1", "displayName": "Okrúhla",
+    { "slotClass": "hair", "object": "hair_1", "displayName": "Krátke",
       "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 1 },
-    { "slotClass": "hair", "object": "hair_short_1", "displayName": "Krátke",
+    { "slotClass": "hair", "object": "hair_2", "displayName": "Rozstrapatené",
       "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 1 },
-    { "slotClass": "beard", "object": "beard_none_1", "displayName": "Žiadna",
-      "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 4 },
-    { "slotClass": "beard", "object": "beard_full_1", "displayName": "Plnovous",
-      "gender": "male", "hides": [], "tags": [], "conflicts": [], "weight": 1 },
-    { "slotClass": "torso", "object": "torso_hoodie_1", "displayName": "Mikina",
+
+    { "slotClass": "torso", "object": "shirt_1", "displayName": "Košeľa",
       "gender": "any",
       "hides": ["chest", "abdomen", "upperarm_L", "upperarm_R", "forearm_L", "forearm_R"],
-      "tags": ["bulky_torso", "casual"], "conflicts": [], "weight": 3 },
-    { "slotClass": "torso", "object": "torso_tank_1", "displayName": "Tielko",
-      "gender": "any", "hides": [], "tags": ["casual", "bare_arms"], "conflicts": [], "weight": 1 },
-    { "slotClass": "legs", "object": "legs_jeans_1", "displayName": "Džínsy",
+      "tags": ["formal"], "conflicts": [], "weight": 1 },
+    { "slotClass": "torso", "object": "shirt_2", "displayName": "Košeľa s pruhmi",
+      "gender": "any",
+      "hides": ["chest", "abdomen", "upperarm_L", "upperarm_R", "forearm_L", "forearm_R"],
+      "tags": ["formal"], "conflicts": [], "weight": 1 },
+    { "slotClass": "torso", "object": "shirt_3", "displayName": "Košeľa dvojfarebná",
+      "gender": "any",
+      "hides": ["chest", "abdomen", "upperarm_L", "upperarm_R", "forearm_L", "forearm_R"],
+      "tags": ["formal"], "conflicts": [], "weight": 1 },
+    { "slotClass": "torso", "object": "shirt_4", "displayName": "Košeľa s lemom",
+      "gender": "any",
+      "hides": ["chest", "abdomen", "upperarm_L", "upperarm_R", "forearm_L", "forearm_R"],
+      "tags": ["formal"], "conflicts": [], "weight": 1 },
+    { "slotClass": "torso", "object": "t-shirt_1", "displayName": "Tričko",
+      "gender": "any",
+      "hides": ["chest", "abdomen", "upperarm_L", "upperarm_R"],
+      "tags": ["casual"], "conflicts": [], "weight": 2 },
+    { "slotClass": "torso", "object": "t-shirt_2", "displayName": "Tričko s potlačou",
+      "gender": "any",
+      "hides": ["chest", "abdomen", "upperarm_L", "upperarm_R"],
+      "tags": ["casual"], "conflicts": [], "weight": 2 },
+
+    { "slotClass": "legs", "object": "pants_1", "displayName": "Nohavice",
+      "gender": "any", "hides": ["hips", "thigh_L", "thigh_R", "calf_L", "calf_R"],
+      "tags": ["formal"], "conflicts": [], "weight": 1 },
+    { "slotClass": "legs", "object": "pants_2", "displayName": "Rifle",
       "gender": "any", "hides": ["hips", "thigh_L", "thigh_R", "calf_L", "calf_R"],
       "tags": ["casual"], "conflicts": [], "weight": 1 },
-    { "slotClass": "feet", "object": "feet_sneakers_1", "displayName": "Tenisky",
-      "gender": "any", "hides": ["foot_L", "foot_R"], "tags": ["casual"], "conflicts": [], "weight": 1 }
+    { "slotClass": "legs", "object": "pants_3", "displayName": "Kapsáče",
+      "gender": "any", "hides": ["hips", "thigh_L", "thigh_R", "calf_L", "calf_R"],
+      "tags": ["casual"], "conflicts": [], "weight": 1 },
+    { "slotClass": "legs", "object": "shorts_1", "displayName": "Kraťasy",
+      "gender": "any", "hides": ["hips", "thigh_L", "thigh_R"],
+      "tags": ["casual"], "conflicts": [], "weight": 1 },
+    { "slotClass": "legs", "object": "shorts_2", "displayName": "Kraťasy športové",
+      "gender": "any", "hides": ["hips", "thigh_L", "thigh_R"],
+      "tags": ["casual"], "conflicts": [], "weight": 1 },
+
+    { "slotClass": "feet", "object": "boots_1", "displayName": "Topánky",
+      "gender": "any", "hides": ["foot_L", "foot_R"], "tags": [], "conflicts": [], "weight": 1 },
+    { "slotClass": "feet", "object": "boots_2", "displayName": "Tenisky",
+      "gender": "any", "hides": ["foot_L", "foot_R"], "tags": [], "conflicts": [], "weight": 1 }
   ]
 }
 ```
+
+**Masky `hides` sú odhad z počtu submeshov, nie zmerané.** Dlhé rukávy pri `shirt_*`
+a krátke pri `t-shirt_*` treba **pozrieť očami v scéne** a opraviť — zle nastavená maska
+sa prejaví buď kožou prerastajúcou cez látku, alebo useknutým predlaktím. To je jediná
+vec v tomto kroku, ktorú nevie skontrolovať Report.
+
+`conflicts` sú zatiaľ všade prázdne zámerne: konflikt na tag, ktorý žiadny preset nedáva,
+je v Reporte mŕtve pravidlo a chyba. Tagy `formal` a `casual` sú už tu, takže prvé
+pravidlo je jeden riadok.
 
 - [ ] **Krok 6: Commit**
 
@@ -1021,7 +1149,7 @@ namespace FriWorld.Character.Tests
                 presetStart = new[] { 0, 2, 3 },
                 slotMaps = new[]
                 {
-                    new RendererSlotMap { objectName = "chest" },
+                    new RendererSlotMap { objectName = "male_body_chest" },
                 },
             };
             catalog.female = new GenderBundle();
@@ -1058,7 +1186,7 @@ namespace FriWorld.Character.Tests
         public void FindsASlotMapByObjectName()
         {
             var catalog = Build();
-            Assert.IsNotNull(catalog.SlotMap(Gender.Male, "chest"));
+            Assert.IsNotNull(catalog.SlotMap(Gender.Male, "male_body_chest"));
             Assert.IsNull(catalog.SlotMap(Gender.Male, "no_such_object"));
         }
 
@@ -1757,10 +1885,11 @@ namespace FriWorld.Character.Tests
         {
             var body = new ScannedBody { gender = gender, prefabPath = "test.prefab" };
 
+            string prefix = gender == Gender.Male ? "male_body_" : "female_body_";
             foreach (var entry in BodySectionNames.All)
                 body.objects.Add(new ScannedObject
                 {
-                    name = entry.name,
+                    name = prefix + entry.key,
                     materialNames = new[] { "char_skin_1" },
                 });
 
@@ -1795,7 +1924,7 @@ namespace FriWorld.Character.Tests
         public void AMissingBodySectionIsAnError()
         {
             var body = Body(Gender.Male);
-            body.objects.RemoveAll(o => o.name == "chest");
+            body.objects.RemoveAll(o => o.name == "male_body_chest");
 
             Assert.IsTrue(HasError(Run(body), "chest"));
         }
@@ -1813,7 +1942,7 @@ namespace FriWorld.Character.Tests
         public void ADuplicateObjectNameIsAnError()
         {
             var body = Body(Gender.Male);
-            body.objects.Add(new ScannedObject { name = "chest", materialNames = new string[0] });
+            body.objects.Add(new ScannedObject { name = "male_body_chest", materialNames = new string[0] });
 
             Assert.IsTrue(HasError(Run(body), "DUPLICATE"));
         }
@@ -2053,7 +2182,7 @@ namespace FriWorld.Character.Editor
 
                 if (preset.hides != null)
                     foreach (string section in preset.hides)
-                        if (!BodySectionNames.TryParse(section, out _))
+                        if (!BodySectionNames.TryParseKey(section, out _))
                             Error($"SECTION preset '{who}' hides '{section}', which is not a body section");
 
                 if (preset.conflicts != null)
@@ -2071,9 +2200,16 @@ namespace FriWorld.Character.Editor
                         Error($"DUPLICATE {body.gender}: two objects named '{scanned.name}' in "
                               + $"{body.prefabPath}; the slot map is keyed on the name");
 
+                // Which sections the body actually carries. Resolved through the object name
+                // so male_body_chest and female_body_chest both land on Chest.
+                int present = 0;
+                foreach (var scanned in body.objects)
+                    if (BodySectionNames.TryParseObject(scanned.name, out var found))
+                        present |= (int)found;
+
                 foreach (var entry in BodySectionNames.All)
-                    if (!names.Contains(entry.name))
-                        Error($"MISSING {body.gender}: body section '{entry.name}' is not in {body.prefabPath}");
+                    if ((present & (int)entry.section) == 0)
+                        Error($"MISSING {body.gender}: body section '{entry.key}' is not in {body.prefabPath}");
 
                 foreach (var preset in presets.presets)
                 {
@@ -2662,7 +2798,7 @@ namespace FriWorld.Character.Editor
                     int hides = 0;
                     if (preset.hides != null)
                         foreach (string section in preset.hides)
-                            if (BodySectionNames.TryParse(section, out var parsed))
+                            if (BodySectionNames.TryParseKey(section, out var parsed))
                                 hides |= (int)parsed;
 
                     entries.Add(new PresetEntry
@@ -2867,9 +3003,10 @@ namespace FriWorld.Character.Tests
             };
 
             instance = new GameObject("char_base_male");
-            AddRenderer("chest", 1);
-            AddRenderer("abdomen", 1);
-            AddRenderer("hand_L", 1);
+            // Section objects carry the gender prefix, exactly as they come out of Blender.
+            AddRenderer("male_body_chest", 1);
+            AddRenderer("male_body_abdomen", 1);
+            AddRenderer("male_body_hand_L", 1);
             AddRenderer("torso_hoodie_1", 3);
             AddRenderer("torso_tank_1", 1);
         }
@@ -2918,9 +3055,9 @@ namespace FriWorld.Character.Tests
         {
             CharacterBuilder.Apply(instance, Look(0, 0), catalog);
 
-            Assert.IsNull(Find("chest"));
-            Assert.IsNull(Find("abdomen"));
-            Assert.IsNotNull(Find("hand_L"));
+            Assert.IsNull(Find("male_body_chest"));
+            Assert.IsNull(Find("male_body_abdomen"));
+            Assert.IsNotNull(Find("male_body_hand_L"));
         }
 
         [Test]
@@ -2928,8 +3065,8 @@ namespace FriWorld.Character.Tests
         {
             CharacterBuilder.Apply(instance, Look(1, 0), catalog);
 
-            Assert.IsNotNull(Find("chest"));
-            Assert.IsNotNull(Find("abdomen"));
+            Assert.IsNotNull(Find("male_body_chest"));
+            Assert.IsNotNull(Find("male_body_abdomen"));
         }
 
         [Test]
@@ -3019,17 +3156,22 @@ namespace FriWorld.Character
                 if (!keep.Contains(preset.objectName))
                     drop.Add(preset.objectName);
 
-            foreach (var entry in BodySectionNames.All)
-                if ((hidden & (int)entry.section) != 0)
-                    drop.Add(entry.name);
-
             instance.GetComponentsInChildren(true, Buffer);
 
             for (int i = Buffer.Count - 1; i >= 0; i--)
             {
                 var renderer = Buffer[i];
                 if (renderer == null) continue;
-                if (!drop.Contains(renderer.gameObject.name)) continue;
+
+                string name = renderer.gameObject.name;
+
+                // A body section is recognised from its own name rather than by building
+                // "male_body_" + key here, so the builder never has to know what the gender
+                // prefix looks like.
+                bool covered = BodySectionNames.TryParseObject(name, out var section)
+                               && (hidden & (int)section) != 0;
+
+                if (!covered && !drop.Contains(name)) continue;
 
                 Object.Destroy(renderer.gameObject);
                 Buffer[i] = null;
@@ -3250,6 +3392,12 @@ git add CHANGELOG.md docs/decisions && git commit -m "docs(character): record th
 | Creator UI pre hráča (UI Toolkit) a uloženie `CharacterAppearance` | fáza 2 |
 | Telo a ruky z prvej osoby | fáza 3 |
 | Odstránenie 30 × `student_*.fbx` a ich prefabov | až keď generátor beží v scéne |
+| Triedy `head`, `beard`, `eye`, `lips` | riadok v `CharacterClasses.json`, keď budú meshe — viď spec, kapitola 6 |
 | Trieda pre doplnky (batoh, okuliare) | formát tagov to unesie bez zmeny |
 | Dopredné `requires` medzi presetmi | až keď sa ukáže potrebné |
 | Zlúčenie prežitých sekcií do jedného renderera | až po meraní, úloha 16 |
+
+Prvé štyri triedy z tabuľky sú dôvod, prečo kód nikde nevymenúva názvy tried a nemá na ne
+`switch`: `head` má pribudnúť ako jeden riadok v JSON, nie ako ďalšia vetva v `CharacterBuilder`.
+Jediná štrukturálna zmena, ktorú si `head` vyžiada, je presun `male_body_head` z tela pod
+`Face/Head` — inak by naraz existovala pevná hlava aj hlava z presetu.
