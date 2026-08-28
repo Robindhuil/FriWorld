@@ -6,5 +6,6 @@
   <Project Path="FriWorld.Character.Editor.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="FriWorld.Character.csproj" />
+  <Project Path="FriWorld.Crowd.csproj" />
   <Project Path="FriWorld.ObjectRegistry.Editor.csproj" />
 </Solution>

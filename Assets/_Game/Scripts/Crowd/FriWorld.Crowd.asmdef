@@ -1,0 +1,16 @@
+{
+    "name": "FriWorld.Crowd",
+    "rootNamespace": "FriWorld.Crowd",
+    "references": [
+        "FriWorld.Character"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
