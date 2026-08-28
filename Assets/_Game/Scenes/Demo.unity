@@ -1413,6 +1413,7 @@ GameObject:
   m_Component:
   - component: {fileID: 172036670}
   - component: {fileID: 172036669}
+  - component: {fileID: 172036671}
   m_Layer: 0
   m_Name: NpcSpawner (1)
   m_TagString: Untagged
@@ -1427,7 +1428,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 172036668}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 259cde5ef02f15942a436f1bc770cd3b, type: 3}
   m_Name: 
@@ -1455,6 +1456,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 896533292}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &172036671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172036668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c7d07ed93452d4e9db1813305634e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterNpcSpawner
+  catalog: {fileID: 0}
+  femaleShare: 0
+  maxActiveNPCs: 20
+  spawnRadius: 2
+  minLifetime: 300
+  maxLifetime: 600
+  minSpawnDelay: 1
+  maxSpawnDelay: 10
+  wanderPath: {fileID: 8099188209016476868}
+  agentTypeId: -334000983
+  agentRadius: 0.1
+  agentHeight: 2
+  agentSpeed: 1.5
+  agentAngularSpeed: 120
+  agentAcceleration: 8
 --- !u!1001 &178983704
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8627,6 +8655,7 @@ GameObject:
   m_Component:
   - component: {fileID: 964627380}
   - component: {fileID: 964627381}
+  - component: {fileID: 964627382}
   m_Layer: 0
   m_Name: NpcSpawner
   m_TagString: Untagged
@@ -8656,7 +8685,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 964627379}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 259cde5ef02f15942a436f1bc770cd3b, type: 3}
   m_Name: 
@@ -8669,6 +8698,33 @@ MonoBehaviour:
   maxLifetime: 600
   minSpawnDelay: 1
   maxSpawnDelay: 10
+--- !u!114 &964627382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964627379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1c7d07ed93452d4e9db1813305634e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CharacterNpcSpawner
+  catalog: {fileID: 0}
+  femaleShare: 0
+  maxActiveNPCs: 20
+  spawnRadius: 2
+  minLifetime: 300
+  maxLifetime: 600
+  minSpawnDelay: 1
+  maxSpawnDelay: 10
+  wanderPath: {fileID: 8099188209016476868}
+  agentTypeId: -334000983
+  agentRadius: 0.1
+  agentHeight: 2
+  agentSpeed: 1.5
+  agentAngularSpeed: 120
+  agentAcceleration: 8
 --- !u!1001 &965092512
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17814,6 +17870,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a2fc55ef2bc5124f85cbd01c2796182, type: 3}
+--- !u!114 &8099188209016476868 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4117071355417608422, guid: 5a2fc55ef2bc5124f85cbd01c2796182, type: 3}
+  m_PrefabInstance: {fileID: 8099188209016476867}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f66520e2fbe17614b8d8cb92d5726ae1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8570443726284791265
 PrefabInstance:
   m_ObjectHideFlags: 0
