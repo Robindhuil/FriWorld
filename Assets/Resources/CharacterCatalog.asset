@@ -19,6 +19,7 @@ MonoBehaviour:
   - feet
   colorClasses:
   - torso
+  - tie
   - legs
   - feet
   - hair
@@ -33,207 +34,217 @@ MonoBehaviour:
     materials:
     - {fileID: 2100000, guid: 9b2b5c6dce870ad459c75f5379e5a7ec, type: 2}
     - {fileID: 2100000, guid: 565757942b6ea5648b4a0bb636bc770d, type: 2}
-    - {fileID: 2100000, guid: 58b1f839b1a6c0945afd882fb7807a6b, type: 2}
-    - {fileID: 2100000, guid: d856c3a09637e1f45855d35b44605207, type: 2}
   - colorClass: 0
     id: black
     displayName: "\u010Cierna"
     materials:
     - {fileID: 2100000, guid: fea2e7547928e7846b8ad4b275fb60ca, type: 2}
     - {fileID: 2100000, guid: 1d6c0cbd00a3f7942880bc5a4eda3c8b, type: 2}
-    - {fileID: 2100000, guid: ac375ebbe0f90c0409ac4c7a09ca7777, type: 2}
-    - {fileID: 2100000, guid: 14cadc7991b1eb9489a1b64c08372091, type: 2}
   - colorClass: 0
     id: grey
     displayName: "Siv\xE1"
     materials:
     - {fileID: 2100000, guid: 241b47e38efc842458054daba01f732a, type: 2}
     - {fileID: 2100000, guid: aa8443add0c7cdc4f8b0a2eb09d8d5d2, type: 2}
-    - {fileID: 2100000, guid: 93273316217506746934f12907606b12, type: 2}
-    - {fileID: 2100000, guid: 0373118551f311a478eba204e355cd31, type: 2}
   - colorClass: 0
     id: navy
     displayName: "Tmavomodr\xE1"
     materials:
     - {fileID: 2100000, guid: 93c5ec83af6ad474c887cef823495e9c, type: 2}
     - {fileID: 2100000, guid: 0211e94727234cc4d8e81181a1a7e477, type: 2}
-    - {fileID: 2100000, guid: da440415fdff64b44bc239f054a5d4f0, type: 2}
-    - {fileID: 2100000, guid: 32f95f86db2a61f4a846a78c5b2781ff, type: 2}
   - colorClass: 0
     id: blue
     displayName: "Modr\xE1"
     materials:
     - {fileID: 2100000, guid: 8c3ba43ae41924b479b88bdbafb67772, type: 2}
     - {fileID: 2100000, guid: 8c853deaadcccfd4991886af008953f8, type: 2}
-    - {fileID: 2100000, guid: d0858a0023043b845bd91301b4bf96b3, type: 2}
-    - {fileID: 2100000, guid: cb3b81fe699b6024da224442b5479171, type: 2}
   - colorClass: 0
     id: green
     displayName: "Zelen\xE1"
     materials:
     - {fileID: 2100000, guid: 978e6ac205c28c74ba3d573172aa92b7, type: 2}
     - {fileID: 2100000, guid: d551c975c28aff049ba2a87f180693b9, type: 2}
-    - {fileID: 2100000, guid: d324bbc4bdf993b46bfbc370b5e0434e, type: 2}
-    - {fileID: 2100000, guid: 6acf2719a43130e488ff7c6e74f10d63, type: 2}
   - colorClass: 0
     id: yellow
     displayName: "\u017Dlt\xE1"
     materials:
     - {fileID: 2100000, guid: 1f93d0e95b1b8bc43a0b82f7467926b3, type: 2}
     - {fileID: 2100000, guid: b8e3a0a91944de347ab380dcfdae05d8, type: 2}
-    - {fileID: 2100000, guid: 4ff13d2ae5757af449f36fc36740a1fb, type: 2}
-    - {fileID: 2100000, guid: d052c5bd3c9320748aed2189276a540f, type: 2}
   - colorClass: 0
     id: orange
     displayName: "Oran\u017Eov\xE1"
     materials:
     - {fileID: 2100000, guid: 2ff9ec5fa8995074d884f2d30b50f6b8, type: 2}
     - {fileID: 2100000, guid: 5504d33f4cd371840955fcb78a6186b0, type: 2}
-    - {fileID: 2100000, guid: fc3a2cc065bd870438cf1aa7fb91b98d, type: 2}
-    - {fileID: 2100000, guid: b5878bea7a8bb55408d5c134da3cf529, type: 2}
   - colorClass: 0
     id: red
     displayName: "\u010Cerven\xE1"
     materials:
     - {fileID: 2100000, guid: 39477207d97797c468ba75a61fe94bb4, type: 2}
     - {fileID: 2100000, guid: 4be16a45ace4e30438e3118bf901f942, type: 2}
-    - {fileID: 2100000, guid: c7e03777a25275c4d8d766f9e49e92ce, type: 2}
-    - {fileID: 2100000, guid: 5de6f3e61e960d54c932610baf52341c, type: 2}
   - colorClass: 0
     id: rust
     displayName: "Hrdzav\xE1"
     materials:
     - {fileID: 2100000, guid: 1116c5aeec8f86e429fc0f74e71c5993, type: 2}
     - {fileID: 2100000, guid: 2999549c7c7c71f40993741b66ce7660, type: 2}
-    - {fileID: 2100000, guid: d6293f7494da37a4d84ece1f7dd72cc9, type: 2}
-    - {fileID: 2100000, guid: 24c82a06a233b834082e28c6369cbd9b, type: 2}
   - colorClass: 1
+    id: red
+    displayName: "\u010Cerven\xE1"
+    materials:
+    - {fileID: 2100000, guid: 2bcf11b1d31c42149b336422c8a1092a, type: 2}
+    - {fileID: 0}
+  - colorClass: 1
+    id: yellow
+    displayName: "\u017Dlt\xE1"
+    materials:
+    - {fileID: 2100000, guid: d0ecbe95b21d84d41a4a7a290588c295, type: 2}
+    - {fileID: 0}
+  - colorClass: 1
+    id: lightblue
+    displayName: "Svetlomodr\xE1"
+    materials:
+    - {fileID: 2100000, guid: ccd354c1f3a623a4f8226b55303c4a4d, type: 2}
+    - {fileID: 0}
+  - colorClass: 1
+    id: green
+    displayName: "Zelen\xE1"
+    materials:
+    - {fileID: 2100000, guid: 920de0ee8a132d14a9a5c4aa74573ebd, type: 2}
+    - {fileID: 0}
+  - colorClass: 1
+    id: black
+    displayName: "\u010Cierna"
+    materials:
+    - {fileID: 2100000, guid: 8d65a4fe29f07894590e9f532daf03fd, type: 2}
+    - {fileID: 0}
+  - colorClass: 2
     id: denim
     displayName: "D\u017E\xEDnsov\xE1"
     materials:
     - {fileID: 2100000, guid: 0ab08ec5b08d8cd42a7180e91e2be867, type: 2}
     - {fileID: 2100000, guid: 04a2b0ffe9becbf4d9c18aec389296d3, type: 2}
-  - colorClass: 1
+  - colorClass: 2
     id: lightblue
     displayName: "Svetlomodr\xE1"
     materials:
     - {fileID: 2100000, guid: c739bc0d879728c44b0ff078dbd57067, type: 2}
     - {fileID: 2100000, guid: 1221cf6a653e28349b03132dfee4aec7, type: 2}
-  - colorClass: 1
+  - colorClass: 2
     id: black
     displayName: "\u010Cierna"
     materials:
     - {fileID: 2100000, guid: e3cb8693340133e448c07b5c0c9f52ef, type: 2}
     - {fileID: 2100000, guid: 860286b95c4e0854c8081bd955071b36, type: 2}
-  - colorClass: 1
+  - colorClass: 2
     id: khaki
     displayName: "Khaki hned\xE1"
     materials:
     - {fileID: 2100000, guid: fc0d34ee13659264ca9db370d84141e5, type: 2}
     - {fileID: 2100000, guid: 5960b3e6ab9d0814c92d6866da0bbd6e, type: 2}
-  - colorClass: 2
+  - colorClass: 3
     id: black
     displayName: "\u010Cierna"
     materials:
     - {fileID: 2100000, guid: 3516d746656c6614d8d926e783142d20, type: 2}
     - {fileID: 2100000, guid: 7687d79173e309d449e1f8c3fd53127c, type: 2}
-  - colorClass: 2
+  - colorClass: 3
     id: white
     displayName: Biela
     materials:
     - {fileID: 2100000, guid: 753040fb4f8b3354e9fb5ed448a887bb, type: 2}
     - {fileID: 2100000, guid: 24d3d273ec0956147ac55050bede36d6, type: 2}
-  - colorClass: 2
+  - colorClass: 3
     id: brown
     displayName: "Hned\xE1"
     materials:
     - {fileID: 2100000, guid: 3b0d07b524f501b4faa5139ead597283, type: 2}
     - {fileID: 2100000, guid: 25bf1e9e403642c4daa48cb9fcebf28f, type: 2}
-  - colorClass: 2
+  - colorClass: 3
     id: blue
     displayName: "Modr\xE1"
     materials:
     - {fileID: 2100000, guid: c9f39f7cd20ea1f4db6cfd9bd5a10e4e, type: 2}
     - {fileID: 2100000, guid: fcfdd5ebc9042e8489e0d29d7bf981d6, type: 2}
-  - colorClass: 3
+  - colorClass: 4
     id: black
     displayName: "\u010Cierne"
     materials:
     - {fileID: 2100000, guid: 1bbd2c7213c86a842a3cb9474212b669, type: 2}
     - {fileID: 2100000, guid: b043f121b061966438b545fac9ae71d5, type: 2}
-  - colorClass: 3
+  - colorClass: 4
     id: brown
     displayName: Brunet
     materials:
     - {fileID: 2100000, guid: 2287d4d51fd97d940baf610235cc4608, type: 2}
     - {fileID: 2100000, guid: e30cdb42ea044324790a30377e02df29, type: 2}
-  - colorClass: 3
+  - colorClass: 4
     id: blond
     displayName: Blond
     materials:
     - {fileID: 2100000, guid: 829946d6143fb6045917f3d6ea7c9fc1, type: 2}
     - {fileID: 2100000, guid: f785726a073d9804c8e59b653ca9fe14, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: pale
     displayName: "Ve\u013Emi svetl\xE1"
     materials:
     - {fileID: 2100000, guid: cd88dab16148ee84c8b1cf6be8ff37a1, type: 2}
     - {fileID: 2100000, guid: 8aac80558b1b9ed48a8e6ace4f3076ad, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: light
     displayName: "Svetl\xE1"
     materials:
     - {fileID: 2100000, guid: fb4dcb768559d0f458582f75166f676c, type: 2}
     - {fileID: 2100000, guid: fda910fa5f9ed8245a88f1dfb8eef56e, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: fair
     displayName: "Svetl\xE1 tepl\xE1"
     materials:
     - {fileID: 2100000, guid: 78ff7fd4fae583f4abb6ab612f0e4c79, type: 2}
     - {fileID: 2100000, guid: 5bde21e7eafb706449e2a65de8c7269a, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: beige
     displayName: "B\xE9\u017Eov\xE1"
     materials:
     - {fileID: 2100000, guid: 8d2ae56a37e7d364ea0337a2e45c4c27, type: 2}
     - {fileID: 2100000, guid: 783fb59ba419bc04ea2191ff2522c00d, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: medium1
     displayName: "Stredn\xE1 svetl\xE1"
     materials:
     - {fileID: 2100000, guid: bc757f2e4cfbf494a918dd6348c7b6d9, type: 2}
     - {fileID: 2100000, guid: 94b2f3c8d87ffd646ab8af41651c375b, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: medium2
     displayName: "Stredn\xE1"
     materials:
     - {fileID: 2100000, guid: 909cd851bb0c5c34f91d138238ecef92, type: 2}
     - {fileID: 2100000, guid: 3d4424b338d9a0b4390915af52d95093, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: medium3
     displayName: "Stredn\xE1 tepl\xE1"
     materials:
     - {fileID: 2100000, guid: 04b05ebb29c55b7479fb1e2307971ecf, type: 2}
     - {fileID: 2100000, guid: 1a7b56ea935fa2645b99a7193420ff67, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: olive
     displayName: "Olivov\xE1"
     materials:
     - {fileID: 2100000, guid: bfb81a81afaac2846be6aa2d6a01aade, type: 2}
     - {fileID: 2100000, guid: f678187d931dc494d81237355a2827ab, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: tan
     displayName: "Op\xE1len\xE1"
     materials:
     - {fileID: 2100000, guid: 13498d068e96c724289a7a5f0034fdc3, type: 2}
     - {fileID: 2100000, guid: f3e8d0f8c3ed3f145bf1c3d5db2f75a5, type: 2}
-  - colorClass: 4
+  - colorClass: 5
     id: deeptan
     displayName: "Tmav\u0161ia"
     materials:
     - {fileID: 2100000, guid: 66ccef99da1f36841992cc3a895951af, type: 2}
     - {fileID: 2100000, guid: 4d378d1ae7f1c6643ad7e3eb7fd62489, type: 2}
-  colorwayStart: 000000000a0000000e00000012000000150000001f000000
+  colorwayStart: 000000000a0000000f00000013000000170000001a00000024000000
   male:
     basePrefab: {fileID: 7598612325014325811, guid: 3c6a9ab9b6244704eb95b85faa2ec410, type: 3}
     size:
@@ -366,25 +377,25 @@ MonoBehaviour:
     presetStart: 0000000002000000080000000d0000000f000000
     slotMaps:
     - objectName: boots_1
-      colorClass: 02000000
+      colorClass: 03000000
       materialIndex: 00000000
     - objectName: boots_2
-      colorClass: 02000000
+      colorClass: 03000000
       materialIndex: 00000000
     - objectName: pants_1
-      colorClass: 01000000
+      colorClass: 02000000
       materialIndex: 00000000
     - objectName: pants_2
-      colorClass: 01000000
+      colorClass: 02000000
       materialIndex: 00000000
     - objectName: pants_3
-      colorClass: 01000000ffffffffffffffff
+      colorClass: 02000000ffffffffffffffff
       materialIndex: 00000000ffffffffffffffff
     - objectName: shorts_1
-      colorClass: 01000000
+      colorClass: 02000000
       materialIndex: 00000000
     - objectName: shorts_2
-      colorClass: 01000000
+      colorClass: 02000000
       materialIndex: 00000000
     - objectName: shirt_1
       colorClass: 0000000000000000
@@ -393,11 +404,11 @@ MonoBehaviour:
       colorClass: 0000000000000000
       materialIndex: 0000000001000000
     - objectName: shirt_3
-      colorClass: 0000000000000000
-      materialIndex: 0000000002000000
+      colorClass: 0000000001000000
+      materialIndex: 0000000000000000
     - objectName: shirt_4
-      colorClass: 0000000000000000
-      materialIndex: 0000000002000000
+      colorClass: 0000000001000000
+      materialIndex: 0000000000000000
     - objectName: t-shirt_1
       colorClass: 00000000
       materialIndex: 00000000
@@ -405,61 +416,61 @@ MonoBehaviour:
       colorClass: 00000000
       materialIndex: 00000000
     - objectName: hair_1
-      colorClass: 03000000
+      colorClass: 04000000
       materialIndex: 00000000
     - objectName: hair_2
-      colorClass: 03000000
+      colorClass: 04000000
       materialIndex: 00000000
     - objectName: male_body_abdomen
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_calf_L
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_calf_R
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_chest
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_foot_L
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_foot_R
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_forearm_L
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_forearm_R
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_hand_L
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_hand_R
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_head
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_hips
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_neck
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_thigh_L
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_thigh_R
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_upperarm_L
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
     - objectName: male_body_upperarm_R
-      colorClass: 04000000
+      colorClass: 05000000
       materialIndex: 00000000
   female:
     basePrefab: {fileID: 0}

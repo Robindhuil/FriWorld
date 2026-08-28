@@ -1,6 +1,7 @@
 {
   "colorClasses": [
-    { "name": "torso", "mainColors": 2, "shadeValue": 0.62, "shadeSaturation": 1.12 },
+    { "name": "torso", "mainColors": 1, "shadeValue": 0.62, "shadeSaturation": 1.12 },
+    { "name": "tie",   "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
     { "name": "legs",  "mainColors": 1, "shadeValue": 0.62, "shadeSaturation": 1.12 },
     { "name": "feet",  "mainColors": 1, "shadeValue": 0.55, "shadeSaturation": 1.10 },
     { "name": "hair",  "mainColors": 1, "shadeValue": 0.70, "shadeSaturation": 1.05 },
