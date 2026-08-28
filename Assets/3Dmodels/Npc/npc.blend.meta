@@ -3,7 +3,52 @@ guid: 46de0b5930ccf9b4081b0ed4a1e4633b
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_feet_1
+    second: {fileID: 2100000, guid: aa176214e1af4d14ba489c0079a65d2b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_hair_1
+    second: {fileID: 2100000, guid: b0ea155f67330a24296f7570b46bac3d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_leather_1
+    second: {fileID: 2100000, guid: 9337bcd3c60f16545a9c29ee0418fe57, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_legs_1
+    second: {fileID: 2100000, guid: 41f6153d3f86c0d449459a9dbe77c4c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_metal_1
+    second: {fileID: 2100000, guid: 3927c1e40a2e47343a5a81104ce9305a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_skin_1
+    second: {fileID: 2100000, guid: 35acde32b88b08346ad6a006a604d69e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_torso_1
+    second: {fileID: 2100000, guid: 598322e4b7e27db49b971c16e3469fd9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_torso_11
+    second: {fileID: 2100000, guid: eddf511440e9abc4cba2018de29cbeaf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_torso_2
+    second: {fileID: 2100000, guid: 99ad18bbc61f92540a4e36244031e3c2, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
