@@ -14,6 +14,22 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- NPC sa skladajú z presetov a farieb namiesto tridsiatich samostatných modelov. Telo,
+  oblečenie a vlasy vyberá `CharacterRandomizer` zo seedu, takže NPC s rovnakou identitou
+  vyzerá po respawne rovnako a neukladá sa nič. Pravidlá — čo s čím nejde, čo je len pre
+  jedno pohlavie a ktorú kožu preset zakrýva — sa píšu ručne do troch JSON registrov
+  vedľa `ObjectTypes.json`.
+- Menu `Character` — `1 — Report` povie, čo v registroch alebo v prefabe nesedí a nikdy nič
+  nehádá, `2 — Generate Shades` dogeneruje materiály vrátane tmavších odtieňov odvodených
+  v HSV z hlavnej farby, `3 — Bake Catalog` skompiluje registre do `CharacterCatalog.asset`.
+  Bake odmietne zapísať, kým Report hlási chybu v registri; chýbajúce telo je varovanie
+  a upečú sa telá, ktoré existujú.
+- `CharacterGridSpawner` — testovací nástroj, ktorý pri Play rozostaví mriežku postáv, aby
+  sa dali kombinácie pozrieť naraz. Seedy idú za sebou, takže tie isté nastavenia dajú tie
+  isté postavy a problém sa dá reprodukovať, kým sa opravuje.
+- `NpcWander` — chodenie po `PathWay` bez dialógov, questov a animátora, aby generované NPC
+  mohli chodiť po fakulte skôr, než sa NPC vrstva prepíše.
+  (`docs/2026-08-28-npc-skripty-na-prerobenie.md`)
 - `tools/blender/replace_material.py` — vymení jeden materiál za druhý na označených
   objektoch. Cieľový materiál nikdy nevytvára: preklep v mene by inak ticho vyrobil
   prázdny sivý materiál namiesto toho, aby povedal, že meno nesedí. Sloty naviazané na
@@ -99,6 +115,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- NPC v Demo scéne spawnuje `CharacterNpcSpawner` z katalógu postáv namiesto zoznamu
+  tridsiatich prefabov. Polomer, životnosť aj odchod domov pred zmiznutím zostali rovnaké.
+  Starý `NPCSpawner` je zatiaľ len vypnutý, nie zmazaný.
 - Materiály sa volajú podľa toho, **čím povrch je**, nie podľa toho, na akom objekte sedí.
   `mt_lamp_1`, `mt_sign_2`, `mt_trash_container_4` a ďalších osemdesiat nahradili
   `mt_plastic_1..7`, `mt_wood_5..6`, `mt_fri_paint_1..5`, `mt_steel_8`, `mt_dirt_1`,
