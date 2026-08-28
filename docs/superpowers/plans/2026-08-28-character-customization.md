@@ -85,8 +85,14 @@ Toto nie je kód, ale bez toho úlohy 10+ nemajú na čom bežať.
       viac než počet rendererov, ktorý meria úloha 16.
       Po odstránení ovládačov treba prepnúť `rootBone`: dnes je to `MCH-torso.parent`,
       teda mechanická kosť, ktorá tam po strihu nebude.
-      **Urobiť teraz je nastavenie exportu; urobiť neskôr znamená pretargetovať všetky
-      animácie.**
+
+      **Toto nie je blokujúce a nerob to teraz.** Cena je CPU za snímok pri dvadsiatich
+      postavách, nie pri jednej v generátorovej scéne, a animácie pre túto postavu budú
+      celé nové — budú sa autorovať proti tomu skeletonu, ktorý bude aktuálny vtedy,
+      takže sa nič nepretargetuje. Poradie je: dokonči presety, potom orež kosti, až
+      potom animácie. Unity si `.blend` konvertuje s pevnými parametrami a voľbu
+      **Armature → Only Deform Bones** mu podať nevie, takže orez znamená prejsť
+      na ručne exportované `.fbx`. Dovtedy je `.blend` živý link to, čo chceš.
 
 ---
 
