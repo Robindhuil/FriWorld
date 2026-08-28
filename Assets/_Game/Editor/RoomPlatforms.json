@@ -1,10 +1,6 @@
 {
   "rooms": [
     {
-      "room": "terrace_ventilator",
-      "platform": "all"
-    },
-    {
       "room": "outside_back",
       "platform": "all"
     },
@@ -1198,6 +1194,10 @@
     },
     {
       "room": "terrace_upper",
+      "platform": "all"
+    },
+    {
+      "room": "terrace_ventilator",
       "platform": "all"
     }
   ]
