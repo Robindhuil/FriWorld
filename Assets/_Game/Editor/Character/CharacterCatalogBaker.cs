@@ -32,7 +32,7 @@ namespace FriWorld.Character.Editor
 
             var issues = CharacterValidation.Check(classes, colorwayRegistry, presetRegistry, bodies);
 
-            int errors = missing.Count;
+            int errors = 0;
             foreach (var issue in issues)
                 if (issue.severity == Severity.Error) errors++;
 
@@ -43,7 +43,34 @@ namespace FriWorld.Character.Editor
                 return;
             }
 
+            if (bodies.Count == 0)
+            {
+                Debug.LogError("Bake Catalog refused: no base prefab exists to bake.");
+                return;
+            }
+
+            // A body that does not exist yet is a different thing from a register that is wrong.
+            // The bodies that do exist bake into a valid catalog; the missing one keeps showing
+            // up as an error in Report until it is modelled.
+            if (missing.Count > 0)
+                Debug.LogWarning($"Bake Catalog: baking {bodies.Count} of 2 bodies. Still missing: "
+                                 + string.Join(", ", missing));
+
             var catalog = LoadOrCreate();
+
+            // Clear whichever bundle has no body, so a stale bake cannot linger in the asset.
+            foreach (Gender gender in new[] { Gender.Male, Gender.Female })
+            {
+                bool present = false;
+                foreach (var body in bodies) if (body.gender == gender) present = true;
+                if (present) continue;
+
+                var stale = gender == Gender.Male ? catalog.male : catalog.female;
+                stale.basePrefab = null;
+                stale.presets = new PresetEntry[0];
+                stale.presetStart = new int[classes.slotClasses.Count + 1];
+                stale.slotMaps = new RendererSlotMap[0];
+            }
 
             catalog.slotClasses = classes.slotClasses.ToArray();
 
