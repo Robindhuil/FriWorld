@@ -2,9 +2,9 @@
   <Project Path="MerryYellow.CodeAssist.Editor.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="FriWorld.ObjectRegistry.Tests.csproj" />
+  <Project Path="FriWorld.Character.Tests.csproj" />
+  <Project Path="FriWorld.Character.Editor.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="FriWorld.Character.csproj" />
   <Project Path="FriWorld.ObjectRegistry.Editor.csproj" />
-  <Project Path="FriWorld.Character.Editor.csproj" />
-  <Project Path="FriWorld.Character.Tests.csproj" />
 </Solution>
