@@ -30,15 +30,25 @@ stačí kábel.
 
 - [ ] Nový Unity projekt **6000.4.11f1**, rovnaká verzia ako FriWorld — nech sa nemusí riešiť,
       či sa niečo správa inak.
-- [ ] Šablóna **3D (URP)**, tiež kvôli zhode s FriWorld.
+- [ ] Šablóna **AR**, ak je v Hube ponúkaná. Príde s nainštalovaným AR Foundation aj ARCore
+      pluginom, zapnutým XR Plug-in Managementom a scénou, v ktorej už sedí `AR Session`
+      a `XR Origin`. Vynechá tým skoro celý krok 2 a väčšinu kroku 3 — a hlavne tie nastavenia,
+      na ktorých sa dá ticho pomýliť. V novších Unity je postavená na URP, takže zhoda
+      s FriWorldom zostáva.
+
+      Ak ju v Hube nevidíš (môže sa objaviť až po doinštalovaní Android modulu), vezmi
+      **Universal 3D (URP)** a balíčky doplň ručne. Built-in pipeline by tiež stačil — kreslí
+      sa jedna unlit plocha — ale je to legacy cesta a rozchádza sa s FriWorldom.
 - [ ] Vlastný git repozitár, `frilens`.
 
 ## 2. Balíčky
 
+S AR šablónou už väčšina sedí; over a doplň.
+
 - [ ] **AR Foundation**
 - [ ] **Google ARCore XR Plugin**
 - [ ] **AI Navigation** (`com.unity.ai.navigation`) — `NavMeshSurface` je v Unity 6 v balíčku,
-      nie v jadre
+      nie v jadre. **Toto AR šablóna neprinesie**, doplň vždy.
 - [ ] Project Settings → XR Plug-in Management → Android → zapnúť **ARCore**
 
 ## 3. Player settings pre Android
