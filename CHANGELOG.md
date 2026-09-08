@@ -126,6 +126,11 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Rozrobené a odložené veci majú jedno miesto — spoločný kanban pre všetky projekty
+  ([Planning](https://github.com/users/Robindhuil/projects/2), `Projekt: FriWorld`). Backlog
+  vznikol z toho, čo už bolo v `docs/`: chýbajúci prefab v `Demo.unity`, ženské telo, emisia
+  na svietidlách, nedokončený presun `3Dmodels`, build pipeline pre launcher a ďalšie.
+  Karta drží iba titulok a odkaz na dokument — dôvody a čísla zostávajú v `docs/`.
 - NPC telo je pasívne. `NpcActor` vie `GoTo` a `Stop` a **nerozhoduje, kam ide** — to mu povie
   `WaypointDirector`. Správanie je navonok rovnaké ako predtým, ale agentová simulácia neskôr
   vymení riadiča namiesto toho, aby telo prepisovala. Pribudol aj `NpcActivity`, seam medzi
