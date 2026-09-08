@@ -18,7 +18,8 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   `eye_R` a dva tvary hlavy, plus materiály `char_eye_color_1`, `char_eye_pupil_1`,
   `char_eye_white_1`, `char_hair_2`, `char_lips_1` a `char_skin_11`. Hlavové presety boli
   v návrhu od začiatku a v registroch zámerne chýbali; toto je modelárska strana, ktorá
-  prišla prvá. Zatiaľ ich nič nečíta.
+  prišla prvá. Zatiaľ ich nič nečíta. **Tvárová časť je dočasná** — hlava sa modeluje odznova
+  podľa fotoreferencie, takže do vydania sa tento riadok ešte prepíše.
 - Postavy majú farebnú paletu: desať farieb trika, päť sekundárnych (pruhy, potlač,
   kravata), štyri nohavíc, štyri topánok, tri vlasov a desať odtieňov pleti. **Paleta patrí
   slotu, nie triede**, takže sekundárna farba oblečenia sa losuje nezávisle od hlavnej —
