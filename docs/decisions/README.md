@@ -20,6 +20,7 @@ Verzia je `bundleVersion` z `ProjectSettings` v čase zápisu.
 
 | Dátum | Téma |
 |---|---|
+| 2026-09-09 | [Varianty hlavy sú presety, nie shape keys](2026-09-09-varianty-hlavy-ako-presety.md) |
 | 2026-08-29 | [Výšku postavy nesie uniformný scale, nie scale do jednej osi](2026-08-29-vyska-postavy-uniformnym-scale.md) |
 
 ## 0.1.1-alpha
