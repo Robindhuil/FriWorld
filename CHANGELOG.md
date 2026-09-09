@@ -47,6 +47,11 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
 - `NpcWander` — chodenie po `PathWay` bez dialógov, questov a animátora, aby generované NPC
   mohli chodiť po fakulte skôr, než sa NPC vrstva prepíše.
   (`docs/2026-08-28-npc-skripty-na-prerobenie.md`)
+- `tools/blender/clear_materials.py` — zhodí všetky materiálové sloty z označených objektov.
+  Sloty odstraňuje, nie iba vyprázdňuje: objekt s prázdnym slotom prinesie do Unity záznam
+  materiálu na rendereri, čo je presne to, čomu sa tým chce predísť. Objekty na zdieľanom
+  meshi nahlási a **preskočí** — ich sloty sedia na dátach, takže by strhli materiál aj
+  z objektov, ktoré si neoznačil. `DRY_RUN` najprv vypíše, čo by šlo preč.
 - `tools/blender/replace_material.py` — vymení jeden materiál za druhý na označených
   objektoch. Cieľový materiál nikdy nevytvára: preklep v mene by inak ticho vyrobil
   prázdny sivý materiál namiesto toho, aby povedal, že meno nesedí. Sloty naviazané na
