@@ -14,12 +14,21 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
-- V zdrojovom modeli pribudli hlavy, vlasy a oči — `bald_1`, `hair_3`, `hair_4`, `eyebrow_1`,
-  `eye_R` a dva tvary hlavy, plus materiály `char_eye_color_1`, `char_eye_pupil_1`,
-  `char_eye_white_1`, `char_hair_2`, `char_lips_1` a `char_skin_11`. Hlavové presety boli
-  v návrhu od začiatku a v registroch zámerne chýbali; toto je modelárska strana, ktorá
-  prišla prvá. Zatiaľ ich nič nečíta. **Tvárová časť je dočasná** — hlava sa modeluje odznova
-  podľa fotoreferencie, takže do vydania sa tento riadok ešte prepíše.
+- Hlava je nová, postavená z fotoreferencie, a je rozrezaná na jedenásť kožných sekcií —
+  `cranium_1`, `forehead_1`, `browridge_1`, `eyesocket_1`, `sclera_1`, `nose_1`, `cheek_1`,
+  `mouth_1`, `beardline_1`, `ear_1` a `male_body_neck`. Sekcie sa dajú deformovať zvlášť,
+  takže nos krát ucho krát ústa dá kombinácie namiesto sčítania. Všetko je naviazané na
+  `DEF-spine.006`, krk má plynulý prechod cez štyri chrbticové kosti.
+- Postavy majú obočie, strnisko, fúzy a riedku bradu. Sú to **overlay shelly** odsadené
+  1.2–1.5 mm od kože, nie chĺpky namaľované do pleti — preto medzi nimi vidno kožu a
+  hustota sa dá odlíšiť. Textúra je celá biela a nesie iba alfu; farbu dáva colorway, takže
+  desať odtieňov pleti krát štyri hustoty nie je štyridsať textúr. Varianty sú tily jedného
+  atlasu, mení sa UV, nie obrázok.
+  (`docs/decisions/2026-09-11-detail-tvare-shell-a-atlas.md`)
+- Väčšina študentov je oholená. `beard_none_1` je preset s trojuholníkom nulovej plochy vo
+  vnútri lebky — systém vyberá vždy práve jeden preset na triedu a `CharacterScan` indexuje
+  len objekty s rendererom, takže „nič" sa nedá spraviť prázdnym objektom.
+- Telo má konečne všetkých šestnásť sekcií. `male_body_neck` chýbalo a Report to hlásil.
 - Postavy majú farebnú paletu: desať farieb trika, päť sekundárnych (pruhy, potlač,
   kravata), štyri nohavíc, štyri topánok, tri vlasov a desať odtieňov pleti. **Paleta patrí
   slotu, nie triede**, takže sekundárna farba oblečenia sa losuje nezávisle od hlavnej —
@@ -84,6 +93,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- Import `npc.blend` do Unity padal na hlášku o verzii Blenderu, hoci konverzia z príkazového
+  riadku prešla. Unity si Blender vyberá cez „Open with" asociáciu a tá mierila na starší
+  Blender, ktorý súbor uložený v 5.2 neprečíta. Hláška ukazovala inam, než kde bola príčina.
+  (`docs/decisions/2026-09-11-blend-import-vybera-zly-blender.md`)
 - Tag `Door` a vrstva `Interactable` sedia už len na skutočných dverách. Tag sa odvodzoval
   z vrstvy, takže ho dostalo aj 302 zárubní a dva kusy `thick_door`, ktoré žiadne správanie
   dverí nenesú — spolu 304 objektov s tagom a bez komponentu `Door`. Rozhoduje o tom pole
@@ -137,6 +150,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Trieda `hair` je dočasne mimo `slotClasses` — staré účesy boli modelované na starú hlavu
+  a zmizli s ňou, nové ešte nie sú. Lebka je samostatná kožná sekcia `cranium_1`, takže
+  postava bez účesu nemá dieru v hlave.
 - Rozrobené a odložené veci majú jedno miesto — spoločný kanban pre všetky projekty
   ([Planning](https://github.com/users/Robindhuil/projects/2), `Projekt: FriWorld`). Backlog
   vznikol z toho, čo už bolo v `docs/`: chýbajúci prefab v `Demo.unity`, ženské telo, emisia
