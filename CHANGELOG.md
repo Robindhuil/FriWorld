@@ -19,11 +19,11 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   `mouth_1`, `beardline_1`, `ear_1` a `male_body_neck`. Sekcie sa dajú deformovať zvlášť,
   takže nos krát ucho krát ústa dá kombinácie namiesto sčítania. Všetko je naviazané na
   `DEF-spine.006`, krk má plynulý prechod cez štyri chrbticové kosti.
-- Postavy majú obočie, strnisko, fúzy a riedku bradu. Sú to **overlay shelly** odsadené
-  1.2–1.5 mm od kože, nie chĺpky namaľované do pleti — preto medzi nimi vidno kožu a
-  hustota sa dá odlíšiť. Textúra je celá biela a nesie iba alfu; farbu dáva colorway, takže
-  desať odtieňov pleti krát štyri hustoty nie je štyridsať textúr. Varianty sú tily jedného
-  atlasu, mení sa UV, nie obrázok.
+- Postavy majú obočie v dvoch hrúbkach a bradu v dvoch hustotách. Sú to **overlay shelly**
+  odsadené 1.2–1.5 mm od kože, kreslené ako jednotlivé ťahy s medzerami — brada, cez ktorú
+  nevidno kožu, vyzerá ako plná bez ohľadu na to, koľko je v nej chĺpkov. Textúra je celá
+  biela a nesie iba alfu; farbu dáva colorway, takže desať odtieňov pleti krát štyri
+  varianty nie je štyridsať textúr. Varianty sú tily jedného atlasu, mení sa UV, nie obrázok.
   (`docs/decisions/2026-09-11-detail-tvare-shell-a-atlas.md`)
 - Väčšina študentov je oholená. `beard_none_1` je preset s trojuholníkom nulovej plochy vo
   vnútri lebky — systém vyberá vždy práve jeden preset na triedu a `CharacterScan` indexuje
@@ -93,6 +93,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- Presety skryté v Blenderi **ikonou monitora** prichádzali do Unity bez modifierov — bez
+  Mirroru, teda ako polovica meshu, a s bounds pri nohách, takže ich frustum culling zahodil
+  a v hre neboli vidieť vôbec. Skrývať sa smie len okom; to objekt z depsgraphu nevyradí.
+  (`docs/decisions/2026-09-11-hide-viewport-zahodi-modifiery.md`)
 - Import `npc.blend` do Unity padal na hlášku o verzii Blenderu, hoci konverzia z príkazového
   riadku prešla. Unity si Blender vyberá cez „Open with" asociáciu a tá mierila na starší
   Blender, ktorý súbor uložený v 5.2 neprečíta. Hláška ukazovala inam, než kde bola príčina.

@@ -4,7 +4,7 @@
 
 ## Kontext
 
-Obočie, strnisko a riedka brada sa geometriou spraviť nedajú. Riedka brada modelovaná ako
+Obočie a brada sa plnou geometriou spraviť nedajú. Riedka brada modelovaná ako
 plocha je plná brada — hustota je práve to, čo ju odlišuje, a tá vzniká tým, že medzi
 chĺpkami vidno kožu. Rovnako obočie: jeden objekt vo farbe vlasov číta ako veľmi husté
 obočie a distinktívnosť sa stratí.
@@ -32,6 +32,11 @@ Dve veci to držia pohromade:
 - **Varianty sú tily jedného atlasu, nie samostatné textúry.** Materiál je jeden na triedu,
   takže textúra je tiež jedna; variant sa mení UV, nie obrázkom. `brow_1` a `brow_2` sú
   rovnaká geometria s UV na inom tile. Pridať variant = tile v atlase + shell + riadok v JSON.
+
+Ťahy sú kreslené graficky — konštantná alfa, šírka sa zužuje k špičke — nie ako jemná
+fotorealistická zrnitosť. Hustota vzniká počtom ťahov a plochou, ktorú pokryjú, nie
+priehľadnosťou; horná hranica sa rozpadá na jednotlivé chĺpky, aby brada nekončila
+ostrou čiarou.
 
 `Alpha Blend`, nie `Alpha Clip`. Na riedkych chĺpkoch clip zlyháva presne tam, kde ho
 potrebuješ — tenký chlp stratí v mipoch alfu a na pár metrov zmizne. Sortovanie nie je
