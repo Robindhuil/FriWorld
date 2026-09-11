@@ -255,6 +255,12 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: ba6938b833d4ed341a56738287fdc2f5, type: 2}
     shade: {fileID: 0}
   colorwayStart: 000000000a0000000f00000013000000170000001a00000024000000280000002c000000
+  shapeAxes:
+  - name: nose_width
+    shape: nose_wide
+    range: 100
+    mean: 128
+    deviation: 45
   male:
     basePrefab: {fileID: 7598612325014325811, guid: 3c6a9ab9b6244704eb95b85faa2ec410, type: 3}
     size:
@@ -550,6 +556,9 @@ MonoBehaviour:
     - objectName: male_body_upperarm_R
       colorSlot: 05000000
       shadeLevel: 00000000
+    shapeMaps:
+    - objectName: beard_none_1
+      shapeIndex: 00000000
   female:
     basePrefab: {fileID: 0}
     size:
@@ -561,3 +570,4 @@ MonoBehaviour:
     presets: []
     presetStart: 00000000000000000000000000000000000000000000000000000000
     slotMaps: []
+    shapeMaps: []

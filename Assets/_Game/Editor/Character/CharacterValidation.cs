@@ -20,6 +20,9 @@ namespace FriWorld.Character.Editor
     {
         public string name;
         public string[] materialNames = Array.Empty<string>();
+
+        /// <summary>Blend shape names in mesh order, empty for anything that is not skinned.</summary>
+        public string[] blendShapes = Array.Empty<string>();
     }
 
     public sealed class ScannedBody
@@ -46,9 +49,11 @@ namespace FriWorld.Character.Editor
             ClassRegistry classes,
             ColorwayRegistry colorways,
             PresetRegistry presets,
+            ShapeRegistry shapes,
             IReadOnlyList<ScannedBody> bodies)
         {
             var issues = new List<Issue>();
+            shapes = shapes ?? new ShapeRegistry();
 
             void Error(string text) => issues.Add(new Issue { severity = Severity.Error, text = text });
             void Note(string text) => issues.Add(new Issue { severity = Severity.Note, text = text });
@@ -285,7 +290,59 @@ namespace FriWorld.Character.Editor
                                   + $"class '{slot.ColorClass}' declares no shadeValue");
                     }
                 }
+
+                // ---- shape axes against what the meshes actually carry -----------------
+                //
+                // An axis nobody carries does nothing. An axis carried by fewer meshes than its
+                // neighbours is worse than that: the face moves and whatever missed out stays
+                // behind, so the brows float over the ridge. That is almost always a
+                // propagate_shape_keys.py run that did not happen after the key was edited.
+                int widest = 0;
+                var carriers = new Dictionary<string, List<string>>(StringComparer.Ordinal);
+
+                foreach (var axis in shapes.axes)
+                {
+                    if (string.IsNullOrEmpty(axis.shape)) continue;
+
+                    var found = new List<string>();
+                    foreach (var scanned in body.objects)
+                        if (Array.IndexOf(scanned.blendShapes, axis.shape) >= 0)
+                            found.Add(scanned.name);
+
+                    carriers[axis.shape] = found;
+                    if (found.Count > widest) widest = found.Count;
+                }
+
+                foreach (var axis in shapes.axes)
+                {
+                    if (string.IsNullOrEmpty(axis.shape)) continue;
+                    var found = carriers[axis.shape];
+
+                    if (found.Count == 0)
+                        Error($"MISSING {body.gender}: axis '{axis.name}' names blend shape "
+                              + $"'{axis.shape}', which is on no mesh in {body.prefabPath}");
+                    else if (found.Count < widest)
+                        Note($"PARTIAL {body.gender}: blend shape '{axis.shape}' is on {found.Count} "
+                             + $"meshes but another axis is on {widest} — anything without it stays "
+                             + "put while the face moves. Re-run propagate_shape_keys.py.");
+                }
             }
+
+            // ---- shape register on its own -------------------------------------------
+            var axisNames = new HashSet<string>(StringComparer.Ordinal);
+            foreach (var axis in shapes.axes)
+            {
+                if (string.IsNullOrEmpty(axis.name) || string.IsNullOrEmpty(axis.shape))
+                    Error("SHAPE: an axis is missing its name or its blend shape");
+                else if (!axisNames.Add(axis.name))
+                    Error($"DUPLICATE: two shape axes are both called '{axis.name}'");
+
+                if (axis.mean < 0 || axis.mean > 255)
+                    Error($"RANGE: axis '{axis.name}' has mean {axis.mean}, the byte holds 0..255");
+            }
+
+            if (shapes.axes.Count > 255)
+                Error($"OVERFLOW: {shapes.axes.Count} shape axes, the appearance holds 255");
 
             return issues;
         }

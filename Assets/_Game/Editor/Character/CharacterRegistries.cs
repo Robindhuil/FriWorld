@@ -83,7 +83,40 @@ namespace FriWorld.Character.Editor
     }
 
     /// <summary>
-    /// The three hand-edited registers, next to ObjectTypes.json and RoomPlatforms.json.
+    /// One continuous face feature — a nose that widens, a jaw that broadens.
+    ///
+    /// Unlike a preset, which picks one of a list, an axis is a slider: the values compose, so
+    /// six axes are a surface of faces rather than six choices.
+    ///
+    /// "shape" is the blend shape authored on the face mesh. The same name has to exist on
+    /// everything that sits on the face — brows, beard, eyes, scalp — or those stay behind while
+    /// the face moves under them. tools/blender/propagate_shape_keys.py is what writes them.
+    ///
+    /// One key covers both directions. Blend shape weights are not clamped in this project
+    /// (legacyClampBlendShapeWeights is 0), so a narrow nose is simply the negative weight of the
+    /// key that widens it, and nothing has to be sculpted twice.
+    /// </summary>
+    public sealed class ShapeAxisDef
+    {
+        public string name;
+        public string shape;
+
+        /// <summary>Weight at either end of the byte range. Lower it to soften an axis without
+        /// resculpting the key.</summary>
+        public float range = 100f;
+
+        /// <summary>Where the population sits. 128 is the sculpted neutral.</summary>
+        public int mean = 128;
+        public float deviation = 45f;
+    }
+
+    public sealed class ShapeRegistry
+    {
+        public List<ShapeAxisDef> axes = new List<ShapeAxisDef>();
+    }
+
+    /// <summary>
+    /// The four hand-edited registers, next to ObjectTypes.json and RoomPlatforms.json.
     ///
     /// They are the source of truth and nothing but the editor reads them: turning "navy" into
     /// an actual Material is what Bake Catalog is for.
@@ -93,6 +126,7 @@ namespace FriWorld.Character.Editor
         public const string ClassesPath   = "Assets/_Game/Editor/CharacterClasses.json";
         public const string ColorwaysPath = "Assets/_Game/Editor/CharacterColorways.json";
         public const string PresetsPath   = "Assets/_Game/Editor/CharacterPresets.json";
+        public const string ShapesPath    = "Assets/_Game/Editor/CharacterShapes.json";
 
         /// <summary>A missing file reads as an empty register, so a fresh clone can still run
         /// Report and be told what to fill in.</summary>
@@ -105,5 +139,6 @@ namespace FriWorld.Character.Editor
         public static ClassRegistry LoadClasses() => LoadFrom<ClassRegistry>(ClassesPath);
         public static ColorwayRegistry LoadColorways() => LoadFrom<ColorwayRegistry>(ColorwaysPath);
         public static PresetRegistry LoadPresets() => LoadFrom<PresetRegistry>(PresetsPath);
+        public static ShapeRegistry LoadShapes() => LoadFrom<ShapeRegistry>(ShapesPath);
     }
 }

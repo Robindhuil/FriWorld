@@ -24,5 +24,10 @@ namespace FriWorld.Character
 
         /// <summary>Stature across the body's [min, max] band. Decode with BodySize.Metres.</summary>
         public byte height;
+
+        /// <summary>One entry per shape axis, parallel to CharacterCatalog.shapeAxes. 128 is the
+        /// sculpted neutral; 0 and 255 are the two ends of the axis. Decode with
+        /// ShapeAxis.Weight.</summary>
+        public byte[] shape;
     }
 }

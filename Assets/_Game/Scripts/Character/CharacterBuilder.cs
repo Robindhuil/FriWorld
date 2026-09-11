@@ -111,6 +111,33 @@ namespace FriWorld.Character
                 if (changed) renderer.sharedMaterials = materials;
             }
 
+            // 4. Face shape. Every renderer that survived and carries the axis gets the same
+            //    weight, which is what keeps the brows on the ridge and the beard on the chin
+            //    when the face underneath them moves. The shapes are propagated in Blender;
+            //    here it is one number written to however many meshes carry it.
+            if (look.shape != null && catalog.ShapeAxisCount > 0)
+            {
+                foreach (var renderer in Buffer)
+                {
+                    if (renderer == null) continue;
+                    if (!(renderer is SkinnedMeshRenderer skinned)) continue;
+
+                    var map = catalog.ShapeMap(look.gender, renderer.gameObject.name);
+                    if (map == null) continue;
+
+                    int axes = Mathf.Min(catalog.ShapeAxisCount, map.shapeIndex.Length);
+                    axes = Mathf.Min(axes, look.shape.Length);
+
+                    for (int axis = 0; axis < axes; axis++)
+                    {
+                        int index = map.shapeIndex[axis];
+                        if (index < 0) continue;
+
+                        skinned.SetBlendShapeWeight(index, catalog.shapeAxes[axis].Weight(look.shape[axis]));
+                    }
+                }
+            }
+
             Buffer.Clear();
         }
 

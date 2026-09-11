@@ -63,8 +63,11 @@ namespace FriWorld.Character.Tests
             return body;
         }
 
+        /// <summary>No shape axes: these tests are about the other three registers.</summary>
+        static ShapeRegistry Shapes() => new ShapeRegistry();
+
         static List<Issue> Run(ScannedBody body) => CharacterValidation.Check(
-            Classes(), Colorways(), Presets(), new[] { body });
+            Classes(), Colorways(), Presets(), Shapes(), new[] { body });
 
         static bool HasError(IEnumerable<Issue> issues, string fragment) =>
             issues.Any(i => i.severity == Severity.Error && i.text.Contains(fragment));
@@ -153,7 +156,7 @@ namespace FriWorld.Character.Tests
             colorways.colorways.RemoveAll(c => c.slot == 2);
 
             var issues = CharacterValidation.Check(
-                Classes(), colorways, Presets(), new[] { Body(Gender.Male) });
+                Classes(), colorways, Presets(), Shapes(), new[] { Body(Gender.Male) });
 
             Assert.IsTrue(HasError(issues, "EMPTY colour slot"));
         }
@@ -165,7 +168,7 @@ namespace FriWorld.Character.Tests
             colorways.colorways[0].slot = 3;
 
             var issues = CharacterValidation.Check(
-                Classes(), colorways, Presets(), new[] { Body(Gender.Male) });
+                Classes(), colorways, Presets(), Shapes(), new[] { Body(Gender.Male) });
 
             Assert.IsTrue(HasError(issues, "SLOT"));
         }
@@ -177,7 +180,7 @@ namespace FriWorld.Character.Tests
             presets.presets[0].conflicts = new List<string> { "backpack" };
 
             var issues = CharacterValidation.Check(
-                Classes(), Colorways(), presets, new[] { Body(Gender.Male) });
+                Classes(), Colorways(), presets, Shapes(), new[] { Body(Gender.Male) });
 
             Assert.IsTrue(HasError(issues, "DEAD"));
         }
@@ -189,7 +192,7 @@ namespace FriWorld.Character.Tests
             presets.presets[0].hides = new List<string> { "torso" };
 
             var issues = CharacterValidation.Check(
-                Classes(), Colorways(), presets, new[] { Body(Gender.Male) });
+                Classes(), Colorways(), presets, Shapes(), new[] { Body(Gender.Male) });
 
             Assert.IsTrue(HasError(issues, "SECTION"));
         }
@@ -201,7 +204,7 @@ namespace FriWorld.Character.Tests
             presets.presets[0].gender = "female";
 
             var issues = CharacterValidation.Check(
-                Classes(), Colorways(), presets, new[] { Body(Gender.Male) });
+                Classes(), Colorways(), presets, Shapes(), new[] { Body(Gender.Male) });
 
             Assert.IsTrue(HasError(issues, "EMPTY"));
         }

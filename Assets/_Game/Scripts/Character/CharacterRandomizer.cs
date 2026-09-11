@@ -20,6 +20,7 @@ namespace FriWorld.Character
                 gender = gender,
                 preset = new byte[catalog.slotClasses.Length],
                 colorway = new byte[catalog.ColorSlotCount],
+                shape = new byte[catalog.ShapeAxisCount],
             };
 
             int takenTags = 0;
@@ -74,6 +75,11 @@ namespace FriWorld.Character
             // clothing. A body with no declared size rolls to the middle of nothing and scales 1.
             var size = catalog.Size(gender);
             look.height = size != null ? size.Roll(rng) : (byte)0;
+
+            // Appended after height for the same reason height came after clothing: a seed that
+            // already had a face keeps the face it had when the next axis is added.
+            for (int axis = 0; axis < catalog.ShapeAxisCount; axis++)
+                look.shape[axis] = catalog.shapeAxes[axis].Roll(rng);
 
             return look;
         }

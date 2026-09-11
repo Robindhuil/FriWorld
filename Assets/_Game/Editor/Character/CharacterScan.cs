@@ -35,10 +35,20 @@ namespace FriWorld.Character.Editor
                     foreach (var material in renderer.sharedMaterials)
                         materialNames.Add(material != null ? material.name : string.Empty);
 
+                    // Blend shapes are read here rather than resolved later, because the index a
+                    // shape has is a property of the mesh and differs between the face and every
+                    // overlay that carries the same named key.
+                    var shapes = new List<string>();
+                    var mesh = (renderer as SkinnedMeshRenderer)?.sharedMesh;
+                    if (mesh != null)
+                        for (int i = 0; i < mesh.blendShapeCount; i++)
+                            shapes.Add(mesh.GetBlendShapeName(i));
+
                     body.objects.Add(new ScannedObject
                     {
                         name = renderer.gameObject.name,
                         materialNames = materialNames.ToArray(),
+                        blendShapes = shapes.ToArray(),
                     });
                 }
             }

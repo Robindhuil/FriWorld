@@ -49,6 +49,71 @@ namespace FriWorld.Character
         public Material For(int shadeLevel) => shadeLevel <= 0 ? material : shade;
     }
 
+    /// <summary>
+    /// One continuous face feature, driven by a blend shape.
+    ///
+    /// A preset picks one of a list; an axis is a slider, and axes compose — six of them are a
+    /// surface of faces rather than six faces. The value is carried as a byte for the same reason
+    /// height is: the whole look stays a row of indices that a save file and a creator slider can
+    /// both use, and 255 steps is finer than anyone can see.
+    ///
+    /// One blend shape covers both directions. Weights are not clamped in this project, so a
+    /// narrow nose is the negative weight of the key that widens it and nothing is sculpted twice.
+    /// </summary>
+    [Serializable]
+    public sealed class ShapeAxis
+    {
+        public string name;
+
+        /// <summary>The blend shape name, the same on the face and on everything sitting on it.</summary>
+        public string shape;
+
+        /// <summary>Weight at either end of the byte range.</summary>
+        public float range = 100f;
+
+        public int mean = 128;
+        public float deviation = 45f;
+
+        /// <summary>128 is the sculpted neutral, 0 and 255 the two ends.</summary>
+        public float Weight(byte value) => range * Mathf.Clamp((value - 128f) / 127f, -1f, 1f);
+
+        /// <summary>
+        /// Box-Muller, same as stature: most faces near the neutral, few at the ends.
+        ///
+        /// A draw outside the range is clamped rather than redrawn, which is safe here and is not
+        /// for height. The band is about 2.8 deviations wide, so clamping catches well under one
+        /// character in a hundred; height's band is 1.4, where clamping piled a sixth of the crowd
+        /// on the two extremes.
+        /// </summary>
+        public byte Roll(System.Random rng)
+        {
+            if (deviation <= 0f) return (byte)Mathf.Clamp(mean, 0, 255);
+
+            double u1 = 1.0 - rng.NextDouble();   // (0, 1], so Log never sees zero
+            double u2 = rng.NextDouble();
+            double normal = System.Math.Sqrt(-2.0 * System.Math.Log(u1))
+                            * System.Math.Sin(2.0 * System.Math.PI * u2);
+
+            return (byte)Mathf.Clamp(Mathf.RoundToInt((float)(mean + deviation * normal)), 0, 255);
+        }
+    }
+
+    /// <summary>
+    /// Where each shape axis lives on one renderer.
+    ///
+    /// The face and everything sitting on it carry the same blend shape names, but Unity hands
+    /// them out by index and the indices differ per mesh. Resolving them at bake time is what
+    /// keeps Apply free of string lookups.
+    /// </summary>
+    [Serializable]
+    public sealed class RendererShapeMap
+    {
+        public string objectName;
+
+        /// <summary>Per shape axis: the blend shape index on this mesh, or -1 when it has none.</summary>
+        public int[] shapeIndex = Array.Empty<int>();
+    }
+
     /// <summary>What to do with each material slot of one renderer, baked from its names.</summary>
     [Serializable]
     public sealed class RendererSlotMap
@@ -139,6 +204,9 @@ namespace FriWorld.Character
         public int[] presetStart = Array.Empty<int>();
 
         public RendererSlotMap[] slotMaps = Array.Empty<RendererSlotMap>();
+
+        /// <summary>Only renderers that actually carry at least one axis get an entry.</summary>
+        public RendererShapeMap[] shapeMaps = Array.Empty<RendererShapeMap>();
     }
 
     /// <summary>
@@ -169,13 +237,21 @@ namespace FriWorld.Character
         /// <summary>CSR offsets, length colorSlotClass.Length + 1.</summary>
         public int[] colorwayStart = Array.Empty<int>();
 
+        /// <summary>Continuous face features. Shared by both bodies: an axis is a name, and the
+        /// per-mesh blend shape index it resolves to lives in the bundle.</summary>
+        public ShapeAxis[] shapeAxes = Array.Empty<ShapeAxis>();
+
         public GenderBundle male = new GenderBundle();
         public GenderBundle female = new GenderBundle();
 
         Dictionary<string, RendererSlotMap> maleMaps;
         Dictionary<string, RendererSlotMap> femaleMaps;
+        Dictionary<string, RendererShapeMap> maleShapes;
+        Dictionary<string, RendererShapeMap> femaleShapes;
 
         public int ColorSlotCount => colorSlotClass.Length;
+
+        public int ShapeAxisCount => shapeAxes.Length;
 
         public GenderBundle Bundle(Gender gender) => gender == Gender.Male ? male : female;
 
@@ -233,11 +309,22 @@ namespace FriWorld.Character
             return objectName != null && cache.TryGetValue(objectName, out var map) ? map : null;
         }
 
+        public RendererShapeMap ShapeMap(Gender gender, string objectName)
+        {
+            var cache = gender == Gender.Male
+                ? maleShapes ?? (maleShapes = IndexShapes(male))
+                : femaleShapes ?? (femaleShapes = IndexShapes(female));
+
+            return objectName != null && cache.TryGetValue(objectName, out var map) ? map : null;
+        }
+
         void OnDisable()
         {
             // Domain reload or an edit to the asset invalidates the caches.
             maleMaps = null;
             femaleMaps = null;
+            maleShapes = null;
+            femaleShapes = null;
         }
 
         static Dictionary<string, RendererSlotMap> Index(GenderBundle bundle)
@@ -246,6 +333,18 @@ namespace FriWorld.Character
             if (bundle == null || bundle.slotMaps == null) return map;
 
             foreach (var entry in bundle.slotMaps)
+                if (entry != null && !string.IsNullOrEmpty(entry.objectName))
+                    map[entry.objectName] = entry;
+
+            return map;
+        }
+
+        static Dictionary<string, RendererShapeMap> IndexShapes(GenderBundle bundle)
+        {
+            var map = new Dictionary<string, RendererShapeMap>(StringComparer.Ordinal);
+            if (bundle == null || bundle.shapeMaps == null) return map;
+
+            foreach (var entry in bundle.shapeMaps)
                 if (entry != null && !string.IsNullOrEmpty(entry.objectName))
                     map[entry.objectName] = entry;
 

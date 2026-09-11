@@ -23,6 +23,7 @@ namespace FriWorld.Character.Editor
                 CharacterRegistries.LoadClasses(),
                 CharacterRegistries.LoadColorways(),
                 CharacterRegistries.LoadPresets(),
+                CharacterRegistries.LoadShapes(),
                 bodies);
 
             var report = new StringBuilder();

@@ -26,11 +26,13 @@ namespace FriWorld.Character.Editor
             var classes = CharacterRegistries.LoadClasses();
             var colorwayRegistry = CharacterRegistries.LoadColorways();
             var presetRegistry = CharacterRegistries.LoadPresets();
+            var shapeRegistry = CharacterRegistries.LoadShapes();
 
             var missing = new List<string>();
             var bodies = CharacterScan.ReadBoth(missing);
 
-            var issues = CharacterValidation.Check(classes, colorwayRegistry, presetRegistry, bodies);
+            var issues = CharacterValidation.Check(classes, colorwayRegistry, presetRegistry,
+                                                   shapeRegistry, bodies);
 
             int errors = 0;
             foreach (var issue in issues)
@@ -70,9 +72,11 @@ namespace FriWorld.Character.Editor
                 stale.presets = new PresetEntry[0];
                 stale.presetStart = new int[classes.slotClasses.Count + 1];
                 stale.slotMaps = new RendererSlotMap[0];
+                stale.shapeMaps = new RendererShapeMap[0];
             }
 
             catalog.slotClasses = classes.slotClasses.ToArray();
+            catalog.shapeAxes = BakeShapeAxes(shapeRegistry);
 
             var colorClassNames = new List<string>();
             foreach (var def in classes.colorClasses) colorClassNames.Add(def.name);
@@ -89,6 +93,7 @@ namespace FriWorld.Character.Editor
                 bundle.size = BakeSize(classes, body.gender);
                 BakePresets(catalog, bundle, presetRegistry, body.gender);
                 BakeSlotMaps(catalog, bundle, body);
+                BakeShapeMaps(catalog, bundle, body);
             }
 
             EditorUtility.SetDirty(catalog);
@@ -98,8 +103,11 @@ namespace FriWorld.Character.Editor
                       + $"{catalog.colorClasses.Length} colour classes, "
                       + $"{catalog.colorways.Length} colorways, "
                       + $"{catalog.tags.Length} tags, "
-                      + $"male {catalog.male.presets.Length} presets / {catalog.male.slotMaps.Length} slot maps, "
-                      + $"female {catalog.female.presets.Length} presets / {catalog.female.slotMaps.Length} slot maps.");
+                      + $"{catalog.shapeAxes.Length} shape axes, "
+                      + $"male {catalog.male.presets.Length} presets / {catalog.male.slotMaps.Length} slot maps "
+                      + $"/ {catalog.male.shapeMaps.Length} shape maps, "
+                      + $"female {catalog.female.presets.Length} presets / {catalog.female.slotMaps.Length} slot maps "
+                      + $"/ {catalog.female.shapeMaps.Length} shape maps.");
         }
 
         static CharacterCatalog LoadOrCreate()
@@ -269,6 +277,61 @@ namespace FriWorld.Character.Editor
             start[catalog.slotClasses.Length] = entries.Count;
             bundle.presets = entries.ToArray();
             bundle.presetStart = start;
+        }
+
+        static ShapeAxis[] BakeShapeAxes(ShapeRegistry registry)
+        {
+            var axes = new List<ShapeAxis>();
+            foreach (var def in registry.axes)
+                axes.Add(new ShapeAxis
+                {
+                    name = def.name,
+                    shape = def.shape,
+                    range = def.range,
+                    mean = def.mean,
+                    deviation = def.deviation,
+                });
+
+            return axes.ToArray();
+        }
+
+        /// <summary>
+        /// Which blend shape index each axis has on each renderer.
+        ///
+        /// The name is the same everywhere — the face and every overlay that follows it carry
+        /// "nose_wide" — but Unity addresses shapes by index and a mesh with fewer of them
+        /// numbers them differently. Resolving that here is what keeps Apply out of string
+        /// lookups at spawn.
+        /// </summary>
+        static void BakeShapeMaps(CharacterCatalog catalog, GenderBundle bundle, ScannedBody body)
+        {
+            var maps = new List<RendererShapeMap>();
+
+            foreach (var scanned in body.objects)
+            {
+                if (scanned.blendShapes == null || scanned.blendShapes.Length == 0) continue;
+
+                var index = new int[catalog.shapeAxes.Length];
+                bool anythingToDo = false;
+
+                for (int a = 0; a < catalog.shapeAxes.Length; a++)
+                {
+                    index[a] = Array.IndexOf(scanned.blendShapes, catalog.shapeAxes[a].shape);
+                    if (index[a] >= 0) anythingToDo = true;
+                }
+
+                // A mesh carrying none of the axes needs no entry; ShapeMap returning null is
+                // already the "this renderer does not move" path.
+                if (!anythingToDo) continue;
+
+                maps.Add(new RendererShapeMap
+                {
+                    objectName = scanned.name,
+                    shapeIndex = index,
+                });
+            }
+
+            bundle.shapeMaps = maps.ToArray();
         }
 
         static void BakeSlotMaps(CharacterCatalog catalog, GenderBundle bundle, ScannedBody body)
