@@ -20,6 +20,7 @@ Verzia je `bundleVersion` z `ProjectSettings` v čase zápisu.
 
 | Dátum | Téma |
 |---|---|
+| 2026-09-11 | [Blend shapy z `.blendu` prežijú iba s Armature modifierom](2026-09-11-blend-shapes-a-modifiery.md) |
 | 2026-09-11 | [Objekt skrytý monitorom stratí pri exporte do Unity modifiery](2026-09-11-hide-viewport-zahodi-modifiery.md) |
 | 2026-09-11 | [Detail tváre nesie shell s alfou, nie skin textúra](2026-09-11-detail-tvare-shell-a-atlas.md) |
 | 2026-09-11 | [Import `.blend` do Unity si vyberá Blender cez „Open with"](2026-09-11-blend-import-vybera-zly-blender.md) |

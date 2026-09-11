@@ -14,6 +14,15 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Tváre sa dajú deformovať plynulo. Nový register `CharacterShapes.json` deklaruje osi —
+  meno, blend shape, ktorý ju ženie, a kam siahajú konce. Prvá os je šírka nosa a mení ho
+  o 47 % medzi krajnými hodnotami. Osi sa **skladajú**, takže šesť z nich nie je šesť tvárí,
+  ale plocha tvárí. Losujú sa normálnym rozdelením okolo neutrálu, takže dav je väčšinou
+  blízko stredu a extrémov je málo.
+- `tools/blender/propagate_shape_keys.py` — prenesie kľúč z tváre na obočie, bradu, oči,
+  lebku a krk. Bez toho tvár pod nimi ujde a brada sa odlepí od brady: tvár je jeden mesh,
+  ale overlaye sú samostatné objekty, lebo sú to presety.
+  (`docs/decisions/2026-09-11-blend-shapes-a-modifiery.md`)
 - Hlava je nová, postavená z fotoreferencie, a je rozrezaná na jedenásť kožných sekcií —
   `cranium_1`, `forehead_1`, `browridge_1`, `eyesocket_1`, `sclera_1`, `nose_1`, `cheek_1`,
   `mouth_1`, `beardline_1`, `ear_1` a `male_body_neck`. Sekcie sa dajú deformovať zvlášť,
@@ -93,6 +102,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- Blend shapy sa z `.blendu` do Unity nedostali vôbec. Prežijú iba na meshi, kde nie je nič
+  okrem `ARMATURE` — Mirror aj Smooth by Angle mesh prepisujú a kľúče pri tom padnú. Mirror
+  je preto aplikovaný a hladké tieňovanie je zapísané ako ostré hrany, nie ako modifier.
+  (`docs/decisions/2026-09-11-blend-shapes-a-modifiery.md`)
 - Presety skryté v Blenderi **ikonou monitora** prichádzali do Unity bez modifierov — bez
   Mirroru, teda ako polovica meshu, a s bounds pri nohách, takže ich frustum culling zahodil
   a v hre neboli vidieť vôbec. Skrývať sa smie len okom; to objekt z depsgraphu nevyradí.

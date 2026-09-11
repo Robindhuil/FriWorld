@@ -557,7 +557,29 @@ MonoBehaviour:
       colorSlot: 05000000
       shadeLevel: 00000000
     shapeMaps:
+    - objectName: beard_1
+      shapeIndex: 00000000
+    - objectName: beard_2
+      shapeIndex: 00000000
     - objectName: beard_none_1
+      shapeIndex: 00000000
+    - objectName: brow_1
+      shapeIndex: 00000000
+    - objectName: brow_2
+      shapeIndex: 00000000
+    - objectName: cranium_1
+      shapeIndex: 00000000
+    - objectName: eye_blue_1
+      shapeIndex: 00000000
+    - objectName: eye_brown_1
+      shapeIndex: 00000000
+    - objectName: eye_green_1
+      shapeIndex: 00000000
+    - objectName: eye_hazel_1
+      shapeIndex: 00000000
+    - objectName: face_1
+      shapeIndex: 00000000
+    - objectName: male_body_neck
       shapeIndex: 00000000
   female:
     basePrefab: {fileID: 0}
