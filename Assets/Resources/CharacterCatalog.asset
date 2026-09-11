@@ -369,7 +369,7 @@ MonoBehaviour:
       weight: 1
     - slotClass: 3
       objectName: brow_1
-      displayName: "Obo\u010Die riedke"
+      displayName: "Obo\u010Die hrub\xE9"
       gender: 0
       hides: 0
       tagMask: 0
@@ -377,7 +377,7 @@ MonoBehaviour:
       weight: 1
     - slotClass: 3
       objectName: brow_2
-      displayName: "Obo\u010Die hust\xE9"
+      displayName: "Obo\u010Die ten\u0161ie"
       gender: 0
       hides: 0
       tagMask: 0
@@ -392,30 +392,22 @@ MonoBehaviour:
       conflictMask: 0
       weight: 6
     - slotClass: 4
-      objectName: stubble_1
-      displayName: Strnisko
+      objectName: beard_2
+      displayName: Brada riedka
       gender: 1
       hides: 0
       tagMask: 2
       conflictMask: 0
       weight: 3
     - slotClass: 4
-      objectName: moustache_1
-      displayName: "F\xFAzy"
-      gender: 1
-      hides: 0
-      tagMask: 2
-      conflictMask: 0
-      weight: 1
-    - slotClass: 4
       objectName: beard_1
-      displayName: Brada riedka
+      displayName: "Brada hust\xE1"
       gender: 1
       hides: 0
       tagMask: 2
       conflictMask: 0
-      weight: 1
-    presetStart: 00000000060000000b0000000d0000000f00000013000000
+      weight: 2
+    presetStart: 00000000060000000b0000000d0000000f00000012000000
     slotMaps:
     - objectName: boots_1
       colorSlot: 03000000
@@ -457,6 +449,9 @@ MonoBehaviour:
       colorSlot: 00000000
       shadeLevel: 00000000
     - objectName: beard_1
+      colorSlot: 07000000
+      shadeLevel: 00000000
+    - objectName: beard_2
       colorSlot: 07000000
       shadeLevel: 00000000
     - objectName: beard_none_1
@@ -537,14 +532,8 @@ MonoBehaviour:
     - objectName: male_body_upperarm_R
       colorSlot: 05000000
       shadeLevel: 00000000
-    - objectName: moustache_1
-      colorSlot: 07000000
-      shadeLevel: 00000000
     - objectName: nose_1
       colorSlot: 05000000
-      shadeLevel: 00000000
-    - objectName: stubble_1
-      colorSlot: 07000000
       shadeLevel: 00000000
   female:
     basePrefab: {fileID: 0}
