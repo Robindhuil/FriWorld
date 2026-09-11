@@ -1,6 +1,4 @@
 {
   "axes": [
-    { "name": "nose_width", "shape": "nose_wide", "range": 100,
-      "mean": 128, "deviation": 45 }
   ]
 }
