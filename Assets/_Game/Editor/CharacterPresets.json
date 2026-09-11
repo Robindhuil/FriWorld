@@ -56,6 +56,14 @@
     { "slotClass": "beard", "object": "beard_2", "displayName": "Brada riedka",
       "gender": "male", "hides": [], "tags": ["facial_hair"], "conflicts": [], "weight": 3 },
     { "slotClass": "beard", "object": "beard_1", "displayName": "Brada hustá",
-      "gender": "male", "hides": [], "tags": ["facial_hair"], "conflicts": [], "weight": 2 }
+      "gender": "male", "hides": [], "tags": ["facial_hair"], "conflicts": [], "weight": 2 },
+    { "slotClass": "eye", "object": "eye_brown_1", "displayName": "Oči hnedé",
+      "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 3 },
+    { "slotClass": "eye", "object": "eye_blue_1", "displayName": "Oči modré",
+      "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 2 },
+    { "slotClass": "eye", "object": "eye_green_1", "displayName": "Oči zelené",
+      "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 1 },
+    { "slotClass": "eye", "object": "eye_hazel_1", "displayName": "Oči orieškové",
+      "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 2 }
   ]
 }

@@ -18,6 +18,7 @@ MonoBehaviour:
   - feet
   - brow
   - beard
+  - eye
   colorClasses:
   - torso
   - legs
@@ -407,7 +408,39 @@ MonoBehaviour:
       tagMask: 2
       conflictMask: 0
       weight: 2
-    presetStart: 00000000060000000b0000000d0000000f00000012000000
+    - slotClass: 5
+      objectName: eye_brown_1
+      displayName: "O\u010Di hned\xE9"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 3
+    - slotClass: 5
+      objectName: eye_blue_1
+      displayName: "O\u010Di modr\xE9"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 2
+    - slotClass: 5
+      objectName: eye_green_1
+      displayName: "O\u010Di zelen\xE9"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 1
+    - slotClass: 5
+      objectName: eye_hazel_1
+      displayName: "O\u010Di orie\u0161kov\xE9"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 2
+    presetStart: 00000000060000000b0000000d0000000f0000001200000016000000
     slotMaps:
     - objectName: boots_1
       colorSlot: 03000000
@@ -457,33 +490,18 @@ MonoBehaviour:
     - objectName: beard_none_1
       colorSlot: 07000000
       shadeLevel: 00000000
-    - objectName: beardline_1
-      colorSlot: 05000000
-      shadeLevel: 00000000
     - objectName: brow_1
       colorSlot: 06000000
       shadeLevel: 00000000
     - objectName: brow_2
       colorSlot: 06000000
       shadeLevel: 00000000
-    - objectName: browridge_1
-      colorSlot: 05000000
-      shadeLevel: 00000000
-    - objectName: cheek_1
-      colorSlot: 05000000
-      shadeLevel: 00000000
     - objectName: cranium_1
       colorSlot: 05000000
       shadeLevel: 00000000
-    - objectName: ear_1
-      colorSlot: 05000000
-      shadeLevel: 00000000
-    - objectName: eyesocket_1
-      colorSlot: 05000000
-      shadeLevel: 00000000
-    - objectName: forehead_1
-      colorSlot: 05000000
-      shadeLevel: 00000000
+    - objectName: face_1
+      colorSlot: 05000000ffffffff05000000
+      shadeLevel: 000000000000000001000000
     - objectName: male_body_abdomen
       colorSlot: 05000000
       shadeLevel: 00000000
@@ -532,9 +550,6 @@ MonoBehaviour:
     - objectName: male_body_upperarm_R
       colorSlot: 05000000
       shadeLevel: 00000000
-    - objectName: nose_1
-      colorSlot: 05000000
-      shadeLevel: 00000000
   female:
     basePrefab: {fileID: 0}
     size:
@@ -544,5 +559,5 @@ MonoBehaviour:
       min: 1
       max: 1
     presets: []
-    presetStart: 000000000000000000000000000000000000000000000000
+    presetStart: 00000000000000000000000000000000000000000000000000000000
     slotMaps: []

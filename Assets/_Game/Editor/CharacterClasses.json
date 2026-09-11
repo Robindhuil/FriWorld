@@ -8,7 +8,7 @@
     { "name": "brow",  "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
     { "name": "beard", "mainColors": 1, "shadeValue": null, "shadeSaturation": null }
   ],
-  "slotClasses": ["torso", "legs", "feet", "brow", "beard"],
+  "slotClasses": ["torso", "legs", "feet", "brow", "beard", "eye"],
 
   "bodies": [
     { "gender": "male", "modelHeight": 1.803,
