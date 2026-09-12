@@ -14,6 +14,9 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Obočie má štyri varianty a brada štyri plus oholeného. Polovica mužov je oholená,
+  zvyšok si delí štyri brady rovným dielom; pehy má jeden z desiatich. Merané na 400
+  semenách: 50 % oholených, 11 % s pehami, obočia 25/25/25/24.
 - Dvadsať tvárových osí je zapojených v hre: register `CharacterShapes.json` ich nesie aj
   s hranicami, ktoré boli schválené na modeli, a `CharacterBuilder` ich píše do všetkých
   dvadsiatich jeden meshov hlavy naraz.

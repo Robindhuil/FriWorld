@@ -173,32 +173,32 @@ MonoBehaviour:
     id: alabaster
     displayName: "Alabastrov\xE1"
     material: {fileID: 2100000, guid: af472a552592b07418b1d17ce9afd742, type: 2}
-    shade: {fileID: 2100000, guid: c3801adb32cf26d469d5b7c298f51283, type: 2}
+    shade: {fileID: 0}
   - colorSlot: 5
     id: cream
     displayName: "Kr\xE9mov\xE1"
     material: {fileID: 2100000, guid: d764dd313df1c764ca7a28d65e01f3e3, type: 2}
-    shade: {fileID: 2100000, guid: 45d648c6dd2163248ace78b6ab3f318f, type: 2}
+    shade: {fileID: 0}
   - colorSlot: 5
     id: peach
     displayName: "Brosky\u0148ov\xE1"
     material: {fileID: 2100000, guid: 5ca40e986d1a645458d8a59ec7976794, type: 2}
-    shade: {fileID: 2100000, guid: 77f836a8a9e5c34408dc78f9ae1f19c8, type: 2}
+    shade: {fileID: 0}
   - colorSlot: 5
     id: sand
     displayName: "Pieskov\xE1"
     material: {fileID: 2100000, guid: 334009b587571084bb00c6d348a3e2bd, type: 2}
-    shade: {fileID: 2100000, guid: f96ef38d74ade4144a04c0f2cf1149fb, type: 2}
+    shade: {fileID: 0}
   - colorSlot: 5
     id: beige
     displayName: "B\xE9\u017Eov\xE1"
     material: {fileID: 2100000, guid: 8d2ae56a37e7d364ea0337a2e45c4c27, type: 2}
-    shade: {fileID: 2100000, guid: 783fb59ba419bc04ea2191ff2522c00d, type: 2}
+    shade: {fileID: 0}
   - colorSlot: 5
     id: tan
     displayName: "Op\xE1len\xE1"
     material: {fileID: 2100000, guid: 13498d068e96c724289a7a5f0034fdc3, type: 2}
-    shade: {fileID: 2100000, guid: f3e8d0f8c3ed3f145bf1c3d5db2f75a5, type: 2}
+    shade: {fileID: 0}
   - colorSlot: 6
     id: black
     displayName: "\u010Cierne"
@@ -530,20 +530,20 @@ MonoBehaviour:
       weight: 1
     - slotClass: 4
       objectName: brow_3
-      displayName: "Obo\u010Die 3 (nenakreslen\xE9)"
+      displayName: "Obo\u010Die 3"
       gender: 0
       hides: 0
       tagMask: 0
       conflictMask: 0
-      weight: 0
+      weight: 1
     - slotClass: 4
       objectName: brow_4
-      displayName: "Obo\u010Die 4 (nenakreslen\xE9)"
+      displayName: "Obo\u010Die 4"
       gender: 0
       hides: 0
       tagMask: 0
       conflictMask: 0
-      weight: 0
+      weight: 1
     - slotClass: 5
       objectName: beard_none_1
       displayName: "Oholen\xFD"
@@ -551,7 +551,7 @@ MonoBehaviour:
       hides: 0
       tagMask: 0
       conflictMask: 0
-      weight: 6
+      weight: 4
     - slotClass: 5
       objectName: beard_2
       displayName: Brada riedka
@@ -559,7 +559,7 @@ MonoBehaviour:
       hides: 0
       tagMask: 2
       conflictMask: 0
-      weight: 3
+      weight: 1
     - slotClass: 5
       objectName: beard_1
       displayName: "Brada hust\xE1"
@@ -567,23 +567,23 @@ MonoBehaviour:
       hides: 0
       tagMask: 2
       conflictMask: 0
-      weight: 2
+      weight: 1
     - slotClass: 5
       objectName: beard_3
-      displayName: "Brada 3 (nenakreslen\xE1)"
+      displayName: Brada 3
       gender: 1
       hides: 0
       tagMask: 2
       conflictMask: 0
-      weight: 0
+      weight: 1
     - slotClass: 5
       objectName: beard_4
-      displayName: "Brada 4 (nenakreslen\xE1)"
+      displayName: Brada 4
       gender: 1
       hides: 0
       tagMask: 2
       conflictMask: 0
-      weight: 0
+      weight: 1
     - slotClass: 6
       objectName: eye_brown_1
       displayName: "O\u010Di hned\xE9"
@@ -623,7 +623,7 @@ MonoBehaviour:
       hides: 0
       tagMask: 0
       conflictMask: 0
-      weight: 7
+      weight: 9
     - slotClass: 7
       objectName: freckle_1
       displayName: Pehy riedke
@@ -631,7 +631,7 @@ MonoBehaviour:
       hides: 0
       tagMask: 0
       conflictMask: 0
-      weight: 2
+      weight: 1
     - slotClass: 7
       objectName: freckle_2
       displayName: "Pehy 2 (nenakreslen\xE9)"
