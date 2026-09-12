@@ -31,9 +31,9 @@
     { "colorClass": "hair", "slot": 1, "id": "brown", "displayName": "Brunet", "color": "#4A3227" },
     { "colorClass": "hair", "slot": 1, "id": "blond", "displayName": "Blond",  "color": "#C9A25C" },
 
-    { "colorClass": "skin", "slot": 1, "id": "01", "displayName": "Pleť 1", "color": "#E9A157" },
+    { "colorClass": "skin", "slot": 1, "id": "01", "displayName": "Pleť 1", "color": "#B08573" },
     { "colorClass": "skin", "slot": 1, "id": "02", "displayName": "Pleť 2", "color": "#D9965D" },
-    { "colorClass": "skin", "slot": 1, "id": "03", "displayName": "Pleť 3", "color": "#E7A256" },
+    { "colorClass": "skin", "slot": 1, "id": "03", "displayName": "Pleť 3", "color": "#A46F59" },
     { "colorClass": "skin", "slot": 1, "id": "04", "displayName": "Pleť 4", "color": "#EC9863" },
     { "colorClass": "skin", "slot": 1, "id": "05", "displayName": "Pleť 5", "color": "#E09871" },
     { "colorClass": "skin", "slot": 1, "id": "06", "displayName": "Pleť 6", "color": "#FFA57E" },
