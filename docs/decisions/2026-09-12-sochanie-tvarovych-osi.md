@@ -72,7 +72,9 @@ nezapíšu. Kým tam nie sú, Unity o osiach nevie.
 
 **Pred importom treba aplikovať Mirror na všetkých 21 objektov.** To je pasca zapísaná
 v [blend shapy a modifiery](2026-09-11-blend-shapes-a-modifiery.md) a Blender ju nevie
-spraviť sám — modifier sa na mesh so shape keys aplikovať nedá, takže to bude skript.
+spraviť sám — modifier sa na mesh so shape keys aplikovať nedá. Robí to
+`tools/blender/apply_mirror_with_shape_keys.py`; na `face_1` bol overený proti výstupu
+modifieru na 0.000 mm v pozíciách aj v kľúčoch. Spustený na ostrých dátach ešte nebol.
 
 **Pri tele to bude to isté, len s inými sekciami.** Postup sa nemení: skupina zo
 skutočnej geometrie, malý krok, render po každom kroku, limit od oka, potom propagate.

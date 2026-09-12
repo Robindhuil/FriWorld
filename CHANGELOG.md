@@ -184,6 +184,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- `tools/blender/apply_mirror_with_shape_keys.py` — zapečie Mirror do meshu aj do každého
+  kľúča a modifier odstráni. Blender to sám nevie: modifier sa na mesh so shape keys
+  aplikovať nedá, a bez toho export do Unity všetky kľúče zahodí. Skript si výsledok
+  overuje proti tomu, čo modifier naozaj vyrobí, a pri nesúhlase objekt nechá tak.
 - `tools/blender/propagate_shape_keys.py` berie celú sadu kľúčov naraz, nie jeden podľa
   `KEY`. Bod na tvári pod vrcholom cieľa hľadá raz a použije ho pre všetky kľúče.
 - Trieda `hair` je dočasne mimo `slotClasses` — staré účesy boli modelované na starú hlavu
