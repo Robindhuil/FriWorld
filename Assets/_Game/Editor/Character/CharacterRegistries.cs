@@ -12,6 +12,21 @@ namespace FriWorld.Character.Editor
         /// <summary>Null means the class has no darker shade. Zero would mean black.</summary>
         public float? shadeValue;
         public float? shadeSaturation;
+
+        /// <summary>
+        /// The class this one takes its colour from, or null when it rolls on its own.
+        ///
+        /// Eyebrows are the case. They need their own material, because the texture is the brow
+        /// atlas and not the hair one, but a blond head with black brows reads as a bug rather
+        /// than as variety. A follower has no palette of its own: it inherits the source's
+        /// colorways one for one, under the same ids, and rolls to whatever the source rolled.
+        /// </summary>
+        public string follows;
+
+        /// <summary>How the inherited colour is bent on the way in. 1 and 1 take it unchanged;
+        /// brows sit a little darker than the hair they follow.</summary>
+        public float followValue = 1f;
+        public float followSaturation = 1f;
     }
 
     /// <summary>

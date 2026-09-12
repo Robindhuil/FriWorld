@@ -74,6 +74,43 @@ namespace FriWorld.Character.Editor
                     Error($"SHADE colour class '{def.name}' sets only one of shadeValue / shadeSaturation");
             }
 
+            // ---- followers -----------------------------------------------------------
+            // A follower has no palette of its own: it inherits the source's colorways and copies
+            // its roll, which is how brows stay on the same head as the hair.
+            foreach (var def in classes.colorClasses)
+            {
+                if (string.IsNullOrEmpty(def.follows)) continue;
+
+                if (def.follows == def.name)
+                {
+                    Error($"FOLLOWS colour class '{def.name}' follows itself");
+                    continue;
+                }
+
+                if (!colorClassByName.TryGetValue(def.follows, out var source))
+                {
+                    Error($"FOLLOWS colour class '{def.name}' follows '{def.follows}', "
+                          + "which CharacterClasses.json does not declare");
+                    continue;
+                }
+
+                if (!string.IsNullOrEmpty(source.follows))
+                    Error($"FOLLOWS colour class '{def.name}' follows '{source.name}', which follows "
+                          + $"'{source.follows}' — a follower may not follow a follower");
+
+                if (source.mainColors < def.mainColors)
+                    Error($"FOLLOWS colour class '{def.name}' declares {def.mainColors} colours but "
+                          + $"follows '{source.name}', which declares {source.mainColors}");
+
+                foreach (var way in colorways.colorways)
+                    if (way.colorClass == def.name)
+                    {
+                        Error($"FOLLOWS colorway '{def.name}/{way.id}' would be ignored — "
+                              + $"'{def.name}' takes its palette from '{def.follows}'");
+                        break;
+                    }
+            }
+
             var slotClasses = new HashSet<string>(StringComparer.Ordinal);
             foreach (string name in classes.slotClasses)
                 if (!slotClasses.Add(name))
@@ -110,6 +147,10 @@ namespace FriWorld.Character.Editor
 
             foreach (var pair in colorClassByName)
             {
+                // A follower is filled by whatever fills the class it follows, and that class is
+                // checked on its own pass — reporting it twice would just name the wrong culprit.
+                if (!string.IsNullOrEmpty(pair.Value.follows)) continue;
+
                 for (int slot = 1; slot <= pair.Value.mainColors; slot++)
                 {
                     string slotKey = pair.Key + " " + slot;
@@ -148,8 +189,14 @@ namespace FriWorld.Character.Editor
                 if (ParseGender(preset.gender) == null)
                     Error($"GENDER preset '{who}' has gender '{preset.gender}', expected any / male / female");
 
-                if (preset.weight < 1)
-                    Error($"WEIGHT preset '{who}' has weight {preset.weight}, must be at least 1");
+                // Weight 0 is the draft: the object exists in the model but is not finished, so
+                // the builder still strips it when it is not worn — and it never is, because a
+                // zero-weight candidate can never win the draw.
+                if (preset.weight < 0)
+                    Error($"WEIGHT preset '{who}' has weight {preset.weight}, which is below zero");
+                else if (preset.weight == 0)
+                    Note($"DRAFT preset '{who}' has weight 0 — it is stripped from every character "
+                         + "and never worn. Give it a weight once it is finished.");
 
                 if (preset.hides != null)
                     foreach (string section in preset.hides)
@@ -243,17 +290,24 @@ namespace FriWorld.Character.Editor
 
                 foreach (string slotClass in classes.slotClasses)
                 {
-                    int usable = 0;
+                    int usable = 0, rollable = 0;
                     foreach (var preset in presets.presets)
                     {
                         if (preset.slotClass != slotClass) continue;
                         var gate = ParseGender(preset.gender);
-                        if (gate != null && PresetRules.GenderAllows(gate.Value, body.gender)) usable++;
+                        if (gate == null || !PresetRules.GenderAllows(gate.Value, body.gender)) continue;
+
+                        usable++;
+                        if (preset.weight > 0) rollable++;
                     }
 
                     if (usable == 0)
                         Error($"EMPTY {body.gender}: slot class '{slotClass}' has no preset — "
                               + "the NPC would be missing that part");
+                    else if (rollable == 0)
+                        Error($"DRAFT {body.gender}: every preset of slot class '{slotClass}' has "
+                              + "weight 0, so the draw falls back to the first one and a draft "
+                              + "gets worn");
                     else if (usable > 254)
                         Error($"OVERFLOW {body.gender}: slot class '{slotClass}' has {usable} presets, "
                               + "the index holds 254");

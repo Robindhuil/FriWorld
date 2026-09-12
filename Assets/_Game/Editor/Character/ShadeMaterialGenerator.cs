@@ -43,37 +43,62 @@ namespace FriWorld.Character.Editor
             AssetDatabase.StartAssetEditing();
             try
             {
-                foreach (var way in colorways.colorways)
+                foreach (var def in classes.colorClasses)
                 {
-                    if (!classByName.TryGetValue(way.colorClass, out var def))
+                    // A follower has no colorways of its own; it writes one material per colorway
+                    // of the class it follows, under that colorway's id, so the two line up index
+                    // for index when the catalog is baked and the roll is copied across.
+                    var source = def;
+
+                    if (!string.IsNullOrEmpty(def.follows))
                     {
-                        problems.Add($"colorway '{way.id}' names unknown colour class '{way.colorClass}'");
-                        continue;
+                        if (!classByName.TryGetValue(def.follows, out source))
+                        {
+                            problems.Add($"colour class '{def.name}' follows '{def.follows}', "
+                                         + "which is not a colour class");
+                            continue;
+                        }
+
+                        if (!string.IsNullOrEmpty(source.follows))
+                        {
+                            problems.Add($"colour class '{def.name}' follows '{source.name}', "
+                                         + $"which follows '{source.follows}' — one level only");
+                            continue;
+                        }
                     }
 
-                    if (way.slot < 1 || way.slot > def.mainColors)
+                    foreach (var way in colorways.colorways)
                     {
-                        problems.Add($"colorway '{way.colorClass} {way.slot}/{way.id}' is for slot "
-                                     + $"{way.slot}, the class declares {def.mainColors}");
-                        continue;
-                    }
+                        if (way.colorClass != source.name) continue;
 
-                    if (!ColorUtility.TryParseHtmlString(way.color, out var color))
-                    {
-                        problems.Add($"colorway '{way.colorClass} {way.slot}/{way.id}' has an "
-                                     + $"unreadable colour '{way.color}'");
-                        continue;
-                    }
+                        if (way.slot < 1 || way.slot > def.mainColors)
+                        {
+                            if (source == def)
+                                problems.Add($"colorway '{way.colorClass} {way.slot}/{way.id}' is for "
+                                             + $"slot {way.slot}, the class declares {def.mainColors}");
+                            continue;
+                        }
 
-                    Directory.CreateDirectory(Path.Combine(OutputRoot, way.colorClass));
+                        if (!ColorUtility.TryParseHtmlString(way.color, out var color))
+                        {
+                            problems.Add($"colorway '{way.colorClass} {way.slot}/{way.id}' has an "
+                                         + $"unreadable colour '{way.color}'");
+                            continue;
+                        }
 
-                    if (Write(way, def, 0, color, problems)) written++;
+                        Directory.CreateDirectory(Path.Combine(OutputRoot, def.name));
 
-                    if (def.shadeValue.HasValue && def.shadeSaturation.HasValue)
-                    {
-                        var shade = ShadeColor.Derive(color, def.shadeValue.Value,
-                                                      def.shadeSaturation.Value);
-                        if (Write(way, def, 1, shade, problems)) written++;
+                        if (source != def)
+                            color = ShadeColor.Derive(color, def.followValue, def.followSaturation);
+
+                        if (Write(def, way, 0, color, problems)) written++;
+
+                        if (def.shadeValue.HasValue && def.shadeSaturation.HasValue)
+                        {
+                            var shade = ShadeColor.Derive(color, def.shadeValue.Value,
+                                                          def.shadeSaturation.Value);
+                            if (Write(def, way, 1, shade, problems)) written++;
+                        }
                     }
                 }
             }
@@ -90,7 +115,7 @@ namespace FriWorld.Character.Editor
         }
 
         /// <summary>Creates or updates one material. Returns false when the template is missing.</summary>
-        static bool Write(ColorwayDef way, ColorClassDef def, int shadeLevel, Color color,
+        static bool Write(ColorClassDef def, ColorwayDef way, int shadeLevel, Color color,
                           List<string> problems)
         {
             string key = shadeLevel == 0 ? way.slot.ToString() : $"{way.slot}{shadeLevel}";

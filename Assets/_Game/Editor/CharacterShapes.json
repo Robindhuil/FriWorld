@@ -1,4 +1,24 @@
 {
   "axes": [
+    { "name": "nose_wide", "shape": "nose_wide", "rangeMin": -50, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "nose_long", "shape": "nose_long", "rangeMin": -100, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "nose_tall", "shape": "nose_tall", "rangeMin": -100, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "brow_tall", "shape": "brow_tall", "rangeMin": -100, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "brow_long", "shape": "brow_long", "rangeMin": -50, "rangeMax": 50, "mean": 128, "deviation": 45 },
+    { "name": "eye_tall", "shape": "eye_tall", "rangeMin": -100, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "eye_wide", "shape": "eye_wide", "rangeMin": -100, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "eye_long", "shape": "eye_long", "rangeMin": -100, "rangeMax": 200, "mean": 128, "deviation": 45 },
+    { "name": "mouth_tall", "shape": "mouth_tall", "rangeMin": -100, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "mouth_wide", "shape": "mouth_wide", "rangeMin": -100, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "mouth_long", "shape": "mouth_long", "rangeMin": -100, "rangeMax": 200, "mean": 128, "deviation": 45 },
+    { "name": "lip_thin", "shape": "lip_thin", "rangeMin": 0, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "chin_tall", "shape": "chin_tall", "rangeMin": -100, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "chin_long", "shape": "chin_long", "rangeMin": -150, "rangeMax": 150, "mean": 128, "deviation": 45 },
+    { "name": "chin_wide", "shape": "chin_wide", "rangeMin": -100, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "jaw_wide", "shape": "jaw_wide", "rangeMin": -150, "rangeMax": 150, "mean": 128, "deviation": 45 },
+    { "name": "jaw_tall", "shape": "jaw_tall", "rangeMin": -200, "rangeMax": 300, "mean": 128, "deviation": 45 },
+    { "name": "cheek_wide", "shape": "cheek_wide", "rangeMin": -100, "rangeMax": 200, "mean": 128, "deviation": 45 },
+    { "name": "ear_big", "shape": "ear_big", "rangeMin": -200, "rangeMax": 100, "mean": 128, "deviation": 45 },
+    { "name": "ear_out", "shape": "ear_out", "rangeMin": -100, "rangeMax": 150, "mean": 128, "deviation": 45 }
   ]
 }

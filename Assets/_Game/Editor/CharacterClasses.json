@@ -5,10 +5,13 @@
     { "name": "feet",  "mainColors": 1, "shadeValue": 0.55, "shadeSaturation": 1.10 },
     { "name": "hair",  "mainColors": 1, "shadeValue": 0.70, "shadeSaturation": 1.05 },
     { "name": "skin",  "mainColors": 1, "shadeValue": 0.80, "shadeSaturation": 1.08 },
-    { "name": "brow",  "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
-    { "name": "beard", "mainColors": 1, "shadeValue": null, "shadeSaturation": null }
+    { "name": "brow",  "mainColors": 1, "shadeValue": null, "shadeSaturation": null,
+      "follows": "hair", "followValue": 0.88, "followSaturation": 1.05 },
+    { "name": "beard", "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
+    { "name": "freckle", "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
+    { "name": "lips",  "mainColors": 1, "shadeValue": null, "shadeSaturation": null }
   ],
-  "slotClasses": ["torso", "legs", "feet", "brow", "beard", "eye"],
+  "slotClasses": ["torso", "legs", "feet", "hair", "brow", "beard", "eye", "freckle"],
 
   "bodies": [
     { "gender": "male", "modelHeight": 1.803,

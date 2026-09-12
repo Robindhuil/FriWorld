@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace FriWorld.Character
 {
@@ -65,10 +66,28 @@ namespace FriWorld.Character
             // its own palette and is free of the main one.
             for (int colorSlot = 0; colorSlot < catalog.ColorSlotCount; colorSlot++)
             {
+                if (catalog.FollowedSlot(colorSlot) >= 0) continue;   // taken below, not drawn
+
                 int count = catalog.ColorwayCount(colorSlot);
                 look.colorway[colorSlot] = count == 0
                     ? CharacterAppearance.None
                     : (byte)rng.Next(count);
+            }
+
+            // A follower takes the roll of the slot it follows rather than drawing its own, which
+            // is what keeps brows on the same head as the hair. Its palette is the source's, index
+            // for index, so the same number means the same colour family. Drawing nothing here
+            // also means adding a follower does not shift any existing seed.
+            for (int colorSlot = 0; colorSlot < catalog.ColorSlotCount; colorSlot++)
+            {
+                int source = catalog.FollowedSlot(colorSlot);
+                if (source < 0) continue;
+
+                byte picked = look.colorway[source];
+                int count = catalog.ColorwayCount(colorSlot);
+                look.colorway[colorSlot] = count == 0 || picked == CharacterAppearance.None
+                    ? CharacterAppearance.None
+                    : (byte)Mathf.Min(picked, count - 1);
             }
 
             // Drawn last so that adding stature to the system did not shift every existing seed's

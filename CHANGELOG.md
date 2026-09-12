@@ -14,6 +14,17 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Dvadsať tvárových osí je zapojených v hre: register `CharacterShapes.json` ich nesie aj
+  s hranicami, ktoré boli schválené na modeli, a `CharacterBuilder` ich píše do všetkých
+  dvadsiatich jeden meshov hlavy naraz.
+- Farba jednej triedy sa dá zviazať s inou: `follows` v `CharacterClasses.json`. Obočie
+  tak nesie farbu vlasov o niečo tmavšiu, ale zostáva na vlastnom materiáli a vlastnej
+  textúre. Blond hlava už nemôže dostať čierne obočie.
+- Pehy sú nový slot aj nová farebná trieda — tri odtiene, losujú sa nezávisle od vlasov.
+  Pery dostali vlastnú triedu so štyrmi odtieňmi namiesto jednej autorskej ružovej.
+- Preset s váhou 0 je rozrobený variant: v modeli existuje a `CharacterBuilder` ho z
+  postavy odstráni, ale nikdy ho nikto nemá na sebe. Report ho hlási ako `DRAFT`.
+  Tak sú zapísané štyri nenakreslené varianty obočia, brady a pieh.
 - Tvár má dvadsať deformačných osí: nos (3), obočie (2), oči (3), ústa (3), pery (1),
   brada (3), čeľusť (2), líca (1), uši (2). Každá je nasochaná ručne a jej limit bol
   schválený od oka na renderi, nie vzorcom — schválené hodnoty sú v tabuľke

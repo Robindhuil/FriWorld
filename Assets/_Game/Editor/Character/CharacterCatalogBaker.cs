@@ -199,6 +199,24 @@ namespace FriWorld.Character.Editor
             catalog.colorSlotClass = slotClass.ToArray();
             catalog.colorSlotKey = slotKey.ToArray();
 
+            // A follower reads the palette of the class it follows, so its entries land in the
+            // same order and its roll is a copy rather than a draw of its own.
+            var follows = new int[slotClass.Count];
+            for (int slot = 0; slot < slotClass.Count; slot++)
+            {
+                follows[slot] = -1;
+                var def = classes.colorClasses.Find(d => d.name == catalog.colorClasses[slotClass[slot]]);
+                if (def == null || string.IsNullOrEmpty(def.follows)) continue;
+
+                int sourceClass = Array.IndexOf(catalog.colorClasses, def.follows);
+                if (sourceClass < 0) continue;
+
+                for (int other = 0; other < slotClass.Count; other++)
+                    if (slotClass[other] == sourceClass && slotKey[other] == slotKey[slot])
+                        follows[slot] = other;
+            }
+            catalog.colorSlotFollows = follows;
+
             var entries = new List<ColorwayEntry>();
             var start = new int[slotClass.Count + 1];
 
@@ -210,9 +228,13 @@ namespace FriWorld.Character.Editor
                 int key = slotKey[slot];
                 var def = classes.colorClasses.Find(d => d.name == className);
 
+                // The ids come from the source, the materials from this class's own folder: the
+                // brow keeps the brow atlas and only the colour arrives from the hair.
+                string paletteOf = string.IsNullOrEmpty(def.follows) ? className : def.follows;
+
                 foreach (var way in registry.colorways)
                 {
-                    if (way.colorClass != className || way.slot != key) continue;
+                    if (way.colorClass != paletteOf || way.slot != key) continue;
 
                     entries.Add(new ColorwayEntry
                     {

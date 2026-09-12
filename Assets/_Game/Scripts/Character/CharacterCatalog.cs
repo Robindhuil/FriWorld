@@ -237,6 +237,10 @@ namespace FriWorld.Character
         public int[] colorSlotClass = Array.Empty<int>();
         public int[] colorSlotKey = Array.Empty<int>();
 
+        /// <summary>Per slot: the slot it copies its colour from, or -1 when it rolls on its own.
+        /// Brows follow hair, so a blond head cannot end up with black brows.</summary>
+        public int[] colorSlotFollows = Array.Empty<int>();
+
         /// <summary>Sorted by colorSlot so colorwayStart can index into it.</summary>
         public ColorwayEntry[] colorways = Array.Empty<ColorwayEntry>();
 
@@ -266,6 +270,10 @@ namespace FriWorld.Character
             var bundle = Bundle(gender);
             return bundle != null ? bundle.size : null;
         }
+
+        /// <summary>The slot this one copies, or -1 when it draws its own colour.</summary>
+        public int FollowedSlot(int colorSlot) =>
+            colorSlot >= 0 && colorSlot < colorSlotFollows.Length ? colorSlotFollows[colorSlot] : -1;
 
         /// <summary>Flat index of one colour slot, or -1 when the catalog does not declare it.</summary>
         public int ColorSlotIndex(int colorClass, int baseKey)
