@@ -18,7 +18,7 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   s hranicami, ktoré boli schválené na modeli, a `CharacterBuilder` ich píše do všetkých
   dvadsiatich jeden meshov hlavy naraz.
 - Farba jednej triedy sa dá zviazať s inou: `follows` v `CharacterClasses.json`. Obočie
-  tak nesie farbu vlasov o niečo tmavšiu, ale zostáva na vlastnom materiáli a vlastnej
+  tak nesie farbu vlasov o 28 % tmavšiu, ale zostáva na vlastnom materiáli a vlastnej
   textúre. Blond hlava už nemôže dostať čierne obočie.
 - Pehy sú nový slot aj nová farebná trieda — tri odtiene, losujú sa nezávisle od vlasov.
   Pery dostali vlastnú triedu so štyrmi odtieňmi namiesto jednej autorskej ružovej.
