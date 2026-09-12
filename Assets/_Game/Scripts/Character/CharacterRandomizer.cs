@@ -78,6 +78,10 @@ namespace FriWorld.Character
             // is what keeps brows on the same head as the hair. Its palette is the source's, index
             // for index, so the same number means the same colour family. Drawing nothing here
             // also means adding a follower does not shift any existing seed.
+            //
+            // A drift of one step is what keeps beards from looking printed: a beard genuinely
+            // runs a shade off the hair, and because the palette is ordered from dark to light,
+            // one index either way is exactly that — never three colours on one head.
             for (int colorSlot = 0; colorSlot < catalog.ColorSlotCount; colorSlot++)
             {
                 int source = catalog.FollowedSlot(colorSlot);
@@ -85,9 +89,26 @@ namespace FriWorld.Character
 
                 byte picked = look.colorway[source];
                 int count = catalog.ColorwayCount(colorSlot);
-                look.colorway[colorSlot] = count == 0 || picked == CharacterAppearance.None
-                    ? CharacterAppearance.None
-                    : (byte)Mathf.Min(picked, count - 1);
+                if (count == 0 || picked == CharacterAppearance.None)
+                {
+                    look.colorway[colorSlot] = CharacterAppearance.None;
+                    continue;
+                }
+
+                int index = Mathf.Min(picked, count - 1);
+                int drift = catalog.SlotDrift(colorSlot);
+                float chance = catalog.SlotDriftChance(colorSlot);
+
+                // The draws happen only for a slot that declares a drift, so turning one on does
+                // not reshuffle the colours of every seed that had none.
+                if (drift > 0 && chance > 0f && rng.NextDouble() < chance)
+                {
+                    int step = 1 + rng.Next(drift);
+                    if (rng.NextDouble() < 0.5) step = -step;
+                    index = Mathf.Clamp(index + step, 0, count - 1);
+                }
+
+                look.colorway[colorSlot] = (byte)index;
             }
 
             // Drawn last so that adding stature to the system did not shift every existing seed's

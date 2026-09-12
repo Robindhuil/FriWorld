@@ -7,7 +7,9 @@
     { "name": "skin",  "mainColors": 1, "shadeValue": 0.80, "shadeSaturation": 1.08 },
     { "name": "brow",  "mainColors": 1, "shadeValue": null, "shadeSaturation": null,
       "follows": "hair", "followValue": 0.72, "followSaturation": 1.10 },
-    { "name": "beard", "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
+    { "name": "beard", "mainColors": 1, "shadeValue": null, "shadeSaturation": null,
+      "follows": "hair", "followValue": 0.95, "followSaturation": 1.05,
+      "followDrift": 1, "followDriftChance": 0.25 },
     { "name": "freckle", "mainColors": 1, "shadeValue": null, "shadeSaturation": null },
     { "name": "lips",  "mainColors": 1, "shadeValue": null, "shadeSaturation": null }
   ],

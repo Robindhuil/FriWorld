@@ -202,6 +202,9 @@ namespace FriWorld.Character.Editor
             // A follower reads the palette of the class it follows, so its entries land in the
             // same order and its roll is a copy rather than a draw of its own.
             var follows = new int[slotClass.Count];
+            var drift = new int[slotClass.Count];
+            var driftChance = new float[slotClass.Count];
+
             for (int slot = 0; slot < slotClass.Count; slot++)
             {
                 follows[slot] = -1;
@@ -214,8 +217,13 @@ namespace FriWorld.Character.Editor
                 for (int other = 0; other < slotClass.Count; other++)
                     if (slotClass[other] == sourceClass && slotKey[other] == slotKey[slot])
                         follows[slot] = other;
+
+                drift[slot] = Mathf.Max(0, def.followDrift);
+                driftChance[slot] = Mathf.Clamp01(def.followDriftChance);
             }
             catalog.colorSlotFollows = follows;
+            catalog.colorSlotDrift = drift;
+            catalog.colorSlotDriftChance = driftChance;
 
             var entries = new List<ColorwayEntry>();
             var start = new int[slotClass.Count + 1];
@@ -236,11 +244,14 @@ namespace FriWorld.Character.Editor
                 {
                     if (way.colorClass != paletteOf || way.slot != key) continue;
 
+                    ColorUtility.TryParseHtmlString(way.color, out var declared);
+
                     entries.Add(new ColorwayEntry
                     {
                         colorSlot = slot,
                         id = way.id,
                         displayName = way.displayName,
+                        color = declared,
                         material = LoadMaterial(className, way.id, key.ToString()),
                         shade = def.shadeValue.HasValue
                             ? LoadMaterial(className, way.id, key + "1")

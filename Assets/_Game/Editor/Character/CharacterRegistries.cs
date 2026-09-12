@@ -27,6 +27,19 @@ namespace FriWorld.Character.Editor
         /// brows sit a little darker than the hair they follow.</summary>
         public float followValue = 1f;
         public float followSaturation = 1f;
+
+        /// <summary>
+        /// How far the follower may stray from what the source rolled, in palette steps.
+        ///
+        /// Zero means it never does: brows are the hair colour, full stop. A beard is the case
+        /// for one — beards genuinely run a shade off the hair, and forbidding that makes a crowd
+        /// look printed. Since the step is an index, the palette has to be ordered from dark to
+        /// light for it to mean anything, and Report checks that it is.
+        /// </summary>
+        public int followDrift;
+
+        /// <summary>How often the drift happens at all. 0.25 is a quarter of the crowd.</summary>
+        public float followDriftChance;
     }
 
     /// <summary>

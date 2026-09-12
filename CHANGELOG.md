@@ -20,6 +20,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
 - Dvadsať tvárových osí je zapojených v hre: register `CharacterShapes.json` ich nesie aj
   s hranicami, ktoré boli schválené na modeli, a `CharacterBuilder` ich píše do všetkých
   dvadsiatich jeden meshov hlavy naraz.
+- Brada už nemôže byť tretia farba na hlave. Ide za vlasmi ako obočie, ale so
+  **zakolísaním o jeden krok** v palete (`followDrift`): tri štvrtiny má bradu presne vo
+  farbe vlasov, zvyšok o odtieň vedľa. Merané na 600 semenách: 83 % zhodných,
+  16 % o krok, nikdy ďalej. Obočie zostáva prísne.
 - Farba jednej triedy sa dá zviazať s inou: `follows` v `CharacterClasses.json`. Obočie
   tak nesie farbu vlasov o 28 % tmavšiu, ale zostáva na vlastnom materiáli a vlastnej
   textúre. Blond hlava už nemôže dostať čierne obočie.

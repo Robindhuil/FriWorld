@@ -109,6 +109,42 @@ namespace FriWorld.Character.Editor
                               + $"'{def.name}' takes its palette from '{def.follows}'");
                         break;
                     }
+
+                if (def.followDrift < 0)
+                    Error($"DRIFT colour class '{def.name}' declares followDrift {def.followDrift}");
+
+                if (def.followDriftChance < 0f || def.followDriftChance > 1f)
+                    Error($"DRIFT colour class '{def.name}' declares followDriftChance "
+                          + $"{def.followDriftChance}, which is not between 0 and 1");
+
+                if (def.followDrift > 0 && def.followDriftChance <= 0f)
+                    Note($"DRIFT colour class '{def.name}' allows {def.followDrift} steps of drift "
+                         + "but followDriftChance is 0, so it never drifts");
+
+                // A drift is a step along the palette, so the palette has to be a gradient: if the
+                // colours are not ordered from dark to light, "one step off the hair" is one step
+                // to wherever that colour happens to sit in the file.
+                if (def.followDrift > 0)
+                {
+                    float previous = -1f;
+                    string last = null;
+
+                    foreach (var way in colorways.colorways)
+                    {
+                        if (way.colorClass != source.name || way.slot != 1) continue;
+                        if (!ColorUtility.TryParseHtmlString(way.color, out var colour)) continue;
+
+                        float luminance = 0.2126f * colour.r + 0.7152f * colour.g + 0.0722f * colour.b;
+
+                        if (previous >= 0f && luminance < previous)
+                            Note($"ORDER palette '{source.name}' is not sorted dark to light — "
+                                 + $"'{way.id}' is darker than '{last}'. '{def.name}' drifts along "
+                                 + "this order, so a step lands on whatever is written next.");
+
+                        previous = luminance;
+                        last = way.id;
+                    }
+                }
             }
 
             var slotClasses = new HashSet<string>(StringComparer.Ordinal);

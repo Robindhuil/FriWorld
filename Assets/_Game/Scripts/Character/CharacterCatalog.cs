@@ -46,6 +46,10 @@ namespace FriWorld.Character
         /// <summary>The derived darker material, null when the class declares no shade.</summary>
         public Material shade;
 
+        /// <summary>The colour the register declares. The material carries it too, but reading it
+        /// from here costs nothing and works without loading the material.</summary>
+        public Color color = Color.white;
+
         public Material For(int shadeLevel) => shadeLevel <= 0 ? material : shade;
     }
 
@@ -241,6 +245,11 @@ namespace FriWorld.Character
         /// Brows follow hair, so a blond head cannot end up with black brows.</summary>
         public int[] colorSlotFollows = Array.Empty<int>();
 
+        /// <summary>Per slot: how many palette steps a follower may stray, and how often it does.
+        /// A beard one shade off the hair reads as a beard; three colours on one head do not.</summary>
+        public int[] colorSlotDrift = Array.Empty<int>();
+        public float[] colorSlotDriftChance = Array.Empty<float>();
+
         /// <summary>Sorted by colorSlot so colorwayStart can index into it.</summary>
         public ColorwayEntry[] colorways = Array.Empty<ColorwayEntry>();
 
@@ -274,6 +283,14 @@ namespace FriWorld.Character
         /// <summary>The slot this one copies, or -1 when it draws its own colour.</summary>
         public int FollowedSlot(int colorSlot) =>
             colorSlot >= 0 && colorSlot < colorSlotFollows.Length ? colorSlotFollows[colorSlot] : -1;
+
+        /// <summary>How far this follower may stray from the slot it follows, in palette steps.</summary>
+        public int SlotDrift(int colorSlot) =>
+            colorSlot >= 0 && colorSlot < colorSlotDrift.Length ? colorSlotDrift[colorSlot] : 0;
+
+        /// <summary>How often that drift happens, 0 to 1.</summary>
+        public float SlotDriftChance(int colorSlot) =>
+            colorSlot >= 0 && colorSlot < colorSlotDriftChance.Length ? colorSlotDriftChance[colorSlot] : 0f;
 
         /// <summary>Flat index of one colour slot, or -1 when the catalog does not declare it.</summary>
         public int ColorSlotIndex(int colorClass, int baseKey)

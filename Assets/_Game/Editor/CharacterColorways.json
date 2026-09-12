@@ -38,10 +38,6 @@
     { "colorClass": "skin", "slot": 1, "id": "05", "displayName": "Pleť 5", "color": "#E09871" },
     { "colorClass": "skin", "slot": 1, "id": "06", "displayName": "Pleť 6", "color": "#FFA57E" },
 
-    { "colorClass": "beard", "slot": 1, "id": "black", "displayName": "Čierna",       "color": "#1C1815" },
-    { "colorClass": "beard", "slot": 1, "id": "dark",  "displayName": "Tmavohnedá",   "color": "#36271C" },
-    { "colorClass": "beard", "slot": 1, "id": "brown", "displayName": "Hnedá",        "color": "#523C2A" },
-    { "colorClass": "beard", "slot": 1, "id": "ginger","displayName": "Ryšavá",       "color": "#7A4526" },
 
     { "colorClass": "freckle", "slot": 1, "id": "light",  "displayName": "Svetlé",     "color": "#C98B62" },
     { "colorClass": "freckle", "slot": 1, "id": "rust",   "displayName": "Hrdzavé",    "color": "#A65F38" },
