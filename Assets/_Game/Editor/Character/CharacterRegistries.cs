@@ -101,9 +101,15 @@ namespace FriWorld.Character.Editor
         public string name;
         public string shape;
 
-        /// <summary>Weight at either end of the byte range. Lower it to soften an axis without
-        /// resculpting the key.</summary>
-        public float range = 100f;
+        /// <summary>
+        /// Weight at each end of the byte range, and they are not required to match.
+        ///
+        /// A feature rarely varies as far in both directions: a nose goes further toward broad
+        /// than toward pinched, so rangeMax 100 with rangeMin -50 is the honest description of
+        /// it. Both are trims on the sculpted key, so narrowing an end never means resculpting.
+        /// </summary>
+        public float rangeMin = -100f;
+        public float rangeMax = 100f;
 
         /// <summary>Where the population sits. 128 is the sculpted neutral.</summary>
         public int mean = 128;

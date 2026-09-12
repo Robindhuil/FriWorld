@@ -287,7 +287,8 @@ namespace FriWorld.Character.Editor
                 {
                     name = def.name,
                     shape = def.shape,
-                    range = def.range,
+                    rangeMin = def.rangeMin,
+                    rangeMax = def.rangeMax,
                     mean = def.mean,
                     deviation = def.deviation,
                 });

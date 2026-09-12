@@ -68,14 +68,20 @@ namespace FriWorld.Character
         /// <summary>The blend shape name, the same on the face and on everything sitting on it.</summary>
         public string shape;
 
-        /// <summary>Weight at either end of the byte range.</summary>
-        public float range = 100f;
+        /// <summary>Weight at each end of the byte range; the two ends need not match, because a
+        /// feature rarely varies as far in both directions.</summary>
+        public float rangeMin = -100f;
+        public float rangeMax = 100f;
 
         public int mean = 128;
         public float deviation = 45f;
 
         /// <summary>128 is the sculpted neutral, 0 and 255 the two ends.</summary>
-        public float Weight(byte value) => range * Mathf.Clamp((value - 128f) / 127f, -1f, 1f);
+        public float Weight(byte value)
+        {
+            float t = Mathf.Clamp((value - 128f) / 127f, -1f, 1f);
+            return t >= 0f ? t * rangeMax : -t * rangeMin;
+        }
 
         /// <summary>
         /// Box-Muller, same as stature: most faces near the neutral, few at the ends.
