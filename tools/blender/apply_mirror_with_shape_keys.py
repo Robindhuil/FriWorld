@@ -119,12 +119,16 @@ def bake_mirror(ob):
         for g in v.groups:
             weights.setdefault(group_names[g.group], []).append((v.index, g.weight))
 
-    sharp = set()
+    # edge flags travel with the pair of vertices they join, twin included
+    sharp, seams = set(), set()
     for e in old.edges:
+        a, b = e.vertices
         if e.use_edge_sharp:
-            a, b = e.vertices
             sharp.add(tuple(sorted((a, b))))
             sharp.add(tuple(sorted((twin[a], twin[b]))))
+        if e.use_seam:
+            seams.add(tuple(sorted((a, b))))
+            seams.add(tuple(sorted((twin[a], twin[b]))))
 
     # build
     new = bpy.data.meshes.new(old.name)
@@ -139,10 +143,13 @@ def bake_mirror(ob):
             target.material_index = p.material_index
             target.use_smooth = p.use_smooth
 
-    if sharp:
+    if sharp or seams:
         for e in new.edges:
-            if tuple(sorted(e.vertices)) in sharp:
+            pair = tuple(sorted(e.vertices))
+            if pair in sharp:
                 e.use_edge_sharp = True
+            if pair in seams:
+                e.use_seam = True
 
     loop_of = [list(p.loop_indices) for p in old.polygons]
     for name, values in uvs:

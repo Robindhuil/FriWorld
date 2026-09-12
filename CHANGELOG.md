@@ -137,6 +137,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- `apply_mirror_with_shape_keys.py` prenáša aj **UV seamy**. Zapekanie mirroru ich ticho
+  zahodilo — `face_1` prišla o 167 označených hrán, obočie, brady, oči a krk o svoje.
+  Na vykreslenie to vplyv nemá, ale bez nich sa mesh nedá znovu rozbaliť tak, ako bol.
+  Obnovené zo stavu spred zapekania a prezrkadlené na druhú polovicu.
 - `propagate_shape_keys.py` necháva nový kľúč na hodnote 0. Prichádzal s 1.0, takže po
   prehnaní sedelo obočie, brada, oči aj pehy posunuté o súčet všetkých dvadsiatich
   deformácií naraz. V Unity to nebolo vidieť — tú váhu si nastavuje `CharacterBuilder` —
