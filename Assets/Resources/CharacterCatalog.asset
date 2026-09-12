@@ -170,55 +170,35 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 829946d6143fb6045917f3d6ea7c9fc1, type: 2}
     shade: {fileID: 2100000, guid: f785726a073d9804c8e59b653ca9fe14, type: 2}
   - colorSlot: 5
-    id: pale
-    displayName: "Ve\u013Emi svetl\xE1"
-    material: {fileID: 2100000, guid: cd88dab16148ee84c8b1cf6be8ff37a1, type: 2}
-    shade: {fileID: 2100000, guid: 8aac80558b1b9ed48a8e6ace4f3076ad, type: 2}
+    id: alabaster
+    displayName: "Alabastrov\xE1"
+    material: {fileID: 2100000, guid: af472a552592b07418b1d17ce9afd742, type: 2}
+    shade: {fileID: 2100000, guid: c3801adb32cf26d469d5b7c298f51283, type: 2}
   - colorSlot: 5
-    id: light
-    displayName: "Svetl\xE1"
-    material: {fileID: 2100000, guid: fb4dcb768559d0f458582f75166f676c, type: 2}
-    shade: {fileID: 2100000, guid: fda910fa5f9ed8245a88f1dfb8eef56e, type: 2}
+    id: cream
+    displayName: "Kr\xE9mov\xE1"
+    material: {fileID: 2100000, guid: d764dd313df1c764ca7a28d65e01f3e3, type: 2}
+    shade: {fileID: 2100000, guid: 45d648c6dd2163248ace78b6ab3f318f, type: 2}
   - colorSlot: 5
-    id: fair
-    displayName: "Svetl\xE1 tepl\xE1"
-    material: {fileID: 2100000, guid: 78ff7fd4fae583f4abb6ab612f0e4c79, type: 2}
-    shade: {fileID: 2100000, guid: 5bde21e7eafb706449e2a65de8c7269a, type: 2}
+    id: peach
+    displayName: "Brosky\u0148ov\xE1"
+    material: {fileID: 2100000, guid: 5ca40e986d1a645458d8a59ec7976794, type: 2}
+    shade: {fileID: 2100000, guid: 77f836a8a9e5c34408dc78f9ae1f19c8, type: 2}
+  - colorSlot: 5
+    id: sand
+    displayName: "Pieskov\xE1"
+    material: {fileID: 2100000, guid: 334009b587571084bb00c6d348a3e2bd, type: 2}
+    shade: {fileID: 2100000, guid: f96ef38d74ade4144a04c0f2cf1149fb, type: 2}
   - colorSlot: 5
     id: beige
     displayName: "B\xE9\u017Eov\xE1"
     material: {fileID: 2100000, guid: 8d2ae56a37e7d364ea0337a2e45c4c27, type: 2}
     shade: {fileID: 2100000, guid: 783fb59ba419bc04ea2191ff2522c00d, type: 2}
   - colorSlot: 5
-    id: medium1
-    displayName: "Stredn\xE1 svetl\xE1"
-    material: {fileID: 2100000, guid: bc757f2e4cfbf494a918dd6348c7b6d9, type: 2}
-    shade: {fileID: 2100000, guid: 94b2f3c8d87ffd646ab8af41651c375b, type: 2}
-  - colorSlot: 5
-    id: medium2
-    displayName: "Stredn\xE1"
-    material: {fileID: 2100000, guid: 909cd851bb0c5c34f91d138238ecef92, type: 2}
-    shade: {fileID: 2100000, guid: 3d4424b338d9a0b4390915af52d95093, type: 2}
-  - colorSlot: 5
-    id: medium3
-    displayName: "Stredn\xE1 tepl\xE1"
-    material: {fileID: 2100000, guid: 04b05ebb29c55b7479fb1e2307971ecf, type: 2}
-    shade: {fileID: 2100000, guid: 1a7b56ea935fa2645b99a7193420ff67, type: 2}
-  - colorSlot: 5
-    id: olive
-    displayName: "Olivov\xE1"
-    material: {fileID: 2100000, guid: bfb81a81afaac2846be6aa2d6a01aade, type: 2}
-    shade: {fileID: 2100000, guid: f678187d931dc494d81237355a2827ab, type: 2}
-  - colorSlot: 5
     id: tan
     displayName: "Op\xE1len\xE1"
     material: {fileID: 2100000, guid: 13498d068e96c724289a7a5f0034fdc3, type: 2}
     shade: {fileID: 2100000, guid: f3e8d0f8c3ed3f145bf1c3d5db2f75a5, type: 2}
-  - colorSlot: 5
-    id: deeptan
-    displayName: "Tmav\u0161ia"
-    material: {fileID: 2100000, guid: 66ccef99da1f36841992cc3a895951af, type: 2}
-    shade: {fileID: 2100000, guid: 4d378d1ae7f1c6643ad7e3eb7fd62489, type: 2}
   - colorSlot: 6
     id: black
     displayName: "\u010Cierne"
@@ -289,7 +269,7 @@ MonoBehaviour:
     displayName: "Tmav\u0161ie"
     material: {fileID: 2100000, guid: 18cf1ee06f66fc14696ac881592730f4, type: 2}
     shade: {fileID: 0}
-  colorwayStart: 000000000a0000000f00000013000000170000001a00000024000000270000002b0000002e00000032000000
+  colorwayStart: 000000000a0000000f00000013000000170000001a0000002000000023000000270000002a0000002e000000
   shapeAxes:
   - name: nose_wide
     shape: nose_wide
