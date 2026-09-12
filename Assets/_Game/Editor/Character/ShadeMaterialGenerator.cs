@@ -120,19 +120,28 @@ namespace FriWorld.Character.Editor
         {
             string key = shadeLevel == 0 ? way.slot.ToString() : $"{way.slot}{shadeLevel}";
 
-            // Prefer a template authored for the shade slot itself; fall back to the base slot,
-            // which is the common case — the shade usually only differs in colour.
-            var template = LoadTemplate($"char_{def.name}_{key}")
-                           ?? LoadTemplate($"char_{def.name}_{way.slot}");
+            string path = $"{OutputRoot}/{def.name}/mt_char_{def.name}_{way.id}_{key}.mat";
+            var existing = AssetDatabase.LoadAssetAtPath<Material>(path);
+
+            // A shade is the same material a stop darker, so when the base colour of this very
+            // colorway is already an asset, that asset is the better source than the template:
+            // whatever was tuned on it by hand carries into the shade instead of being reverted.
+            Material template = null;
+            if (shadeLevel > 0)
+                template = AssetDatabase.LoadAssetAtPath<Material>(
+                    $"{OutputRoot}/{def.name}/mt_char_{def.name}_{way.id}_{way.slot}.mat");
+
+            // Otherwise a template authored for the shade slot itself, then the base slot, which
+            // is the common case — the shade usually only differs in colour.
+            template = template
+                       ?? LoadTemplate($"char_{def.name}_{key}")
+                       ?? LoadTemplate($"char_{def.name}_{way.slot}");
 
             if (template == null)
             {
                 problems.Add($"no source template for char_{def.name}_{key} in {SourceDir}");
                 return false;
             }
-
-            string path = $"{OutputRoot}/{def.name}/mt_char_{def.name}_{way.id}_{key}.mat";
-            var existing = AssetDatabase.LoadAssetAtPath<Material>(path);
 
             if (existing == null)
             {
@@ -143,9 +152,9 @@ namespace FriWorld.Character.Editor
             else
             {
                 // Keep the asset — its GUID is already in the baked catalog and in anything else
-                // that happens to reference it. Only the colour is re-derived.
-                existing.shader = template.shader;
-                existing.CopyPropertiesFromMaterial(template);
+                // that happens to reference it. Only the colour is re-derived: copying the whole
+                // template over it would undo anything an artist changed on the material itself,
+                // which is exactly what this tool promises not to do.
                 Tint(existing, color);
                 EditorUtility.SetDirty(existing);
             }

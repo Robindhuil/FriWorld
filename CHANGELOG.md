@@ -202,10 +202,12 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
-- Pleť má šesť odtieňov namiesto desiatich a všetky sú svetlé: `#FDF5E2`, `#FBE5DA`,
-  `#F3CFBB`, `#EFE4D0`, `#E8D0C3`, `#D3B6A5`. Volajú sa `01` až `06`, lebo meno podľa
+- Pleť má šesť odtieňov namiesto desiatich a volajú sa `01` až `06`, lebo meno podľa
   farby zostarne skôr, než ho niekto použije. Tmavší odtieň každej z nich — ten, čo
-  nesie ucho — sa dopočítava zo vzorca triedy ako predtým.
+  nesie ucho — sa dopočítava zo vzorca triedy.
+- `Generate Shades` už neprepisuje ručne doladený materiál. Do existujúceho assetu
+  zapisuje iba farbu, a tmavší odtieň vyrába z **jeho základnej farby**, nie zo šablóny —
+  čo sa na materiáli naladilo, prejde do odtieňa namiesto toho, aby sa vrátilo.
 - `cranium_1` sa volá `hair_none_1` — je to variant vlasov bez vlasov, nie samostatná
   sekcia. Každý budúci účes preto musí prekryť aj temeno: keď sa vyberie, holá lebka
   zmizne s ostatnými presetmi triedy.
