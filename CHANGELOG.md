@@ -205,6 +205,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
 - Pleť má šesť odtieňov namiesto desiatich a volajú sa `01` až `06`, lebo meno podľa
   farby zostarne skôr, než ho niekto použije. Tmavší odtieň každej z nich — ten, čo
   nesie ucho — sa dopočítava zo vzorca triedy.
+- `Character → Sync Shades From Materials` zoberie farbu späť z materiálu, dopíše ju do
+  `CharacterColorways.json` a prepočíta z nej tmavšie odtiene. Farba sa vyberie tam, kde je
+  pipeta — na materiáli — a register sa tým prestane rozchádzať s tým, čo je vidieť.
 - `Generate Shades` už neprepisuje ručne doladený materiál. Do existujúceho assetu
   zapisuje iba farbu, a tmavší odtieň vyrába z **jeho základnej farby**, nie zo šablóny —
   čo sa na materiáli naladilo, prejde do odtieňa namiesto toho, aby sa vrátilo.

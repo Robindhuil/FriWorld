@@ -22,5 +22,10 @@ namespace FriWorld.Character.Editor
 
         [MenuItem("Character/3 — Bake Catalog", priority = Generate + 1)]
         static void Step3() => CharacterCatalogBaker.Run();
+
+        /// <summary>Off the numbered path: only needed after a colour was picked on a material
+        /// rather than written into the register.</summary>
+        [MenuItem("Character/Sync Shades From Materials", priority = Generate + 20)]
+        static void SyncShades() => ColorwaySync.Run();
     }
 }
