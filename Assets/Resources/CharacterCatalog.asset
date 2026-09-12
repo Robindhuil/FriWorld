@@ -16,9 +16,11 @@ MonoBehaviour:
   - torso
   - legs
   - feet
+  - hair
   - brow
   - beard
   - eye
+  - freckle
   colorClasses:
   - torso
   - legs
@@ -27,12 +29,15 @@ MonoBehaviour:
   - skin
   - brow
   - beard
+  - freckle
+  - lips
   tags:
   - casual
   - facial_hair
   - formal
-  colorSlotClass: 0000000000000000010000000200000003000000040000000500000006000000
-  colorSlotKey: 0100000002000000010000000100000001000000010000000100000001000000
+  colorSlotClass: 00000000000000000100000002000000030000000400000005000000060000000700000008000000
+  colorSlotKey: 01000000020000000100000001000000010000000100000001000000010000000100000001000000
+  colorSlotFollows: ffffffffffffffffffffffffffffffffffffffffffffffff04000000ffffffffffffffffffffffff
   colorways:
   - colorSlot: 0
     id: white
@@ -220,19 +225,14 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: dffd969397cb7c547aed1736e5a5663b, type: 2}
     shade: {fileID: 0}
   - colorSlot: 6
-    id: dark
-    displayName: "Tmavohned\xE9"
-    material: {fileID: 2100000, guid: f1a59102f2aa4874fb32914f21dd77ae, type: 2}
-    shade: {fileID: 0}
-  - colorSlot: 6
     id: brown
-    displayName: "Hned\xE9"
+    displayName: Brunet
     material: {fileID: 2100000, guid: 45b3690ed3a9f0f42988c1530ef97dce, type: 2}
     shade: {fileID: 0}
   - colorSlot: 6
-    id: light
-    displayName: "Svetlohned\xE9"
-    material: {fileID: 2100000, guid: 9fce4d3ffc5eb9144828253a9ae39dd6, type: 2}
+    id: blond
+    displayName: Blond
+    material: {fileID: 2100000, guid: 5349e9eeee5f40d4f8c9eec093aaf91b, type: 2}
     shade: {fileID: 0}
   - colorSlot: 7
     id: black
@@ -254,8 +254,163 @@ MonoBehaviour:
     displayName: "Ry\u0161av\xE1"
     material: {fileID: 2100000, guid: ba6938b833d4ed341a56738287fdc2f5, type: 2}
     shade: {fileID: 0}
-  colorwayStart: 000000000a0000000f00000013000000170000001a00000024000000280000002c000000
-  shapeAxes: []
+  - colorSlot: 8
+    id: light
+    displayName: "Svetl\xE9"
+    material: {fileID: 2100000, guid: f3aab0e1cd8c42c4794a7902e5851e69, type: 2}
+    shade: {fileID: 0}
+  - colorSlot: 8
+    id: rust
+    displayName: "Hrdzav\xE9"
+    material: {fileID: 2100000, guid: 2713f3ecaf97e2346a5dcac14107f46c, type: 2}
+    shade: {fileID: 0}
+  - colorSlot: 8
+    id: brown
+    displayName: "Hned\xE9"
+    material: {fileID: 2100000, guid: 7c82d4b1fdf7b5e4e9b48b76a97d5703, type: 2}
+    shade: {fileID: 0}
+  - colorSlot: 9
+    id: pale
+    displayName: "Bled\xE9"
+    material: {fileID: 2100000, guid: 0a953dc219063dd418500bada449ac8b, type: 2}
+    shade: {fileID: 0}
+  - colorSlot: 9
+    id: natural
+    displayName: "Prirodzen\xE9"
+    material: {fileID: 2100000, guid: ca20d5e71fbcfa44da3b831b768a1390, type: 2}
+    shade: {fileID: 0}
+  - colorSlot: 9
+    id: warm
+    displayName: "Tepl\xE9"
+    material: {fileID: 2100000, guid: 3ed4e65e01f632242beec8825e70ef64, type: 2}
+    shade: {fileID: 0}
+  - colorSlot: 9
+    id: dusky
+    displayName: "Tmav\u0161ie"
+    material: {fileID: 2100000, guid: 18cf1ee06f66fc14696ac881592730f4, type: 2}
+    shade: {fileID: 0}
+  colorwayStart: 000000000a0000000f00000013000000170000001a00000024000000270000002b0000002e00000032000000
+  shapeAxes:
+  - name: nose_wide
+    shape: nose_wide
+    rangeMin: -50
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: nose_long
+    shape: nose_long
+    rangeMin: -100
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: nose_tall
+    shape: nose_tall
+    rangeMin: -100
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: brow_tall
+    shape: brow_tall
+    rangeMin: -100
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: brow_long
+    shape: brow_long
+    rangeMin: -50
+    rangeMax: 50
+    mean: 128
+    deviation: 45
+  - name: eye_tall
+    shape: eye_tall
+    rangeMin: -100
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: eye_wide
+    shape: eye_wide
+    rangeMin: -100
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: eye_long
+    shape: eye_long
+    rangeMin: -100
+    rangeMax: 200
+    mean: 128
+    deviation: 45
+  - name: mouth_tall
+    shape: mouth_tall
+    rangeMin: -100
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: mouth_wide
+    shape: mouth_wide
+    rangeMin: -100
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: mouth_long
+    shape: mouth_long
+    rangeMin: -100
+    rangeMax: 200
+    mean: 128
+    deviation: 45
+  - name: lip_thin
+    shape: lip_thin
+    rangeMin: 0
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: chin_tall
+    shape: chin_tall
+    rangeMin: -100
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: chin_long
+    shape: chin_long
+    rangeMin: -150
+    rangeMax: 150
+    mean: 128
+    deviation: 45
+  - name: chin_wide
+    shape: chin_wide
+    rangeMin: -100
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: jaw_wide
+    shape: jaw_wide
+    rangeMin: -150
+    rangeMax: 150
+    mean: 128
+    deviation: 45
+  - name: jaw_tall
+    shape: jaw_tall
+    rangeMin: -200
+    rangeMax: 300
+    mean: 128
+    deviation: 45
+  - name: cheek_wide
+    shape: cheek_wide
+    rangeMin: -100
+    rangeMax: 200
+    mean: 128
+    deviation: 45
+  - name: ear_big
+    shape: ear_big
+    rangeMin: -200
+    rangeMax: 100
+    mean: 128
+    deviation: 45
+  - name: ear_out
+    shape: ear_out
+    rangeMin: -100
+    rangeMax: 150
+    mean: 128
+    deviation: 45
   male:
     basePrefab: {fileID: 7598612325014325811, guid: 3c6a9ab9b6244704eb95b85faa2ec410, type: 3}
     size:
@@ -370,6 +525,14 @@ MonoBehaviour:
       conflictMask: 0
       weight: 1
     - slotClass: 3
+      objectName: hair_none_1
+      displayName: Bez vlasov
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 1
+    - slotClass: 4
       objectName: brow_1
       displayName: "Obo\u010Die hrub\xE9"
       gender: 0
@@ -377,7 +540,7 @@ MonoBehaviour:
       tagMask: 0
       conflictMask: 0
       weight: 1
-    - slotClass: 3
+    - slotClass: 4
       objectName: brow_2
       displayName: "Obo\u010Die ten\u0161ie"
       gender: 0
@@ -386,6 +549,22 @@ MonoBehaviour:
       conflictMask: 0
       weight: 1
     - slotClass: 4
+      objectName: brow_3
+      displayName: "Obo\u010Die 3 (nenakreslen\xE9)"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 0
+    - slotClass: 4
+      objectName: brow_4
+      displayName: "Obo\u010Die 4 (nenakreslen\xE9)"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 0
+    - slotClass: 5
       objectName: beard_none_1
       displayName: "Oholen\xFD"
       gender: 1
@@ -393,7 +572,7 @@ MonoBehaviour:
       tagMask: 0
       conflictMask: 0
       weight: 6
-    - slotClass: 4
+    - slotClass: 5
       objectName: beard_2
       displayName: Brada riedka
       gender: 1
@@ -401,7 +580,7 @@ MonoBehaviour:
       tagMask: 2
       conflictMask: 0
       weight: 3
-    - slotClass: 4
+    - slotClass: 5
       objectName: beard_1
       displayName: "Brada hust\xE1"
       gender: 1
@@ -410,6 +589,22 @@ MonoBehaviour:
       conflictMask: 0
       weight: 2
     - slotClass: 5
+      objectName: beard_3
+      displayName: "Brada 3 (nenakreslen\xE1)"
+      gender: 1
+      hides: 0
+      tagMask: 2
+      conflictMask: 0
+      weight: 0
+    - slotClass: 5
+      objectName: beard_4
+      displayName: "Brada 4 (nenakreslen\xE1)"
+      gender: 1
+      hides: 0
+      tagMask: 2
+      conflictMask: 0
+      weight: 0
+    - slotClass: 6
       objectName: eye_brown_1
       displayName: "O\u010Di hned\xE9"
       gender: 0
@@ -417,7 +612,7 @@ MonoBehaviour:
       tagMask: 0
       conflictMask: 0
       weight: 3
-    - slotClass: 5
+    - slotClass: 6
       objectName: eye_blue_1
       displayName: "O\u010Di modr\xE9"
       gender: 0
@@ -425,7 +620,7 @@ MonoBehaviour:
       tagMask: 0
       conflictMask: 0
       weight: 2
-    - slotClass: 5
+    - slotClass: 6
       objectName: eye_green_1
       displayName: "O\u010Di zelen\xE9"
       gender: 0
@@ -433,7 +628,7 @@ MonoBehaviour:
       tagMask: 0
       conflictMask: 0
       weight: 1
-    - slotClass: 5
+    - slotClass: 6
       objectName: eye_hazel_1
       displayName: "O\u010Di orie\u0161kov\xE9"
       gender: 0
@@ -441,7 +636,47 @@ MonoBehaviour:
       tagMask: 0
       conflictMask: 0
       weight: 2
-    presetStart: 00000000060000000b0000000d0000000f0000001200000016000000
+    - slotClass: 7
+      objectName: freckle_none_1
+      displayName: Bez pieh
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 7
+    - slotClass: 7
+      objectName: freckle_1
+      displayName: Pehy riedke
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 2
+    - slotClass: 7
+      objectName: freckle_2
+      displayName: "Pehy 2 (nenakreslen\xE9)"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 0
+    - slotClass: 7
+      objectName: freckle_3
+      displayName: "Pehy 3 (nenakreslen\xE9)"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 0
+    - slotClass: 7
+      objectName: freckle_4
+      displayName: "Pehy 4 (nenakreslen\xE9)"
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 0
+    presetStart: 00000000060000000b0000000d0000000e00000012000000170000001b00000020000000
     slotMaps:
     - objectName: boots_1
       colorSlot: 03000000
@@ -488,6 +723,12 @@ MonoBehaviour:
     - objectName: beard_2
       colorSlot: 07000000
       shadeLevel: 00000000
+    - objectName: beard_3
+      colorSlot: 07000000
+      shadeLevel: 00000000
+    - objectName: beard_4
+      colorSlot: 07000000
+      shadeLevel: 00000000
     - objectName: beard_none_1
       colorSlot: 07000000
       shadeLevel: 00000000
@@ -497,12 +738,33 @@ MonoBehaviour:
     - objectName: brow_2
       colorSlot: 06000000
       shadeLevel: 00000000
-    - objectName: cranium_1
-      colorSlot: 05000000
+    - objectName: brow_3
+      colorSlot: 06000000
+      shadeLevel: 00000000
+    - objectName: brow_4
+      colorSlot: 06000000
       shadeLevel: 00000000
     - objectName: face_1
-      colorSlot: 05000000ffffffff05000000
+      colorSlot: 050000000900000005000000
       shadeLevel: 000000000000000001000000
+    - objectName: freckle_1
+      colorSlot: 08000000
+      shadeLevel: 00000000
+    - objectName: freckle_2
+      colorSlot: 08000000
+      shadeLevel: 00000000
+    - objectName: freckle_3
+      colorSlot: 08000000
+      shadeLevel: 00000000
+    - objectName: freckle_4
+      colorSlot: 08000000
+      shadeLevel: 00000000
+    - objectName: freckle_none_1
+      colorSlot: 08000000
+      shadeLevel: 00000000
+    - objectName: hair_none_1
+      colorSlot: 05000000
+      shadeLevel: 00000000
     - objectName: male_body_abdomen
       colorSlot: 05000000
       shadeLevel: 00000000
@@ -551,7 +813,49 @@ MonoBehaviour:
     - objectName: male_body_upperarm_R
       colorSlot: 05000000
       shadeLevel: 00000000
-    shapeMaps: []
+    shapeMaps:
+    - objectName: beard_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: beard_2
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: beard_3
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: beard_4
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: beard_none_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: brow_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: brow_2
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: brow_3
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: brow_4
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: eye_blue_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: eye_brown_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: eye_green_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: eye_hazel_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: face_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: freckle_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: freckle_2
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: freckle_3
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: freckle_4
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: freckle_none_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: hair_none_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: male_body_neck
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
   female:
     basePrefab: {fileID: 0}
     size:
@@ -561,6 +865,6 @@ MonoBehaviour:
       min: 1
       max: 1
     presets: []
-    presetStart: 00000000000000000000000000000000000000000000000000000000
+    presetStart: 000000000000000000000000000000000000000000000000000000000000000000000000
     slotMaps: []
     shapeMaps: []

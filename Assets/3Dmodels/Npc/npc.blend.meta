@@ -12,6 +12,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: char_freckle_1
+    second: {fileID: 2100000, guid: 912a8cff51e6eab42a2097575cb379fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: char_hair_1
     second: {fileID: 2100000, guid: b0ea155f67330a24296f7570b46bac3d, type: 2}
   - first:
@@ -24,6 +29,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: char_legs_1
     second: {fileID: 2100000, guid: 41f6153d3f86c0d449459a9dbe77c4c7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: char_lips_1
+    second: {fileID: 2100000, guid: fec6a1b00e68ea945b5f15bce4aefa29, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
