@@ -137,6 +137,11 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- `propagate_shape_keys.py` necháva nový kľúč na hodnote 0. Prichádzal s 1.0, takže po
+  prehnaní sedelo obočie, brada, oči aj pehy posunuté o súčet všetkých dvadsiatich
+  deformácií naraz. V Unity to nebolo vidieť — tú váhu si nastavuje `CharacterBuilder` —
+  ale v Blenderi to vyzeralo ako rozbitá tvár.
+
 - Krk už nie je fazetovaný pás pod bradou. `male_body_neck` bol celý flat shaded, zatiaľ
   čo tvár aj hruď sú hladké; teraz je hladký a na spoločných vrcholoch so `face_1` (30)
   a s hruďou (12) nesie tie isté normály, takže cez švík nevidno zlom.

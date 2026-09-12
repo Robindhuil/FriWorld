@@ -101,6 +101,10 @@ def propagate(source_name, target_names, key_names=()):
             target = ob.shape_key_add(name=key.name, from_mix=False)
             target.slider_min, target.slider_max = SLIDER_MIN, SLIDER_MAX
 
+            # A fresh key can come in at 1.0, and twenty of those at once put every overlay
+            # somewhere it does not belong — brows off the ridge, eyes out of their sockets.
+            target.value = 0.0
+
             kp = key_pos[key.name]
             moved, biggest = 0, 0.0
             for i, world, hit, (a, b, c) in spots:
