@@ -14,6 +14,23 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Tvár má dvadsať deformačných osí: nos (3), obočie (2), oči (3), ústa (3), pery (1),
+  brada (3), čeľusť (2), líca (1), uši (2). Každá je nasochaná ručne a jej limit bol
+  schválený od oka na renderi, nie vzorcom — schválené hodnoty sú v tabuľke
+  v `docs/decisions/2026-09-12-sochanie-tvarovych-osi.md`.
+- Pehy sú nový overlay slot: štyri varianty ako tily jedného atlasu plus `freckle_none_1`.
+  Škrupina sedí 0.8 mm nad kožou, teda pod bradou, takže sa navzájom neprebíjajú. Prvý
+  variant je načrtnutý, zvyšné tri sú prázdne a čakajú na maľovanie.
+- Brada má štyri varianty namiesto dvoch — `beard_3` a `beard_4` zapĺňajú spodný riadok
+  atlasu, pripravené na farbenie.
+- Horná časť krku je zvarená do tváre, takže pod bradou už nie je švík dvoch objektov.
+  Deformácie sa do krku rozotierajú od zvaru nadol s doznievaním.
+- Konce osi sa dajú nastaviť zvlášť: `rangeMin` a `rangeMax` namiesto jedného `range`.
+  Črta málokedy varíruje rovnako na obe strany — nos ide ďalej do široka než do úzka.
+- `cranium_1` je hladko tieňovaná a jej švík s tvárou nevidno; normály na spoločných
+  vrcholoch sú zapísané priamo v meshi.
+  (`docs/decisions/2026-09-12-svik-medzi-objektmi-vlastne-normaly.md`)
+
 - Tváre sa dajú deformovať plynulo. Nový register `CharacterShapes.json` deklaruje osi —
   meno, blend shape, ktorý ju ženie, a kam siahajú konce. Prvá os je šírka nosa a mení ho
   o 47 % medzi krajnými hodnotami. Osi sa **skladajú**, takže šesť z nich nie je šesť tvárí,
@@ -167,6 +184,8 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- `tools/blender/propagate_shape_keys.py` berie celú sadu kľúčov naraz, nie jeden podľa
+  `KEY`. Bod na tvári pod vrcholom cieľa hľadá raz a použije ho pre všetky kľúče.
 - Trieda `hair` je dočasne mimo `slotClasses` — staré účesy boli modelované na starú hlavu
   a zmizli s ňou, nové ešte nie sú. Lebka je samostatná kožná sekcia `cranium_1`, takže
   postava bez účesu nemá dieru v hlave.
