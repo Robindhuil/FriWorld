@@ -184,6 +184,14 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- `cranium_1` sa volá `hair_none_1` — je to variant vlasov bez vlasov, nie samostatná
+  sekcia. Každý budúci účes preto musí prekryť aj temeno: keď sa vyberie, holá lebka
+  zmizne s ostatnými presetmi triedy.
+- Obočie berie farbu vlasov o odtieň tmavšiu — nesie materiál `char_hair_11` namiesto
+  `char_brow_1`, takže blond hlava už nemôže dostať čierne obočie.
+- Objekty tváre sú v Blenderi roztriedené do kolekcií `Skin`, `Hair`, `Eyebrows`,
+  `Beards`, `Eyes`, `Freckles` pod `Face`. Rodičovstvo sa nemenilo, takže hierarchia
+  v Unity zostáva rovnaká.
 - `tools/blender/apply_mirror_with_shape_keys.py` — zapečie Mirror do meshu aj do každého
   kľúča a modifier odstráni. Blender to sám nevie: modifier sa na mesh so shape keys
   aplikovať nedá, a bez toho export do Unity všetky kľúče zahodí. Skript si výsledok

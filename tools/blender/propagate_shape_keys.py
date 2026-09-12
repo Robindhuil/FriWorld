@@ -3,7 +3,7 @@
 Run it from Blender's Scripting tab: press Run Script. It takes the whole set, so there
 is nothing to edit before a run — KEYS only exists to narrow a re-run to what changed.
 
-The face is one mesh, but the brows, the beards, the freckles, the eyes and the scalp
+The face is one mesh, but the brows, the beards, the freckles, the eyes and the bald scalp
 are separate objects because they are swappable presets. A shape key that widens the jaw
 or the cheek therefore only moves the face, and the overlays stay where they were — the
 beard lifts off the chin, the brows float over the ridge. This copies the same
@@ -31,7 +31,7 @@ SOURCE = "face_1"
 KEYS = []
 
 TARGETS = [
-    "cranium_1",
+    "hair_none_1",
     "brow_1", "brow_2", "brow_3", "brow_4",
     "beard_1", "beard_2", "beard_3", "beard_4", "beard_none_1",
     "eye_brown_1", "eye_blue_1", "eye_green_1", "eye_hazel_1",
