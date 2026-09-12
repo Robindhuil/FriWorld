@@ -130,6 +130,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- Krk už nie je fazetovaný pás pod bradou. `male_body_neck` bol celý flat shaded, zatiaľ
+  čo tvár aj hruď sú hladké; teraz je hladký a na spoločných vrcholoch so `face_1` (30)
+  a s hruďou (12) nesie tie isté normály, takže cez švík nevidno zlom.
+
 - Blend shapy sa z `.blendu` do Unity nedostali vôbec. Prežijú iba na meshi, kde nie je nič
   okrem `ARMATURE` — Mirror aj Smooth by Angle mesh prepisujú a kľúče pri tom padnú. Mirror
   je preto aplikovaný a hladké tieňovanie je zapísané ako ostré hrany, nie ako modifier.
