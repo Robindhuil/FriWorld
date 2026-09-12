@@ -206,6 +206,11 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Lebka je zvarená do `face_1`. `hair_none_1` zostal ako preset — už len trojuholníková
+  atrapa ako `beard_none_1` — a účesy budú škrupiny **nad** lebkou, nie náhrada za kožu.
+  Tým zmizol švík na temene: normály vo vrcholoch sedeli, ale plochy po oboch stranách
+  boli nakrivo o medián 10.2°, lebo lebka rezala tú istú kupolu 240 polygónmi oproti
+  1360 na tvári.
 - Pleť má šesť odtieňov namiesto desiatich a volajú sa `01` až `06`, lebo meno podľa
   farby zostarne skôr, než ho niekto použije. Tmavší odtieň každej z nich — ten, čo
   nesie ucho — sa dopočítava zo vzorca triedy.
