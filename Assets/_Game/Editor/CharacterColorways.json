@@ -31,12 +31,12 @@
     { "colorClass": "hair", "slot": 1, "id": "brown", "displayName": "Brunet", "color": "#4A3227" },
     { "colorClass": "hair", "slot": 1, "id": "blond", "displayName": "Blond",  "color": "#C9A25C" },
 
-    { "colorClass": "skin", "slot": 1, "id": "alabaster", "displayName": "Alabastrová", "color": "#FDF5E2" },
-    { "colorClass": "skin", "slot": 1, "id": "cream", "displayName": "Krémová", "color": "#FBE5DA" },
-    { "colorClass": "skin", "slot": 1, "id": "peach", "displayName": "Broskyňová", "color": "#F3CFBB" },
-    { "colorClass": "skin", "slot": 1, "id": "sand", "displayName": "Piesková", "color": "#EFE4D0" },
-    { "colorClass": "skin", "slot": 1, "id": "beige", "displayName": "Béžová", "color": "#E8D0C3" },
-    { "colorClass": "skin", "slot": 1, "id": "tan", "displayName": "Opálená", "color": "#D3B6A5" },
+    { "colorClass": "skin", "slot": 1, "id": "01", "displayName": "Pleť 1", "color": "#FDF5E2" },
+    { "colorClass": "skin", "slot": 1, "id": "02", "displayName": "Pleť 2", "color": "#FBE5DA" },
+    { "colorClass": "skin", "slot": 1, "id": "03", "displayName": "Pleť 3", "color": "#F3CFBB" },
+    { "colorClass": "skin", "slot": 1, "id": "04", "displayName": "Pleť 4", "color": "#EFE4D0" },
+    { "colorClass": "skin", "slot": 1, "id": "05", "displayName": "Pleť 5", "color": "#E8D0C3" },
+    { "colorClass": "skin", "slot": 1, "id": "06", "displayName": "Pleť 6", "color": "#D3B6A5" },
 
     { "colorClass": "beard", "slot": 1, "id": "black", "displayName": "Čierna",       "color": "#1C1815" },
     { "colorClass": "beard", "slot": 1, "id": "dark",  "displayName": "Tmavohnedá",   "color": "#36271C" },

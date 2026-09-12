@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: mt_char_skin_alabaster_1
+  m_Name: mt_char_skin_04_1
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -118,13 +118,13 @@ Material:
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0.99215686, g: 0.9607843, b: 0.8862745, a: 1}
-    - _Color: {r: 0.9921568, g: 0.96078426, b: 0.8862745, a: 1}
+    - _BaseColor: {r: 0.9372549, g: 0.89411765, b: 0.8156863, a: 1}
+    - _Color: {r: 0.9372549, g: 0.89411765, b: 0.8156863, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &1073280522303329827
+--- !u!114 &1367954168044408874
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
