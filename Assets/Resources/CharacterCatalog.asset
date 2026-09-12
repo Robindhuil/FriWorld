@@ -564,6 +564,38 @@ MonoBehaviour:
       tagMask: 0
       conflictMask: 0
       weight: 1
+    - slotClass: 3
+      objectName: hair_1
+      displayName: Vlasy 1
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 3
+    - slotClass: 3
+      objectName: hair_2
+      displayName: Vlasy 2
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 3
+    - slotClass: 3
+      objectName: hair_3
+      displayName: Vlasy 3
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 3
+    - slotClass: 3
+      objectName: hair_4
+      displayName: Vlasy 4
+      gender: 0
+      hides: 0
+      tagMask: 0
+      conflictMask: 0
+      weight: 3
     - slotClass: 4
       objectName: brow_1
       displayName: "Obo\u010Die hrub\xE9"
@@ -708,7 +740,7 @@ MonoBehaviour:
       tagMask: 0
       conflictMask: 0
       weight: 0
-    presetStart: 00000000060000000b0000000d0000000e00000012000000170000001b00000020000000
+    presetStart: 00000000060000000b0000000d00000012000000160000001b0000001f00000024000000
     slotMaps:
     - objectName: boots_1
       colorSlot: 03000000
@@ -793,6 +825,18 @@ MonoBehaviour:
       shadeLevel: 00000000
     - objectName: freckle_none_1
       colorSlot: 08000000
+      shadeLevel: 00000000
+    - objectName: hair_1
+      colorSlot: 04000000
+      shadeLevel: 00000000
+    - objectName: hair_2
+      colorSlot: 04000000
+      shadeLevel: 00000000
+    - objectName: hair_3
+      colorSlot: 04000000
+      shadeLevel: 00000000
+    - objectName: hair_4
+      colorSlot: 04000000
       shadeLevel: 00000000
     - objectName: hair_none_1
       colorSlot: 05000000
@@ -883,6 +927,14 @@ MonoBehaviour:
     - objectName: freckle_4
       shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
     - objectName: freckle_none_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: hair_1
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: hair_2
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: hair_3
+      shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
+    - objectName: hair_4
       shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000
     - objectName: hair_none_1
       shapeIndex: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000b0000000c0000000d0000000e0000000f00000010000000110000001200000013000000

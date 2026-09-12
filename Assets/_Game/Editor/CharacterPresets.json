@@ -48,6 +48,14 @@
 
     { "slotClass": "hair", "object": "hair_none_1", "displayName": "Bez vlasov",
       "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 1 },
+    { "slotClass": "hair", "object": "hair_1", "displayName": "Vlasy 1",
+      "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 3 },
+    { "slotClass": "hair", "object": "hair_2", "displayName": "Vlasy 2",
+      "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 3 },
+    { "slotClass": "hair", "object": "hair_3", "displayName": "Vlasy 3",
+      "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 3 },
+    { "slotClass": "hair", "object": "hair_4", "displayName": "Vlasy 4",
+      "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 3 },
 
     { "slotClass": "freckle", "object": "freckle_none_1", "displayName": "Bez pieh",
       "gender": "any", "hides": [], "tags": [], "conflicts": [], "weight": 9 },

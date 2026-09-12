@@ -31,7 +31,7 @@ SOURCE = "face_1"
 KEYS = []
 
 TARGETS = [
-    "hair_none_1",
+    "hair_1", "hair_2", "hair_3", "hair_4", "hair_none_1",
     "brow_1", "brow_2", "brow_3", "brow_4",
     "beard_1", "beard_2", "beard_3", "beard_4", "beard_none_1",
     "eye_brown_1", "eye_blue_1", "eye_green_1", "eye_hazel_1",

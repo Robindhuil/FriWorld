@@ -14,6 +14,9 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Postavy majú vlasy: štyri jednoduché účesy plus holá hlava, každý 230–744
+  trojuholníkov. Farbu berie trieda `hair`, ktorú už nasleduje obočie aj brada, takže
+  hlava je zladená. Holá hlava má 8 %, každý účes 23 %.
 - Obočie má štyri varianty a brada štyri plus oholeného. Polovica mužov je oholená,
   zvyšok si delí štyri brady rovným dielom; pehy má jeden z desiatich. Merané na 400
   semenách: 50 % oholených, 11 % s pehami, obočia 25/25/25/24.
