@@ -34,6 +34,17 @@ svojich plôch a švík sa vráti.
 **Normály sú statické.** Pri deformácii sa neprepočítajú — pri posunoch do 5 mm to nevidno,
 ale po zmene topológie treba prepočet zopakovať.
 
+**Na lebku to nestačilo.** Keď sa to isté skúsilo na švíku tváre a lebky, normály sedeli na
+`max 0.0000°` v Blenderi aj po importe do Unity — a čiaru bolo vidieť ďalej. Dôvod je o
+poschodie nižšie: lebka rezala tú istú kupolu 240 polygónmi oproti 1 360 na tvári, takže
+plochy po oboch stranách švíku zvierali medián **10.2°** (až 30°). Vlastné normály zarovnajú
+tieňovanie vo vrcholoch, nie sklon plôch, a ten chytá svetlo inak. Lebka sa preto zvarila do
+`face_1` a `hair_none_1` zostal ako preset s trojuholníkovou atrapou; účesy sú škrupiny nad
+ňou, nie náhrada za kožu.
+
+**Pravidlo z toho:** zhodné normály riešia švík dvoch plôch **rovnakej hustoty**. Keď sa
+hustota líši násobne, jediné riešenie je jedna sieť.
+
 **Je to tretia cesta okolo toho istého pravidla.** Mesh s blend shapes znesie iba
 `ARMATURE`, takže všetko ostatné — hladké tieňovanie, prenos normál, zrkadlenie — musí
 skončiť zapísané v dátach meshu, nie v modifieri.

@@ -20,6 +20,8 @@ Verzia je `bundleVersion` z `ProjectSettings` v čase zápisu.
 
 | Dátum | Téma |
 |---|---|
+| 2026-09-12 | [Obočie a brada idú za vlasmi, brada s odchýlkou o krok](2026-09-12-farba-vlasov-obocia-brady.md) |
+| 2026-09-12 | [Tri pasce pri skriptovaní Blenderu](2026-09-12-pasce-blenderovskych-skriptov.md) |
 | 2026-09-12 | [Deformačné osi sa sochajú ručne, jedna po druhej](2026-09-12-sochanie-tvarovych-osi.md) |
 | 2026-09-12 | [Švík medzi dvoma objektmi sa zatvára vlastnými normálami](2026-09-12-svik-medzi-objektmi-vlastne-normaly.md) |
 | 2026-09-11 | [Blend shapy z `.blendu` prežijú iba s Armature modifierom](2026-09-11-blend-shapes-a-modifiery.md) |
