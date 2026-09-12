@@ -172,32 +172,32 @@ MonoBehaviour:
   - colorSlot: 5
     id: 01
     displayName: "Ple\u0165 1"
-    material: {fileID: 2100000, guid: ab1007eb7b709a14fb9072b016a73efa, type: 2}
+    material: {fileID: 2100000, guid: af472a552592b07418b1d17ce9afd742, type: 2}
     shade: {fileID: 2100000, guid: f3bfbec04498854419a95e3aaeac8929, type: 2}
   - colorSlot: 5
     id: 02
     displayName: "Ple\u0165 2"
-    material: {fileID: 2100000, guid: 2b543ead4fa2065459650ff9f9dc2083, type: 2}
+    material: {fileID: 2100000, guid: d764dd313df1c764ca7a28d65e01f3e3, type: 2}
     shade: {fileID: 2100000, guid: ee76b80573c080548b8c68a0d52950c0, type: 2}
   - colorSlot: 5
     id: 03
     displayName: "Ple\u0165 3"
-    material: {fileID: 2100000, guid: ece7aa53c23ad3e42aaa6d6df02288f3, type: 2}
+    material: {fileID: 2100000, guid: 5ca40e986d1a645458d8a59ec7976794, type: 2}
     shade: {fileID: 2100000, guid: 08c65eb70b975e247b74f3649023faed, type: 2}
   - colorSlot: 5
     id: 04
     displayName: "Ple\u0165 4"
-    material: {fileID: 2100000, guid: 609be81799f1ce3409a2769f94173735, type: 2}
+    material: {fileID: 2100000, guid: 334009b587571084bb00c6d348a3e2bd, type: 2}
     shade: {fileID: 2100000, guid: e5839e131a96d3246be5cba90dca5c65, type: 2}
   - colorSlot: 5
     id: 05
     displayName: "Ple\u0165 5"
-    material: {fileID: 2100000, guid: 00b0119e95725e44ea09d980f3bc5c1e, type: 2}
+    material: {fileID: 2100000, guid: 8d2ae56a37e7d364ea0337a2e45c4c27, type: 2}
     shade: {fileID: 2100000, guid: ce9e4ff51258b4f46b38f7ce0de1bd44, type: 2}
   - colorSlot: 5
     id: 06
     displayName: "Ple\u0165 6"
-    material: {fileID: 2100000, guid: f3e18c717c39e264e953417c6328cbab, type: 2}
+    material: {fileID: 2100000, guid: 13498d068e96c724289a7a5f0034fdc3, type: 2}
     shade: {fileID: 2100000, guid: c11d7fd926033e14694c8ab9bedce0eb, type: 2}
   - colorSlot: 6
     id: black
