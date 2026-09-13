@@ -16,6 +16,17 @@ namespace FriWorld.Character.Tests
                                     shadeValue = 0.62f, shadeSaturation = 1.12f },
             },
             slotClasses = new List<string> { "torso" },
+
+            // Both bodies are declared even though a test scans one at a time: a body with no
+            // entry here has no height to scale to, which is an error in its own right and would
+            // drown the thing each test is actually asserting.
+            bodies = new List<BodyDef>
+            {
+                new BodyDef { gender = "male", modelHeight = 1.8f, heightMean = 1.8f,
+                              heightDeviation = 0.07f, heightMin = 1.7f, heightMax = 1.9f },
+                new BodyDef { gender = "female", modelHeight = 1.68f, heightMean = 1.67f,
+                              heightDeviation = 0.06f, heightMin = 1.58f, heightMax = 1.76f },
+            },
         };
 
         static ColorwayRegistry Colorways() => new ColorwayRegistry

@@ -145,6 +145,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- Dva testy `CharacterValidation` padali na tom, že ich fixture nedeklarovala žiadne telo
+  v `bodies` — pravidlo o výške pribudlo až po nich a odvtedy ich nikto nespustil.
+  Doplnené obe telá; EditMode tesťov je 136 a všetky prechádzajú.
 - `apply_mirror_with_shape_keys.py` prenáša aj **UV seamy**. Zapekanie mirroru ich ticho
   zahodilo — `face_1` prišla o 167 označených hrán, obočie, brady, oči a krk o svoje.
   Na vykreslenie to vplyv nemá, ale bez nich sa mesh nedá znovu rozbaliť tak, ako bol.
