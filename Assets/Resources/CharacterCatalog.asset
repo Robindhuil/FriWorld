@@ -742,45 +742,6 @@ MonoBehaviour:
       weight: 0
     presetStart: 00000000060000000b0000000d00000012000000160000001b0000001f00000024000000
     slotMaps:
-    - objectName: boots_1
-      colorSlot: 03000000
-      shadeLevel: 00000000
-    - objectName: boots_2
-      colorSlot: 03000000
-      shadeLevel: 00000000
-    - objectName: pants_1
-      colorSlot: 02000000
-      shadeLevel: 00000000
-    - objectName: pants_2
-      colorSlot: 02000000
-      shadeLevel: 00000000
-    - objectName: pants_3
-      colorSlot: 02000000ffffffffffffffff
-      shadeLevel: 000000000000000000000000
-    - objectName: shorts_1
-      colorSlot: 02000000
-      shadeLevel: 00000000
-    - objectName: shorts_2
-      colorSlot: 02000000
-      shadeLevel: 00000000
-    - objectName: shirt_1
-      colorSlot: 0000000000000000
-      shadeLevel: 0000000001000000
-    - objectName: shirt_2
-      colorSlot: 0000000000000000
-      shadeLevel: 0000000001000000
-    - objectName: shirt_3
-      colorSlot: 0000000001000000
-      shadeLevel: 0000000000000000
-    - objectName: shirt_4
-      colorSlot: 0000000001000000
-      shadeLevel: 0000000000000000
-    - objectName: t-shirt_1
-      colorSlot: 00000000
-      shadeLevel: 00000000
-    - objectName: t-shirt_2
-      colorSlot: 00000000
-      shadeLevel: 00000000
     - objectName: beard_1
       colorSlot: 07000000
       shadeLevel: 00000000
@@ -795,6 +756,12 @@ MonoBehaviour:
       shadeLevel: 00000000
     - objectName: beard_none_1
       colorSlot: 07000000
+      shadeLevel: 00000000
+    - objectName: boots_1
+      colorSlot: 03000000
+      shadeLevel: 00000000
+    - objectName: boots_2
+      colorSlot: 03000000
       shadeLevel: 00000000
     - objectName: brow_1
       colorSlot: 06000000
@@ -888,6 +855,39 @@ MonoBehaviour:
       shadeLevel: 00000000
     - objectName: male_body_upperarm_R
       colorSlot: 05000000
+      shadeLevel: 00000000
+    - objectName: pants_1
+      colorSlot: 02000000
+      shadeLevel: 00000000
+    - objectName: pants_2
+      colorSlot: 02000000
+      shadeLevel: 00000000
+    - objectName: pants_3
+      colorSlot: 02000000ffffffffffffffff
+      shadeLevel: 000000000000000000000000
+    - objectName: shirt_1
+      colorSlot: 0000000000000000
+      shadeLevel: 0000000001000000
+    - objectName: shirt_2
+      colorSlot: 0000000000000000
+      shadeLevel: 0000000001000000
+    - objectName: shirt_3
+      colorSlot: 0000000001000000
+      shadeLevel: 0000000000000000
+    - objectName: shirt_4
+      colorSlot: 0000000001000000
+      shadeLevel: 0000000000000000
+    - objectName: shorts_1
+      colorSlot: 02000000
+      shadeLevel: 00000000
+    - objectName: shorts_2
+      colorSlot: 02000000
+      shadeLevel: 00000000
+    - objectName: t-shirt_1
+      colorSlot: 00000000
+      shadeLevel: 00000000
+    - objectName: t-shirt_2
+      colorSlot: 00000000
       shadeLevel: 00000000
     shapeMaps:
     - objectName: beard_1

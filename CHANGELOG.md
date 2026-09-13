@@ -223,6 +223,11 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Unity už nečíta `.blend`, ale `character_male.fbx`, ktorý z neho vyrobí
+  `tools/blender/export_character_fbx.py`. Pracovný `.blend` sa presťahoval do
+  `Assets/3Dmodels/Npc~` — priečinok s vlnovkou Unity ignoruje, takže súbor je stále
+  v projekte, ale neimportuje sa popri fbx. Bind póz na mesh 404 → 98.
+  (`docs/decisions/2026-09-13-unity-cita-fbx-nie-blend.md`)
 - Lebka je zvarená do `face_1`. `hair_none_1` zostal ako preset — už len trojuholníková
   atrapa ako `beard_none_1` — a účesy budú škrupiny **nad** lebkou, nie náhrada za kožu.
   Tým zmizol švík na temene: normály vo vrcholoch sedeli, ale plochy po oboch stranách

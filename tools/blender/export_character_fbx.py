@@ -1,7 +1,11 @@
 """Export the character to Unity as FBX, with only the bones that deform anything.
 
 Run it from Blender's Scripting tab: press Run Script. It writes
-Assets/3Dmodels/Npc/character_male.fbx next to the .blend and prints what went in.
+Assets/3Dmodels/Npc/character_male.fbx and prints what went in.
+
+The .blend itself lives one folder over, in Assets/3Dmodels/Npc~ — Unity ignores a folder
+whose name ends in a tilde, so the working file stays in the project without being
+imported twice alongside the .fbx it produces.
 
 Why not let Unity read the .blend: Unity converts it with its own Unity-BlenderToFBX.py,
 which calls the FBX exporter with a fixed argument list — no use_armature_deform_only and
@@ -19,7 +23,8 @@ import bpy
 
 # ----------------------------------------------------------------------------------
 ARMATURE = "RIG-skeleton_male"
-OUTPUT = "//character_male.fbx"          # next to the .blend, i.e. Assets/3Dmodels/Npc/
+OUTPUT = "//../Npc/character_male.fbx"    # the .blend lives in Npc~, which Unity ignores
+#                                         and the .fbx has to land in Npc, which it reads
 # ----------------------------------------------------------------------------------
 
 
