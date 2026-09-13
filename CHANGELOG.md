@@ -14,6 +14,11 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- `tools/blender/export_character_fbx.py` — vyexportuje mužskú postavu do
+  `character_male.fbx` s **iba deformujúcimi kosťami**. Cez `.blend` to nejde: Unity si ho
+  konvertuje vlastným skriptom, ktorý `use_armature_deform_only` nepozná, takže každý mesh
+  ťahal 404 bind póz — aj obočie, ktoré visí na jedinej kosti. Po exporte je to 98 a
+  transformov v assete 153 namiesto 619.
 - Postavy majú vlasy: štyri jednoduché účesy plus holá hlava, každý 230–744
   trojuholníkov. Farbu berie trieda `hair`, ktorú už nasleduje obočie aj brada, takže
   hlava je zladená. Holá hlava má 8 %, každý účes 23 %.
