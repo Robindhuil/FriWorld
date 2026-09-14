@@ -1,6 +1,6 @@
 # NPC vrstva — návrh
 
-**Verzia:** 0.1.2-alpha · **Dátum:** 2026-08-29 · **Stav:** návrh, nezačaté
+**Verzia:** 0.1.2-alpha · **Dátum:** 2026-08-29 · **Stav:** spravené v 0.1.2-alpha — assembly je `FriWorld.Crowd`, nie `FriWorld.Npc`, a `INpcDirector` sa nerobil (viď odchýlku v pláne)
 
 Nový typ NPC pre generovaných študentov, ktorí chodia po bodoch v budove. Správanie sa
 nemení; mení sa tvar, aby doň neskôr šlo zapojiť agentovú simuláciu bez prepisovania.

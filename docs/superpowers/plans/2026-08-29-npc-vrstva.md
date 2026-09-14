@@ -3,7 +3,7 @@
 > **Pre agentov:** POVINNÁ SUB-SKILL — na vykonanie použi `superpowers:executing-plans`,
 > úloha po úlohe. Kroky sú checkboxy (`- [ ]`).
 
-**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-08-29 · **Stav:** návrh, nezačaté
+**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-08-29 · **Stav:** spravené v 0.1.2-alpha (`050d96c`…`94ea329`); checkboxy sa počas vykonávania neodškrtávali
 
 **Cieľ:** generovaní študenti chodia po budove ako dnes, ale na pasívnom tele riadenom zvonku.
 
