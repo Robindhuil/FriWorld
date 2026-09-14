@@ -14,7 +14,7 @@ namespace FriWorld.Crowd
     ///
     /// Everything a spawned NPC needs is added here rather than sitting on the prefab: the
     /// character prefab is a plain model wrapper and must stay that way, or a reimport of
-    /// npc.blend would have something to sweep away.
+    /// character_male.fbx would have something to sweep away.
     /// </summary>
     public sealed class AmbientNpcSpawner : MonoBehaviour
     {
@@ -45,7 +45,6 @@ namespace FriWorld.Crowd
         [Tooltip("Must match the NavMesh surface they walk on. -334000983 is the NPC agent type.")]
         [SerializeField] int agentTypeId = -334000983;
         [SerializeField] float agentRadius = 0.1f;
-        [SerializeField] float agentHeight = 2f;
         [SerializeField] float agentSpeed = 1.5f;
         [SerializeField] float agentAngularSpeed = 120f;
         [SerializeField] float agentAcceleration = 8f;
@@ -107,7 +106,11 @@ namespace FriWorld.Crowd
             var agent = npc.AddComponent<NavMeshAgent>();
             agent.agentTypeID = agentTypeId;
             agent.radius = agentRadius;
-            agent.height = agentHeight;
+            // Not a fixed number. The agent's cylinder scales with the root — radius 0.5 under a
+            // scale of 3 kept exactly the distance radius 1.5 does — and the root already carries
+            // the rolled stature, so the model's own height comes out as the height this
+            // character actually stands.
+            agent.height = bundle.size.modelHeight;
             agent.speed = agentSpeed;
             agent.angularSpeed = agentAngularSpeed;
             agent.acceleration = agentAcceleration;

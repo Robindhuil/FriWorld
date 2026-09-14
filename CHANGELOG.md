@@ -145,6 +145,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- `NavMeshAgent` generovaného NPC je vysoký ako postava, 1.70–1.90 m podľa vylosovanej výšky,
+  namiesto pevných 2 m pre každého. Výška sa berie z `modelHeight` a mierku koreňa agent
+  prenásobí sám.
 - Postavy boli o 1.3 % nižšie, než register sľuboval. `modelHeight` bola 1.803 m, ale
   temeno hlavy je na 1.759 m — zmerané na vrcholoch v bind póze, nie z bounds, ktoré sú
   nafukované, a bez vlasov, lebo tie stoja nad temenom. NPC, ktoré si žiada 1.80 m, teraz
