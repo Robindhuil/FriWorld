@@ -15,6 +15,7 @@ Dokument je písaný tak, aby sa podľa neho dalo ísť v inej session bez tohto
 | Rozhodnutie | Prečo |
 |---|---|
 | **Samostatná hra, nie feature FriWorldu.** Do FriWorldu z nej nič nepôjde. | Iný produkt, iný build, iné publikum. |
+| **Mimo FF systému.** Vlastná scéna, build profil s jedinou scénou. | Oddelenie zabezpečí scéna a profil, flagy netreba. |
 | **Zdieľa sa len budova** (`Assets/_Game/Prefabs/FriBuilding/`). Navigator ju iba číta. | Jedna budova, jeden zdroj pravdy. |
 | **Živý WebGL build, nie predrenderované videá.** | Priradenie miestností príde z API a môže sa meniť; video by bolo zastarané. |
 | **Animácia je čistá funkcia `pose(t)`.** | Pretáčanie a rýchlosť sú potom len nastavenie `t`, nič sa neakumuluje. |
@@ -55,23 +56,28 @@ Pravidlá oddelenia:
 
 ## 3. Pasce, ktoré treba vyriešiť hneď na začiatku
 
-### 3.1 Platform gaty by Navigatoru odstrihli miestnosti
+### 3.1 Platform gaty — Navigator ich nerieši, len o nich vie
 
-`FeatureFlagBuildProcessor` (`_Game/Scripts/FeatureFlags/Editor/`) beží na **každej** scéne
-v builde. Navigator je WebGL, takže z budovy zmiznú všetky `desktopOnly` miestnosti
-z `RoomPlatforms.json` — a tie môžu byť cieľom navigácie.
+Navigator **nejde pod FF systém**: vlastná scéna, zdieľaný prefab, build profil s jedinou
+scénou. `FeatureFlagBuildProcessor` však beží automaticky na každej scéne v builde, takže
+WebGL build Navigatora dopadne s budovou rovnako ako web build FriWorldu:
 
-**Riešenie bez zásahu do FriWorldu:** vlastný `IProcessSceneWithReport` v
-`FriWorld.Navigator.Editor` s nižším `callbackOrder` (napr. `-100`), ktorý v scéne Navigatora
-zničí všetky `PlatformGate` a `ComponentGate` **komponenty** (objekty ponechá). Procesor FriWorldu
-potom nemá čo strihať. Obmedziť ho na scény z `_Navigator/`.
+- 182 z 300 oblastí v `RoomPlatforms.json` je `desktopOnly` (väčšina učební);
+- vetva `Objects` → zmizne **vybavenie** tých miestností (`PlatformGate` na kontajneri);
+- vetva `fri_building` → dverám zmiznú len komponenty z `ComponentGate`; **steny, okná a
+  zárubne sa nestrihajú nikdy**.
+
+Pre let po chodbách je to v poriadku, dokonca to build zmenší. Vlastný NavMesh Navigatora
+sa pečie v editore, kde je budova celá, takže strip ho neovplyvní.
+
+**Overiť vo fáze 1:** či dverné krídlo po strip-e zostane viditeľné (záverečný záber je na
+dvere) a či prázdna učebňa za otvorenými dverami neruší. Ak áno, rieši sa to až potom.
 
 ### 3.2 Skripty FriWorldu na prefabe bežia aj v Navigatore
 
 Budova nesie `Door`, interaktábly, zvuky… V Navigatore nie je hráč ani `InputManager`.
-`Door` s chýbajúcim hráčom počíta, ale ostatné treba prejsť. Ten istý procesor z 3.1 môže
-v scéne Navigatora odstrániť všetky `MonoBehaviour` z `_Game/` — Navigator z budovy potrebuje
-len geometriu, materiály a svetlá. Menší build ako bonus.
+`Door` s chýbajúcim hráčom počíta (`FindGameObjectWithTag("Player")` má null vetvu).
+**Overiť vo fáze 1** pohľadom do konzoly WebGL buildu; riešiť len to, čo naozaj padá.
 
 ### 3.3 asmdef nemôže referencovať `Assembly-CSharp`
 
@@ -80,7 +86,6 @@ v asmdef-e nevidí. Nevadí:
 
 - dvere a miestnosti sa hľadajú **podľa mena cez register typov** — `FriWorld.ObjectRegistry.Editor`
   má asmdef a `ObjectTypeKey` z neho sa dá použiť v editorovom kroku;
-- procesor z 3.1 a 3.2 vie pracovať cez `GetType().FullName` / cestu skriptu, bez typovej referencie.
 
 ### 3.4 NavMesh
 
@@ -155,7 +160,7 @@ Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`,
 | # | Fáza | Hotové, keď |
 |---|---|---|
 | 1 | Kostra: `_Navigator/`, asmdefy, scéna s budovou, Build Profile, `CLAUDE.md` | WebGL build Navigatora sa zbuildí a ukáže budovu |
-| 2 | Scene processor (3.1, 3.2) | V builde sú `desktopOnly` miestnosti a žiadny skript z `_Game/` |
+| 2 | Overenie 3.1 a 3.2 v builde | Dvere cieľa sú v zábere, konzola bez chýb |
 | 3 | Vlastný NavMesh + register id + kotvy + validácia | Validácia hlási 0 nedosiahnuteľných miestností |
 | 4 | Stopa kamery `pose(t)` | Dobre vyzerá prízemie, 1. poschodie aj najvyššie |
 | 5 | jslib bridge + `/navigate/[id]` vo `friworld-web` s HTML ovládaním | Seek, pauza a rýchlosť fungujú na mobile |
