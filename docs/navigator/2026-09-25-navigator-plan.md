@@ -149,9 +149,19 @@ presunie do zdieľaného miesta — zatiaľ patrí Navigatoru.
    Najviac ladenia bude tu.
 6. Čiara po podlahe (LineRenderer z tej istej spline), odkrýva sa podľa `t`.
 7. Záver: zastavenie pred dverami, v zábere tabuľka z `BakedSigns`.
-8. Dvere na trase: otvoriť alebo skryť krídla v scéne Navigatora — rozhodnúť vo fáze 4.
+8. **Dvere sa otvárajú pri prelete kamery** — každé dvere na trase (chodbové, vstupné) aj
+   cieľové na konci. Uhol krídla je tiež funkcia času, `door(t)`, odvodená od vzdialenosti
+   kamery k dverám po trase: otvárať sa začnú pár metrov pred kamerou, za ňou sa zatvoria.
+   Pri pretočení dozadu sa tak dvere samé vrátia do správneho stavu.
+   - Dvere na trase sa zistia **raz** po `Go(id)`: krídla (podľa typového kľúča, viď 3.3)
+     blízko spline, s vypočítaným bodom prechodu `s` na trase a smerom otvárania od kamery.
+   - Krídlo točí Navigator sám, **nie cez `Door`** — ten má vlastný stav a coroutiny, nedá sa
+     pretáčať, a na dverách `desktopOnly` miestností ho `ComponentGate` v builde aj tak odstráni.
+   - Pánty/pivot krídla overiť vo fáze 1 (či sa krídlo točí okolo správnej osi, alebo treba
+     pivot dopočítať z bounds).
 
-Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`, `line = reveal(t)`.
+Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`, `line = reveal(t)`,
+`dvere = door(t)`.
 
 ---
 
@@ -162,7 +172,7 @@ Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`,
 | 1 | Kostra: `_Navigator/`, asmdefy, scéna s budovou, Build Profile, `CLAUDE.md` | WebGL build Navigatora sa zbuildí a ukáže budovu |
 | 2 | Overenie 3.1 a 3.2 v builde | Dvere cieľa sú v zábere, konzola bez chýb |
 | 3 | Vlastný NavMesh + register id + kotvy + validácia | Validácia hlási 0 nedosiahnuteľných miestností |
-| 4 | Stopa kamery `pose(t)` | Dobre vyzerá prízemie, 1. poschodie aj najvyššie |
+| 4 | Stopa kamery `pose(t)` + dvere `door(t)` | Dobre vyzerá prízemie, 1. poschodie aj najvyššie; dvere sa pri pretáčaní správajú správne |
 | 5 | jslib bridge + `/navigate/[id]` vo `friworld-web` s HTML ovládaním | Seek, pauza a rýchlosť fungujú na mobile |
 | 6 | Napojenie na API, odkazy na fri.uniza.sk | Klik na fri.uniza.sk otvorí navigáciu |
 
@@ -172,5 +182,4 @@ Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`,
 
 - Čo presne vráti API a kedy bude? Je `id` stabilné pri premenovaní?
 - Kde presne je „recepcia" ako štart — jeden pevný bod, alebo hlavný vchod?
-- Dvere na trase — otvoriť, alebo skryť?
 - Pod akou doménou pobeží `/navigate` (FriWorld Hub)?
