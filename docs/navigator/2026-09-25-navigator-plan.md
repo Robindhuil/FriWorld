@@ -64,14 +64,13 @@ WebGL build Navigatora dopadne s budovou rovnako ako web build FriWorldu:
 
 - 182 z 300 oblastí v `RoomPlatforms.json` je `desktopOnly` (väčšina učební);
 - vetva `Objects` → zmizne **vybavenie** tých miestností (`PlatformGate` na kontajneri);
-- vetva `fri_building` → dverám zmiznú len komponenty z `ComponentGate`; **steny, okná a
-  zárubne sa nestrihajú nikdy**.
+- vetva `fri_building` → dverám zmizne `Door`, `Animator` a `AudioSource` (krídlo ako mesh
+  zostane, viď bod 6.8); **steny, okná a zárubne sa nestrihajú nikdy**.
 
 Pre let po chodbách je to v poriadku, dokonca to build zmenší. Vlastný NavMesh Navigatora
 sa pečie v editore, kde je budova celá, takže strip ho neovplyvní.
 
-**Overiť vo fáze 1:** či dverné krídlo po strip-e zostane viditeľné (záverečný záber je na
-dvere) a či prázdna učebňa za otvorenými dverami neruší. Ak áno, rieši sa to až potom.
+**Overiť vo fáze 1:** či prázdna učebňa za otvorenými dverami neruší. Ak áno, rieši sa to až potom.
 
 ### 3.2 Skripty FriWorldu na prefabe bežia aj v Navigatore
 
@@ -150,15 +149,23 @@ presunie do zdieľaného miesta — zatiaľ patrí Navigatoru.
 6. Čiara po podlahe (LineRenderer z tej istej spline), odkrýva sa podľa `t`.
 7. Záver: zastavenie pred dverami, v zábere tabuľka z `BakedSigns`.
 8. **Dvere sa otvárajú pri prelete kamery** — každé dvere na trase (chodbové, vstupné) aj
-   cieľové na konci. Uhol krídla je tiež funkcia času, `door(t)`, odvodená od vzdialenosti
-   kamery k dverám po trase: otvárať sa začnú pár metrov pred kamerou, za ňou sa zatvoria.
-   Pri pretočení dozadu sa tak dvere samé vrátia do správneho stavu.
-   - Dvere na trase sa zistia **raz** po `Go(id)`: krídla (podľa typového kľúča, viď 3.3)
-     blízko spline, s vypočítaným bodom prechodu `s` na trase a smerom otvárania od kamery.
-   - Krídlo točí Navigator sám, **nie cez `Door`** — ten má vlastný stav a coroutiny, nedá sa
-     pretáčať, a na dverách `desktopOnly` miestností ho `ComponentGate` v builde aj tak odstráni.
-   - Pánty/pivot krídla overiť vo fáze 1 (či sa krídlo točí okolo správnej osi, alebo treba
-     pivot dopočítať z bounds).
+   cieľové na konci. Robí to **vlastný skript Navigatora `NavigatorDoor`**, nie `Door` z FriWorldu:
+   funguje len s lietajúcou kamerou a **prehráva animáciu dverí z existujúceho
+   `Assets/_Game/Animations/Door_Interaction.controller`** (stavy `Door_open` / `Door_close`,
+   parameter `DoorRotation` = smer otvárania). Vlastnú animáciu nerobí.
+   - Dvere na trase sa zistia **raz** po `Go(id)`: krídla (podľa typového kľúča, viď 3.3) blízko
+     spline, s bodom prechodu `s` na trase a smerom od kamery. `NavigatorDoor` sa na ne pridá
+     za behu — do zdieľaného prefabu sa nezapisuje.
+   - **Pretáčanie:** nespúšťať animáciu cez `IsOpen` (to beží v čase a nedá sa vrátiť).
+     Normalizovaný čas klipu sa odvodí z `t` — `door(t)` podľa vzdialenosti kamery k dverám po
+     trase (otvárať pár metrov pred kamerou, zatvoriť za ňou) — a nastaví cez
+     `animator.Play(stav, 0, norm)` pri `animator.speed = 0`. Pri pretočení dozadu sa dvere samé
+     vrátia do správneho stavu.
+   - **Pasca:** na dverách v `desktopOnly` oblastiach (väčšina učební, teda aj väčšina cieľov)
+     `ComponentGate` vo WebGL builde odstráni `Door`, **`Animator`** aj `AudioSource`
+     (`_Game/Editor/FeatureFlags/DoorComponentGates.cs`). `NavigatorDoor` preto `Animator`
+     s `Door_Interaction.controller` **pridá sám, ak chýba** (referenciu na controller drží scéna
+     Navigatora, aby sa dostal do buildu). Bez zásahu do FF systému.
 
 Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`, `line = reveal(t)`,
 `dvere = door(t)`.
