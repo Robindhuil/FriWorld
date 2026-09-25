@@ -1,6 +1,6 @@
 # Navigator — plán
 
-**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-09-25 · **Stav:** návrh, nezačaté
+**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-09-25 · **Stav:** plán, implementácia nezačatá
 
 Druhá hra v tom istom Unity projekte. Používateľ na externom webe (fri.uniza.sk) klikne na
 miestnosť, otvorí sa nová karta a v nej kamera preletí od recepcie k dverám tej miestnosti
@@ -164,7 +164,22 @@ Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`,
 
 ---
 
-## 8. Otvorené otázky
+## 8. Kde sa na čo robí
+
+Plán vznikol v cloudovej session bez Unity editora — nič z fáz sa tu nezačalo.
+
+- **Fázy 1–4** vyžadujú Unity editor (scéna, Build Profile, bake NavMeshu, ladenie kamery).
+  Robia sa lokálne, ideálne s Unity MCP (`Unity_RunCommand`), na vetve z `master`.
+- **Fáza 5** je v repe `friworld-web` (FriWorld Hub) — route `/navigate/[id]`, loader,
+  HTML ovládanie. Jslib bridge v Unity ide s ňou naraz, nech sa kontrakt správ ladí na oboch
+  stranách súčasne.
+- **Fáza 6** čaká na API a na dohodu s adminmi fri.uniza.sk (len odkazy, žiadny ich JS).
+
+Začína sa fázou 1 a jej kritériom „hotové, keď"; každá ďalšia fáza až po splnení predchádzajúcej.
+
+---
+
+## 9. Otvorené otázky
 
 - Čo presne vráti API a kedy bude? Je `id` stabilné pri premenovaní?
 - Kde presne je „recepcia" ako štart — jeden pevný bod, alebo hlavný vchod?
