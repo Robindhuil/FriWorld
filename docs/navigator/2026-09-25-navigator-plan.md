@@ -15,7 +15,7 @@ Dokument je písaný tak, aby sa podľa neho dalo ísť v inej session bez tohto
 | Rozhodnutie | Prečo |
 |---|---|
 | **Samostatná hra, nie feature FriWorldu.** Do FriWorldu z nej nič nepôjde. | Iný produkt, iný build, iné publikum. |
-| **Mimo FF systému.** Vlastná scéna, build profil s jedinou scénou. | Oddelenie zabezpečí scéna a profil, flagy netreba. |
+| **Mimo FF systému.** Vlastná scéna, build profil s jedinou scénou. | Oddelenie zabezpečí scéna a profil. |
 | **Zdieľa sa len budova** (`Assets/_Game/Prefabs/FriBuilding/`). Navigator ju iba číta. | Jedna budova, jeden zdroj pravdy. |
 | **Živý WebGL build, nie predrenderované videá.** | Priradenie miestností príde z API a môže sa meniť; video by bolo zastarané. |
 | **Animácia je čistá funkcia `pose(t)`.** | Pretáčanie a rýchlosť sú potom len nastavenie `t`, nič sa neakumuluje. |
@@ -56,43 +56,27 @@ Pravidlá oddelenia:
 
 ## 3. Pasce, ktoré treba vyriešiť hneď na začiatku
 
-### 3.1 Platform gaty — Navigator ich nerieši, len o nich vie
-
-Navigator **nejde pod FF systém**: vlastná scéna, zdieľaný prefab, build profil s jedinou
-scénou. `FeatureFlagBuildProcessor` však beží automaticky na každej scéne v builde, takže
-WebGL build Navigatora dopadne s budovou rovnako ako web build FriWorldu:
-
-- 182 z 300 oblastí v `RoomPlatforms.json` je `desktopOnly` (väčšina učební);
-- vetva `Objects` → zmizne **vybavenie** tých miestností (`PlatformGate` na kontajneri);
-- vetva `fri_building` → dverám zmizne `Door`, `Animator` a `AudioSource` (krídlo ako mesh
-  zostane, viď bod 6.8); **steny, okná a zárubne sa nestrihajú nikdy**.
-
-Pre let po chodbách je to v poriadku, dokonca to build zmenší. Vlastný NavMesh Navigatora
-sa pečie v editore, kde je budova celá, takže strip ho neovplyvní.
-
-**Overiť vo fáze 1:** či prázdna učebňa za otvorenými dverami neruší. Ak áno, rieši sa to až potom.
-
-### 3.2 Skripty FriWorldu na prefabe bežia aj v Navigatore
+### 3.1 Skripty FriWorldu na prefabe bežia aj v Navigatore
 
 Budova nesie `Door`, interaktábly, zvuky… V Navigatore nie je hráč ani `InputManager`.
 `Door` s chýbajúcim hráčom počíta (`FindGameObjectWithTag("Player")` má null vetvu).
 **Overiť vo fáze 1** pohľadom do konzoly WebGL buildu; riešiť len to, čo naozaj padá.
 
-### 3.3 asmdef nemôže referencovať `Assembly-CSharp`
+### 3.2 asmdef nemôže referencovať `Assembly-CSharp`
 
-`Door`, `Interactable`, `PlatformGate` nemajú vlastný asmdef, takže ich kód Navigatora
+`Door` a `Interactable` nemajú vlastný asmdef, takže ich kód Navigatora
 v asmdef-e nevidí. Nevadí:
 
 - dvere a miestnosti sa hľadajú **podľa mena cez register typov** — `FriWorld.ObjectRegistry.Editor`
   má asmdef a `ObjectTypeKey` z neho sa dá použiť v editorovom kroku;
 
-### 3.4 NavMesh
+### 3.3 NavMesh
 
 V prefabe je NavMesh pre NPC (`agentTypeID -334000983`) aj surface s agentom `0`. Navigator
 si **upečie vlastný** NavMesh v svojej scéne s vylúčeným výťahom (area / modifier), nech zmena
 NPC navmeshu vo FriWorlde nerozbije trasy. Overiť, že poschodia spájajú schodiská.
 
-### 3.5 Build Settings
+### 3.4 Build Settings
 
 Build Profile Navigatora má v zozname **len** `Navigator.unity`; FriWorld profily ju nemajú.
 Splash (`m_ShowUnitySplashScreen` je dnes `1`) vypnúť cez override v profile Navigatora.
@@ -153,7 +137,7 @@ presunie do zdieľaného miesta — zatiaľ patrí Navigatoru.
    funguje len s lietajúcou kamerou a **prehráva animáciu dverí z existujúceho
    `Assets/_Game/Animations/Door_Interaction.controller`** (stavy `Door_open` / `Door_close`,
    parameter `DoorRotation` = smer otvárania). Vlastnú animáciu nerobí.
-   - Dvere na trase sa zistia **raz** po `Go(id)`: krídla (podľa typového kľúča, viď 3.3) blízko
+   - Dvere na trase sa zistia **raz** po `Go(id)`: krídla (podľa typového kľúča, viď 3.2) blízko
      spline, s bodom prechodu `s` na trase a smerom od kamery. `NavigatorDoor` sa na ne pridá
      za behu — do zdieľaného prefabu sa nezapisuje.
    - **Pretáčanie:** nespúšťať animáciu cez `IsOpen` (to beží v čase a nedá sa vrátiť).
@@ -161,11 +145,6 @@ presunie do zdieľaného miesta — zatiaľ patrí Navigatoru.
      trase (otvárať pár metrov pred kamerou, zatvoriť za ňou) — a nastaví cez
      `animator.Play(stav, 0, norm)` pri `animator.speed = 0`. Pri pretočení dozadu sa dvere samé
      vrátia do správneho stavu.
-   - **Pasca:** na dverách v `desktopOnly` oblastiach (väčšina učební, teda aj väčšina cieľov)
-     `ComponentGate` vo WebGL builde odstráni `Door`, **`Animator`** aj `AudioSource`
-     (`_Game/Editor/FeatureFlags/DoorComponentGates.cs`). `NavigatorDoor` preto `Animator`
-     s `Door_Interaction.controller` **pridá sám, ak chýba** (referenciu na controller drží scéna
-     Navigatora, aby sa dostal do buildu). Bez zásahu do FF systému.
 
 Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`, `line = reveal(t)`,
 `dvere = door(t)`.
@@ -177,7 +156,7 @@ Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`,
 | # | Fáza | Hotové, keď |
 |---|---|---|
 | 1 | Kostra: `_Navigator/`, asmdefy, scéna s budovou, Build Profile, `CLAUDE.md` | WebGL build Navigatora sa zbuildí a ukáže budovu |
-| 2 | Overenie 3.1 a 3.2 v builde | Dvere cieľa sú v zábere, konzola bez chýb |
+| 2 | Overenie 3.1 v builde | Konzola WebGL buildu bez chýb |
 | 3 | Vlastný NavMesh + register id + kotvy + validácia | Validácia hlási 0 nedosiahnuteľných miestností |
 | 4 | Stopa kamery `pose(t)` + dvere `door(t)` | Dobre vyzerá prízemie, 1. poschodie aj najvyššie; dvere sa pri pretáčaní správajú správne |
 | 5 | jslib bridge + `/navigate/[id]` vo `friworld-web` s HTML ovládaním | Seek, pauza a rýchlosť fungujú na mobile |
