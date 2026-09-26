@@ -17,8 +17,11 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
 - Plán Navigatora — druhej hry v repe, ktorá prehrá let kamery od recepcie k miestnosti
   podľa `id` z API: `docs/navigator/2026-09-25-navigator-plan.md`.
 - Kostra Navigatora v `Assets/_Navigator/`: scéna `FriNavigator` s budovou a svetlom na tých
-  istých súradniciach ako v Demo, vlastný bake svetla a occlusion, kamera a asmdefy, ktoré
-  FriWorld kód nevidí.
+  istých súradniciach ako v Demo, occlusion, kamera a asmdefy, ktoré FriWorld kód nevidí.
+- Navigator letí: `NavigatorController` zoberie kód miestnosti (`RA101`) a prevedie kameru
+  z miesta, kde stojí v scéne, po schodoch k dverám; ovláda sa ako video (`Play`, `Pause`,
+  `Seek`, `SetSpeed`). Menu `Navigator → 1, 2` upečie vlastný NavMesh a kotvy pre všetkých
+  166 miestností a overí, že každá je z recepcie dosiahnuteľná.
 - `tools/blender/export_character_fbx.py` — vyexportuje mužskú postavu do
   `character_male.fbx` s **iba deformujúcimi kosťami**. Cez `.blend` to nejde: Unity si ho
   konvertuje vlastným skriptom, ktorý `use_armature_deform_only` nepozná, takže každý mesh
@@ -238,6 +241,8 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Navigator nemá baked svetlo ani tiene — ide na web; default reflection je cubemapa skyboxu,
+  lebo „Skybox" bez upečených dát zhodí URP a obraz ostane biely.
 - Unity už nečíta `.blend`, ale `character_male.fbx`, ktorý z neho vyrobí
   `tools/blender/export_character_fbx.py`. Pracovný `.blend` sa presťahoval do
   `Assets/3Dmodels/Npc~` — priečinok s vlnovkou Unity ignoruje, takže súbor je stále

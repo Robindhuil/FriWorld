@@ -102,9 +102,9 @@ PascalCase, bez medzier a diakritiky.
 
 ## Navigator
 
-Samostatná hra v tom istom projekte: kamera preletí od recepcie k miestnosti podľa `id`
-z API, ovládaná ako video z HTML stránky vo `friworld-web`. Plán a fázy:
-`docs/navigator/2026-09-25-navigator-plan.md`.
+Samostatná hra v tom istom projekte: kamera preletí od recepcie k dverám miestnosti podľa
+**kódu miestnosti** (`RA101`), ovládaná ako video z HTML stránky vo `friworld-web`. Plán
+a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
 
 - Scéna `Assets/_Navigator/Scenes/FriNavigator.unity`, kód v asmdef `FriWorld.Navigator`
   a `FriWorld.Navigator.Editor`. Oba majú `autoReferenced: false`, takže FriWorld kód
@@ -112,11 +112,17 @@ z API, ovládaná ako video z HTML stránky vo `friworld-web`. Plán a fázy:
 - Z FriWorldu sa zdieľa len budova (`FriBuilding.prefab`) a prefaby z
   `_Game/Prefabs/Enviroment/`. Navigator ich **len číta**: do zdieľaného prefabu nezapisuje,
   vlastný NavMesh a čokoľvek ďalšie žije v scéne alebo v `_Navigator/`.
-- Budova aj `Enviroment` stoja na **tých istých súradniciach ako v `Demo.unity`**. Probe
-  mriežka, reflection probes aj uhol slnka sú postavené pre túto polohu; keď sa budova
-  v Demo pohne, treba ju pohnúť aj tu a znova upiecť svetlo.
-- Svetlo sa pečie **pre každú scénu zvlášť** (lightmapy prefab inštancií patria scéne),
-  s tým istým `_Game/Settings/New Lighting Settings.lighting`. To isté platí pre occlusion.
+- **Štart letu je tam, kde stojí kamera** (`Main Camera`, pozícia aj natočenie). Umiestňuje
+  ju Robin ručne — neodvodzovať, nepresúvať; test, ktorý kamerou hýbe, ju musí vrátiť.
+- Menu **`Navigator`**: `1 — Bake NavMesh` (vlastný NavMesh nad vrstvami `Obstacle` + `Nav`,
+  surfaces FriWorldu sú v tejto scéne vypnuté), `2 — Bake Room Anchors` (kód → bod pred
+  dverami, validuje dosiahnuteľnosť z kamery). Po zmene budovy alebo štartu pustiť oba.
+- **Žiadne baked svetlo, žiadne tiene** — je to web build. Scéna má vlastný
+  `_Navigator/Settings/NavigatorLighting.lighting` bez GI, slnko realtime bez tieňov,
+  probes vyhodené. Budova a slnko stoja na **súradniciach z `Demo.unity`**, nech sedí uhol svetla.
+- **Pasca: default reflection „Skybox" bez upečených lighting dát zhodí URP**
+  (`ReflectionProbeManager.UpdateGpuData` NRE → celý obraz biely/čierny). Preto je default
+  reflection `Custom` s cubemapou skyboxu. Nevracať na Skybox, kým sa svetlo nepečie.
 - Build ide cez vlastný Build Profile v `_Navigator/Settings/` s jedinou scénou; FriWorld
   build (Build Settings: Menu + Demo) Navigator scénu nemá.
 
