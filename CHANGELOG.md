@@ -16,6 +16,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
 ### Added
 - Plán Navigatora — druhej hry v repe, ktorá prehrá let kamery od recepcie k miestnosti
   podľa `id` z API: `docs/navigator/2026-09-25-navigator-plan.md`.
+- Kostra Navigatora v `Assets/_Navigator/`: scéna `FriNavigator` s budovou a svetlom na tých
+  istých súradniciach ako v Demo, vlastný bake svetla a occlusion, kamera a asmdefy, ktoré
+  FriWorld kód nevidí.
 - `tools/blender/export_character_fbx.py` — vyexportuje mužskú postavu do
   `character_male.fbx` s **iba deformujúcimi kosťami**. Cez `.blend` to nejde: Unity si ho
   konvertuje vlastným skriptom, ktorý `use_armature_deform_only` nepozná, takže každý mesh

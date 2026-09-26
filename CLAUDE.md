@@ -87,14 +87,38 @@ mätie viac, než keby nebol.
 
 ```
 Assets/
-├── _Game/          ← VŠETOK vlastný obsah (Art, Animations, BakedSigns, Editor,
+├── _Game/          ← VŠETOK vlastný obsah FriWorldu (Art, Animations, BakedSigns, Editor,
 │                      Input, Prefabs, Scenes, Scripts, Settings, UI)
+├── _Navigator/     ← druhá hra v repe, viď sekcia Navigator nižšie
 ├── ThirdParty/     ← čokoľvek externé
 ├── TextMesh Pro/   ← Unity package — nechať, jeho Examples majú vlastné missing
 │                      scripts, to je známy šum
 ├── Plugins/ Resources/ StreamingAssets/   ← Unity special, nechať
 ```
-Vlastný kód patrí **len** do `_Game/`. PascalCase, bez medzier a diakritiky.
+Vlastný kód FriWorldu patrí **len** do `_Game/`, Navigatora **len** do `_Navigator/`.
+PascalCase, bez medzier a diakritiky.
+
+---
+
+## Navigator
+
+Samostatná hra v tom istom projekte: kamera preletí od recepcie k miestnosti podľa `id`
+z API, ovládaná ako video z HTML stránky vo `friworld-web`. Plán a fázy:
+`docs/navigator/2026-09-25-navigator-plan.md`.
+
+- Scéna `Assets/_Navigator/Scenes/FriNavigator.unity`, kód v asmdef `FriWorld.Navigator`
+  a `FriWorld.Navigator.Editor`. Oba majú `autoReferenced: false`, takže FriWorld kód
+  Navigator nevidí — **žiadna referencia z `_Game/` do `_Navigator/`**.
+- Z FriWorldu sa zdieľa len budova (`FriBuilding.prefab`) a prefaby z
+  `_Game/Prefabs/Enviroment/`. Navigator ich **len číta**: do zdieľaného prefabu nezapisuje,
+  vlastný NavMesh a čokoľvek ďalšie žije v scéne alebo v `_Navigator/`.
+- Budova aj `Enviroment` stoja na **tých istých súradniciach ako v `Demo.unity`**. Probe
+  mriežka, reflection probes aj uhol slnka sú postavené pre túto polohu; keď sa budova
+  v Demo pohne, treba ju pohnúť aj tu a znova upiecť svetlo.
+- Svetlo sa pečie **pre každú scénu zvlášť** (lightmapy prefab inštancií patria scéne),
+  s tým istým `_Game/Settings/New Lighting Settings.lighting`. To isté platí pre occlusion.
+- Build ide cez vlastný Build Profile v `_Navigator/Settings/` s jedinou scénou; FriWorld
+  build (Build Settings: Menu + Demo) Navigator scénu nemá.
 
 ---
 

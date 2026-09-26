@@ -1,6 +1,6 @@
 # Navigator — plán
 
-**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-09-25 · **Stav:** plán, implementácia nezačatá
+**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-09-25 · **Stav:** fáza 1 rozrobená (2026-09-26)
 
 Druhá hra v tom istom Unity projekte. Používateľ na externom webe (fri.uniza.sk) klikne na
 miestnosť, otvorí sa nová karta a v nej kamera preletí od recepcie k dverám tej miestnosti
@@ -35,7 +35,7 @@ Assets/
 ├── _Game/          ← FriWorld (bez zmeny)
 │   └── Prefabs/FriBuilding/   ← ZDIEĽANÉ, Navigator len číta
 ├── _Navigator/     ← všetko Navigatorove
-│   ├── Scenes/Navigator.unity
+│   ├── Scenes/FriNavigator.unity
 │   ├── Scripts/    ← asmdef FriWorld.Navigator
 │   ├── Editor/     ← asmdef FriWorld.Navigator.Editor, register RoomIds.json
 │   ├── Data/       ← upečené kotvy a mapovanie id → miesto (generované)
@@ -49,8 +49,12 @@ Pravidlá oddelenia:
   žije v scéne alebo dátach Navigatora. Zápis do `FriBuilding.prefab` je výsadou krokov
   `Routine` FriWorldu.
 - **FriWorld o Navigatore nevie.** Žiadna referencia z `_Game/` do `_Navigator/`.
-- Pri založení `_Navigator/` treba doplniť `CLAUDE.md` (sekcia Štruktúra projektu hovorí „vlastný
-  kód patrí len do `_Game/`").
+- Oba asmdefy majú `autoReferenced: false`, takže `Assembly-CSharp` FriWorldu Navigator nevidí.
+- Okrem budovy sa zdieľajú aj prefaby svetla z `_Game/Prefabs/Enviroment/` (slnko, fill,
+  volume, probes). Budova aj tie stoja na **tých istých súradniciach ako v `Demo.unity`**, lebo
+  probe mriežka a uhol slnka sú postavené pre túto polohu.
+- Svetlo a occlusion sa pečú pre scénu Navigatora zvlášť (baked dáta prefab inštancií patria
+  scéne), s tým istým `_Game/Settings/New Lighting Settings.lighting`.
 
 ---
 
@@ -67,8 +71,10 @@ Budova nesie `Door`, interaktábly, zvuky… V Navigatore nie je hráč ani `Inp
 `Door` a `Interactable` nemajú vlastný asmdef, takže ich kód Navigatora
 v asmdef-e nevidí. Nevadí:
 
-- dvere a miestnosti sa hľadajú **podľa mena cez register typov** — `FriWorld.ObjectRegistry.Editor`
-  má asmdef a `ObjectTypeKey` z neho sa dá použiť v editorovom kroku;
+- miestnosti sa hľadajú **podľa mena cez register typov** — `FriWorld.ObjectRegistry.Editor`
+  má asmdef a `ObjectTypeKey` z neho sa dá použiť v editorovom kroku.
+- Ten asmdef je **len pre editor**, vo WebGL builde nie je. Čokoľvek, čo z registra treba
+  za behu, sa musí upiecť do `_Navigator/Data/` editorovým krokom.
 
 ### 3.3 NavMesh
 
@@ -78,7 +84,7 @@ NPC navmeshu vo FriWorlde nerozbije trasy. Overiť, že poschodia spájajú scho
 
 ### 3.4 Build Settings
 
-Build Profile Navigatora má v zozname **len** `Navigator.unity`; FriWorld profily ju nemajú.
+Build Profile Navigatora má v zozname **len** `FriNavigator.unity`; FriWorld build (Build Settings: Menu + Demo) ju nemá.
 Splash (`m_ShowUnitySplashScreen` je dnes `1`) vypnúť cez override v profile Navigatora.
 
 ---
@@ -132,7 +138,14 @@ presunie do zdieľaného miesta — zatiaľ patrí Navigatoru.
    Najviac ladenia bude tu.
 6. Čiara po podlahe (LineRenderer z tej istej spline), odkrýva sa podľa `t`.
 7. Záver: zastavenie pred dverami, v zábere tabuľka z `BakedSigns`.
-8. **Dvere sa otvárajú pri prelete kamery** — každé dvere na trase (chodbové, vstupné) aj
+8. **Odložené (2026-09-26), kamera zatiaľ preletí cez zatvorené dvere.** Karta na boarde
+   „Navigator: dvere sa otvárajú pri prelete kamery". Pôvodný zámer nižšie, s opravou:
+   stavy `Door_open` / `Door_close` sú v controlleri mŕtve (default je `Blend Tree` bez
+   prechodov) a klipy sú jednosnímkové pózy, takže `animator.Play(stav, 0, norm)` nič
+   nenainterpoluje. Krídlom hýbe blend tree cez `DoorRotation` (−90.9 … 0 … 90.9) — správne je
+   `SetFloat("DoorRotation", ±90.9 * open01(t))`, bez `Play` a bez `speed = 0`.
+
+   Pôvodne: **dvere sa otvárajú pri prelete kamery** — každé dvere na trase (chodbové, vstupné) aj
    cieľové na konci. Robí to **vlastný skript Navigatora `NavigatorDoor`**, nie `Door` z FriWorldu:
    funguje len s lietajúcou kamerou a **prehráva animáciu dverí z existujúceho
    `Assets/_Game/Animations/Door_Interaction.controller`** (stavy `Door_open` / `Door_close`,
@@ -146,8 +159,8 @@ presunie do zdieľaného miesta — zatiaľ patrí Navigatoru.
      `animator.Play(stav, 0, norm)` pri `animator.speed = 0`. Pri pretočení dozadu sa dvere samé
      vrátia do správneho stavu.
 
-Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`, `line = reveal(t)`,
-`dvere = door(t)`.
+Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`, `line = reveal(t)`
+(a neskôr `dvere = door(t)`).
 
 ---
 
@@ -158,7 +171,7 @@ Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`,
 | 1 | Kostra: `_Navigator/`, asmdefy, scéna s budovou, Build Profile, `CLAUDE.md` | WebGL build Navigatora sa zbuildí a ukáže budovu |
 | 2 | Overenie 3.1 v builde | Konzola WebGL buildu bez chýb |
 | 3 | Vlastný NavMesh + register id + kotvy + validácia | Validácia hlási 0 nedosiahnuteľných miestností |
-| 4 | Stopa kamery `pose(t)` + dvere `door(t)` | Dobre vyzerá prízemie, 1. poschodie aj najvyššie; dvere sa pri pretáčaní správajú správne |
+| 4 | Stopa kamery `pose(t)` | Dobre vyzerá prízemie, 1. poschodie aj najvyššie |
 | 5 | jslib bridge + `/navigate/[id]` vo `friworld-web` s HTML ovládaním | Seek, pauza a rýchlosť fungujú na mobile |
 | 6 | Napojenie na API, odkazy na fri.uniza.sk | Klik na fri.uniza.sk otvorí navigáciu |
 
@@ -166,7 +179,7 @@ Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`,
 
 ## 8. Kde sa na čo robí
 
-Plán vznikol v cloudovej session bez Unity editora — nič z fáz sa tu nezačalo.
+Plán vznikol v cloudovej session bez Unity editora. Fáza 1 sa začala 2026-09-26 lokálne.
 
 - **Fázy 1–4** vyžadujú Unity editor (scéna, Build Profile, bake NavMeshu, ladenie kamery).
   Robia sa lokálne, ideálne s Unity MCP (`Unity_RunCommand`), na vetve z `master`.
