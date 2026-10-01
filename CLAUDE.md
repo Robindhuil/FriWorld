@@ -117,6 +117,10 @@ a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
 - Menu **`Navigator`**: `1 — Bake NavMesh` (vlastný NavMesh nad vrstvami `Obstacle` + `Nav`,
   surfaces FriWorldu sú v tejto scéne vypnuté), `2 — Bake Room Anchors` (kód → bod pred
   dverami, validuje dosiahnuteľnosť z kamery). Po zmene budovy, štartu alebo blokerov pustiť oba.
+  `3 — Bake Sky Reflection` po zmene skyboxu.
+- **Pasca: NavMesh nepiecť tlačidlom „Bake" v inšpektore `NavMeshSurface`.** Uloží dáta
+  vedľa scény (`Scenes/FriNavigator/NavMesh-…`) a `Data/NavigatorNavMesh.asset` zmaže.
+  Len cez `Navigator → 1`, a po ňom `2`.
 - **Kade navigácia nemá viesť** (dvere, priestor), tam ide do scény
   `_Navigator/Prefabs/NavBlocker.prefab` — `NavMeshModifierVolume` s plochou `Not Walkable`,
   bez meshu a bez collidera. Natiahne sa škálou (x/z = metre) a bake ho z NavMeshu vyreže.
@@ -127,7 +131,11 @@ a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
   probes vyhodené. Budova a slnko stoja na **súradniciach z `Demo.unity`**, nech sedí uhol svetla.
 - **Pasca: default reflection „Skybox" bez upečených lighting dát zhodí URP**
   (`ReflectionProbeManager.UpdateGpuData` NRE → celý obraz biely/čierny). Preto je default
-  reflection `Custom` s cubemapou skyboxu. Nevracať na Skybox, kým sa svetlo nepečie.
+  reflection `Custom`. Nevracať na Skybox, kým sa svetlo nepečie.
+- **Pasca: ako custom reflection nesmie ísť textúra skyboxu.** `FS000_Day_03.png` nemá mipmapy
+  ani konvolúciu, takže každý povrch, aj drsná podlaha, odráža ostré mraky. Odraz je
+  `Data/NavigatorReflection.exr` z `Navigator → 3` — probe, ktorá vidí len oblohu, upečie
+  konvolvovanú cubemapu, akú by Unity pri pečenom svetle vygeneroval sám.
 - Build ide cez vlastný Build Profile v `_Navigator/Settings/` s jedinou scénou; FriWorld
   build (Build Settings: Menu + Demo) Navigator scénu nemá.
 

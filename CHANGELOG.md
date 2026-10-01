@@ -157,6 +157,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- Povrchy v Navigatore už neodrážajú ostrú oblohu. Odrazom bola priamo textúra skyboxu bez
+  mipmáp, takže aj drsná podlaha zrkadlila mraky; teraz je to konvolvovaná cubemapa oblohy,
+  ktorú upečie `Navigator → 3 — Bake Sky Reflection`.
 - Kamera Navigatora drží výšku očí aj tam, kde chodba vchádza rovno do schodov. Výšku brala
   z priamky medzi rohmi cesty, ktoré sú len pri zatáčkach, takže k RC009 letela 26 m
   v podlahe. (`docs/navigator/2026-10-01-vyska-kamery-z-navmeshu.md`)

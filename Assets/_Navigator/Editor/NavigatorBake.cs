@@ -7,12 +7,13 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
 namespace FriWorld.Navigator.Editor
 {
     /// <summary>
-    /// The two bake steps of the Navigator, in the order they run. Both work on the open
+    /// The bake steps of the Navigator, in the order they run. They work on the open
     /// FriNavigator scene and only write to the scene and to <c>Assets/_Navigator/Data/</c> —
     /// never to the shared FriBuilding prefab.
     /// </summary>
@@ -22,6 +23,7 @@ namespace FriWorld.Navigator.Editor
         private const string DataFolder = "Assets/_Navigator/Data";
         private const string NavMeshAssetPath = DataFolder + "/NavigatorNavMesh.asset";
         private const string AnchorsAssetPath = DataFolder + "/RoomAnchors.asset";
+        private const string ReflectionAssetPath = DataFolder + "/NavigatorReflection.exr";
         private const string SurfaceObjectName = "NavigatorNavMesh";
         private const string BuildingName = "FriBuilding";
 
@@ -172,6 +174,45 @@ namespace FriWorld.Navigator.Editor
                 Debug.LogWarning(report.ToString());
             else
                 Debug.Log(report.ToString());
+        }
+
+        [MenuItem("Navigator/3 — Bake Sky Reflection", priority = 3)]
+        public static void BakeSkyReflection()
+        {
+            if (!TryGetScene(out Scene scene, out _))
+                return;
+
+            // Without baked lighting Unity generates no sky reflection, and the skybox texture used
+            // as a custom one has no convolved mips, so every surface, however rough, mirrors the
+            // clouds. A probe that sees nothing but the sky bakes the cubemap Unity would generate.
+            var probeObject = new GameObject("SkyReflectionProbe");
+            try
+            {
+                var probe = probeObject.AddComponent<ReflectionProbe>();
+                probe.mode = ReflectionProbeMode.Baked;
+                probe.resolution = 128;
+                probe.hdr = true;
+                probe.cullingMask = 0;
+                probe.clearFlags = ReflectionProbeClearFlags.Skybox;
+                EnsureDataFolder();
+                if (!Lightmapping.BakeReflectionProbe(probe, ReflectionAssetPath))
+                {
+                    Debug.LogError("[Navigator] Baking the sky reflection failed.");
+                    return;
+                }
+            }
+            finally
+            {
+                Object.DestroyImmediate(probeObject);
+            }
+
+            // Custom, not Skybox: Skybox without baked lighting data makes URP's
+            // ReflectionProbeManager throw and the frame comes out blank.
+            RenderSettings.defaultReflectionMode = DefaultReflectionMode.Custom;
+            RenderSettings.customReflectionTexture = AssetDatabase.LoadAssetAtPath<Cubemap>(ReflectionAssetPath);
+            EditorSceneManager.MarkSceneDirty(scene);
+            EditorSceneManager.SaveScene(scene);
+            Debug.Log($"[Navigator] Sky reflection baked → {ReflectionAssetPath}");
         }
 
         /// <summary>The navmesh point below the camera the NavigatorController flies.</summary>

@@ -36,7 +36,7 @@ RenderSettings:
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
-  m_CustomReflection: {fileID: 8900000, guid: 24941804827e1524eb70477f7f68a111, type: 3}
+  m_CustomReflection: {fileID: 8900000, guid: 6545a2386113ffc49b85aa1fd7dcd7e7, type: 3}
   m_Sun: {fileID: 1994829711}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3

@@ -39,8 +39,8 @@ Assets/
 ├── _Navigator/     ← všetko Navigatorove
 │   ├── Scenes/FriNavigator.unity
 │   ├── Scripts/    ← asmdef FriWorld.Navigator
-│   ├── Editor/     ← asmdef FriWorld.Navigator.Editor, menu Navigator → 1, 2
-│   ├── Data/       ← NavigatorNavMesh.asset, RoomAnchors.asset (generované)
+│   ├── Editor/     ← asmdef FriWorld.Navigator.Editor, menu Navigator → 1, 2, 3
+│   ├── Data/       ← NavigatorNavMesh.asset, RoomAnchors.asset, NavigatorReflection.exr (generované)
 │   ├── Prefabs/    ← NavBlocker (vyreže NavMesh tam, kade let nemá ísť)
 │   └── Settings/   ← NavigatorLighting.lighting, Build Profile
 docs/navigator/     ← tento plán a neskôr navigatorove rozhodnutia
@@ -60,7 +60,9 @@ Pravidlá oddelenia:
   kamera tiene nekreslí. Occlusion je upečená (`Scenes/FriNavigator/OcclusionCullingData.asset`).
 - **Pasca:** default reflection „Skybox" bez upečených lighting dát zhodí URP
   `ReflectionProbeManager` (NRE, celý obraz biely/čierny). Default reflection je preto
-  `Custom` s cubemapou skyboxu `FS000_Day_03`.
+  `Custom` s cubemapou `Data/NavigatorReflection.exr`, ktorú `Navigator → 3` upečie z oblohy.
+  Priamo textúra skyboxu `FS000_Day_03` nejde (2026-10-01): nemá mipmapy ani konvolúciu,
+  takže aj drsná podlaha zrkadlila ostré mraky.
 
 ---
 
