@@ -12,10 +12,17 @@ namespace FriWorld.Navigator
     /// Doors are found by their "Door" tag, which the object type registry gives to real doors
     /// only, never to frames. A door without an Animator — a desktop-only door in the web build —
     /// is not passable and stays closed.
+    ///
+    /// What the Navigator does not need is switched off at runtime; the assets stay as they are.
+    /// FriWorld's Door script has no player or NPC to react to here, and its Start would build an
+    /// NPC detector per door and warn 284 times that the sound registry is missing. The door
+    /// Animators are set to Always Animate and would be evaluated every frame, closed and out of
+    /// sight; only those of the current flight's doors run.
     /// </summary>
     public sealed class NavigatorDoors
     {
         private const string DoorTag = "Door";
+        private const string DoorScript = "Door";   // FriWorld's, found by name: its assembly is out of reach
         private static readonly int RotationParameter = Animator.StringToHash("DoorRotation");
 
         private struct Door
@@ -36,13 +43,23 @@ namespace FriWorld.Navigator
         private readonly List<Door> doors = new List<Door>();
         private readonly List<Opened> opened = new List<Opened>();
 
-        /// <summary>Measures every door once, while all of them are still closed.</summary>
+        /// <summary>
+        /// Measures every door once, while all of them are still closed, and switches off its Door
+        /// script and Animator. Must run in Awake, before the Door scripts' own Start.
+        /// </summary>
         public NavigatorDoors()
         {
             foreach (var go in GameObject.FindGameObjectsWithTag(DoorTag))
             {
+                if (go.GetComponent(DoorScript) is Behaviour script)
+                    script.enabled = false;
+
+                var animator = go.GetComponent<Animator>();
+                if (animator != null)
+                    animator.enabled = false;
+
                 if (DoorLeaf.TryMeasure(go.transform, out DoorLeaf leaf))
-                    doors.Add(new Door { animator = go.GetComponent<Animator>(), name = go.name, hinge = go.transform.position, leaf = leaf });
+                    doors.Add(new Door { animator = animator, name = go.name, hinge = go.transform.position, leaf = leaf });
             }
         }
 
@@ -65,6 +82,7 @@ namespace FriWorld.Navigator
                     continue;
                 }
 
+                door.animator.enabled = true;
                 opened.Add(new Opened
                 {
                     animator = door.animator,
@@ -81,12 +99,19 @@ namespace FriWorld.Navigator
                 door.animator.SetFloat(RotationParameter, door.rotation * DoorPassage.RouteOpening(distance, door.pass));
         }
 
+        /// <summary>
+        /// Shuts the flight's doors and switches their Animators off again. The closed pose is
+        /// applied first: a disabled Animator no longer writes the leaf, which would stay open.
+        /// </summary>
         private void Close()
         {
             foreach (var door in opened)
             {
-                if (door.animator != null)
-                    door.animator.SetFloat(RotationParameter, 0f);
+                if (door.animator == null)
+                    continue;
+                door.animator.SetFloat(RotationParameter, 0f);
+                door.animator.Update(0f);
+                door.animator.enabled = false;
             }
         }
     }

@@ -42,6 +42,7 @@ namespace FriWorld.Navigator
         private void Awake()
         {
             CaptureStart();
+            // In Awake, so the doors' own Door scripts are off before their Start runs.
             doors = new NavigatorDoors();
         }
 

@@ -124,6 +124,8 @@ a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
 - **Dvere na trase otvára `NavigatorDoors`** cez `Animator` (`DoorRotation`), ktorý dvere už
   majú; nájde ich podľa tagu `Door`. Dvere bez `Animator`a (desktop-only, aj v Navigatore)
   sú neprechodné a ostanú zatvorené — neobchádzať to, kade let ísť nemá, tam patrí blocker.
+  Za behu vypína FriWorld skript `Door` (v `Awake`, pred jeho `Start`) a animátory všetkých
+  dverí okrem tých na aktuálnej trase — prefab dverí sa nemení.
 - **Kade navigácia nemá viesť** (dvere, priestor), tam ide do scény
   `_Navigator/Prefabs/NavBlocker.prefab` — `NavMeshModifierVolume` s plochou `Not Walkable`,
   bez meshu a bez collidera. Natiahne sa škálou (x/z = metre) a bake ho z NavMeshu vyreže.

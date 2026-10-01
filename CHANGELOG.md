@@ -372,6 +372,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   s reálnym buildom. (`c461b76`)
 
 ### Performance
+- Navigator za behu vypína FriWorld skript `Door` a animátory dverí mimo trasy letu: štart je
+  bez 284 varovaní o chýbajúcom zvukovom registri (−112 ms) a let berie 4,7 ms na snímok
+  namiesto 8,7 ms, animátory 0,2 ms namiesto 2,6 ms (editor). Prefab dverí sa nemení.
+  (`docs/findings/2026-10-01-start-navigatora-a-animatory-dveri.md`)
 - Dynamic batching je vypnutý aj na desktope. Prehadzuje malé meshe na CPU každý snímok,
   aby ich zlial do jedného draw callu — lenže pod URP to isté rieši SRP Batcher bez toho,
   aby sa vrcholov dotkol, takže tá CPU práca bola zbytočná. Web ho mal vypnutý už predtým.
