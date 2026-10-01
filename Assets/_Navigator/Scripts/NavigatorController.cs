@@ -82,7 +82,7 @@ namespace FriWorld.Navigator
             }
 
             current = CameraTrack.Build(path.corners, startPosition, startRotation, anchor.facing, track, filter);
-            doors.Plan(current, anchor);
+            doors.Plan(current, anchor.code);
             roomCode = anchor.code;
             time = 0f;
             playing = true;
@@ -148,7 +148,7 @@ namespace FriWorld.Navigator
         {
             current.Evaluate(time, out Vector3 position, out Quaternion rotation);
             flyCamera.transform.SetPositionAndRotation(position, rotation);
-            doors.Apply(current.DistanceAt(time), current.Length);
+            doors.Apply(current.DistanceAt(time));
         }
     }
 }

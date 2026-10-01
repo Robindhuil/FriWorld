@@ -80,13 +80,6 @@ namespace FriWorld.Navigator.Tests
         }
 
         [Test]
-        public void RoomDoorStaysClosedUntilTheLastMetresAndIsOpenAtTheEnd()
-        {
-            Assert.AreEqual(0f, DoorPassage.TargetOpening(20f - 3f, 20f), 1e-4f);
-            Assert.AreEqual(1f, DoorPassage.TargetOpening(20f, 20f), 1e-4f);
-        }
-
-        [Test]
         public void DoorOpensAwayFromTheCameraTheWayFriWorldsDoorScriptDoes()
         {
             // Hinge at z = -0.5, leaf reaching to z = +0.5. A positive yaw swings it towards +x,
@@ -96,16 +89,6 @@ namespace FriWorld.Navigator.Tests
 
             Assert.AreEqual(-90.9f, DoorPassage.OpenRotation(hinge, center, Vector3.right), 1e-4f);
             Assert.AreEqual(90.9f, DoorPassage.OpenRotation(hinge, center, Vector3.left), 1e-4f);
-        }
-
-        [Test]
-        public void RoomDoorIsTheOneTheAnchorFaces()
-        {
-            var anchor = new Vector3(-RoomAnchors.DoorDistance, 0f, 0f);
-
-            Assert.IsTrue(DoorPassage.IsRoomDoor(Door(), anchor, Vector3.right));
-            Assert.IsFalse(DoorPassage.IsRoomDoor(Door(), anchor + new Vector3(0f, 0f, 3f), Vector3.right));
-            Assert.IsFalse(DoorPassage.IsRoomDoor(Door(), anchor + new Vector3(0f, 3.6f, 0f), Vector3.right));
         }
 
         [Test]

@@ -4,9 +4,10 @@ using UnityEngine;
 namespace FriWorld.Navigator
 {
     /// <summary>
-    /// Opens the doors the flight goes through, and the room's own door at the end, by setting
-    /// DoorRotation on the Animator each door already has — the parameter FriWorld's Door script
-    /// drives, so the leaf plays its own animation. Nothing is added to or changed on a door.
+    /// Opens the doors the flight goes through by setting DoorRotation on the Animator each door
+    /// already has — the parameter FriWorld's Door script drives, so the leaf plays its own
+    /// animation. Nothing is added to or changed on a door. The room's own door stays closed: the
+    /// flight ends in front of it.
     ///
     /// Doors are found by their "Door" tag, which the object type registry gives to real doors
     /// only, never to frames. A door without an Animator — a desktop-only door in the web build —
@@ -28,7 +29,6 @@ namespace FriWorld.Navigator
         private struct Opened
         {
             public Animator animator;
-            public bool roomDoor;    // opens at the end and stays open, instead of as the camera passes
             public float pass;       // distance along the path where the camera goes through
             public float rotation;   // DoorRotation when fully open
         }
@@ -50,49 +50,35 @@ namespace FriWorld.Navigator
         public int OpenedCount => opened.Count;
 
         /// <summary>Picks the doors of one flight; those of the previous flight close.</summary>
-        public void Plan(CameraTrack track, RoomAnchors.Anchor anchor)
+        public void Plan(CameraTrack track, string roomCode)
         {
             Close();
             opened.Clear();
             foreach (var door in doors)
             {
-                if (DoorPassage.TryFindPass(track.Points, track.Step, door.leaf, out float pass, out Vector3 direction))
-                {
-                    if (door.animator == null)
-                    {
-                        Debug.LogWarning($"[Navigator] The flight to {anchor.code} goes through {door.name}, which has no Animator, so it stays closed.");
-                        continue;
-                    }
+                if (!DoorPassage.TryFindPass(track.Points, track.Step, door.leaf, out float pass, out Vector3 direction))
+                    continue;
 
-                    opened.Add(new Opened
-                    {
-                        animator = door.animator,
-                        pass = pass,
-                        rotation = DoorPassage.OpenRotation(door.hinge, door.leaf.center, direction),
-                    });
-                }
-                else if (door.animator != null && DoorPassage.IsRoomDoor(door.leaf, anchor.position, anchor.facing))
+                if (door.animator == null)
                 {
-                    opened.Add(new Opened
-                    {
-                        animator = door.animator,
-                        roomDoor = true,
-                        rotation = DoorPassage.OpenRotation(door.hinge, door.leaf.center, anchor.facing),
-                    });
+                    Debug.LogWarning($"[Navigator] The flight to {roomCode} goes through {door.name}, which has no Animator, so it stays closed.");
+                    continue;
                 }
+
+                opened.Add(new Opened
+                {
+                    animator = door.animator,
+                    pass = pass,
+                    rotation = DoorPassage.OpenRotation(door.hinge, door.leaf.center, direction),
+                });
             }
         }
 
-        /// <summary>Sets the flight's doors for the camera <paramref name="distance"/> along a path <paramref name="length"/> long.</summary>
-        public void Apply(float distance, float length)
+        /// <summary>Sets the flight's doors for the camera <paramref name="distance"/> along the path.</summary>
+        public void Apply(float distance)
         {
             foreach (var door in opened)
-            {
-                float amount = door.roomDoor
-                    ? DoorPassage.TargetOpening(distance, length)
-                    : DoorPassage.RouteOpening(distance, door.pass);
-                door.animator.SetFloat(RotationParameter, door.rotation * amount);
-            }
+                door.animator.SetFloat(RotationParameter, door.rotation * DoorPassage.RouteOpening(distance, door.pass));
         }
 
         private void Close()

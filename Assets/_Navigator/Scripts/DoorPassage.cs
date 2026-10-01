@@ -19,15 +19,10 @@ namespace FriWorld.Navigator
         private const float CloseFrom = 1.5f;
         private const float CloseBy = 3.5f;
 
-        // The room's own door opens over these last metres and stays open.
-        private const float RoomDoorFrom = 2.5f;
-        private const float RoomDoorBy = 0.5f;
-
         // Past the edge of a leaf still counts as through it: the path through a double door
         // crosses where the two leaves meet.
         private const float WidthMargin = 0.3f;
         private const float FloorTolerance = 0.5f;
-        private const float RoomDoorTolerance = 1f;
 
         /// <summary>
         /// Whether the path goes through the doorway — crosses the plane of the closed leaf within
@@ -70,12 +65,6 @@ namespace FriWorld.Navigator
             return Mathf.Min(opening, closing);
         }
 
-        /// <summary>0 closed … 1 open, for the room's own door on a path <paramref name="length"/> long.</summary>
-        public static float TargetOpening(float distance, float length)
-        {
-            return Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(length - RoomDoorFrom, length - RoomDoorBy, distance));
-        }
-
         /// <summary>
         /// DoorRotation that swings the leaf away from a camera coming in <paramref name="approach"/>.
         /// The same rule as FriWorld's Door script: when a positive yaw about the hinge moves the
@@ -87,15 +76,6 @@ namespace FriWorld.Navigator
             arm.y = 0f;
             Vector3 swing = Vector3.Cross(Vector3.up, arm);
             return Vector3.Dot(swing, approach) >= 0f ? -OpenAngle : OpenAngle;
-        }
-
-        /// <summary>Whether <paramref name="door"/> is the one an anchor at <paramref name="anchor"/> faces.</summary>
-        public static bool IsRoomDoor(DoorLeaf door, Vector3 anchor, Vector3 facing)
-        {
-            facing.y = 0f;
-            Vector3 expected = anchor + facing.normalized * RoomAnchors.DoorDistance;
-            var offset = new Vector2(door.center.x - expected.x, door.center.z - expected.z);
-            return offset.magnitude <= RoomDoorTolerance && Mathf.Abs(door.bottom - anchor.y) <= FloorTolerance;
         }
     }
 }

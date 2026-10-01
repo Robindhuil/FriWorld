@@ -167,17 +167,17 @@ od pôvodného zámeru:
      Každé je samotné krídlo s pivotom v pántoch. Zmerajú sa raz pri štarte scény, kým sú
      všetky zatvorené.
    - Po `Go(kód)` sa vyberú tie, cez ktorých otvor trasa naozaj prechádza (pretne rovinu
-     krídla v jeho šírke, na jeho poschodí), a dvere miestnosti, na ktoré mieri kotva.
+     krídla v jeho šírke, na jeho poschodí). Dvere cieľovej miestnosti ostávajú zatvorené —
+     let končí pred nimi.
    - Hýbe nimi `Animator`, ktorý dvere už majú: `DoorRotation` = ±90.9 × otvorenie. Stavy
      `Door_open` / `Door_close` sú v controlleri mŕtve, krídlom hýbe len blend tree. Otvárajú sa
      od kamery, tým istým pravidlom ako FriWorld `Door`.
    - Otvorenie je funkcia vzdialenosti na trase, nie času: 3 → 1 m pred kamerou sa otvoria,
-     1,5 → 3,5 m za ňou zatvoria; dvere miestnosti sa otvoria posledných 2,5 → 0,5 m a ostanú
-     otvorené. Pretáčanie dozadu ich samo zatvorí.
+     1,5 → 3,5 m za ňou zatvoria. Pretáčanie dozadu ich samo zatvorí.
    - Dvere bez `Animator`a (desktop-only na webe) sú neprechodné a ostanú zatvorené. Keď cez
      také let ide, konzola varuje — patrí tam `NavBlocker`.
-   - Overené na 166 letoch: 3–6 dverí na let, 21 rôznych, každý let našiel dvere miestnosti a
-     všetkých 212 dvojíc dvere/smer sa otvára na odvrátenú stranu.
+   - Overené na 166 letoch: 0–6 dverí na let, 21 rôznych, a každé z nich sa z každého smeru
+     otvára na odvrátenú stranu.
 
 Zostáva:
 

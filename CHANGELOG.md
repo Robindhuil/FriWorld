@@ -14,8 +14,8 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
-- Navigator otvára dvere, cez ktoré letí: otvoria sa pár metrov pred kamerou, zavrú za ňou a
-  dvere cieľovej miestnosti sa otvoria na konci. Hrajú vlastnú animáciu, nájdu sa podľa tagu
+- Navigator otvára dvere, cez ktoré letí: otvoria sa pár metrov pred kamerou a zavrú za ňou;
+  dvere cieľovej miestnosti ostanú zatvorené. Hrajú vlastnú animáciu, nájdu sa podľa tagu
   `Door` a pretáčanie dozadu ich zavrie. Na dverách sa nič nemení.
 - `NavBlocker` — prefab, ktorý v Navigator scéne vyreže NavMesh tam, kade let nemá viesť
   (dvere, priestor). Položí sa, natiahne škálou a po `Navigator → 1, 2` tam trasa nejde.
