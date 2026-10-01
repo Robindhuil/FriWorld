@@ -14,6 +14,8 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Nový nábytok v budove: vitríny stojace aj na stenu, barista kávovar, veľký plagát, skrinka
+  v bufete a osem kvetináčov (štyri veľké, štyri malé) namiesto štyroch pôvodných.
 - Plán Navigatora — druhej hry v repe, ktorá prehrá let kamery od recepcie k miestnosti
   podľa `id` z API: `docs/navigator/2026-09-25-navigator-plan.md`.
 - Kostra Navigatora v `Assets/_Navigator/`: scéna `FriNavigator` s budovou a svetlom na tých
@@ -241,6 +243,13 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Farebné varianty stoličiek a stolov v učebniach aj košov sú prefab varianty jedného
+  `_default` prefabu, takže tvar sa mení na jednom mieste.
+- Slnko, fill light, global volume, light probes a reflection probes Demo scény sú prefaby
+  v `_Game/Prefabs/Enviroment/` a rovnaké svetlo berie aj Navigator. Prefab hráča nesie
+  vlastný post-processing volume a zvuky chôdze, šprintu, skoku a kliknutia.
+- Post-processing v Demo je jemnejší — Color Adjustments vypnuté, nižšie intenzity — a sivý
+  materiál stmavol z 0.35 na 0.21.
 - Navigator nemá baked svetlo ani tiene — ide na web; default reflection je cubemapa skyboxu,
   lebo „Skybox" bez upečených dát zhodí URP a obraz ostane biely.
 - Unity už nečíta `.blend`, ale `character_male.fbx`, ktorý z neho vyrobí
