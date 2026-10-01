@@ -141,8 +141,10 @@ a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
   ani konvolúciu, takže každý povrch, aj drsná podlaha, odráža ostré mraky. Odraz je
   `Data/NavigatorReflection.exr` z `Navigator → 3` — probe, ktorá vidí len oblohu, upečie
   konvolvovanú cubemapu, akú by Unity pri pečenom svetle vygeneroval sám.
-- Build ide cez vlastný Build Profile v `_Navigator/Settings/` s jedinou scénou; FriWorld
-  build (Build Settings: Menu + Demo) Navigator scénu nemá.
+- Build ide cez vlastný Build Profile `_Navigator/Settings/NavigatorWeb.asset` s jedinou
+  scénou; FriWorld build (Build Settings: Menu + Demo) Navigator scénu nemá. Profil má
+  **vlastné Player Settings** (kvôli vypnutému splashu) — verzia, názov a web nastavenia
+  Navigatora sa menia v profile, zmena v Project Settings sa doň neprenesie.
 
 ---
 

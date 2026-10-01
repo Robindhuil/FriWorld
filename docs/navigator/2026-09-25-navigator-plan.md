@@ -1,6 +1,6 @@
 # Navigator — plán
 
-**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-09-25 · **Stav:** fázy 3–4 funkčné v editore, chýba Build Profile a web build (2026-09-26)
+**Verzia projektu pri písaní:** 0.1.2-alpha · **Dátum:** 2026-09-25 · **Stav:** fázy 3–4 funkčné v editore, Build Profile je, web build ešte nebol (2026-10-01)
 
 Druhá hra v tom istom Unity projekte. Používateľ na externom webe (fri.uniza.sk) klikne na
 miestnosť, otvorí sa nová karta a v nej kamera preletí od recepcie k dverám tej miestnosti
@@ -103,6 +103,12 @@ ignoruje a pri pivote 30 cm nad podlahou podlahu minie.
 
 Build Profile Navigatora má v zozname **len** `FriNavigator.unity`; FriWorld build (Build Settings: Menu + Demo) ju nemá.
 Splash (`m_ShowUnitySplashScreen` je dnes `1`) vypnúť cez override v profile Navigatora.
+
+**Spravené 2026-10-01:** `Settings/NavigatorWeb.asset` — platforma Web, zoznam scén len
+`FriNavigator.unity`, vlastné Player Settings so splashom vypnutým. Aktívny profil sa nemenil,
+editor ostal na Windows. Vlastné Player Settings sú **kópia globálnych z 2026-10-01**: verzia,
+názov produktu ani web nastavenia sa z Project Settings do Navigatora už neprenášajú — menia sa
+v profile.
 
 ---
 
