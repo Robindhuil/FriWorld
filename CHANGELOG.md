@@ -14,6 +14,9 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Web build Navigatora nesie `rooms.json` so všetkými kódmi miestností, ktoré pozná. FriWorld Hub
+  z neho robí stránku `/navigator` s tlačidlom pre každú miestnosť; tlačidlo otvorí let k nej
+  v novom okne.
 - `Navigator → Build Web` zbuildí web Navigatora jedným príkazom a z výstupu vyhodí 200 MB
   videí FriWorldu, ktoré Navigator neprehrá: 360 → 157 MB. Pred buildom prepne editor na
   web, inak by URP orezal shadery podľa desktopu a budova by sa nekreslila; potom ho vráti

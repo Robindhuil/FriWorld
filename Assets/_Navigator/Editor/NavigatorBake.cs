@@ -21,7 +21,7 @@ namespace FriWorld.Navigator.Editor
         private const string ScenePath = "Assets/_Navigator/Scenes/FriNavigator.unity";
         private const string DataFolder = "Assets/_Navigator/Data";
         private const string NavMeshAssetPath = DataFolder + "/NavigatorNavMesh.asset";
-        private const string AnchorsAssetPath = DataFolder + "/RoomAnchors.asset";
+        public const string AnchorsAssetPath = DataFolder + "/RoomAnchors.asset";
         private const string ReflectionAssetPath = DataFolder + "/NavigatorReflection.exr";
         private const string SurfaceObjectName = "NavigatorNavMesh";
         private const string BuildingName = "FriBuilding";

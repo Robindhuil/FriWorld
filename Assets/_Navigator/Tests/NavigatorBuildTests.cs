@@ -1,6 +1,7 @@
 using System.IO;
 using FriWorld.Navigator.Editor;
 using NUnit.Framework;
+using UnityEngine;
 
 namespace FriWorld.Navigator.Tests
 {
@@ -53,6 +54,19 @@ namespace FriWorld.Navigator.Tests
             NavigatorBuild.RemoveUnused(output);
 
             Assert.IsFalse(Directory.Exists(Path.Combine(output, "StreamingAssets")));
+        }
+
+        [Test]
+        public void ListsTheRoomCodesItKnowsBesideTheBuild()
+        {
+            var anchors = ScriptableObject.CreateInstance<RoomAnchors>();
+            anchors.anchors.Add(new RoomAnchors.Anchor { code = "RB101" });
+            anchors.anchors.Add(new RoomAnchors.Anchor { code = "RA101" });
+
+            NavigatorBuild.WriteRooms(output, anchors);
+
+            Assert.AreEqual("[\"RA101\",\"RB101\"]", File.ReadAllText(Path.Combine(output, NavigatorBuild.RoomsFile)));
+            Object.DestroyImmediate(anchors);
         }
     }
 }

@@ -13,7 +13,8 @@ namespace FriWorld.Navigator.Editor
     /// The profile is made active before the build, because URP strips shaders by the editor's
     /// active platform. Afterwards the editor is put back on the profile and platform it was on:
     /// left on web, FriWorld's play mode would strip desktop-only content as the web build does.
-    /// What the Navigator never loads is then taken out of the output (<see cref="RemoveUnused"/>).
+    /// What the Navigator never loads is then taken out of the output (<see cref="RemoveUnused"/>),
+    /// and the room codes it knows are listed beside it (<see cref="WriteRooms"/>).
     /// The outcome is also written to a file, so whatever started the build can read it afterwards
     /// instead of watching the console.
     /// </summary>
@@ -76,6 +77,7 @@ namespace FriWorld.Navigator.Editor
             if (summary.result == BuildResult.Succeeded)
             {
                 RemoveUnused(OutputPath);
+                WriteRooms(OutputPath, AssetDatabase.LoadAssetAtPath<RoomAnchors>(NavigatorBake.AnchorsAssetPath));
                 long bytes = new DirectoryInfo(OutputPath).EnumerateFiles("*", SearchOption.AllDirectories).Sum(f => f.Length);
                 outcome += $" -> {OutputPath}, {bytes / (1024f * 1024f):F1} MB";
             }
@@ -85,6 +87,18 @@ namespace FriWorld.Navigator.Editor
                 Debug.Log("[Navigator] Web build " + outcome);
             else
                 Debug.LogError("[Navigator] Web build " + outcome);
+        }
+
+        public const string RoomsFile = "rooms.json";
+
+        /// <summary>
+        /// Lists the room codes this build can fly to, as a JSON array beside it, so the page that
+        /// offers the rooms shows exactly what the uploaded build knows.
+        /// </summary>
+        public static void WriteRooms(string outputPath, RoomAnchors anchors)
+        {
+            var codes = anchors.anchors.Select(a => "\"" + a.code + "\"").OrderBy(c => c, System.StringComparer.Ordinal);
+            File.WriteAllText(Path.Combine(outputPath, RoomsFile), "[" + string.Join(",", codes) + "]");
         }
 
         /// <summary>

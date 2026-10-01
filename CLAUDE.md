@@ -124,8 +124,11 @@ a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
   pri tabuli) je koncom sám. Platí, čo hovoria body — nezhody s menami kontajnerov, dverí či
   tabúľ sa neriešia, dáta miestností sa budú prerábať cez API.
   `3 — Bake Sky Reflection` po zmene skyboxu. `Build Web` prepne editor na web, zbuildí profil
-  `NavigatorWeb` do `Builds/Navigator/Web`, vyhodí z výstupu videá FriWorldu a editor vráti na
-  platformu, na ktorej bol; výsledok zapíše aj do `Temp/navigator-build.txt`. Lokálne sa build
+  `NavigatorWeb` do `Builds/Navigator/Web`, vyhodí z výstupu videá FriWorldu, pridá `rooms.json`
+  (kódy, ktoré build pozná) a editor vráti na platformu, na ktorej bol; výsledok zapíše aj do
+  `Temp/navigator-build.txt`. Do Hubu (`friworld-web`) sa celý výstup skopíruje do
+  `public/navigator/` — stránka `/navigator` z `rooms.json` robí tlačidlá a `/navigate/[kód]`
+  pošle buildu `Go`. Lokálne sa build
   otvára cez `…/index.html?room=RA101` zo servera s hlavičkami
   `Cross-Origin-Opener-Policy: same-origin` a `Cross-Origin-Embedder-Policy: credentialless`,
   build beží s vláknami. Bez nich hlási „does not support multithreading".
