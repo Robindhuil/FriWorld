@@ -214,8 +214,8 @@ a neskôr `line = reveal(t)`.
 
 | # | Fáza | Hotové, keď |
 |---|---|---|
-| 1 | Kostra: `_Navigator/`, asmdefy, scéna s budovou, Build Profile, `CLAUDE.md` | WebGL build Navigatora sa zbuildí a ukáže budovu |
-| 2 | Overenie 3.1 v builde | Konzola WebGL buildu bez chýb |
+| 1 | Kostra: `_Navigator/`, asmdefy, scéna s budovou, Build Profile, `CLAUDE.md` | WebGL build Navigatora sa zbuildí a ukáže budovu — **splnené 2026-10-01** (`Navigator → Build Web`) |
+| 2 | Overenie 3.1 v builde | Konzola WebGL buildu bez chýb — **splnené 2026-10-01**, zostali len varovania (`QuestLoader`, `layerCullSpherical`, nepodporované lens flare a FSR pasy) |
 | 3 | Vlastný NavMesh + kódy miestností + kotvy + validácia | Validácia hlási 0 nedosiahnuteľných miestností — **splnené 2026-09-26** |
 | 4 | Stopa kamery `pose(t)` | Dobre vyzerá prízemie, 1. poschodie aj najvyššie |
 | 5 | jslib bridge + `/navigate/[id]` vo `friworld-web` s HTML ovládaním | Seek, pauza a rýchlosť fungujú na mobile |
