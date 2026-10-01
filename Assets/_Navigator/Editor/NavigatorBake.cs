@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using Unity.AI.Navigation;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -30,8 +29,15 @@ namespace FriWorld.Navigator.Editor
         // Humanoid: the same agent FriWorld's player navmesh uses, baked here into our own data.
         private const int AgentTypeID = 0;
 
-        // A room with a code is a container named like "ra101"; its doors are "ra101_door_1", …
-        private static readonly Regex RoomContainer = new Regex(@"^r[a-z]\d{3}$");
+        // FriWorld's hand-placed point per room code, under the building.
+        private const string RoomPointsName = "RoomPoints";
+        private const string DoorTag = "Door";
+
+        /// <summary>Farthest a room point stands from the leaf of the door it marks (m).</summary>
+        public const float DoorwayReach = 1f;
+
+        // Floors are over 3.5 m apart; a door this far above or below the point is on another one.
+        private const float FloorTolerance = 1f;
 
         [MenuItem("Navigator/1 — Bake NavMesh", priority = 1)]
         public static void BakeNavMesh()
@@ -87,65 +93,58 @@ namespace FriWorld.Navigator.Editor
                 return;
             }
 
-            var all = building.GetComponentsInChildren<Transform>(true);
-            var report = new StringBuilder();
+            // Where each flight ends is FriWorld's RoomPoints: one point per room code, placed by hand
+            // at the room's entrance — for an office reached through another room, at that room's
+            // door in the corridor. The point's name is the code, whatever the containers and signs
+            // around it are called.
+            Transform roomPoints = building.GetComponentsInChildren<Transform>(true).FirstOrDefault(t => t.name == RoomPointsName);
+            if (roomPoints == null)
+            {
+                Debug.LogError($"[Navigator] {RoomPointsName} is not under {BuildingName}.");
+                return;
+            }
 
             // The start is wherever the Navigator camera is placed; paths are checked from below it.
             if (!TryFindStart(scene, filter, out Vector3 start))
                 return;
 
+            var doors = new List<Transform>();
+            var leaves = new List<DoorLeaf>();
+            foreach (Transform t in building.GetComponentsInChildren<Transform>(true))
+            {
+                if (t.CompareTag(DoorTag) && DoorLeaf.TryMeasure(t, out DoorLeaf leaf))
+                {
+                    doors.Add(t);
+                    leaves.Add(leaf);
+                }
+            }
+
+            var report = new StringBuilder();
             var anchors = new List<RoomAnchors.Anchor>();
-            var noDoor = new List<string>();
+            var onPoint = new List<string>();
             var unreachable = new List<string>();
             var path = new NavMeshPath();
 
-            foreach (Transform room in all.Where(t => RoomContainer.IsMatch(t.name)).OrderBy(t => t.name))
+            foreach (Transform point in roomPoints.GetComponentsInChildren<Transform>(true)
+                                                  .Where(t => t != roomPoints && t.childCount == 0)
+                                                  .OrderBy(t => t.name))
             {
-                var doorName = new Regex("^" + Regex.Escape(room.name) + @"_door_\d+$");
-                var doors = room.Cast<Transform>().Where(c => doorName.IsMatch(c.name)).ToList();
-                string code = RoomAnchors.Normalize(room.name);
-                if (doors.Count == 0)
+                var anchor = new RoomAnchors.Anchor { code = RoomAnchors.Normalize(point.name) };
+                bool found;
+                if (TryFindDoorway(point.position, leaves, out int door))
                 {
-                    noDoor.Add(code);
-                    continue;
+                    found = TryAnchorAtDoor(doors[door], leaves[door], start, filter, path, ref anchor);
                 }
-
-                // Every door, both sides: the anchor is whichever point the start reaches first.
-                bool found = false;
-                float best = float.MaxValue;
-                var anchor = new RoomAnchors.Anchor { code = code };
-                foreach (Transform door in doors)
+                else
                 {
-                    if (!TryDoorFrame(door, out Vector3 center, out Vector3 normal))
-                        continue;
-
-                    foreach (float side in new[] { 1f, -1f })
-                    {
-                        // Far enough back that the door and its sign fit in the last frame.
-                        Vector3 probe = center + normal * (RoomAnchors.DoorDistance * side) + Vector3.down;
-                        if (!NavMesh.SamplePosition(probe, out NavMeshHit hit, 1.2f, filter))
-                            continue;
-                        if (Mathf.Abs(hit.position.y - probe.y) > 0.8f || Flat(hit.position - probe).magnitude > 0.7f)
-                            continue;   // snapped to another floor or through the wall
-                        if (Physics.Linecast(hit.position + Vector3.up * 1.6f, center, out RaycastHit blocker) && !blocker.transform.IsChildOf(door))
-                            continue;   // the door cannot be seen from there, e.g. across a narrow corridor
-                        if (!NavMesh.CalculatePath(start, hit.position, filter, path) || path.status != NavMeshPathStatus.PathComplete)
-                            continue;
-
-                        float length = PathLength(path);
-                        if (length >= best)
-                            continue;
-                        best = length;
-                        found = true;
-                        anchor.position = hit.position;
-                        anchor.facing = Flat(center - hit.position).normalized;
-                    }
+                    found = TryAnchorOnPoint(point.position, start, filter, path, ref anchor);
+                    onPoint.Add(anchor.code);
                 }
 
                 if (found)
                     anchors.Add(anchor);
                 else
-                    unreachable.Add(code);
+                    unreachable.Add(anchor.code);
             }
 
             EnsureDataFolder();
@@ -161,11 +160,11 @@ namespace FriWorld.Navigator.Editor
             EditorUtility.SetDirty(asset);
             AssetDatabase.SaveAssets();
 
-            report.Insert(0, $"[Navigator] Anchored {anchors.Count} rooms → {AnchorsAssetPath}\n");
+            report.Insert(0, $"[Navigator] Anchored {anchors.Count} rooms from {RoomPointsName} → {AnchorsAssetPath}\n");
             if (unreachable.Count > 0)
                 report.AppendLine($"UNREACHABLE ({unreachable.Count}): {string.Join(" ", unreachable)}");
-            if (noDoor.Count > 0)
-                report.AppendLine($"NO DOOR ({noDoor.Count}): {string.Join(" ", noDoor)}");
+            if (onPoint.Count > 0)
+                report.AppendLine($"NO DOOR AT THE POINT ({onPoint.Count}), the flight ends on it facing the way it came: {string.Join(" ", onPoint)}");
 
             if (unreachable.Count > 0)
                 Debug.LogWarning(report.ToString());
@@ -238,32 +237,77 @@ namespace FriWorld.Navigator.Editor
             return true;
         }
 
-        /// <summary>World centre of a flat object (door leaf, sign) and the horizontal normal of its face.</summary>
-        private static bool TryDoorFrame(Transform t, out Vector3 center, out Vector3 normal)
+        /// <summary>
+        /// The door a room point stands in: the nearest leaf on the point's floor, at most
+        /// <see cref="DoorwayReach"/> away. The points are placed by hand on the threshold, a few
+        /// centimetres from the leaf; one farther out marks no door.
+        /// </summary>
+        public static bool TryFindDoorway(Vector3 point, IReadOnlyList<DoorLeaf> doors, out int index)
         {
-            center = default;
-            normal = default;
-            var renderers = t.GetComponentsInChildren<Renderer>(true);
-            var filters = t.GetComponentsInChildren<MeshFilter>(true).Where(f => f.sharedMesh != null).ToArray();
-            if (renderers.Length == 0 || filters.Length == 0)
+            index = -1;
+            float nearest = DoorwayReach;
+            for (int i = 0; i < doors.Count; i++)
+            {
+                if (Mathf.Abs(doors[i].bottom - point.y) > FloorTolerance)
+                    continue;
+                float distance = Flat(doors[i].center - point).magnitude;
+                if (distance > nearest)
+                    continue;
+                nearest = distance;
+                index = i;
+            }
+
+            return index >= 0;
+        }
+
+        /// <summary>
+        /// Stands <see cref="RoomAnchors.DoorDistance"/> in front of the door, on whichever side the
+        /// start reaches first, facing it. For an office behind another room that is the corridor
+        /// side of that room's door.
+        /// </summary>
+        private static bool TryAnchorAtDoor(Transform door, DoorLeaf leaf, Vector3 start, NavMeshQueryFilter filter,
+                                            NavMeshPath path, ref RoomAnchors.Anchor anchor)
+        {
+            bool found = false;
+            float best = float.MaxValue;
+            foreach (float side in new[] { 1f, -1f })
+            {
+                // Far enough back that the door and its sign fit in the last frame.
+                Vector3 probe = leaf.center + leaf.normal * (RoomAnchors.DoorDistance * side) + Vector3.down;
+                if (!NavMesh.SamplePosition(probe, out NavMeshHit hit, 1.2f, filter))
+                    continue;
+                if (Mathf.Abs(hit.position.y - probe.y) > 0.8f || Flat(hit.position - probe).magnitude > 0.7f)
+                    continue;   // snapped to another floor or through the wall
+                if (Physics.Linecast(hit.position + Vector3.up * 1.6f, leaf.center, out RaycastHit blocker) && !blocker.transform.IsChildOf(door))
+                    continue;   // the door cannot be seen from there, e.g. across a narrow corridor
+                if (!NavMesh.CalculatePath(start, hit.position, filter, path) || path.status != NavMeshPathStatus.PathComplete)
+                    continue;
+
+                float length = PathLength(path);
+                if (length >= best)
+                    continue;
+                best = length;
+                found = true;
+                anchor.position = hit.position;
+                anchor.facing = Flat(leaf.center - hit.position).normalized;
+            }
+
+            return found;
+        }
+
+        /// <summary>A point that marks no door: the flight ends on it, facing the way it came.</summary>
+        private static bool TryAnchorOnPoint(Vector3 point, Vector3 start, NavMeshQueryFilter filter,
+                                             NavMeshPath path, ref RoomAnchors.Anchor anchor)
+        {
+            if (!NavMesh.SamplePosition(point, out NavMeshHit hit, 1f, filter))
+                return false;
+            if (!NavMesh.CalculatePath(start, hit.position, filter, path) || path.status != NavMeshPathStatus.PathComplete)
                 return false;
 
-            Bounds bounds = renderers[0].bounds;
-            foreach (var r in renderers)
-                bounds.Encapsulate(r.bounds);
-            center = bounds.center;
-
-            // The thinnest axis of the biggest mesh is the one the face points along.
-            MeshFilter main = filters.OrderByDescending(f => Vector3.Scale(f.sharedMesh.bounds.size, f.transform.lossyScale).sqrMagnitude).First();
-            Vector3 size = Vector3.Scale(main.sharedMesh.bounds.size, main.transform.lossyScale);
-            size = new Vector3(Mathf.Abs(size.x), Mathf.Abs(size.y), Mathf.Abs(size.z));
-            Vector3 axis = size.x <= size.y && size.x <= size.z ? Vector3.right
-                         : size.y <= size.z ? Vector3.up
-                         : Vector3.forward;
-            normal = Flat(main.transform.TransformDirection(axis));
-            if (normal.sqrMagnitude < 1e-6f)
-                return false;
-            normal.Normalize();
+            Vector3[] corners = path.corners;
+            Vector3 arrival = corners.Length >= 2 ? Flat(corners[corners.Length - 1] - corners[corners.Length - 2]) : Vector3.zero;
+            anchor.position = hit.position;
+            anchor.facing = arrival.sqrMagnitude > 1e-6f ? arrival.normalized : Vector3.forward;
             return true;
         }
 

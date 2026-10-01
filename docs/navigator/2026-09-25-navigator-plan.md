@@ -140,17 +140,26 @@ a ovládanie zo stránky.
 
 ## 5. Kódy miestností a kotvy
 
-Kód miestnosti je meno jej kontajnera veľkými písmenami: `ra101` → `RA101`, `rb308` → `RB308`.
-Miestnosť je každý kontajner v tvare `r<písmeno><3 číslice>`; jej dvere sú deti
-`<kontajner>_door_<n>`. Vstup sa normalizuje (`"ra 101"` = `RA101`).
+Miestnosti a ich kódy sú **`RoomPoints`** vo `FriBuilding` (`RoomSignManager/RoomPoints`,
+inštancia `Rooms.prefab`): jeden ručne položený bod na miestnosť pri jej vchode, meno bodu je
+kód. Vstup sa normalizuje (`"ra 101"` = `RA101`).
 
-`Navigator → 2 — Bake Room Anchors` upečie `Data/RoomAnchors.asset`: pre každý kód bod na
-NavMeshi 1.6 m pred dverami a smer k dverám. Pri viacerých dverách a oboch stranách vyhrá
-bod, ku ktorému je od kamery najkratšia úplná cesta, a z ktorého dvere naozaj vidno.
-Krok **validuje**: miestnosť bez dverí, miestnosť nedosiahnuteľná z kamery.
+`Navigator → 2 — Bake Room Anchors` upečie `Data/RoomAnchors.asset`: pre každý bod kotvu na
+NavMeshi 1.6 m pred dverami, v ktorých bod stojí (krídlo do 1 m od bodu, na jeho poschodí),
+a smer k dverám. Z dvoch strán dverí vyhrá tá, ku ktorej je od kamery kratšia úplná cesta
+a z ktorej dvere naozaj vidno. Bod, pri ktorom dvere nie sú, je kotvou sám a smer je smer
+príletu. Krok **validuje** dosiahnuteľnosť z kamery a vypíše body bez dverí.
 
-Stav 2026-09-26: 166 kontajnerov, všetky dosiahnuteľné. Tabuľky `RA204`, `RA304` a `RC008`
-v budove visia, ale kontajner s tým menom model nemá — tie kódy Navigator nepozná.
+**Prečo body a nie kontajnery** (zmenené 2026-10-01; predtým kód = meno kontajnera a kotva pred
+jeho dverami): kabinet, do ktorého sa vchádza cez inú miestnosť (RA104 cez RA105), má vlastné
+dvere až za jej dverami. Let k nim viedol cez dvere susednej miestnosti, a tie sú na webe
+desktopOnly, teda zatvorené — kamera nimi preletela. Bod kabinetu stojí pri vchode z chodby.
+Body sú pravda aj tam, kde sa s menami kontajnerov alebo tabúľ nezhodujú (RB051–RB054,
+RC019/RC029); to sa nerieši, dáta miestností prídu z API.
+
+Stav 2026-10-01: 169 bodov, všetky dosiahnuteľné; RA204, RA304 a RC008, ktoré kontajner nemajú,
+Navigator teraz pozná. Bez dverí pri bode: RA001 a RC008 (stoja pri tabuli). Žiadna zo 169
+trás neprechádza dverami, ktoré web build zatvorí.
 
 ## 6. Stopa kamery
 

@@ -115,8 +115,14 @@ a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
 - **Štart letu je tam, kde stojí kamera** (`Main Camera`, pozícia aj natočenie). Umiestňuje
   ju Robin ručne — neodvodzovať, nepresúvať; test, ktorý kamerou hýbe, ju musí vrátiť.
 - Menu **`Navigator`**: `1 — Bake NavMesh` (vlastný NavMesh nad vrstvami `Obstacle` + `Nav`,
-  surfaces FriWorldu sú v tejto scéne vypnuté), `2 — Bake Room Anchors` (kód → bod pred
-  dverami, validuje dosiahnuteľnosť z kamery). Po zmene budovy, štartu alebo blokerov pustiť oba.
+  surfaces FriWorldu sú v tejto scéne vypnuté), `2 — Bake Room Anchors` (kód → koniec letu podľa
+  `RoomPoints`, validuje dosiahnuteľnosť z kamery). Po zmene budovy, štartu, blokerov alebo bodov
+  pustiť oba.
+- **Kam let vedie, určujú `RoomPoints`** (`FriBuilding/RoomSignManager/RoomPoints`, inštancia
+  `Rooms.prefab`): jeden ručne položený bod na miestnosť, meno bodu je kód. Let končí 1,6 m pred
+  dverami, v ktorých bod stojí, na strane bližšej k štartu; bod bez dverí (RA001, RC008 stoja
+  pri tabuli) je koncom sám. Platí, čo hovoria body — nezhody s menami kontajnerov, dverí či
+  tabúľ sa neriešia, dáta miestností sa budú prerábať cez API.
   `3 — Bake Sky Reflection` po zmene skyboxu. `Build Web` prepne editor na web, zbuildí profil
   `NavigatorWeb` do `Builds/Navigator/Web`, vyhodí z výstupu videá FriWorldu a editor vráti na
   platformu, na ktorej bol; výsledok zapíše aj do `Temp/navigator-build.txt`. Lokálne sa build

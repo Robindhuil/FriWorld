@@ -264,6 +264,10 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Navigator letí k bodom z `RoomPoints` vo `FriBuilding`, nie k dverám kontajnera s rovnakým
+  menom. Kabinety, do ktorých sa ide cez inú miestnosť (RA104, RA120, RA205, RA226, RA305,
+  RA327, RB112, RB204), končia na chodbe pred jej dverami — predtým kamera letela cez tie
+  dvere, a na webe sú zatvorené. Pribudli RA204, RA304 a RC008; spolu 169 miestností.
 - Let Navigatora obchádza 13 dverí a priechodov zablokovaných `NavBlocker`mi; RC009 sa teraz
   približuje inými dverami. Kamera štartuje o 1.4 m inde a so zorným poľom 71.8° namiesto 60°.
 - Navigator letí 3 m/s namiesto 4. Proti trhaniu obrazu ide smer pohľadu po kópii trasy
