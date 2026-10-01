@@ -71,6 +71,10 @@ namespace FriWorld.Navigator
         public float Length { get; }
         public float Duration { get; }
 
+        /// <summary>The path on the navmesh floor, evenly spaced <see cref="Step"/> apart.</summary>
+        public IReadOnlyList<Vector3> Points => points;
+        public float Step => step;
+
         /// <param name="corners">Navmesh path from below the placed camera to the door anchor.</param>
         /// <param name="startPosition">Where the camera was placed; the flight begins exactly there.</param>
         /// <param name="startRotation">How the camera was placed; the flight begins looking that way.</param>
@@ -148,7 +152,7 @@ namespace FriWorld.Navigator
         }
 
         /// <summary>Distance along the path at time t: ease in, cruise, ease out.</summary>
-        private float DistanceAt(float t)
+        public float DistanceAt(float t)
         {
             if (t <= 0f || Duration <= 0f)
                 return 0f;

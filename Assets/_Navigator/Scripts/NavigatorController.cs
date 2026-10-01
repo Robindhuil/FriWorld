@@ -9,8 +9,9 @@ namespace FriWorld.Navigator
     /// The start is wherever the camera is placed in the scene — position and rotation. It is
     /// remembered before the first flight, so every <see cref="Go"/> begins there again.
     /// <see cref="Go"/> computes the whole flight once; every frame only sets the camera to the
-    /// pose at the current time. The public methods take at most one string or float so the web
-    /// page can call them through <c>SendMessage("Navigator", …)</c>.
+    /// pose at the current time, and the doors on the way to how open they are then
+    /// (<see cref="NavigatorDoors"/>). The public methods take at most one string or float so the
+    /// web page can call them through <c>SendMessage("Navigator", …)</c>.
     /// </summary>
     public class NavigatorController : MonoBehaviour
     {
@@ -24,6 +25,7 @@ namespace FriWorld.Navigator
         [SerializeField] private CameraTrack.Settings track = CameraTrack.Settings.Default;
 
         private CameraTrack current;
+        private NavigatorDoors doors;
         private float time;
         private float speed = 1f;
         private bool playing;
@@ -40,6 +42,7 @@ namespace FriWorld.Navigator
         private void Awake()
         {
             CaptureStart();
+            doors = new NavigatorDoors();
         }
 
         private void Start()
@@ -79,6 +82,7 @@ namespace FriWorld.Navigator
             }
 
             current = CameraTrack.Build(path.corners, startPosition, startRotation, anchor.facing, track, filter);
+            doors.Plan(current, anchor);
             roomCode = anchor.code;
             time = 0f;
             playing = true;
@@ -144,6 +148,7 @@ namespace FriWorld.Navigator
         {
             current.Evaluate(time, out Vector3 position, out Quaternion rotation);
             flyCamera.transform.SetPositionAndRotation(position, rotation);
+            doors.Apply(current.DistanceAt(time), current.Length);
         }
     }
 }

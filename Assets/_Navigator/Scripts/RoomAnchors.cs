@@ -15,6 +15,9 @@ namespace FriWorld.Navigator
     /// </summary>
     public class RoomAnchors : ScriptableObject
     {
+        /// <summary>How far in front of the room's door the anchor stands (m).</summary>
+        public const float DoorDistance = 1.6f;
+
         [Serializable]
         public struct Anchor
         {

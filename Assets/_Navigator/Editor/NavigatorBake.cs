@@ -30,9 +30,6 @@ namespace FriWorld.Navigator.Editor
         // Humanoid: the same agent FriWorld's player navmesh uses, baked here into our own data.
         private const int AgentTypeID = 0;
 
-        // How far in front of the door the flight stops (m).
-        private const float AnchorDistance = 1.6f;
-
         // A room with a code is a container named like "ra101"; its doors are "ra101_door_1", …
         private static readonly Regex RoomContainer = new Regex(@"^r[a-z]\d{3}$");
 
@@ -125,7 +122,7 @@ namespace FriWorld.Navigator.Editor
                     foreach (float side in new[] { 1f, -1f })
                     {
                         // Far enough back that the door and its sign fit in the last frame.
-                        Vector3 probe = center + normal * (AnchorDistance * side) + Vector3.down;
+                        Vector3 probe = center + normal * (RoomAnchors.DoorDistance * side) + Vector3.down;
                         if (!NavMesh.SamplePosition(probe, out NavMeshHit hit, 1.2f, filter))
                             continue;
                         if (Mathf.Abs(hit.position.y - probe.y) > 0.8f || Flat(hit.position - probe).magnitude > 0.7f)

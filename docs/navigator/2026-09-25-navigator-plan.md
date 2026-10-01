@@ -42,6 +42,7 @@ Assets/
 │   ├── Editor/     ← asmdef FriWorld.Navigator.Editor, menu Navigator → 1, 2, 3
 │   ├── Data/       ← NavigatorNavMesh.asset, RoomAnchors.asset, NavigatorReflection.exr (generované)
 │   ├── Prefabs/    ← NavBlocker (vyreže NavMesh tam, kade let nemá ísť)
+│   ├── Tests/      ← asmdef FriWorld.Navigator.Tests (EditMode, `Routine → Run EditMode Tests`)
 │   └── Settings/   ← NavigatorLighting.lighting, Build Profile
 docs/navigator/     ← tento plán a neskôr navigatorove rozhodnutia
 ```
@@ -160,34 +161,31 @@ od pôvodného zámeru:
    na ±2 m, sklon obmedzený na ±20°. Centimetrové vlnky trasy tak smerom pohľadu nehýbu.
 6. Prvé 3 m kamera plynulo opúšťa pózu, v ktorej bola položená; posledné 3 m sa otáča k dverám.
 7. Verejné metódy pre web: `Go(kód)`, `Play()`, `Pause()`, `Seek(s)`, `SetSpeed(x)`.
+8. **Dvere sa otvárajú pri prelete** (2026-10-01, `NavigatorDoors` + `DoorPassage`). Na dverách
+   sa nič nemení a nič sa na ne nepridáva:
+   - Dvere sa nájdu podľa tagu `Door` — register typov ho dáva len skutočným dverám, rámom nie.
+     Každé je samotné krídlo s pivotom v pántoch. Zmerajú sa raz pri štarte scény, kým sú
+     všetky zatvorené.
+   - Po `Go(kód)` sa vyberú tie, cez ktorých otvor trasa naozaj prechádza (pretne rovinu
+     krídla v jeho šírke, na jeho poschodí), a dvere miestnosti, na ktoré mieri kotva.
+   - Hýbe nimi `Animator`, ktorý dvere už majú: `DoorRotation` = ±90.9 × otvorenie. Stavy
+     `Door_open` / `Door_close` sú v controlleri mŕtve, krídlom hýbe len blend tree. Otvárajú sa
+     od kamery, tým istým pravidlom ako FriWorld `Door`.
+   - Otvorenie je funkcia vzdialenosti na trase, nie času: 3 → 1 m pred kamerou sa otvoria,
+     1,5 → 3,5 m za ňou zatvoria; dvere miestnosti sa otvoria posledných 2,5 → 0,5 m a ostanú
+     otvorené. Pretáčanie dozadu ich samo zatvorí.
+   - Dvere bez `Animator`a (desktop-only na webe) sú neprechodné a ostanú zatvorené. Keď cez
+     také let ide, konzola varuje — patrí tam `NavBlocker`.
+   - Overené na 166 letoch: 3–6 dverí na let, 21 rôznych, každý let našiel dvere miestnosti a
+     všetkých 212 dvojíc dvere/smer sa otvára na odvrátenú stranu.
 
 Zostáva:
 
 - Čiara po podlahe (LineRenderer z tej istej trasy), odkrýva sa podľa `t`.
 - Doladiť záver: v zábere dvere aj tabuľka z `BakedSigns`.
-- **Odložené (2026-09-26), kamera zatiaľ preletí cez zatvorené dvere.** Karta na boarde
-   „Navigator: dvere sa otvárajú pri prelete kamery". Pôvodný zámer nižšie, s opravou:
-   stavy `Door_open` / `Door_close` sú v controlleri mŕtve (default je `Blend Tree` bez
-   prechodov) a klipy sú jednosnímkové pózy, takže `animator.Play(stav, 0, norm)` nič
-   nenainterpoluje. Krídlom hýbe blend tree cez `DoorRotation` (−90.9 … 0 … 90.9) — správne je
-   `SetFloat("DoorRotation", ±90.9 * open01(t))`, bez `Play` a bez `speed = 0`.
 
-   Pôvodne: **dvere sa otvárajú pri prelete kamery** — každé dvere na trase (chodbové, vstupné) aj
-   cieľové na konci. Robí to **vlastný skript Navigatora `NavigatorDoor`**, nie `Door` z FriWorldu:
-   funguje len s lietajúcou kamerou a **prehráva animáciu dverí z existujúceho
-   `Assets/_Game/Animations/Door_Interaction.controller`** (stavy `Door_open` / `Door_close`,
-   parameter `DoorRotation` = smer otvárania). Vlastnú animáciu nerobí.
-   - Dvere na trase sa zistia **raz** po `Go(id)`: krídla (podľa typového kľúča, viď 3.2) blízko
-     spline, s bodom prechodu `s` na trase a smerom od kamery. `NavigatorDoor` sa na ne pridá
-     za behu — do zdieľaného prefabu sa nezapisuje.
-   - **Pretáčanie:** nespúšťať animáciu cez `IsOpen` (to beží v čase a nedá sa vrátiť).
-     Normalizovaný čas klipu sa odvodí z `t` — `door(t)` podľa vzdialenosti kamery k dverám po
-     trase (otvárať pár metrov pred kamerou, zatvoriť za ňou) — a nastaví cez
-     `animator.Play(stav, 0, norm)` pri `animator.speed = 0`. Pri pretočení dozadu sa dvere samé
-     vrátia do správneho stavu.
-
-Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`, `line = reveal(t)`
-(a neskôr `dvere = door(t)`).
+Všetko sa počíta **raz** po `Go(id)`. Každý snímok len `camera = pose(t)`, `dvere = door(d)`
+a neskôr `line = reveal(t)`.
 
 ---
 
