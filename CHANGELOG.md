@@ -248,6 +248,8 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Let Navigatora obchádza 13 dverí a priechodov zablokovaných `NavBlocker`mi; RC009 sa teraz
+  približuje inými dverami. Kamera štartuje o 1.4 m inde a so zorným poľom 71.8° namiesto 60°.
 - Navigator letí 3 m/s namiesto 4. Proti trhaniu obrazu ide smer pohľadu po kópii trasy
   vyhladenej na ±2 m, poloha po Catmull-Rom medzi bodmi trasy a čas po `Time.smoothDeltaTime`.
 - Farebné varianty stoličiek a stolov v učebniach aj košov sú prefab varianty jedného
