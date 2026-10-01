@@ -116,7 +116,12 @@ a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
   ju Robin ručne — neodvodzovať, nepresúvať; test, ktorý kamerou hýbe, ju musí vrátiť.
 - Menu **`Navigator`**: `1 — Bake NavMesh` (vlastný NavMesh nad vrstvami `Obstacle` + `Nav`,
   surfaces FriWorldu sú v tejto scéne vypnuté), `2 — Bake Room Anchors` (kód → bod pred
-  dverami, validuje dosiahnuteľnosť z kamery). Po zmene budovy alebo štartu pustiť oba.
+  dverami, validuje dosiahnuteľnosť z kamery). Po zmene budovy, štartu alebo blokerov pustiť oba.
+- **Kade navigácia nemá viesť** (dvere, priestor), tam ide do scény
+  `_Navigator/Prefabs/NavBlocker.prefab` — `NavMeshModifierVolume` s plochou `Not Walkable`,
+  bez meshu a bez collidera. Natiahne sa škálou (x/z = metre) a bake ho z NavMeshu vyreže.
+  Box musí pretínať podlahu: pivot na podlahe, siaha 20 cm pod ňu. Vrstva musí ostať
+  `Obstacle`, inak ho bake ignoruje (zbiera len vrstvy `Obstacle` + `Nav`).
 - **Žiadne baked svetlo, žiadne tiene** — je to web build. Scéna má vlastný
   `_Navigator/Settings/NavigatorLighting.lighting` bez GI, slnko realtime bez tieňov,
   probes vyhodené. Budova a slnko stoja na **súradniciach z `Demo.unity`**, nech sedí uhol svetla.

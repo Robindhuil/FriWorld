@@ -41,6 +41,7 @@ Assets/
 │   ├── Scripts/    ← asmdef FriWorld.Navigator
 │   ├── Editor/     ← asmdef FriWorld.Navigator.Editor, menu Navigator → 1, 2
 │   ├── Data/       ← NavigatorNavMesh.asset, RoomAnchors.asset (generované)
+│   ├── Prefabs/    ← NavBlocker (vyreže NavMesh tam, kade let nemá ísť)
 │   └── Settings/   ← NavigatorLighting.lighting, Build Profile
 docs/navigator/     ← tento plán a neskôr navigatorove rozhodnutia
 ```
@@ -88,6 +89,12 @@ v asmdef-e nevidí. Nevadí:
 FriWorldu (`FriBuilding/NavMesh`) sú v tejto scéne vypnuté override-om, prefab nedotknutý.
 Výťah netreba vylučovať: jeho podlahy na poschodiach nie sú zvisle prepojené, takže trasa
 ide vždy po schodoch.
+
+Kade let viesť nemá (dvere, priestor), tam sa v scéne položí `Prefabs/NavBlocker.prefab` —
+`NavMeshModifierVolume` s plochou `Not Walkable` vo vrstve `Obstacle`, bez meshu a collidera —
+a natiahne škálou. Po bakeu je NavMesh v tom mieste vyrezaný. Overené v izolovanom bakei
+(2026-10-01): vyreže aj otočený box a pivot 15 cm nad podlahou; vo vrstve `Default` ho bake
+ignoruje a pri pivote 30 cm nad podlahou podlahu minie.
 
 ### 3.4 Build Settings
 

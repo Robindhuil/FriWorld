@@ -14,6 +14,8 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- `NavBlocker` — prefab, ktorý v Navigator scéne vyreže NavMesh tam, kade let nemá viesť
+  (dvere, priestor). Položí sa, natiahne škálou a po `Navigator → 1, 2` tam trasa nejde.
 - Nový nábytok v budove: vitríny stojace aj na stenu, barista kávovar, veľký plagát, skrinka
   v bufete a osem kvetináčov (štyri veľké, štyri malé) namiesto štyroch pôvodných.
 - Plán Navigatora — druhej hry v repe, ktorá prehrá let kamery od recepcie k miestnosti
