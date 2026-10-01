@@ -3,6 +3,7 @@
     "rootNamespace": "FriWorld.Navigator.Tests",
     "references": [
         "FriWorld.Navigator",
+        "FriWorld.Navigator.Editor",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

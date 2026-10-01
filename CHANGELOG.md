@@ -14,6 +14,11 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- `Navigator → Build Web` zbuildí web Navigatora jedným príkazom a z výstupu vyhodí 200 MB
+  videí FriWorldu, ktoré Navigator neprehrá: 360 → 157 MB. Pred buildom prepne editor na
+  web, inak by URP orezal shadery podľa desktopu a budova by sa nekreslila; potom ho vráti
+  na platformu, kde bol. (`docs/decisions/2026-10-01-urp-shadery-podla-aktivnej-platformy.md`,
+  `docs/findings/2026-10-01-velkost-web-buildu-navigatora.md`)
 - Web build Navigatora si miestnosť prečíta z odkazu: `…/index.html?room=RA101` hneď letí k
   RA101. Bez parametra čaká, kým stránka zavolá `Go`; testovacia miestnosť z inšpektora platí
   len v editore.

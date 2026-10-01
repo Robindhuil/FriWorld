@@ -117,7 +117,12 @@ a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
 - Menu **`Navigator`**: `1 — Bake NavMesh` (vlastný NavMesh nad vrstvami `Obstacle` + `Nav`,
   surfaces FriWorldu sú v tejto scéne vypnuté), `2 — Bake Room Anchors` (kód → bod pred
   dverami, validuje dosiahnuteľnosť z kamery). Po zmene budovy, štartu alebo blokerov pustiť oba.
-  `3 — Bake Sky Reflection` po zmene skyboxu.
+  `3 — Bake Sky Reflection` po zmene skyboxu. `Build Web` prepne editor na web, zbuildí profil
+  `NavigatorWeb` do `Builds/Navigator/Web`, vyhodí z výstupu videá FriWorldu a editor vráti na
+  platformu, na ktorej bol; výsledok zapíše aj do `Temp/navigator-build.txt`. Lokálne sa build
+  otvára cez `…/index.html?room=RA101` zo servera s hlavičkami
+  `Cross-Origin-Opener-Policy: same-origin` a `Cross-Origin-Embedder-Policy: credentialless`,
+  build beží s vláknami. Bez nich hlási „does not support multithreading".
 - **Pasca: NavMesh nepiecť tlačidlom „Bake" v inšpektore `NavMeshSurface`.** Uloží dáta
   vedľa scény (`Scenes/FriNavigator/NavMesh-…`) a `Data/NavigatorNavMesh.asset` zmaže.
   Len cez `Navigator → 1`, a po ňom `2`.
@@ -242,6 +247,11 @@ Máš na to systém v `_Game/Scripts/FeatureFlags/` — používaj ho, nie rozsy
 - **`.uss`/`.uxml` sa referencujú cez cestu, nie guid.** Po presune assetu treba
   cesty prepísať ručne, `AssetDatabase.MoveAsset` ich nechá visieť.
 - **Build Settings scény sa po presune neupdatnú** — prepoj ich cez guid.
+- **URP orezáva shadery podľa aktívnej platformy editora, nie podľa buildovanej.** Web build
+  cez `BuildPipeline` z editora na Windows vyhodí všetky varianty Lit a budova sa nekreslí.
+  Pred buildom treba prepnúť editor na web, ako to robí `Navigator → Build Web`. Kontrola:
+  v `Editor.log` musí pod `URP assets included in build` byť `RP_Web`.
+  (`docs/decisions/2026-10-01-urp-shadery-podla-aktivnej-platformy.md`)
 
 ---
 
