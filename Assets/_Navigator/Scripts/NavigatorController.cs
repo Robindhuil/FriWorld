@@ -18,9 +18,10 @@ namespace FriWorld.Navigator
         [SerializeField] private RoomAnchors anchors;
         [SerializeField] private Camera flyCamera;
 
-        [Tooltip("Room code the flight goes to, e.g. RA101. The web page will pass it in later.")]
+        [Tooltip("Room the flight goes to in the editor, e.g. RA101. The web build takes it from ?room= in the URL instead.")]
         [SerializeField] private string roomCode = "RA101";
 
+        [Tooltip("Outside the web build: fly to Room Code on start.")]
         [SerializeField] private bool playOnStart = true;
         [SerializeField] private CameraTrack.Settings track = CameraTrack.Settings.Default;
 
@@ -48,7 +49,13 @@ namespace FriWorld.Navigator
 
         private void Start()
         {
-            if (playOnStart)
+            // A link like …/index.html?room=RA101 starts its flight right away. Without one the web
+            // build waits for the page to call Go, and never flies to the editor's test room.
+            // Application.platform and not FriWorld's PlatformFlags: only a real web player has a
+            // page URL, and FriWorld's code is out of this assembly's reach anyway.
+            if (RoomLink.TryGetCode(Application.absoluteURL, out string code))
+                Go(code);
+            else if (playOnStart && Application.platform != RuntimePlatform.WebGLPlayer)
                 Go(roomCode);
         }
 

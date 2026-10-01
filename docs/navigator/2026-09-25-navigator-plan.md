@@ -120,7 +120,7 @@ fri.uniza.sk  <a href="…/navigate/{kód}" target="_blank">
 friworld-web  /navigate/[kód]
       │  1. server-side: API → názov, označenie (neexistuje → chyba v HTML, Unity sa nesťahuje)
       │  2. vlastný loader: názov miestnosti + progress
-      │  3. po štarte: SendMessage("Navigator", "Go", "RA101")
+      │  3. build dostane kód v URL (?room=RA101) — alebo po štarte SendMessage("Navigator", "Go", "RA101")
       ▼
 Unity  kód → kotva (RoomAnchors) → NavMesh cesta z kamery → stopa kamery → duration
       │  jslib: onReady(duration) · onTime(t) (pár × za s) · onEnded() · onError(kód)
@@ -129,6 +129,12 @@ HTML ovládanie  Play · Pause · Seek(t) · SetSpeed(x)  → SendMessage
 ```
 
 API sa nevolá z Unity (žiadny CORS z WebGL, chyby rieši HTML).
+
+**Kód miestnosti v URL** (rozhodnuté 2026-10-01): web build si pri štarte prečíta `room` z URL
+stránky (`RoomLink`) a hneď letí — `…/index.html?room=RA101` funguje aj bez Hubu, len so
+statickým serverom. Bez parametra čaká na `Go` zo stránky; testovacia miestnosť z inšpektora
+(`roomCode`, `playOnStart`) platí len mimo web buildu. `Go` ostáva aj na prepnutie miestnosti
+a ovládanie zo stránky.
 
 ---
 

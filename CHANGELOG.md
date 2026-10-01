@@ -14,6 +14,9 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Web build Navigatora si miestnosť prečíta z odkazu: `…/index.html?room=RA101` hneď letí k
+  RA101. Bez parametra čaká, kým stránka zavolá `Go`; testovacia miestnosť z inšpektora platí
+  len v editore.
 - Build Profile `NavigatorWeb` (`_Navigator/Settings/`): web build Navigatora len so scénou
   `FriNavigator`, bez Unity splashu a s vlastnými Player Settings.
 - Navigator otvára dvere, cez ktoré letí: otvoria sa pár metrov pred kamerou a zavrú za ňou;
