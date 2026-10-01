@@ -119,7 +119,9 @@ namespace FriWorld.Navigator
             if (!playing || current == null)
                 return;
 
-            time += Time.deltaTime * speed;
+            // Smoothed: a raw deltaTime that jitters around the display's refresh moves the camera
+            // in uneven steps, which reads as a shake even though every pose is on the path.
+            time += Time.smoothDeltaTime * speed;
             if (time >= current.Duration)
             {
                 time = current.Duration;

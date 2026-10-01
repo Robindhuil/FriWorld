@@ -11,8 +11,9 @@ namespace FriWorld.Navigator
     /// any t, so pausing, seeking and changing speed are only a different t — nothing
     /// accumulates frame to frame.
     ///
-    /// Built once from a navmesh path: resampled evenly, kept off the walls where the corridor
-    /// allows it, smoothed, and timed with a trapezoid speed profile (ease in, cruise, ease out).
+    /// Built once from a navmesh path: resampled evenly, set on the navmesh floor, kept off the
+    /// walls where the corridor allows it, smoothed, and timed with a trapezoid speed profile
+    /// (ease in, cruise, ease out).
     /// </summary>
     public sealed class CameraTrack
     {
@@ -44,7 +45,7 @@ namespace FriWorld.Navigator
             public static Settings Default => new Settings
             {
                 eyeHeight = 1.6f,
-                cruiseSpeed = 4f,
+                cruiseSpeed = 3f,
                 easeTime = 1.5f,
                 lookAhead = 4f,
                 wallClearance = 0.6f,
@@ -56,8 +57,10 @@ namespace FriWorld.Navigator
         private const float Spacing = 0.25f;   // distance between resampled path points (m)
         private const int SmoothRadius = 4;    // moving-average half-window, in points
         private const int Passes = 3;
+        private const int LookSmoothRadius = 8;  // the view follows a much calmer copy of the path
 
         private readonly Vector3[] points;     // on the navmesh, evenly spaced, last one at Length
+        private readonly Vector3[] lookPoints; // same spacing, smoothed hard; only for the view direction
         private readonly float step;
         private readonly float cruise;
         private readonly Vector3 endFacing;
@@ -74,12 +77,20 @@ namespace FriWorld.Navigator
         public static CameraTrack Build(Vector3[] corners, Vector3 startPosition, Quaternion startRotation,
                                         Vector3 endFacing, Settings settings, NavMeshQueryFilter filter)
         {
+            // The corners only mark where the path turns on the floor plan, not where it starts to
+            // climb: a corridor that runs straight onto a flight of stairs has no corner at its foot,
+            // and the line between two corners cuts through the air or the floor. Heights are
+            // therefore read off the navmesh, here on the raw path — once the passes below cut
+            // across a stairwell, the flight beside or above is just as near. Read raw, they carry
+            // the navmesh's centimetre noise; the smoothing after each pass takes it out.
             var pts = Resample(corners, Spacing, out _, out _);
+            FollowFloor(pts, filter);
             for (int pass = 0; pass < Passes; pass++)
             {
                 KeepOffWalls(pts, settings.wallClearance, filter);
-                if (pass < Passes - 1)
-                    pts = Smooth(pts, SmoothRadius);
+                // Always smooth last: each push depends on which edge happens to be nearest,
+                // so an unsmoothed push leaves a sideways zigzag every Spacing metres.
+                pts = Smooth(pts, SmoothRadius);
             }
 
             pts = Resample(pts, Spacing, out float length, out float step);
@@ -90,6 +101,13 @@ namespace FriWorld.Navigator
                             Vector3 endFacing, Settings settings)
         {
             this.points = points;
+            // Centimetre ripples left in the path are invisible as position but, seen from a
+            // few metres ahead, swing the view by degrees several times a second. Direction is
+            // therefore taken from a copy smoothed over about ±2 m, which also makes the camera
+            // start turning a little before a corner, as a person would.
+            lookPoints = points;
+            for (int pass = 0; pass < Passes; pass++)
+                lookPoints = Smooth(lookPoints, LookSmoothRadius);
             this.step = step;
             this.settings = settings;
             this.startRotation = startRotation;
@@ -110,18 +128,16 @@ namespace FriWorld.Navigator
         public void Evaluate(float t, out Vector3 position, out Quaternion rotation)
         {
             float d = DistanceAt(t);
-            Vector3 floor = PointAt(d);
+            Vector3 floor = PointAt(points, d);
 
             // 1 at the start, 0 once the camera is turnDistance along: the placed pose fades out.
             float placed = 1f - Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(0f, settings.turnDistance, d));
             position = floor + Vector3.up * settings.eyeHeight + startOffset * placed;
 
-            // Average a few points ahead so the view does not twitch at every corner. Clamped to
-            // the end rather than dropped, so the direction stays continuous as the path runs out.
-            Vector3 ahead = Vector3.zero;
-            for (int k = 1; k <= 4; k++)
-                ahead += PointAt(Mathf.Min(d + settings.lookAhead * k / 4f, Length));
-            Vector3 dir = ahead / 4f - floor;
+            // Both ends of the direction come from the calm copy, so ripples in the real path
+            // cannot reach the view. Clamped to the end rather than dropped, so the direction
+            // stays continuous as the path runs out.
+            Vector3 dir = PointAt(lookPoints, Mathf.Min(d + settings.lookAhead, Length)) - PointAt(lookPoints, d);
             if (dir.sqrMagnitude < 0.01f)
                 dir = endFacing;
             dir = ClampPitch(dir.normalized, settings.maxPitch);
@@ -152,11 +168,25 @@ namespace FriWorld.Navigator
             return 0.5f * cruise * ease + cruise * (t - ease);
         }
 
-        private Vector3 PointAt(float d)
+        /// <summary>
+        /// Catmull-Rom through the evenly spaced points. A straight lerp between them has a kink at
+        /// every point, which at 60 fps reads as a small shake even on a straight corridor.
+        /// </summary>
+        private Vector3 PointAt(Vector3[] pts, float d)
         {
-            float f = Mathf.Clamp(d / step, 0f, points.Length - 1);
-            int i = Mathf.Min((int)f, points.Length - 2);
-            return Vector3.Lerp(points[i], points[i + 1], f - i);
+            int last = pts.Length - 1;
+            float f = Mathf.Clamp(d / step, 0f, last);
+            int i = Mathf.Min((int)f, last - 1);
+            float u = f - i;
+
+            Vector3 p0 = pts[Mathf.Max(i - 1, 0)];
+            Vector3 p1 = pts[i];
+            Vector3 p2 = pts[i + 1];
+            Vector3 p3 = pts[Mathf.Min(i + 2, last)];
+            return 0.5f * (2f * p1
+                           + (p2 - p0) * u
+                           + (2f * p0 - 5f * p1 + 4f * p2 - p3) * (u * u)
+                           + (3f * p1 - p0 - 3f * p2 + p3) * (u * u * u));
         }
 
         private static Vector3 ClampPitch(Vector3 dir, float maxPitch)
@@ -169,28 +199,56 @@ namespace FriWorld.Navigator
             return flat.normalized * Mathf.Cos(clamped) + Vector3.up * Mathf.Sin(clamped);
         }
 
-        /// <summary>Snaps points onto the navmesh and pushes them away from its edges.</summary>
+        /// <summary>
+        /// Sets each point's height to the navmesh under it, walking from the start: every lookup
+        /// begins at the height of the point before, so on a staircase it lands on the flight the
+        /// path is on, never the one above, below or beside it.
+        /// </summary>
+        private static void FollowFloor(Vector3[] pts, NavMeshQueryFilter filter)
+        {
+            // Endpoints stay: the start is under the placed camera, the end is in front of the door.
+            for (int i = 1; i < pts.Length - 1; i++)
+            {
+                // On a slope the nearest navmesh point lies off to the side, a little above the
+                // floor straight below; a few lookups converge on that. Off the navmesh, the
+                // height of the point before carries on.
+                float y = pts[i - 1].y;
+                for (int k = 0; k < 3; k++)
+                {
+                    if (!NavMesh.SamplePosition(new Vector3(pts[i].x, y, pts[i].z), out NavMeshHit hit, 0.5f, filter))
+                        break;
+                    y = hit.position.y;
+                }
+
+                pts[i].y = y;
+            }
+        }
+
+        /// <summary>
+        /// Pushes points sideways away from the navmesh edges. Only x and z move: the navmesh is
+        /// queried for where the edge is, but its surface height is never copied into the path.
+        /// </summary>
         private static void KeepOffWalls(Vector3[] pts, float clearance, NavMeshQueryFilter filter)
         {
-            // Endpoints stay: the start is the reception, the end is the spot in front of the door.
+            // Endpoints stay: the start is under the placed camera, the end is in front of the door.
             for (int i = 1; i < pts.Length - 1; i++)
             {
                 Vector3 p = pts[i];
-                if (NavMesh.SamplePosition(p, out NavMeshHit onMesh, 0.6f, filter))
-                    p = onMesh.position;
+                if (!NavMesh.SamplePosition(p, out NavMeshHit onMesh, 0.6f, filter))
+                    continue;
+                if (!NavMesh.FindClosestEdge(onMesh.position, out NavMeshHit edge, filter) || edge.distance >= clearance)
+                    continue;
 
-                if (NavMesh.FindClosestEdge(p, out NavMeshHit edge, filter) && edge.distance < clearance)
-                {
-                    Vector3 away = p - edge.position;
-                    away.y = 0f;
-                    if (away.sqrMagnitude < 1e-6f)
-                        away = edge.normal;
-                    Vector3 pushed = p + away.normalized * (clearance - edge.distance);
-                    if (NavMesh.SamplePosition(pushed, out NavMeshHit back, 0.3f, filter))
-                        p = back.position;
-                }
+                Vector3 away = onMesh.position - edge.position;
+                away.y = 0f;
+                if (away.sqrMagnitude < 1e-6f)
+                    away = new Vector3(edge.normal.x, 0f, edge.normal.z);
+                if (away.sqrMagnitude < 1e-6f)
+                    continue;
 
-                pts[i] = p;
+                Vector3 pushed = onMesh.position + away.normalized * (clearance - edge.distance);
+                if (NavMesh.SamplePosition(pushed, out NavMeshHit back, 0.3f, filter))
+                    pts[i] = new Vector3(back.position.x, p.y, back.position.z);
             }
         }
 

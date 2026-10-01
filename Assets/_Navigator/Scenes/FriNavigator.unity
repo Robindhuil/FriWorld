@@ -430,11 +430,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: FriWorld.Navigator::FriWorld.Navigator.NavigatorController
   anchors: {fileID: 11400000, guid: 23cc5d78d6c000d46a35b434546cd931, type: 2}
   flyCamera: {fileID: 665449216}
-  roomCode: RC009
+  roomCode: RA323
   playOnStart: 1
   track:
     eyeHeight: 1.6
-    cruiseSpeed: 4
+    cruiseSpeed: 3
     easeTime: 1.5
     lookAhead: 4
     wallClearance: 0.6

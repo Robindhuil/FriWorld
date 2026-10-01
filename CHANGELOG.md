@@ -17,7 +17,7 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
 - Nový nábytok v budove: vitríny stojace aj na stenu, barista kávovar, veľký plagát, skrinka
   v bufete a osem kvetináčov (štyri veľké, štyri malé) namiesto štyroch pôvodných.
 - Plán Navigatora — druhej hry v repe, ktorá prehrá let kamery od recepcie k miestnosti
-  podľa `id` z API: `docs/navigator/2026-09-25-navigator-plan.md`.
+  podľa kódu miestnosti (`RA101`): `docs/navigator/2026-09-25-navigator-plan.md`.
 - Kostra Navigatora v `Assets/_Navigator/`: scéna `FriNavigator` s budovou a svetlom na tých
   istých súradniciach ako v Demo, occlusion, kamera a asmdefy, ktoré FriWorld kód nevidí.
 - Navigator letí: `NavigatorController` zoberie kód miestnosti (`RA101`) a prevedie kameru
@@ -155,6 +155,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- Kamera Navigatora drží výšku očí aj tam, kde chodba vchádza rovno do schodov. Výšku brala
+  z priamky medzi rohmi cesty, ktoré sú len pri zatáčkach, takže k RC009 letela 26 m
+  v podlahe. (`docs/navigator/2026-10-01-vyska-kamery-z-navmeshu.md`)
 - `NavMeshAgent` generovaného NPC je vysoký ako postava, 1.70–1.90 m podľa vylosovanej výšky,
   namiesto pevných 2 m pre každého. Výška sa berie z `modelHeight` a mierku koreňa agent
   prenásobí sám.
@@ -243,6 +246,8 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Navigator letí 3 m/s namiesto 4. Proti trhaniu obrazu ide smer pohľadu po kópii trasy
+  vyhladenej na ±2 m, poloha po Catmull-Rom medzi bodmi trasy a čas po `Time.smoothDeltaTime`.
 - Farebné varianty stoličiek a stolov v učebniach aj košov sú prefab varianty jedného
   `_default` prefabu, takže tvar sa mení na jednom mieste.
 - Slnko, fill light, global volume, light probes a reflection probes Demo scény sú prefaby

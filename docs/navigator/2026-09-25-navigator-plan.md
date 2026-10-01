@@ -132,17 +132,25 @@ v budove visia, ale kontajner s tým menom model nemá — tie kódy Navigator n
 
 ## 6. Stopa kamery
 
-Spravené v `CameraTrack` + `NavigatorController` (2026-09-26); odchýlky od pôvodného zámeru:
+Spravené v `CameraTrack` + `NavigatorController` (2026-09-26, doladené 2026-10-01); odchýlky
+od pôvodného zámeru:
 
 1. `NavMesh.CalculatePath(bod pod kamerou → kotva)` → rohy.
-2. Namiesto spline: rovnomerné prevzorkovanie, odtlačenie od hrán NavMeshu (0.6 m, kde chodba
-   dovolí) a kĺzavý priemer, trikrát. Catmull-Rom by v úzkych zákrutách lepil kameru na roh.
-3. Profil rýchlosti: lichobežník — 1.5 s rozbeh, 4 m/s, 1.5 s dobeh. Bez stropu na dĺžku:
-   RB308 na 3. poschodí budovy B trvá ~29 s. Ladí sa v inspektore alebo `SetSpeed`.
-4. Kamera vo výške očí (1.6 m), nie „dron" — pohľad na priemer bodov 1–4 m vpred, sklon
-   obmedzený na ±20°. Na schodoch stačí, do stien nenaráža.
-5. Prvé 3 m kamera plynulo opúšťa pózu, v ktorej bola položená; posledné 3 m sa otáča k dverám.
-6. Verejné metódy pre web: `Go(kód)`, `Play()`, `Pause()`, `Seek(s)`, `SetSpeed(x)`.
+2. Namiesto spline cez rohy: rovnomerné prevzorkovanie, výška z navmeshu, odtlačenie od hrán
+   NavMeshu (0.6 m, kde chodba dovolí) a kĺzavý priemer, trikrát. Catmull-Rom cez rohy by
+   v úzkych zákrutách lepil kameru na roh; medzi hustými bodmi (0.25 m) ho používa `Evaluate`,
+   aby rovná chodba nemala zlom v každom bode.
+3. **Výška sa číta z navmeshu na surovej trase**, nie z priamok medzi rohmi — rohy nevedia, kde
+   začínajú schody. Prečo a čo neprešlo:
+   [`2026-10-01-vyska-kamery-z-navmeshu.md`](2026-10-01-vyska-kamery-z-navmeshu.md).
+4. Profil rýchlosti: lichobežník — 1.5 s rozbeh, 3 m/s, 1.5 s dobeh. Bez stropu na dĺžku:
+   RB308 na 3. poschodí budovy B trvá ~34 s. Ladí sa v inspektore alebo `SetSpeed`. Čas
+   pribúda po `Time.smoothDeltaTime` — surový `deltaTime` kolíše okolo obnovovacej frekvencie
+   a kamera by sa posúvala nerovnomerne.
+5. Kamera vo výške očí (1.6 m), nie „dron" — pohľad 4 m vpred po kópii trasy vyhladenej
+   na ±2 m, sklon obmedzený na ±20°. Centimetrové vlnky trasy tak smerom pohľadu nehýbu.
+6. Prvé 3 m kamera plynulo opúšťa pózu, v ktorej bola položená; posledné 3 m sa otáča k dverám.
+7. Verejné metódy pre web: `Go(kód)`, `Play()`, `Pause()`, `Seek(s)`, `SetSpeed(x)`.
 
 Zostáva:
 
