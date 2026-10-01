@@ -15,6 +15,7 @@ a **stav**. Keď sa zistenie spraví, presunie sa do `docs/decisions/` alebo sa 
 
 | Verzia | Dátum | Téma | Stav |
 |---|---|---|---|
+| 0.1.2-alpha | 2026-10-01 | [Čo je vo web builde Navigatora a čo tam nemusí byť](2026-10-01-velkost-web-buildu-navigatora.md) | čiastočne |
 | 0.1.2-alpha | 2026-10-01 | [Čo stojí štart Navigatora a čo stoja dvere každý snímok](2026-10-01-start-navigatora-a-animatory-dveri.md) | spravené |
 | 0.1.2-alpha | 2026-09-14 | [Koľko rendererov stojí jedno generované NPC](2026-09-14-renderery-na-npc.md) | nespravené |
 | 0.1.2-alpha | 2026-09-12 | [Čo stoja vlasy a kde sa to dá ušetriť](2026-09-12-rozpocet-vlasov.md) | čiastočne |
