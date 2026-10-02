@@ -17,7 +17,7 @@ _(This project was developed as a bachelor thesis in 2025.)_
 - **Navigation System**: Select rooms by floors with in-world navigation.  
 - **Player Statistics**: Track completed tasks, secrets, walked distance, and mistakes.  
 - **Interactive Objects**: Secrets, openable doors, memorial plaques, computers for launching mini-games.  
-- **Mini-Games**: Quiz game and simulated programming in an IDE (IntelliJ imitation).  
+- **Mini-Games**: Quiz game and simulated programming in an IDE (VS Code imitation).  
 - **NPC Characters**: Interactive (dialogues) and non-interactive (students) characters.  
 - **Visualization and Optimization**: Use of URP, shaders, post-processing effects (bloom, vignette), NavMesh, Occlusion Culling.  
 - **Sound Effects**: SFX for UI, footsteps, sprinting, jumping, and background music.  

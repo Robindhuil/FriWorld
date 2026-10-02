@@ -14,6 +14,10 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Herný dizajn má vlastný živý dokument `docs/design/herny-dizajn.md`: zámer hry, quest línie
+  podľa predmetov, minihry, učitelia ako zadávatelia aj agenti, postavy, dialógy, miestnosti
+  z univerzitnej API, HUD a mapa, zvuk a videá — pri každej oblasti stav v hre, zámer
+  a otvorené otázky.
 - Web build Navigatora nesie `rooms.json` so všetkými kódmi miestností, ktoré pozná. FriWorld Hub
   z neho robí stránku `/navigator` s tlačidlom pre každú miestnosť; tlačidlo otvorí let k nej
   v novom okne.
@@ -173,6 +177,7 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   na hráčovu kameru, keď treba čísla, a potom sa zase odoberie.
 
 ### Fixed
+- README už neuvádza, že programovacia minihra imituje IntelliJ — imituje VS Code.
 - Povrchy v Navigatore už neodrážajú ostrú oblohu. Odrazom bola priamo textúra skyboxu bez
   mipmáp, takže aj drsná podlaha zrkadlila mraky; teraz je to konvolvovaná cubemapa oblohy,
   ktorú upečie `Navigator → 3 — Bake Sky Reflection`.
