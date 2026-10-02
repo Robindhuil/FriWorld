@@ -31,9 +31,10 @@ poľom `Zdroj`.
 ## Herný dizajn
 
 Čo je FriWorld ako hra — zámer, quest línie podľa predmetov, minihry, učitelia a agenti,
-postavy, UI, zvuk — je v **`docs/design/herny-dizajn.md`**. Je to živý dokument: keď sa zámer
-zmení alebo sa z neho niečo postaví, uprav ho v tom istom kroku (zo **Zámeru** do **Dnes**).
-Požiadavky, ktoré sa ešte len zbierajú, patria do sekcií **Otvorené**. Navigator tam nepatrí.
+postavy, UI, zvuk — je v **`docs/design/herny-dizajn.md`**. Je to živý dokument a vedie v ňom
+**smerovanie**, nie súčasný stav. Keď sa zámer zmení, uprav ho v tom istom kroku; keď sa
+postaví, presuň ho do prílohy **Východisko**. Požiadavky, ktoré sa ešte len zbierajú, patria
+do sekcií **Otvorené**. Navigator tam nepatrí.
 
 ---
 

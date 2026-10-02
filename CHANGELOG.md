@@ -14,10 +14,10 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
-- Herný dizajn má vlastný živý dokument `docs/design/herny-dizajn.md`: zámer hry, quest línie
-  podľa predmetov, minihry, učitelia ako zadávatelia aj agenti, postavy, dialógy, miestnosti
-  z univerzitnej API, HUD a mapa, zvuk a videá — pri každej oblasti stav v hre, zámer
-  a otvorené otázky.
+- Herný dizajn má vlastný živý dokument `docs/design/herny-dizajn.md` o tom, kam hra smeruje:
+  quest línie podľa predmetov, minihry, učitelia ako zadávatelia aj agenti, postavy, dialógy,
+  miestnosti z univerzitnej API, HUD a mapa, zvuk a videá — pri každej oblasti zámer
+  a otvorené otázky, súčasný stav hry v prílohe.
 - Web build Navigatora nesie `rooms.json` so všetkými kódmi miestností, ktoré pozná. FriWorld Hub
   z neho robí stránku `/navigator` s tlačidlom pre každú miestnosť; tlačidlo otvorí let k nej
   v novom okne.
