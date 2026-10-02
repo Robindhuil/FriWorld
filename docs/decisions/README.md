@@ -20,6 +20,7 @@ Verzia je `bundleVersion` z `ProjectSettings` v čase zápisu.
 
 | Dátum | Téma |
 |---|---|
+| 2026-10-02 | [Navigator beží bez vlákien](2026-10-02-navigator-bez-vlakien.md) |
 | 2026-10-01 | [URP orezáva shadery podľa aktívnej platformy editora, nie podľa buildu](2026-10-01-urp-shadery-podla-aktivnej-platformy.md) |
 | 2026-09-13 | [Unity číta `.fbx`, `.blend` zostáva pracovný a mimo importu](2026-09-13-unity-cita-fbx-nie-blend.md) |
 | 2026-09-12 | [Obočie a brada idú za vlasmi, brada s odchýlkou o krok](2026-09-12-farba-vlasov-obocia-brady.md) |

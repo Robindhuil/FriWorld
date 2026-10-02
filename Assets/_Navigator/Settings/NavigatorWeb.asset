@@ -859,7 +859,7 @@ MonoBehaviour:
     - line: '|   webGLCompressionFormat: 2'
     - line: '|   webGLWasmArithmeticExceptions: 0'
     - line: '|   webGLLinkerTarget: 1'
-    - line: '|   webGLThreadsSupport: 1'
+    - line: '|   webGLThreadsSupport: 0'
     - line: '|   webGLDecompressionFallback: 0'
     - line: '|   webGLInitialMemorySize: 32'
     - line: '|   webGLMaximumMemorySize: 2048'

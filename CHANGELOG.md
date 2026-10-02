@@ -14,6 +14,9 @@ v [`docs/findings/`](docs/findings/).
 _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2-alpha**._
 
 ### Added
+- Navigator v Hube sa ovláda ako video: Play a pauza (po konci „Znova“), posuvník na
+  pretáčanie, čas a rýchlosť 0,5×, 1× a 2×. Build stránke hlási dĺžku letu, čas, koniec aj
+  chybu udalosťami `navigator:*`, stránka odpovedá cez `SendMessage("Navigator", …)`.
 - Web build Navigatora nesie `rooms.json` so všetkými kódmi miestností, ktoré pozná. FriWorld Hub
   z neho robí stránku `/navigator` s tlačidlom pre každú miestnosť; tlačidlo otvorí let k nej
   v novom okne.
@@ -267,6 +270,9 @@ _Nazbierané od poslednej produkčnej verzie. Aktuálny `bundleVersion`: **0.1.2
   feature flagy OFF. (`c461b76`)
 
 ### Changed
+- Web build Navigatora je jednovláknový, takže beží aj na iPhone. Safari nepozná COEP
+  `credentialless` a bez izolácie viacvláknový build nenabehne.
+  (`docs/decisions/2026-10-02-navigator-bez-vlakien.md`)
 - Navigator letí k bodom z `RoomPoints` vo `FriBuilding`, nie k dverám kontajnera s rovnakým
   menom. Kabinety, do ktorých sa ide cez inú miestnosť (RA104, RA120, RA205, RA226, RA305,
   RA327, RB112, RB204), končia na chodbe pred jej dverami — predtým kamera letela cez tie

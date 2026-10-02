@@ -11,7 +11,8 @@ namespace FriWorld.Navigator
     /// <see cref="Go"/> computes the whole flight once; every frame only sets the camera to the
     /// pose at the current time, and the doors on the way to how open they are then
     /// (<see cref="NavigatorDoors"/>). The public methods take at most one string or float so the
-    /// web page can call them through <c>SendMessage("Navigator", …)</c>.
+    /// web page can call them through <c>SendMessage("Navigator", …)</c>; what the flight does goes
+    /// back to the page through <see cref="NavigatorPage"/>.
     /// </summary>
     public class NavigatorController : MonoBehaviour
     {
@@ -30,6 +31,9 @@ namespace FriWorld.Navigator
         private float time;
         private float speed = 1f;
         private bool playing;
+
+        private readonly NavigatorProgress progress = new NavigatorProgress();
+        private bool jumped;
 
         private bool startCaptured;
         private Vector3 startPosition;
@@ -65,12 +69,14 @@ namespace FriWorld.Navigator
             if (anchors == null || flyCamera == null)
             {
                 Debug.LogError("[Navigator] RoomAnchors or camera is not assigned.", this);
+                NavigatorPage.Error(NavigatorPage.NotSetUp);
                 return;
             }
 
             if (!anchors.TryGet(code, out RoomAnchors.Anchor anchor))
             {
                 Debug.LogError($"[Navigator] Unknown room code '{code}'.", this);
+                NavigatorPage.Error(NavigatorPage.UnknownRoom);
                 return;
             }
 
@@ -79,6 +85,7 @@ namespace FriWorld.Navigator
             if (!NavMesh.SamplePosition(startPosition, out NavMeshHit floor, track.eyeHeight + 1f, filter))
             {
                 Debug.LogError("[Navigator] The camera is not placed above the Navigator navmesh.", this);
+                NavigatorPage.Error(NavigatorPage.StartOffNavMesh);
                 return;
             }
 
@@ -86,6 +93,7 @@ namespace FriWorld.Navigator
             if (!NavMesh.CalculatePath(floor.position, anchor.position, filter, path) || path.status != NavMeshPathStatus.PathComplete)
             {
                 Debug.LogError($"[Navigator] No complete path to {anchor.code} ({path.status}). Is the Navigator navmesh baked?", this);
+                NavigatorPage.Error(NavigatorPage.NoPath);
                 return;
             }
 
@@ -94,6 +102,8 @@ namespace FriWorld.Navigator
             roomCode = anchor.code;
             time = 0f;
             playing = true;
+            progress.Reset();
+            NavigatorPage.Ready(current.Duration);
             Apply();
         }
 
@@ -117,6 +127,7 @@ namespace FriWorld.Navigator
             if (current == null)
                 return;
             time = Mathf.Clamp(seconds, 0f, current.Duration);
+            jumped = true;
             Apply();
         }
 
@@ -128,19 +139,30 @@ namespace FriWorld.Navigator
 
         private void Update()
         {
-            if (!playing || current == null)
+            if (current == null)
                 return;
 
-            // Smoothed: a raw deltaTime that jitters around the display's refresh moves the camera
-            // in uneven steps, which reads as a shake even though every pose is on the path.
-            time += Time.smoothDeltaTime * speed;
-            if (time >= current.Duration)
+            if (playing)
             {
-                time = current.Duration;
-                playing = false;
+                // Smoothed: a raw deltaTime that jitters around the display's refresh moves the
+                // camera in uneven steps, which reads as a shake even though every pose is on the path.
+                time += Time.smoothDeltaTime * speed;
+                if (time >= current.Duration)
+                {
+                    time = current.Duration;
+                    playing = false;
+                }
+
+                Apply();
             }
 
-            Apply();
+            // Also while paused: the page has to hear about a pause, a resume or a jump.
+            NavigatorProgress.Report report = progress.Next(Time.unscaledTime, time, current.Duration, playing, jumped);
+            jumped = false;
+            if (report.time)
+                NavigatorPage.Progress(time, playing);
+            if (report.ended)
+                NavigatorPage.Ended();
         }
 
         private void CaptureStart()

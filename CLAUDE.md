@@ -159,6 +159,14 @@ a fázy: `docs/navigator/2026-09-25-navigator-plan.md`.
   scénou; FriWorld build (Build Settings: Menu + Demo) Navigator scénu nemá. Profil má
   **vlastné Player Settings** (kvôli vypnutému splashu) — verzia, názov a web nastavenia
   Navigatora sa menia v profile, zmena v Project Settings sa doň neprenesie.
+- **Navigator je jednovláknový** (`webGLThreadsSupport: 0` v profile, hra ostáva viacvláknová).
+  Safari nepozná COEP `credentialless`, takže na iPhone stránka nie je izolovaná a viacvláknový
+  build by nenabehol. Nezapínať späť. (`docs/decisions/2026-10-02-navigator-bez-vlakien.md`)
+- **Stránka a build sa rozprávajú** cez `SendMessage("Navigator", Go | Play | Pause | Seek |
+  SetSpeed)` a späť cez window udalosti `navigator:ready {duration}`, `navigator:time {time,
+  playing}`, `navigator:ended` a `navigator:error {code}` (`NavigatorPage.cs` +
+  `Plugins/WebGL/NavigatorPage.jslib`; kedy sa čo hlási, rieši `NavigatorProgress`). Hub z nich
+  robí ovládanie v `NavigatorWrapper.tsx`.
 
 ---
 

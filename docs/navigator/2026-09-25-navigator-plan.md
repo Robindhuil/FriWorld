@@ -123,7 +123,8 @@ friworld-web  /navigate/[kód]
       │  3. build dostane kód v URL (?room=RA101) — alebo po štarte SendMessage("Navigator", "Go", "RA101")
       ▼
 Unity  kód → kotva (RoomAnchors) → NavMesh cesta z kamery → stopa kamery → duration
-      │  jslib: onReady(duration) · onTime(t) (pár × za s) · onEnded() · onError(kód)
+      │  jslib → window udalosti: navigator:ready {duration} · navigator:time {time, playing}
+      │  (5 × za s, hneď pri pauze a skoku) · navigator:ended · navigator:error {code}
       ▼
 HTML ovládanie  Play · Pause · Seek(t) · SetSpeed(x)  → SendMessage
 ```
@@ -218,7 +219,7 @@ a neskôr `line = reveal(t)`.
 | 2 | Overenie 3.1 v builde | Konzola WebGL buildu bez chýb — **splnené 2026-10-01**, zostali len varovania (`QuestLoader`, `layerCullSpherical`, nepodporované lens flare a FSR pasy) |
 | 3 | Vlastný NavMesh + kódy miestností + kotvy + validácia | Validácia hlási 0 nedosiahnuteľných miestností — **splnené 2026-09-26** |
 | 4 | Stopa kamery `pose(t)` | Dobre vyzerá prízemie, 1. poschodie aj najvyššie |
-| 5 | jslib bridge + `/navigate/[id]` vo `friworld-web` s HTML ovládaním | Seek, pauza a rýchlosť fungujú na mobile |
+| 5 | jslib bridge + `/navigate/[id]` vo `friworld-web` s HTML ovládaním | Seek, pauza a rýchlosť fungujú na mobile — **2026-10-02:** most, ovládanie a jednovláknový build hotové a overené v prehliadači; chýba skúška na skutočnom telefóne |
 | 6 | Napojenie na API, odkazy na fri.uniza.sk | Klik na fri.uniza.sk otvorí navigáciu |
 
 ---
